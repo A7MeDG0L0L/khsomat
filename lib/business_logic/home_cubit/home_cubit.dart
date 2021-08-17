@@ -28,7 +28,7 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(NavBarChangeState());
   }
 
-  List<Product> products = [];
+ late List<Product> products = [];
 
   List<Product> getAllProducts() {
     emit(GetProductsLoadingState());

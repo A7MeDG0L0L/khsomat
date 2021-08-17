@@ -7,8 +7,8 @@ class ProductsWebServices {
     BaseOptions options = BaseOptions(
       baseUrl: 'https://khsomat.com/wp-json/',
       receiveDataWhenStatusError: true,
-      connectTimeout: 2 * 1000,
-      receiveTimeout: 2 * 1000,
+      // connectTimeout: 2 * 1000,
+      // receiveTimeout: 2 * 1000,
     );
 
     dio = Dio(options);

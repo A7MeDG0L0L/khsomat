@@ -47,12 +47,12 @@ class HomeScreen extends StatelessWidget {
     return BlocConsumer<HomeCubit, HomeStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        return builderWidget();
+        return builderWidget(context);
       },
     );
   }
 
-  Widget builderWidget(){
+  Widget builderWidget(BuildContext context){
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -120,7 +120,7 @@ class HomeScreen extends StatelessWidget {
               shrinkWrap: true,
               children: List.generate(
                 30,
-                    (index) => buildGridProduct(),
+                    (index) => buildGridProduct(HomeCubit.get(context).products[index]),//TODO: Error here<
               ),
             ),
             SizedBox(
