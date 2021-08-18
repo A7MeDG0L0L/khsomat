@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/data/repository/products_repository.dart';
+import 'package:khsomat/data/web_services/products_web_services.dart';
 import 'package:khsomat/presentation/UI/cart_screen.dart';
 import 'package:khsomat/presentation/UI/favorites_screen.dart';
 import 'package:khsomat/presentation/UI/app_layout.dart';
@@ -28,18 +29,34 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(NavBarChangeState());
   }
 
- late List<Product> products = [];
+ late List<dynamic> products = [];
 
-  List<Product> getAllProducts() {
+
+  //with repository didn't get data successfully to UI ... but data get successfully from Dio
+  // List<Product> getAllProducts() {
+  //   emit(GetProductsLoadingState());
+  //   productRepository.getAllProducts().then((product) {
+  //     products = product;
+  //     print(products);
+  //     emit(GetProductsSuccessState());
+  //   }).catchError((error) {
+  //     print('Cubit Error : ${error.toString()}');
+  //     emit(GetProductsErrorState(error));
+  //   });
+  //   return products;
+  // }
+
+
+  // without repository get data successfully
+  void getProducts(){
     emit(GetProductsLoadingState());
-    productRepository.getAllProducts().then((product) {
-      products = product;
+    ProductsWebServices.dio.get('/wc/store/products').then((value) {
+      products=value.data;
       print(products);
       emit(GetProductsSuccessState());
-    }).catchError((error) {
-      print(error.toString());
-      emit(GetProductsErrorState(error));
+    }).catchError((error){
+     print(error.toString());
+     emit(GetProductsErrorState(error));
     });
-    return products;
   }
 }

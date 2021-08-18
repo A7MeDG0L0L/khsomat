@@ -1,12 +1,12 @@
-
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:khsomat/Shared/my_colors.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
 import 'package:khsomat/data/models/products_model.dart';
+import 'package:lottie/lottie.dart';
 
 class HomeScreen extends StatelessWidget {
   List<Widget> carouselItems = [
@@ -47,12 +47,35 @@ class HomeScreen extends StatelessWidget {
     return BlocConsumer<HomeCubit, HomeStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        return builderWidget(context);
+
+        return Conditional.single(
+          context: context,
+          conditionBuilder: (context) =>
+              HomeCubit.get(context).products == null,
+          widgetBuilder: (context) => builderWidget(context),
+          fallbackBuilder: (context) => Center(
+            child: Container(
+                height: 200,
+                width: 200,
+                child: Lottie.asset('assets/loading/loading.json')),
+          ),
+        );
       },
     );
   }
 
-  Widget builderWidget(BuildContext context){
+//Conditional.single(context: context,
+//         conditionBuilder: (context) => HomeCubit.get(context).products== null ,
+//         widgetBuilder: (context) => builderWidget(context),
+//         fallbackBuilder: (context) => Center(
+//           child: Container(
+//               height: 150,
+//               width: 200,
+//               child: Lottie.asset('assets/loading/loading.json')),
+//         ),);
+
+
+  Widget builderWidget(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -120,7 +143,8 @@ class HomeScreen extends StatelessWidget {
               shrinkWrap: true,
               children: List.generate(
                 30,
-                    (index) => buildGridProduct(HomeCubit.get(context).products[index]),//TODO: Error here<
+                (index) => buildGridProduct(
+                    HomeCubit.get(context).products[index]), //TODO: Error here<
               ),
             ),
             SizedBox(
@@ -145,7 +169,7 @@ class HomeScreen extends StatelessWidget {
               shrinkWrap: true,
               children: List.generate(
                 30,
-                    (index) => buildLargeCatItem(),
+                (index) => buildLargeCatItem(),
               ),
             ),
           ],
@@ -184,7 +208,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget buildGridProduct(/*ProductModel model,*/Product model ) => InkWell(
+  Widget buildGridProduct(/*ProductModel model,*/ Product model) => InkWell(
         onTap: () {},
         child: Container(
           color: Colors.white,
