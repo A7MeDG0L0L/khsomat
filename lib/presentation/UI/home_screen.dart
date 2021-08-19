@@ -42,24 +42,19 @@ class HomeScreen extends StatelessWidget {
     ),
   ];
 
+  late List<Product>?allProducts;
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
       listener: (context, state) {},
       builder: (context, state) {
-
-        return Conditional.single(
-          context: context,
-          conditionBuilder: (context) =>
-              HomeCubit.get(context).products == null,
-          widgetBuilder: (context) => builderWidget(context),
-          fallbackBuilder: (context) => Center(
-            child: Container(
-                height: 200,
-                width: 200,
-                child: Lottie.asset('assets/loading/loading.json')),
-          ),
-        );
+        if(state is GetProductsSuccessState) {
+          allProducts = state.products;
+          return builderWidget(context);
+        }else{
+          return loadingIndicator();
+        }
       },
     );
   }
@@ -144,7 +139,7 @@ class HomeScreen extends StatelessWidget {
               children: List.generate(
                 30,
                 (index) => buildGridProduct(
-                    HomeCubit.get(context).products[index]), //TODO: Error here<
+                    HomeCubit.get(context).products![index]), //TODO: Error here<
               ),
             ),
             SizedBox(
@@ -208,7 +203,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget buildGridProduct(/*ProductModel model,*/ Product model) => InkWell(
+  Widget buildGridProduct( Product model) => InkWell(
         onTap: () {},
         child: Container(
           color: Colors.white,
@@ -319,5 +314,13 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+  Widget loadingIndicator(){
+    return  Center(
+          child: Container(
+              height: 150,
+              width: 200,
+              child: Lottie.asset('assets/loading/loading.json')),
+        );
   }
 }

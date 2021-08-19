@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => HomeCubit(ProductRepository(ProductsWebServices()))..getProducts(),),
+        BlocProvider(create: (context) => HomeCubit(ProductRepository(ProductsWebServices()))..getAllProducts()),
       ],
       child: BlocConsumer<HomeCubit,HomeStates>(
         listener: (context, state) {

@@ -17,7 +17,6 @@ class HomeCubit extends Cubit<HomeStates> {
   final ProductRepository productRepository;
 
   int currentIndex = 0;
-
   List<Widget> screens = [
     HomeScreen(),
     FavoritesScreen(),
@@ -29,34 +28,32 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(NavBarChangeState());
   }
 
- late List<dynamic> products = [];
+  List<Product>? products = [];
 
-
-  //with repository didn't get data successfully to UI ... but data get successfully from Dio
-  // List<Product> getAllProducts() {
-  //   emit(GetProductsLoadingState());
-  //   productRepository.getAllProducts().then((product) {
-  //     products = product;
-  //     print(products);
-  //     emit(GetProductsSuccessState());
-  //   }).catchError((error) {
-  //     print('Cubit Error : ${error.toString()}');
-  //     emit(GetProductsErrorState(error));
-  //   });
-  //   return products;
-  // }
+  List<Product>? getAllProducts() {
+    emit(GetProductsLoadingState());
+    productRepository.getAllProducts().then((product) {
+      products = product;
+      print(products);
+      emit(GetProductsSuccessState(product));
+    }).catchError((error) {
+      print('Cubit Error : ${error.toString()}');
+      emit(GetProductsErrorState(error));
+    });
+    return products;
+  }
 
 
   // without repository get data successfully
-  void getProducts(){
-    emit(GetProductsLoadingState());
-    ProductsWebServices.dio.get('/wc/store/products').then((value) {
-      products=value.data;
-      print(products);
-      emit(GetProductsSuccessState());
-    }).catchError((error){
-     print(error.toString());
-     emit(GetProductsErrorState(error));
-    });
-  }
+  // void getProducts(){
+  //   emit(GetProductsLoadingState());
+  //   ProductsWebServices.dio.get('/wc/store/products').then((value) {
+  //     products=value.data;
+  //     print(products);
+  //     emit(GetProductsSuccessState());
+  //   }).catchError((error){
+  //    print(error.toString());
+  //    emit(GetProductsErrorState(error));
+  //   });
+  // }
 }
