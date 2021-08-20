@@ -42,17 +42,17 @@ class HomeScreen extends StatelessWidget {
     ),
   ];
 
-  late List<Product>?allProducts;
+  late List<Product>? allProducts;
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        if(state is GetProductsSuccessState) {
+        if (state is GetProductsSuccessState) {
           allProducts = state.products;
           return builderWidget(context);
-        }else{
+        } else {
           return loadingIndicator();
         }
       },
@@ -68,7 +68,6 @@ class HomeScreen extends StatelessWidget {
 //               width: 200,
 //               child: Lottie.asset('assets/loading/loading.json')),
 //         ),);
-
 
   Widget builderWidget(BuildContext context) {
     return SingleChildScrollView(
@@ -133,13 +132,13 @@ class HomeScreen extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               mainAxisSpacing: 10,
               crossAxisSpacing: 10,
-              childAspectRatio: 1 / 1.7,
+              childAspectRatio: 1 / 1.8,
               crossAxisCount: 2,
               shrinkWrap: true,
               children: List.generate(
-                30,
-                (index) => buildGridProduct(
-                    HomeCubit.get(context).products![index]), //TODO: Error here<
+                allProducts!.length,
+                (index) => buildGridProduct(allProducts![index]), //TODO: Error
+                // here<
               ),
             ),
             SizedBox(
@@ -203,7 +202,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget buildGridProduct( Product model) => InkWell(
+  Widget buildGridProduct(Product model) => InkWell(
         onTap: () {},
         child: Container(
           color: Colors.white,
@@ -214,11 +213,13 @@ class HomeScreen extends StatelessWidget {
                 alignment: AlignmentDirectional.bottomStart,
                 children: [
                   Image(
+                    fit: BoxFit.cover,
                     image: NetworkImage(model.images[0].src),
                     width: double.infinity,
                     height: 200.0,
                   ),
-                  if (model.onSale == true)
+                  if (model.onSale == true &&
+                      model.prices.regularPrice != model.prices.salePrice)
                     Container(
                       color: Colors.red,
                       padding: EdgeInsets.symmetric(
@@ -251,7 +252,7 @@ class HomeScreen extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          model.prices.price
+                          model.prices.salePrice.substring(0, 3)
                           /*'${model.price.round()}'*/,
                           style: TextStyle(
                             fontSize: 12.0,
@@ -261,9 +262,10 @@ class HomeScreen extends StatelessWidget {
                         SizedBox(
                           width: 5.0,
                         ),
-                        if (/*model.discount*/ 1 != 0)
+                        if (model.onSale == true &&
+                            model.prices.regularPrice != model.prices.salePrice)
                           Text(
-                            model.prices.salePrice
+                            model.prices.regularPrice.substring(0, 3)
                             /* '${model.oldPrice.round()}'*/,
                             style: TextStyle(
                               fontSize: 10.0,
@@ -315,12 +317,13 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-  Widget loadingIndicator(){
-    return  Center(
-          child: Container(
-              height: 150,
-              width: 200,
-              child: Lottie.asset('assets/loading/loading.json')),
-        );
+
+  Widget loadingIndicator() {
+    return Center(
+      child: Container(
+          height: 150,
+          width: 200,
+          child: Lottie.asset('assets/loading/loading.json')),
+    );
   }
 }
