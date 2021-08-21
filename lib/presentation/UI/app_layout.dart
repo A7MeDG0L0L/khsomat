@@ -81,7 +81,8 @@ class AppLayout extends StatelessWidget {
             fabSize: 54,
             fabMargin: EdgeInsets.only(bottom: 10,right: 15) ,
             fabOpenIcon: Icon(Icons.contact_support_outlined),
-            ringDiameter: 400,
+            ringDiameter: 250,
+            ringWidth: 60,
 
             children: [
             IconButton(onPressed: (){

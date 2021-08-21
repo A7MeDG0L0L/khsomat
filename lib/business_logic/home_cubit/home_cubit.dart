@@ -26,6 +26,7 @@ class HomeCubit extends Cubit<HomeStates> {
   void navBarChanger(int index) {
     currentIndex = index;
     emit(NavBarChangeState());
+    getAllProducts();
   }
 
   List<Product>? products = [];
@@ -44,16 +45,16 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
 
-  // without repository get data successfully
-  // void getProducts(){
-  //   emit(GetProductsLoadingState());
-  //   ProductsWebServices.dio.get('/wc/store/products').then((value) {
-  //     products=value.data;
-  //     print(products);
-  //     emit(GetProductsSuccessState());
-  //   }).catchError((error){
-  //    print(error.toString());
-  //    emit(GetProductsErrorState(error));
-  //   });
-  // }
+ // without repository get data successfully
+  void getProducts(){
+    emit(GetProductsLoadingState());
+    ProductsWebServices.dio.get('/wc/store/products').then((value) {
+      products=value.data;
+      print(products);
+      emit(GetProductsSuccessState(products!));
+    }).catchError((error){
+     print(error.toString());
+     emit(GetProductsErrorState(error));
+    });
+  }
 }

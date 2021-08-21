@@ -6,12 +6,13 @@ import 'package:khsomat/Shared/my_colors.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
 import 'package:khsomat/data/models/products_model.dart';
+import 'package:khsomat/data/web_services/products_web_services.dart';
 import 'package:lottie/lottie.dart';
-
+import 'dart:math';
 class HomeScreen extends StatelessWidget {
   List<Widget> carouselItems = [
     Image(
-      image: AssetImage('assets/images/test3.jpg'),
+      image: NetworkImage('https://khsomat.com/wp-content/slider/1.png'),
     ),
     Image(
       image: AssetImage('assets/images/bannertest.jpg'),
@@ -137,8 +138,7 @@ class HomeScreen extends StatelessWidget {
               shrinkWrap: true,
               children: List.generate(
                 allProducts!.length,
-                (index) => buildGridProduct(allProducts![index]), //TODO: Error
-                // here<
+                (index) => buildGridProduct(allProducts![index]),
               ),
             ),
             SizedBox(
@@ -212,11 +212,14 @@ class HomeScreen extends StatelessWidget {
               Stack(
                 alignment: AlignmentDirectional.bottomStart,
                 children: [
-                  Image(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(model.images[0].src),
-                    width: double.infinity,
-                    height: 200.0,
+                  Container(
+                    child: model.images[0].src.isNotEmpty ? FadeInImage.assetNetwork(
+                      fit: BoxFit.cover,
+                      image: model.images[0].src,
+                      width: double.infinity,
+                      height: 200.0,
+                      placeholder:'assets/loading/loading.gif',
+                    ):Image.asset('assets/images/placeholder.jpg'),
                   ),
                   if (model.onSale == true &&
                       model.prices.regularPrice != model.prices.salePrice)
@@ -237,67 +240,148 @@ class HomeScreen extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      model.name,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        height: 1.3,
+                child: Container(
+                  height: 100,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        model.name,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontFamily: 'Almarai',
+                          fontSize: 14.0,
+                          height: 1.2,
+                        ),
                       ),
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          model.prices.salePrice.substring(0, 3)
-                          /*'${model.price.round()}'*/,
-                          style: TextStyle(
-                            fontSize: 12.0,
-                            color: defColor,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5.0,
-                        ),
-                        if (model.onSale == true &&
-                            model.prices.regularPrice != model.prices.salePrice)
+                      Spacer(),
+                      Row(
+                        children: [
+                          if(model.prices.salePrice.length==4)
                           Text(
-                            model.prices.regularPrice.substring(0, 3)
-                            /* '${model.oldPrice.round()}'*/,
+                            model.prices.salePrice.substring(0, 2)
+                            /*'${model.price.round()}'*/,
                             style: TextStyle(
-                              fontSize: 10.0,
-                              color: Colors.grey,
-                              decoration: TextDecoration.lineThrough,
+                              fontFamily: 'Almarai',
+                              fontSize: 20.0,
+                              color: defColor,
                             ),
                           ),
-                        Spacer(),
-                        IconButton(
-                          onPressed: () {
-                            /*  ShopCubit.get(context).changeFavorites(model.id);
-                            print(model.id);*/
-                          },
-                          icon: CircleAvatar(
-                            radius: 15.0,
-                            backgroundColor:
-                                /*ShopCubit
-                                .get(context)
-                                .favorites[model.id]
-                                ? defaultColor
-                                :*/
-                                Colors.grey,
-                            child: Icon(
-                              Icons.favorite_border,
-                              size: 14.0,
-                              color: Colors.white,
+                          if(model.prices.salePrice.length==5)
+                            Text(
+                              model.prices.salePrice.substring(0, 3)
+                              /*'${model.price.round()}'*/,
+                              style: TextStyle(
+                                fontFamily: 'Almarai',
+                                fontSize: 20.0,
+                                color: defColor,
+                              ),
+                            ),
+                          if(model.prices.salePrice.length==6)
+                            Text(
+                              model.prices.salePrice.substring(0, 4)
+                              /*'${model.price.round()}'*/,
+                              style: TextStyle(
+                                fontFamily: 'Almarai',
+                                fontSize: 20.0,
+                                color: defColor,
+                              ),
+                            ),
+                          if(model.prices.salePrice.length==7)
+                            Text(
+                              model.prices.salePrice.substring(0, 5)
+                              /*'${model.price.round()}'*/,
+                              style: TextStyle(
+                                fontFamily: 'Almarai',
+                                fontSize: 20.0,
+                                color: defColor,
+                              ),
+                            ),
+                          Text(
+                            'ج',
+                            style: TextStyle(
+                              fontFamily: 'Almarai',
+                              fontSize: 12,
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          if (model.onSale == true &&
+                              model.prices.regularPrice != model.prices.salePrice && model.prices.regularPrice.length==4)
+                            Text(
+                              model.prices.regularPrice.substring(0, 2)
+                              /* '${model.oldPrice.round()}'*/,
+                              style: TextStyle(
+                                fontFamily: 'Almarai',
+                                fontSize: 18.0,
+                                color: Colors.grey,
+                                decoration: TextDecoration.lineThrough,
+                              ),
+                            ),
+                          if (model.onSale == true &&
+                              model.prices.regularPrice != model.prices.salePrice && model.prices.regularPrice.length==5)
+                            Text(
+                              model.prices.regularPrice.substring(0, 3)
+                              /* '${model.oldPrice.round()}'*/,
+                              style: TextStyle(
+                                fontFamily: 'Almarai',
+                                fontSize: 18.0,
+                                color: Colors.grey,
+                                decoration: TextDecoration.lineThrough,
+                              ),
+                            ),
+                          if (model.onSale == true &&
+                              model.prices.regularPrice != model.prices.salePrice && model.prices.regularPrice.length==6)
+                            Text(
+                              model.prices.regularPrice.substring(0, 4)
+                              /* '${model.oldPrice.round()}'*/,
+                              style: TextStyle(
+                                fontFamily: 'Almarai',
+                                fontSize: 18.0,
+                                color: Colors.grey,
+                                decoration: TextDecoration.lineThrough,
+                              ),
+                            ),
+                          if (model.onSale == true &&
+                              model.prices.regularPrice != model.prices.salePrice && model.prices.regularPrice.length==7)
+                            Text(
+                              model.prices.regularPrice.substring(0, 5)
+                              /* '${model.oldPrice.round()}'*/,
+                              style: TextStyle(
+                                fontFamily: 'Almarai',
+                                fontSize: 18.0,
+                                color: Colors.grey,
+                                decoration: TextDecoration.lineThrough,
+                              ),
+                            ),
+                          Spacer(),
+                          IconButton(
+                            onPressed: () {
+                              /*  ShopCubit.get(context).changeFavorites(model.id);
+                              print(model.id);*/
+                            },
+                            icon: CircleAvatar(
+                              radius: 15.0,
+                              backgroundColor:
+                                  /*ShopCubit
+                                  .get(context)
+                                  .favorites[model.id]
+                                  ? defaultColor
+                                  :*/
+                                  Colors.grey,
+                              child: Icon(
+                                Icons.favorite_border,
+                                size: 14.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
