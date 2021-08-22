@@ -41,6 +41,8 @@ dependencies:
   fab_circular_menu: ^1.0.0
   dio: ^4.0.0
   lottie: ^1.1.0
+  flutter_zoom_drawer: ^2.1.1
+
 
 
 

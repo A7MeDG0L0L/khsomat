@@ -17,14 +17,25 @@ class ProductsWebServices {
 
    Future<List<dynamic>> getAllProducts() async {
     try {
-      Response response = await dio.get('/wc/store/products', queryParameters: {
+      Response response = await dio.get('wc/store/products', queryParameters: {
         'per_page': 100,
       });
-      print(response.data.toString());
+      print('Response from Web Service : ${response.data.toString()}');
       return response.data;
     } catch (e) {
       print('Product Web Service : ${e.toString()}');
       return [];
+    }
+  }
+
+  Future<List<dynamic>> getAllCategories() async {
+    try{
+      Response response = await dio.get('wc/store/products/categories',queryParameters: {'per_page':100,});
+      print('Response from Web Service : ${response.data.toString()}');
+      return response.data;
+    }catch(e){
+      print('Product Web Service : ${e.toString()}');
+      return[];
     }
   }
 }

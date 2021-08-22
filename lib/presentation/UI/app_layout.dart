@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:khsomat/Shared/my_colors.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
@@ -68,6 +69,8 @@ class AppLayout extends StatelessWidget {
                 icon: Icon(Icons.search),
               ),
             ],
+            leading:IconButton(onPressed: (){},
+            icon: Icon(Icons.menu),)
           ),
           bottomNavigationBar: SalomonBottomBar(
             items: items,

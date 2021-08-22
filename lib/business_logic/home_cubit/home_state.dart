@@ -1,3 +1,4 @@
+import 'package:khsomat/data/models/category_model.dart';
 import 'package:khsomat/data/models/products_model.dart';
 
 abstract class HomeStates{}
@@ -16,4 +17,24 @@ class GetProductsErrorState extends HomeStates{
 
   GetProductsErrorState(this.error);
 
+}
+
+
+class GetCategoriesSuccessState extends HomeStates{
+  final List<Category>category;
+
+  GetCategoriesSuccessState(this.category);
+}
+class GetCategoriesLoadingState extends HomeStates{}
+class GetCategoriesErrorState extends HomeStates{
+  final String error;
+
+  GetCategoriesErrorState(this.error);
+
+}
+
+class GetProductsAndCategoriesSuccessState extends HomeStates{
+  final List<Category> category;
+  final List<Product> products;
+  GetProductsAndCategoriesSuccessState(this.products,this.category);
 }

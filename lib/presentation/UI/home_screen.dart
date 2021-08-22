@@ -1,3 +1,5 @@
+
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,10 +7,12 @@ import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:khsomat/Shared/my_colors.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
+import 'package:khsomat/data/models/category_model.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/data/web_services/products_web_services.dart';
 import 'package:lottie/lottie.dart';
 import 'dart:math';
+
 class HomeScreen extends StatelessWidget {
   List<Widget> carouselItems = [
     Image(
@@ -43,7 +47,8 @@ class HomeScreen extends StatelessWidget {
     ),
   ];
 
-  late List<Product>? allProducts;
+  late List<Product> allProducts;
+  late List<Category> allCategories;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +57,7 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state) {
         if (state is GetProductsSuccessState) {
           allProducts = state.products;
+
           return builderWidget(context);
         } else {
           return loadingIndicator();
@@ -112,9 +118,10 @@ class HomeScreen extends StatelessWidget {
                   shrinkWrap: true,
                   physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => buildCatItem(),
+                  itemBuilder: (context, index) =>
+                      buildCatItem(HomeCubit.get(context).categories[index],context),
                   separatorBuilder: (context, index) => myDivider(),
-                  itemCount: 20),
+                  itemCount: HomeCubit.get(context).categories.length),
             ),
             SizedBox(
               height: 20,
@@ -137,8 +144,8 @@ class HomeScreen extends StatelessWidget {
               crossAxisCount: 2,
               shrinkWrap: true,
               children: List.generate(
-                allProducts!.length,
-                (index) => buildGridProduct(allProducts![index]),
+                allProducts.length,
+                (index) => buildGridProduct(allProducts[index]),
               ),
             ),
             SizedBox(
@@ -172,33 +179,49 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget buildCatItem() {
-    return Container(
-      height: 100,
-      child: Column(
-        children: [
-          Container(
-            height: 100,
-            width: 100,
-            child: Image.asset('assets/images/kidscat.jpg'),
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          Text(
-            'أزياء أطفال',
-            style: TextStyle(
-              fontFamily: 'Almarai',
+  Widget buildCatItem(Category model,context) {
+    return Conditional.single(
+      context: context,
+      conditionBuilder:(context) =>  model.parent ==0,
+      widgetBuilder: (context) => Container(
+        height: 100,
+        child: Column(
+          children: [
+            Container(
+              height: 100,
+              width: 100,
+              child: model.image !=null
+                  ? FadeInImage.assetNetwork(
+                placeholder: 'assets/loading/loading.gif',
+                image: model.image!.src,
+              )
+                  : Image.asset('assets/images/placeholder.jpg'),),
+            SizedBox(
+              height: 8,
             ),
-          ),
-        ],
+            Container(
+              width: 100,
+              child: Text(
+                model.name,
+                maxLines: 1,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                textWidthBasis: TextWidthBasis.parent,
+                style: TextStyle(
+                  fontFamily: 'Almarai',
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
+      fallbackBuilder: (context) => Text(''),
     );
   }
 
   Widget myDivider() {
     return SizedBox(
-      width: 10,
+      width: 1,
     );
   }
 
@@ -213,13 +236,15 @@ class HomeScreen extends StatelessWidget {
                 alignment: AlignmentDirectional.bottomStart,
                 children: [
                   Container(
-                    child: model.images[0].src.isNotEmpty ? FadeInImage.assetNetwork(
-                      fit: BoxFit.cover,
-                      image: model.images[0].src,
-                      width: double.infinity,
-                      height: 200.0,
-                      placeholder:'assets/loading/loading.gif',
-                    ):Image.asset('assets/images/placeholder.jpg'),
+                    child: model.images.isNotEmpty
+                        ? FadeInImage.assetNetwork(
+                            fit: BoxFit.cover,
+                            image: model.images[0].src,
+                            width: double.infinity,
+                            height: 200.0,
+                            placeholder: 'assets/loading/loading.gif',
+                          )
+                        : Image.asset('assets/images/placeholder.jpg'),
                   ),
                   if (model.onSale == true &&
                       model.prices.regularPrice != model.prices.salePrice)
@@ -258,17 +283,17 @@ class HomeScreen extends StatelessWidget {
                       Spacer(),
                       Row(
                         children: [
-                          if(model.prices.salePrice.length==4)
-                          Text(
-                            model.prices.salePrice.substring(0, 2)
-                            /*'${model.price.round()}'*/,
-                            style: TextStyle(
-                              fontFamily: 'Almarai',
-                              fontSize: 20.0,
-                              color: defColor,
+                          if (model.prices.salePrice.length == 4)
+                            Text(
+                              model.prices.salePrice.substring(0, 2)
+                              /*'${model.price.round()}'*/,
+                              style: TextStyle(
+                                fontFamily: 'Almarai',
+                                fontSize: 20.0,
+                                color: defColor,
+                              ),
                             ),
-                          ),
-                          if(model.prices.salePrice.length==5)
+                          if (model.prices.salePrice.length == 5)
                             Text(
                               model.prices.salePrice.substring(0, 3)
                               /*'${model.price.round()}'*/,
@@ -278,7 +303,7 @@ class HomeScreen extends StatelessWidget {
                                 color: defColor,
                               ),
                             ),
-                          if(model.prices.salePrice.length==6)
+                          if (model.prices.salePrice.length == 6)
                             Text(
                               model.prices.salePrice.substring(0, 4)
                               /*'${model.price.round()}'*/,
@@ -288,7 +313,7 @@ class HomeScreen extends StatelessWidget {
                                 color: defColor,
                               ),
                             ),
-                          if(model.prices.salePrice.length==7)
+                          if (model.prices.salePrice.length == 7)
                             Text(
                               model.prices.salePrice.substring(0, 5)
                               /*'${model.price.round()}'*/,
@@ -309,7 +334,9 @@ class HomeScreen extends StatelessWidget {
                             width: 10.0,
                           ),
                           if (model.onSale == true &&
-                              model.prices.regularPrice != model.prices.salePrice && model.prices.regularPrice.length==4)
+                              model.prices.regularPrice !=
+                                  model.prices.salePrice &&
+                              model.prices.regularPrice.length == 4)
                             Text(
                               model.prices.regularPrice.substring(0, 2)
                               /* '${model.oldPrice.round()}'*/,
@@ -321,7 +348,9 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                           if (model.onSale == true &&
-                              model.prices.regularPrice != model.prices.salePrice && model.prices.regularPrice.length==5)
+                              model.prices.regularPrice !=
+                                  model.prices.salePrice &&
+                              model.prices.regularPrice.length == 5)
                             Text(
                               model.prices.regularPrice.substring(0, 3)
                               /* '${model.oldPrice.round()}'*/,
@@ -333,7 +362,9 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                           if (model.onSale == true &&
-                              model.prices.regularPrice != model.prices.salePrice && model.prices.regularPrice.length==6)
+                              model.prices.regularPrice !=
+                                  model.prices.salePrice &&
+                              model.prices.regularPrice.length == 6)
                             Text(
                               model.prices.regularPrice.substring(0, 4)
                               /* '${model.oldPrice.round()}'*/,
@@ -345,7 +376,9 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                           if (model.onSale == true &&
-                              model.prices.regularPrice != model.prices.salePrice && model.prices.regularPrice.length==7)
+                              model.prices.regularPrice !=
+                                  model.prices.salePrice &&
+                              model.prices.regularPrice.length == 7)
                             Text(
                               model.prices.regularPrice.substring(0, 5)
                               /* '${model.oldPrice.round()}'*/,
@@ -395,8 +428,7 @@ class HomeScreen extends StatelessWidget {
       child: Container(
         color: Colors.white,
         child: Image(
-          image: NetworkImage(
-              'https://khsomat.com/wp-content/uploads/2021/05/%D8%A3%D8%B2%D9%8A%D9%80%D8%A7%D8%A1-%D8%B1%D8%AC%D8%A7%D9%84%D9%8A.jpg'),
+          image: AssetImage('assets/images/placeholder.jpg'),
         ),
       ),
     );

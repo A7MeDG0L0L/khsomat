@@ -56,7 +56,7 @@ class Product {
   String averageRating;
   int reviewCount;
   List<Image2> images;
-  List<Category> categories;
+  List<Category2> categories;
   List<dynamic> tags;
   List<dynamic> attributes;
   List<dynamic> variations;
@@ -86,8 +86,8 @@ class Product {
     reviewCount: json["review_count"],
     images:
     List<Image2>.from(json["images"].map((x) => Image2.fromJson(x))),
-    categories: List<Category>.from(
-        json["categories"].map((x) => Category.fromJson(x))),
+    categories: List<Category2>.from(
+        json["categories"].map((x) => Category2.fromJson(x))),
     tags: List<dynamic>.from(json["tags"].map((x) => x)),
     attributes: List<dynamic>.from(json["attributes"].map((x) => x)),
     variations: List<dynamic>.from(json["variations"].map((x) => x)),
@@ -160,8 +160,8 @@ enum Text2 { EMPTY }
 
 final textValues = EnumValues({"إضافة إلى السلة": Text2.EMPTY});
 
-class Category {
-  Category({
+class Category2 {
+  Category2({
     required this.id,
     required this.name,
     required this.slug,
@@ -173,7 +173,7 @@ class Category {
   String slug;
   String link;
 
-  factory Category.fromJson(Map<String, dynamic> json) => Category(
+  factory Category2.fromJson(Map<String, dynamic> json) => Category2(
     id: json["id"],
     name: nameValues.map[json["name"]],
     slug: json["slug"],
