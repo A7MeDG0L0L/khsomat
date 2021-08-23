@@ -4,12 +4,15 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
+import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/Shared/my_colors.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
 import 'package:khsomat/data/models/category_model.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/data/web_services/products_web_services.dart';
+import 'package:khsomat/presentation/UI/Widgets/product_item.dart';
+import 'package:khsomat/presentation/UI/product_details_screen.dart';
 import 'package:lottie/lottie.dart';
 import 'dart:math';
 
@@ -49,6 +52,7 @@ class HomeScreen extends StatelessWidget {
 
   late List<Product> allProducts;
   late List<Category> allCategories;
+
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +149,11 @@ class HomeScreen extends StatelessWidget {
               shrinkWrap: true,
               children: List.generate(
                 allProducts.length,
-                (index) => buildGridProduct(allProducts[index]),
+                (index) =>  ProductItem(product: allProducts[index]),
+
+                  // here wasn't route to product details Screen
+
+                /* buildGridProduct(allProducts[index],context),*/
               ),
             ),
             SizedBox(
@@ -225,202 +233,208 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget buildGridProduct(Product model) => InkWell(
-        onTap: () {},
-        child: Container(
-          color: Colors.white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                alignment: AlignmentDirectional.bottomStart,
-                children: [
-                  Container(
-                    child: model.images.isNotEmpty
-                        ? FadeInImage.assetNetwork(
-                            fit: BoxFit.cover,
-                            image: model.images[0].src,
-                            width: double.infinity,
-                            height: 200.0,
-                            placeholder: 'assets/loading/loading.gif',
-                          )
-                        : Image.asset('assets/images/placeholder.jpg'),
-                  ),
-                  if (model.onSale == true &&
-                      model.prices.regularPrice != model.prices.salePrice)
-                    Container(
-                      color: Colors.red,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 5.0,
-                      ),
-                      child: Text(
-                        'DISCOUNT',
-                        style: TextStyle(
-                          fontSize: 8.0,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Container(
-                  height: 100,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        model.name,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontFamily: 'Almarai',
-                          fontSize: 14.0,
-                          height: 1.2,
-                        ),
-                      ),
-                      Spacer(),
-                      Row(
-                        children: [
-                          if (model.prices.salePrice.length == 4)
-                            Text(
-                              model.prices.salePrice.substring(0, 2)
-                              /*'${model.price.round()}'*/,
-                              style: TextStyle(
-                                fontFamily: 'Almarai',
-                                fontSize: 20.0,
-                                color: defColor,
-                              ),
-                            ),
-                          if (model.prices.salePrice.length == 5)
-                            Text(
-                              model.prices.salePrice.substring(0, 3)
-                              /*'${model.price.round()}'*/,
-                              style: TextStyle(
-                                fontFamily: 'Almarai',
-                                fontSize: 20.0,
-                                color: defColor,
-                              ),
-                            ),
-                          if (model.prices.salePrice.length == 6)
-                            Text(
-                              model.prices.salePrice.substring(0, 4)
-                              /*'${model.price.round()}'*/,
-                              style: TextStyle(
-                                fontFamily: 'Almarai',
-                                fontSize: 20.0,
-                                color: defColor,
-                              ),
-                            ),
-                          if (model.prices.salePrice.length == 7)
-                            Text(
-                              model.prices.salePrice.substring(0, 5)
-                              /*'${model.price.round()}'*/,
-                              style: TextStyle(
-                                fontFamily: 'Almarai',
-                                fontSize: 20.0,
-                                color: defColor,
-                              ),
-                            ),
-                          Text(
-                            'ج',
-                            style: TextStyle(
-                              fontFamily: 'Almarai',
-                              fontSize: 12,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          if (model.onSale == true &&
-                              model.prices.regularPrice !=
-                                  model.prices.salePrice &&
-                              model.prices.regularPrice.length == 4)
-                            Text(
-                              model.prices.regularPrice.substring(0, 2)
-                              /* '${model.oldPrice.round()}'*/,
-                              style: TextStyle(
-                                fontFamily: 'Almarai',
-                                fontSize: 18.0,
-                                color: Colors.grey,
-                                decoration: TextDecoration.lineThrough,
-                              ),
-                            ),
-                          if (model.onSale == true &&
-                              model.prices.regularPrice !=
-                                  model.prices.salePrice &&
-                              model.prices.regularPrice.length == 5)
-                            Text(
-                              model.prices.regularPrice.substring(0, 3)
-                              /* '${model.oldPrice.round()}'*/,
-                              style: TextStyle(
-                                fontFamily: 'Almarai',
-                                fontSize: 18.0,
-                                color: Colors.grey,
-                                decoration: TextDecoration.lineThrough,
-                              ),
-                            ),
-                          if (model.onSale == true &&
-                              model.prices.regularPrice !=
-                                  model.prices.salePrice &&
-                              model.prices.regularPrice.length == 6)
-                            Text(
-                              model.prices.regularPrice.substring(0, 4)
-                              /* '${model.oldPrice.round()}'*/,
-                              style: TextStyle(
-                                fontFamily: 'Almarai',
-                                fontSize: 18.0,
-                                color: Colors.grey,
-                                decoration: TextDecoration.lineThrough,
-                              ),
-                            ),
-                          if (model.onSale == true &&
-                              model.prices.regularPrice !=
-                                  model.prices.salePrice &&
-                              model.prices.regularPrice.length == 7)
-                            Text(
-                              model.prices.regularPrice.substring(0, 5)
-                              /* '${model.oldPrice.round()}'*/,
-                              style: TextStyle(
-                                fontFamily: 'Almarai',
-                                fontSize: 18.0,
-                                color: Colors.grey,
-                                decoration: TextDecoration.lineThrough,
-                              ),
-                            ),
-                          Spacer(),
-                          IconButton(
-                            onPressed: () {
-                              /*  ShopCubit.get(context).changeFavorites(model.id);
-                              print(model.id);*/
-                            },
-                            icon: CircleAvatar(
-                              radius: 15.0,
-                              backgroundColor:
-                                  /*ShopCubit
-                                  .get(context)
-                                  .favorites[model.id]
-                                  ? defaultColor
-                                  :*/
-                                  Colors.grey,
-                              child: Icon(
-                                Icons.favorite_border,
-                                size: 14.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
+  // Widget buildGridProduct(Product model,context) => InkWell(
+  //       onTap: () {
+  //         Navigator.pushNamed(context, productDetailsScreen, arguments: allProducts  );
+  //
+  //       },
+  //       child: Hero(
+  //         tag: model.id,
+  //         child: Container(
+  //           color: Colors.white,
+  //           child: Column(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             children: [
+  //               Stack(
+  //                 alignment: AlignmentDirectional.bottomStart,
+  //                 children: [
+  //                   Container(
+  //                     child: model.images.isNotEmpty
+  //                         ? FadeInImage.assetNetwork(
+  //                             fit: BoxFit.cover,
+  //                             image: model.images[0].src,
+  //                             width: double.infinity,
+  //                             height: 200.0,
+  //                             placeholder: 'assets/loading/loading.gif',
+  //                           )
+  //                         : Image.asset('assets/images/placeholder.jpg'),
+  //                   ),
+  //                   if (model.onSale == true &&
+  //                       model.prices.regularPrice != model.prices.salePrice)
+  //                     Container(
+  //                       color: Colors.red,
+  //                       padding: EdgeInsets.symmetric(
+  //                         horizontal: 5.0,
+  //                       ),
+  //                       child: Text(
+  //                         'DISCOUNT',
+  //                         style: TextStyle(
+  //                           fontSize: 8.0,
+  //                           color: Colors.white,
+  //                         ),
+  //                       ),
+  //                     ),
+  //                 ],
+  //               ),
+  //               Padding(
+  //                 padding: const EdgeInsets.all(12.0),
+  //                 child: Container(
+  //                   height: 100,
+  //                   child: Column(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: [
+  //                       Text(
+  //                         model.name,
+  //                         maxLines: 2,
+  //                         overflow: TextOverflow.ellipsis,
+  //                         style: TextStyle(
+  //                           fontFamily: 'Almarai',
+  //                           fontSize: 14.0,
+  //                           height: 1.2,
+  //                         ),
+  //                       ),
+  //                       Spacer(),
+  //                       Row(
+  //                         children: [
+  //                           if (model.prices.salePrice.length == 4)
+  //                             Text(
+  //                               model.prices.salePrice.substring(0, 2)
+  //                               /*'${model.price.round()}'*/,
+  //                               style: TextStyle(
+  //                                 fontFamily: 'Almarai',
+  //                                 fontSize: 20.0,
+  //                                 color: defColor,
+  //                               ),
+  //                             ),
+  //                           if (model.prices.salePrice.length == 5)
+  //                             Text(
+  //                               model.prices.salePrice.substring(0, 3)
+  //                               /*'${model.price.round()}'*/,
+  //                               style: TextStyle(
+  //                                 fontFamily: 'Almarai',
+  //                                 fontSize: 20.0,
+  //                                 color: defColor,
+  //                               ),
+  //                             ),
+  //                           if (model.prices.salePrice.length == 6)
+  //                             Text(
+  //                               model.prices.salePrice.substring(0, 4)
+  //                               /*'${model.price.round()}'*/,
+  //                               style: TextStyle(
+  //                                 fontFamily: 'Almarai',
+  //                                 fontSize: 20.0,
+  //                                 color: defColor,
+  //                               ),
+  //                             ),
+  //                           if (model.prices.salePrice.length == 7)
+  //                             Text(
+  //                               model.prices.salePrice.substring(0, 5)
+  //                               /*'${model.price.round()}'*/,
+  //                               style: TextStyle(
+  //                                 fontFamily: 'Almarai',
+  //                                 fontSize: 20.0,
+  //                                 color: defColor,
+  //                               ),
+  //                             ),
+  //                           Text(
+  //                             'ج',
+  //                             style: TextStyle(
+  //                               fontFamily: 'Almarai',
+  //                               fontSize: 12,
+  //                             ),
+  //                           ),
+  //                           SizedBox(
+  //                             width: 10.0,
+  //                           ),
+  //                           if (model.onSale == true &&
+  //                               model.prices.regularPrice !=
+  //                                   model.prices.salePrice &&
+  //                               model.prices.regularPrice.length == 4)
+  //                             Text(
+  //                               model.prices.regularPrice.substring(0, 2)
+  //                               /* '${model.oldPrice.round()}'*/,
+  //                               style: TextStyle(
+  //                                 fontFamily: 'Almarai',
+  //                                 fontSize: 18.0,
+  //                                 color: Colors.grey,
+  //                                 decoration: TextDecoration.lineThrough,
+  //                               ),
+  //                             ),
+  //                           if (model.onSale == true &&
+  //                               model.prices.regularPrice !=
+  //                                   model.prices.salePrice &&
+  //                               model.prices.regularPrice.length == 5)
+  //                             Text(
+  //                               model.prices.regularPrice.substring(0, 3)
+  //                               /* '${model.oldPrice.round()}'*/,
+  //                               style: TextStyle(
+  //                                 fontFamily: 'Almarai',
+  //                                 fontSize: 18.0,
+  //                                 color: Colors.grey,
+  //                                 decoration: TextDecoration.lineThrough,
+  //                               ),
+  //                             ),
+  //                           if (model.onSale == true &&
+  //                               model.prices.regularPrice !=
+  //                                   model.prices.salePrice &&
+  //                               model.prices.regularPrice.length == 6)
+  //                             Text(
+  //                               model.prices.regularPrice.substring(0, 4)
+  //                               /* '${model.oldPrice.round()}'*/,
+  //                               style: TextStyle(
+  //                                 fontFamily: 'Almarai',
+  //                                 fontSize: 18.0,
+  //                                 color: Colors.grey,
+  //                                 decoration: TextDecoration.lineThrough,
+  //                               ),
+  //                             ),
+  //                           if (model.onSale == true &&
+  //                               model.prices.regularPrice !=
+  //                                   model.prices.salePrice &&
+  //                               model.prices.regularPrice.length == 7)
+  //                             Text(
+  //                               model.prices.regularPrice.substring(0, 5)
+  //                               /* '${model.oldPrice.round()}'*/,
+  //                               style: TextStyle(
+  //                                 fontFamily: 'Almarai',
+  //                                 fontSize: 18.0,
+  //                                 color: Colors.grey,
+  //                                 decoration: TextDecoration.lineThrough,
+  //                               ),
+  //                             ),
+  //                           Spacer(),
+  //                           IconButton(
+  //                             onPressed: () {
+  //                               /*  ShopCubit.get(context).changeFavorites(model.id);
+  //                               print(model.id);*/
+  //                             },
+  //                             icon: CircleAvatar(
+  //                               radius: 15.0,
+  //                               backgroundColor:
+  //                                   /*ShopCubit
+  //                                   .get(context)
+  //                                   .favorites[model.id]
+  //                                   ? defaultColor
+  //                                   :*/
+  //                                   Colors.grey,
+  //                               child: Icon(
+  //                                 Icons.favorite_border,
+  //                                 size: 14.0,
+  //                                 color: Colors.white,
+  //                               ),
+  //                             ),
+  //                           ),
+  //                         ],
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //     );
 
   Widget buildLargeCatItem() {
     return InkWell(

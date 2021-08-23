@@ -8,14 +8,17 @@ import 'package:khsomat/data/web_services/products_web_services.dart';
 import 'package:khsomat/presentation/UI/app_layout.dart';
 
 import 'BlocObserver.dart';
+import 'app_router.dart';
 
 
 void main() {
   Bloc.observer = MyBlocObserver();
-  runApp(MyApp());
+  runApp(MyApp(appRouter: AppRouter(),));
 }
 
 class MyApp extends StatelessWidget {
+  final AppRouter appRouter;
+  const MyApp({Key? key ,required this.appRouter}):super(key:key);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -35,9 +38,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: defColor,
 
             ),
-            home:Directionality(
-              textDirection: TextDirection.rtl,
-              child: AppLayout(),),
+            onGenerateRoute: appRouter.generateRoute,
           );
         },
 
