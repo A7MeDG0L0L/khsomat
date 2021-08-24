@@ -1,11 +1,12 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:khsomat/Shared/my_colors.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:html/parser.dart' show parse;
-
 
 class ProductDetailsScreen extends StatelessWidget {
   final Product product;
@@ -18,12 +19,26 @@ class ProductDetailsScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.teal.shade500,
+            title: Text(
+              product.name,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Almarai',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18),
+            ),
+            foregroundColor: Colors.white,
+          ),
           body: CustomScrollView(
             slivers: [
-              buildSliverAppBar(),
+             //carouselProductImage(),
+             // buildSliverAppBar(),
               SliverList(
                 delegate: SliverChildListDelegate(
                   [
+                    carouselProductImage(),
                     Container(
                       child: Padding(
                         padding: const EdgeInsets.all(15.0),
@@ -43,7 +58,6 @@ class ProductDetailsScreen extends StatelessWidget {
                             ),
                             Row(
                               children: <Widget>[
-
                                 if (product.prices.salePrice.length == 4)
                                   Text(
                                     product.prices.salePrice.substring(0, 2)
@@ -152,118 +166,64 @@ class ProductDetailsScreen extends StatelessWidget {
                                   ),
                               ],
                             ),
-                            SizedBox(height: 30,),
-                            SizedBox(height: 20,),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
                             Text(
                               'وصف المنتج',
-                              style: TextStyle(fontFamily: 'Almarai',fontSize: 18),
+                              style: TextStyle(
+                                  fontFamily: 'Almarai', fontSize: 18),
                             ),
                             SizedBox(
                               height: 15,
                             ),
                             parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-                            parseHtmlDescription(),
-
-                            Container(width: double.infinity , height: 70 ,child: RaisedButton(onPressed: (){},child: Text('إضافة في السلة'),color: defColor,)),
-
                           ],
                         ),
                       ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 250,
+                          height: 65,
+                          decoration: BoxDecoration(
+                            color: Colors.teal.shade500,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.add_shopping_cart_outlined,
+                                color: Colors.white,
+                              ),
+                              TextButton(
+                                onPressed: () {},
+                                style: ButtonStyle(
+                                  overlayColor:
+                                      MaterialStateProperty.all(Colors.black),
+                                ),
+                                child: Text(
+                                  'إضافة إلي السلة',
+                                  style: TextStyle(
+                                      fontFamily: 'Almarai',
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -283,10 +243,6 @@ class ProductDetailsScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
-        title: Text(
-          product.name,
-          style: TextStyle(color: Colors.amber),
-        ),
         background: Hero(
           tag: product.id,
           child: Image.network(
@@ -298,11 +254,52 @@ class ProductDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget parseHtmlDescription(){
-    var document= parse(product.description);
+  Widget parseHtmlDescription() {
+    var document = parse(product.description);
     String parsedString = parse(document.body!.text).documentElement!.text;
     print(parsedString);
-    return Text(parsedString,style: TextStyle(fontFamily: 'Almarai',
-    fontSize: 15),);
+    return Text(
+      parsedString,
+      style: TextStyle(fontFamily: 'Almarai', fontSize: 15),
+    );
+  }
+
+  Widget carouselProductImage() {
+    return CarouselSlider(
+      items: [
+        if(product.images.length >= 1)
+        Image(image: NetworkImage(product.images[0].src),),
+        if(product.images.length >= 2)
+        Image(image: NetworkImage(product.images[1].src),),
+        if(product.images.length >= 3)
+        Image(image: NetworkImage(product.images[2].src),),
+        if(product.images.length >= 4 )
+          Image(image: NetworkImage(product.images[3].src),),
+        if(product.images.length >= 5 )
+          Image(image: NetworkImage(product.images[4].src),),
+        if(product.images.length >= 6 )
+          Image(image: NetworkImage(product.images[5].src),),
+        if(product.images.length >= 7 )
+          Image(image: NetworkImage(product.images[6].src),),
+        if(product.images.length >= 8 )
+          Image(image: NetworkImage(product.images[7].src),),
+        if(product.images.length >= 9 )
+          Image(image: NetworkImage(product.images[8].src),),
+        if(product.images.length >= 10 )
+          Image(image: NetworkImage(product.images[9].src),),
+      ],
+      options: CarouselOptions(
+        height: 250.0,
+        initialPage: 0,
+        viewportFraction: 1.0,
+        enableInfiniteScroll: true,
+        reverse: false,
+        autoPlay: true,
+        autoPlayInterval: Duration(seconds: 3),
+        autoPlayAnimationDuration: Duration(seconds: 1),
+        autoPlayCurve: Curves.fastOutSlowIn,
+        scrollDirection: Axis.horizontal,
+      ),
+    );
   }
 }

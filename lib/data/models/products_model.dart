@@ -85,7 +85,7 @@ class Product {
     averageRating: json["average_rating"],
     reviewCount: json["review_count"],
     images:
-    List<Image2>.from(json["images"].map((x) => Image2.fromJson(x))),
+    List<Image2>.from(json["images"].map((x) => Image2.fromJson(x))).toList(),
     categories: List<Category2>.from(
         json["categories"].map((x) => Category2.fromJson(x))),
     tags: List<dynamic>.from(json["tags"].map((x) => x)),
