@@ -1,6 +1,6 @@
 import 'package:khsomat/data/models/category_model.dart';
 import 'package:khsomat/data/models/products_model.dart';
-import 'package:khsomat/data/web_services/products_web_services.dart';
+import 'package:khsomat/data/web_services/web_services.dart';
 
 class ProductRepository{
      final ProductsWebServices productsWebServices;

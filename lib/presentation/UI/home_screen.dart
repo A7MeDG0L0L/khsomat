@@ -10,7 +10,7 @@ import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
 import 'package:khsomat/data/models/category_model.dart';
 import 'package:khsomat/data/models/products_model.dart';
-import 'package:khsomat/data/web_services/products_web_services.dart';
+import 'package:khsomat/data/web_services/web_services.dart';
 import 'package:khsomat/presentation/UI/Widgets/product_item.dart';
 import 'package:khsomat/presentation/UI/product_details_screen.dart';
 import 'package:lottie/lottie.dart';

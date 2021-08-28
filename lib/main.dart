@@ -4,8 +4,9 @@ import 'package:khsomat/Shared/my_colors.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
 import 'package:khsomat/data/repository/products_repository.dart';
-import 'package:khsomat/data/web_services/products_web_services.dart';
+import 'package:khsomat/data/web_services/web_services.dart';
 import 'package:khsomat/presentation/UI/app_layout.dart';
+import 'package:khsomat/presentation/register_screen.dart';
 
 import 'BlocObserver.dart';
 import 'app_router.dart';
@@ -36,9 +37,11 @@ class MyApp extends StatelessWidget {
 
             theme: ThemeData(
               primarySwatch: defColor,
+              fontFamily: 'Almarai',
 
             ),
             onGenerateRoute: appRouter.generateRoute,
+            home: Directionality(textDirection: TextDirection.rtl,child: RegisterScreen()),
           );
         },
 

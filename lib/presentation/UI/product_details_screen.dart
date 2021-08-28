@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:khsomat/Shared/my_colors.dart';
@@ -33,12 +34,13 @@ class ProductDetailsScreen extends StatelessWidget {
           ),
           body: CustomScrollView(
             slivers: [
-             //carouselProductImage(),
-             // buildSliverAppBar(),
+              //carouselProductImage(),
+              // buildSliverAppBar(),
               SliverList(
                 delegate: SliverChildListDelegate(
                   [
-                    carouselProductImage(),
+                    carouselProductImages(),
+                    // carouselProductImage(),
                     Container(
                       child: Padding(
                         padding: const EdgeInsets.all(15.0),
@@ -107,6 +109,16 @@ class ProductDetailsScreen extends StatelessWidget {
                                 ),
                                 SizedBox(
                                   width: 10.0,
+                                ),
+                                Text(
+                                  'بدلاً من',
+                                  style: TextStyle(
+                                    fontFamily: 'Almarai',
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 8,
                                 ),
                                 if (product.onSale == true &&
                                     product.prices.regularPrice !=
@@ -264,42 +276,60 @@ class ProductDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget carouselProductImage() {
-    return CarouselSlider(
-      items: [
-        if(product.images.length >= 1)
-        Image(image: NetworkImage(product.images[0].src),),
-        if(product.images.length >= 2)
-        Image(image: NetworkImage(product.images[1].src),),
-        if(product.images.length >= 3)
-        Image(image: NetworkImage(product.images[2].src),),
-        if(product.images.length >= 4 )
-          Image(image: NetworkImage(product.images[3].src),),
-        if(product.images.length >= 5 )
-          Image(image: NetworkImage(product.images[4].src),),
-        if(product.images.length >= 6 )
-          Image(image: NetworkImage(product.images[5].src),),
-        if(product.images.length >= 7 )
-          Image(image: NetworkImage(product.images[6].src),),
-        if(product.images.length >= 8 )
-          Image(image: NetworkImage(product.images[7].src),),
-        if(product.images.length >= 9 )
-          Image(image: NetworkImage(product.images[8].src),),
-        if(product.images.length >= 10 )
-          Image(image: NetworkImage(product.images[9].src),),
-      ],
-      options: CarouselOptions(
-        height: 250.0,
-        initialPage: 0,
-        viewportFraction: 1.0,
-        enableInfiniteScroll: true,
-        reverse: false,
-        autoPlay: true,
-        autoPlayInterval: Duration(seconds: 3),
-        autoPlayAnimationDuration: Duration(seconds: 1),
-        autoPlayCurve: Curves.fastOutSlowIn,
-        scrollDirection: Axis.horizontal,
-      ),
-    );
+  // Widget carouselProductImage() {
+  //   return CarouselSlider(
+  //     items: [
+  //       if(product.images.length >= 1)
+  //       Image(image: NetworkImage(product.images[0].src),),
+  //       if(product.images.length >= 2)
+  //       Image(image: NetworkImage(product.images[1].src),),
+  //       if(product.images.length >= 3)
+  //       Image(image: NetworkImage(product.images[2].src),),
+  //       if(product.images.length >= 4 )
+  //         Image(image: NetworkImage(product.images[3].src),),
+  //       if(product.images.length >= 5 )
+  //         Image(image: NetworkImage(product.images[4].src),),
+  //       if(product.images.length >= 6 )
+  //         Image(image: NetworkImage(product.images[5].src),),
+  //       if(product.images.length >= 7 )
+  //         Image(image: NetworkImage(product.images[6].src),),
+  //       if(product.images.length >= 8 )
+  //         Image(image: NetworkImage(product.images[7].src),),
+  //       if(product.images.length >= 9 )
+  //         Image(image: NetworkImage(product.images[8].src),),
+  //       if(product.images.length >= 10 )
+  //         Image(image: NetworkImage(product.images[9].src),),
+  //     ],
+  //     options: CarouselOptions(
+  //       height: 250.0,
+  //       initialPage: 0,
+  //       viewportFraction: 1.0,
+  //       enableInfiniteScroll: true,
+  //       reverse: false,
+  //       autoPlay: true,
+  //       autoPlayInterval: Duration(seconds: 3),
+  //       autoPlayAnimationDuration: Duration(seconds: 1),
+  //       autoPlayCurve: Curves.fastOutSlowIn,
+  //       scrollDirection: Axis.horizontal,
+  //     ),
+  //   );
+  // }
+
+  Widget carouselProductImages() {
+    return CarouselSlider.builder(
+        itemCount: product.images.length,
+        itemBuilder: (context, index, realIndex) =>
+            Image.network(product.images[index].src),
+        options: CarouselOptions(
+          initialPage: 0,
+          autoPlay: true,
+          height: 400,
+          autoPlayCurve: Curves.fastOutSlowIn,
+          scrollDirection: Axis.horizontal,
+          reverse: false,
+          pageSnapping: true,
+          viewportFraction: 1.0,
+          pauseAutoPlayOnTouch: true,
+        ));
   }
 }
