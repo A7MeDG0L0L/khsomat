@@ -7,7 +7,7 @@ class ProductsWebServices {
 
   ProductsWebServices() {
     BaseOptions options = BaseOptions(
-      baseUrl: 'https://khsomat.com/wp-json/',
+      baseUrl: 'https://khsomat.net/wp-json/',
       receiveDataWhenStatusError: true,
       // connectTimeout: 2 * 1000,
       // receiveTimeout: 2 * 1000,
@@ -16,20 +16,29 @@ class ProductsWebServices {
     dio = Dio(options);
   }
 
-  UserModel? userModel;
-  Future<dynamic> postRegisterUser({required String username,required String email,required String password})async{
-    try{
-      Response response = await dio.post('wp/v2/users/register',queryParameters:{'username':username,'email':email, 'password':password},);
+  Future<dynamic> postRegisterUser({
+    required String username,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      Response response = await dio.post(
+        'wp/v2/users/register',
+        queryParameters: {
+          'username': username,
+          'email': email,
+          'password': password
+        },
+      );
       print('Response from Web Service : ${response.data.toString()}');
       return response.data;
-    }catch(e){
+    } catch (e) {
       print(' Web Service : ${e.toString()}');
       return {};
-
     }
   }
 
-   Future<List<dynamic>> getAllProducts() async {
+  Future<List<dynamic>> getAllProducts() async {
     try {
       Response response = await dio.get('wc/store/products', queryParameters: {
         'per_page': 100,
@@ -44,8 +53,10 @@ class ProductsWebServices {
 
   Future<List<dynamic>> getAllCategories() async {
     try {
-      Response response = await dio.get(
-          'wc/store/products/categories', queryParameters: {'per_page': 100,});
+      Response response =
+          await dio.get('wc/store/products/categories', queryParameters: {
+        'per_page': 100,
+      });
       print('Response from Web Service : ${response.data.toString()}');
       return response.data;
     } catch (e) {
@@ -53,6 +64,4 @@ class ProductsWebServices {
       return [];
     }
   }
-
-  }
-
+}
