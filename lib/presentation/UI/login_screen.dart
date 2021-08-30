@@ -1,51 +1,26 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:khsomat/Shared/components.dart';
-import 'package:khsomat/business_logic/register_cubit/register_cubit.dart';
-import 'package:khsomat/business_logic/register_cubit/register_states.dart';
-import 'package:khsomat/presentation/UI/app_layout.dart';
-import 'package:khsomat/presentation/UI/login_screen.dart';
+import 'package:khsomat/business_logic/login_cubit/login_cubit.dart';
+import 'package:khsomat/business_logic/login_cubit/login_states.dart';
 
-class RegisterScreen extends StatelessWidget {
-  RegisterScreen({Key? key}) : super(key: key);
+import 'app_layout.dart';
+
+class LoginScreen extends StatelessWidget {
+   LoginScreen({Key? key}) : super(key: key);
 
   var formKey = GlobalKey<FormState>();
-
   var usernameController = TextEditingController();
-  var emailController = TextEditingController();
   var passwordController = TextEditingController();
-  // static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  bool isPasswordShown = true;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RegisterCubit(),
-      child: BlocConsumer<RegisterCubit, RegisterStates>(
+      create: (context) => LoginCubit(),
+      child: BlocConsumer<LoginCubit,LoginState>(
         listener: (context, state) {
-          if (state is PostRegisterStateSuccess) {
-            showToast(
-              text: state.userResponseModel.message,
-              state: ToastStates.SUCCESS,
-            );
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: AppLayout(),
-                  ),
-                ),
-                (route) => false);
-          }
-          // if (state is PostRegisterStateError) {
-          //   showToast(
-          //       text: state.userResponseModel.message,
-          //       state: ToastStates.ERROR);
-          // }
+
         },
         builder: (context, state) {
           return Scaffold(
@@ -83,14 +58,14 @@ class RegisterScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              'إنشاء حساب جديد',
+                              'سجل الدخول إلي حسابك',
                               style: TextStyle(fontSize: 25),
                             ),
                             SizedBox(
                               height: 10,
                             ),
                             Text(
-                              'إكتشف معني العروض الحقيقي مع خصومات',
+                              'للتسوق متعة مع خصومات',
                               style: TextStyle(fontSize: 15),
                             ),
                             SizedBox(
@@ -111,21 +86,6 @@ class RegisterScreen extends StatelessWidget {
                               height: 20,
                             ),
                             defaultFormField(
-                              controller: emailController,
-                              type: TextInputType.emailAddress,
-                              validate: (String value) {
-                                if (value.isEmpty) {
-                                  return 'يجب إدخال البريد الإلكتروني';
-                                }
-                                return null;
-                              },
-                              label: 'البريد الإلكتروني',
-                              prefix: Icons.email,
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            defaultFormField(
                               controller: passwordController,
                               type: TextInputType.visiblePassword,
                               validate: (String value) {
@@ -135,10 +95,10 @@ class RegisterScreen extends StatelessWidget {
                               },
                               label: 'كلمة الحماية',
                               prefix: Icons.lock,
-                              suffix: RegisterCubit.get(context).suffix,
-                              isPassword: RegisterCubit.get(context).isPassword,
+                              suffix: LoginCubit.get(context).suffix,
+                              isPassword: LoginCubit.get(context).isPassword,
                               suffixPressed: () {
-                                RegisterCubit.get(context)
+                                LoginCubit.get(context)
                                     .changePasswordVisibility();
                               },
                             ),
@@ -151,23 +111,22 @@ class RegisterScreen extends StatelessWidget {
                               color: Colors.teal,
                               child: Conditional.single(
                                 context: context,
-                                conditionBuilder: (context) =>
-                                    State is! PostRegisterStateLoading,
+                                conditionBuilder: (context) => true ,
+                                // State is! PostRegisterStateLoading,
                                 widgetBuilder: (context) => TextButton(
                                   onPressed: () {
                                     if (formKey.currentState!.validate()) {
-                                      RegisterCubit.get(context).userRegister(
-                                        username: usernameController.text,
-                                        email: emailController.text,
-                                        password: passwordController.text,
-                                      );
+                                      // LoginCubit.get(context).userRegister(
+                                      //   username: usernameController.text,
+                                      //   password: passwordController.text,
+                                      // );
                                     }
-                                    if(emailController.text.isEmpty || usernameController.text.isEmpty || passwordController.text.isEmpty){
+                                    if( usernameController.text.isEmpty || passwordController.text.isEmpty){
                                       showToast(text: 'يجب إدخال جميع البيانات السابقة.', state:ToastStates.ERROR);
                                     }
                                   },
                                   child: Text(
-                                    'إنشاء الحساب',
+                                    'سجل الدخول',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 20,
@@ -180,26 +139,6 @@ class RegisterScreen extends StatelessWidget {
                             ),
                             SizedBox(
                               height: 20,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('لديك حساب بالفعل ؟'),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => Directionality(
-                                            textDirection: TextDirection.rtl,
-                                            child: LoginScreen(),
-                                          ),
-                                        ),
-                                           );
-                                  },
-                                  child: Text('سجل الدخول'),
-                                ),
-                              ],
                             ),
                           ],
                         ),

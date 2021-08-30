@@ -24,7 +24,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
       'password': password,
     }).then((value) {
       userModel = UserModel.fromJson(value.data);
-      emit(PostRegisterStateSuccess());
+      emit(PostRegisterStateSuccess(userResponseModel));
     }).catchError((error) {
       print(error.toString());
       emit(PostRegisterStateError(error));
@@ -34,11 +34,11 @@ class RegisterCubit extends Cubit<RegisterStates> {
   IconData suffix = Icons.visibility_outlined;
   bool isPassword = true;
 
-  // void changePasswordVisibility()
-  // {
-  //   isPassword = !isPassword;
-  //   suffix = isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined ;
-  //
-  //   emit(ShopRegisterChangePasswordVisibilityState());
-  // }
+  void changePasswordVisibility()
+  {
+    isPassword = !isPassword;
+    suffix = isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined ;
+
+    emit(RegisterChangePasswordVisibilityState());
+  }
 }

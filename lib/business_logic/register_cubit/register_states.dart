@@ -4,6 +4,9 @@ abstract class RegisterStates {}
 class InitialState extends RegisterStates{
 }
 class PostRegisterStateSuccess extends RegisterStates{
+final UserResponseModel userResponseModel;
+
+  PostRegisterStateSuccess(this.userResponseModel);
 
 
 }
@@ -13,3 +16,5 @@ class PostRegisterStateError extends RegisterStates{
 
   PostRegisterStateError(this.error);
 }
+
+class RegisterChangePasswordVisibilityState extends RegisterStates{}
