@@ -44,6 +44,7 @@ dependencies:
   flutter_zoom_drawer: ^2.1.1
   html: ^0.15.0
   flutter_image_slideshow: ^0.1.1
+  fluttertoast: ^8.0.8
 
 
 

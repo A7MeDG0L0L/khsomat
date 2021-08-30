@@ -33,7 +33,7 @@ class UserModel {
 
 class UserResponseModel {
   int? code;
-  String? message;
+ late String message;
 
   UserResponseModel({required this.code, required this.message});
 

@@ -16,27 +16,27 @@ class ProductsWebServices {
     dio = Dio(options);
   }
 
-  Future<dynamic> postRegisterUser({
-    required String username,
-    required String email,
-    required String password,
-  }) async {
-    try {
-      Response response = await dio.post(
-        'wp/v2/users/register',
-        queryParameters: {
-          'username': username,
-          'email': email,
-          'password': password
-        },
-      );
-      print('Response from Web Service : ${response.data.toString()}');
-      return response.data;
-    } catch (e) {
-      print(' Web Service : ${e.toString()}');
-      return {};
-    }
-  }
+  // Future<dynamic> postRegisterUser({
+  //   required String username,
+  //   required String email,
+  //   required String password,
+  // }) async {
+  //   try {
+  //     Response response = await dio.post(
+  //       'wp/v2/users/register',
+  //       queryParameters: {
+  //         'username': username,
+  //         'email': email,
+  //         'password': password
+  //       },
+  //     );
+  //     print('Response from Web Service : ${response.data.toString()}');
+  //     return response.data;
+  //   } catch (e) {
+  //     print(' Web Service : ${e.toString()}');
+  //     return {};
+  //   }
+  // }
 
   Future<List<dynamic>> getAllProducts() async {
     try {
