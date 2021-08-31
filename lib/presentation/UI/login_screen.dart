@@ -17,10 +17,22 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
+
       create: (context) => LoginCubit(),
       child: BlocConsumer<LoginCubit,LoginState>(
         listener: (context, state) {
-
+          if(state is LoginSuccessState){
+            showToast(text: state.loginResponseModel.message, state: ToastStates.SUCCESS);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: AppLayout(),
+                  ),
+                ),
+                    (route) => false);
+          }
         },
         builder: (context, state) {
           return Scaffold(
@@ -108,7 +120,10 @@ class LoginScreen extends StatelessWidget {
                             Container(
                               width: 400,
                               height: 60,
-                              color: Colors.teal,
+                              decoration: BoxDecoration(
+                                color: Colors.teal,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
                               child: Conditional.single(
                                 context: context,
                                 conditionBuilder: (context) => true ,
@@ -116,10 +131,10 @@ class LoginScreen extends StatelessWidget {
                                 widgetBuilder: (context) => TextButton(
                                   onPressed: () {
                                     if (formKey.currentState!.validate()) {
-                                      // LoginCubit.get(context).userRegister(
-                                      //   username: usernameController.text,
-                                      //   password: passwordController.text,
-                                      // );
+                                      LoginCubit.get(context).userLogin(
+                                        username: usernameController.text,
+                                        password: passwordController.text,
+                                      );
                                     }
                                     if( usernameController.text.isEmpty || passwordController.text.isEmpty){
                                       showToast(text: 'يجب إدخال جميع البيانات السابقة.', state:ToastStates.ERROR);

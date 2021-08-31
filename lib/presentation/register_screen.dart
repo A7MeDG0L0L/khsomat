@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:khsomat/Shared/components.dart';
 import 'package:khsomat/business_logic/register_cubit/register_cubit.dart';
 import 'package:khsomat/business_logic/register_cubit/register_states.dart';
@@ -18,8 +19,6 @@ class RegisterScreen extends StatelessWidget {
   var passwordController = TextEditingController();
   // static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  bool isPasswordShown = true;
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -27,27 +26,35 @@ class RegisterScreen extends StatelessWidget {
       child: BlocConsumer<RegisterCubit, RegisterStates>(
         listener: (context, state) {
           if (state is PostRegisterStateSuccess) {
+            // showToast(
+            //   text: state.registerModelTest.message,
+            //   state: ToastStates.SUCCESS,
+            // );
             showToast(
-              text: state.userResponseModel.message,
-              state: ToastStates.SUCCESS,
-            );
+                text: 'تم إنشاء الحساب بنجاح', state: ToastStates.SUCCESS);
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
                   builder: (context) => Directionality(
                     textDirection: TextDirection.rtl,
-                    child: AppLayout(),
+                    child: LoginScreen(),
                   ),
                 ),
                 (route) => false);
           }
-          // if (state is PostRegisterStateError) {
-          //   showToast(
-          //       text: state.userResponseModel.message,
-          //       state: ToastStates.ERROR);
-          // }
+          if (state is PostRegisterStateError) {
+            //   showToast(
+            //       text: state.registerModelTest.message,
+            //       state: ToastStates.ERROR);
+
+            showToast(
+              text: 'رجاء إدخال اسم مستخدم و كلمة مرور و بريد إلكتروني آخر',
+              state: ToastStates.ERROR,
+            );
+          }
         },
         builder: (context, state) {
+          // late  var responseModel = RegisterCubit.get(context).userResponseModel;
           return Scaffold(
             backgroundColor: Colors.white,
             body: SafeArea(
@@ -148,7 +155,11 @@ class RegisterScreen extends StatelessWidget {
                             Container(
                               width: 400,
                               height: 60,
-                              color: Colors.teal,
+                              decoration: BoxDecoration(
+                                color: Colors.teal,
+
+                                borderRadius: BorderRadius.circular(20),
+                              ),
                               child: Conditional.single(
                                 context: context,
                                 conditionBuilder: (context) =>
@@ -162,9 +173,17 @@ class RegisterScreen extends StatelessWidget {
                                         password: passwordController.text,
                                       );
                                     }
-                                    if(emailController.text.isEmpty || usernameController.text.isEmpty || passwordController.text.isEmpty){
-                                      showToast(text: 'يجب إدخال جميع البيانات السابقة.', state:ToastStates.ERROR);
+                                    if (emailController.text.isEmpty ||
+                                        usernameController.text.isEmpty ||
+                                        passwordController.text.isEmpty) {
+                                      showToast(
+                                          text:
+                                              'يجب إدخال جميع البيانات السابقة.',
+                                          state: ToastStates.ERROR);
                                     }
+
+                                    // showToast(text: responseModel.message , state: ToastStates.SUCCESS);
+                                    // print(responseModel.message);
                                   },
                                   child: Text(
                                     'إنشاء الحساب',
@@ -188,14 +207,14 @@ class RegisterScreen extends StatelessWidget {
                                 TextButton(
                                   onPressed: () {
                                     Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => Directionality(
-                                            textDirection: TextDirection.rtl,
-                                            child: LoginScreen(),
-                                          ),
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Directionality(
+                                          textDirection: TextDirection.rtl,
+                                          child: LoginScreen(),
                                         ),
-                                           );
+                                      ),
+                                    );
                                   },
                                   child: Text('سجل الدخول'),
                                 ),

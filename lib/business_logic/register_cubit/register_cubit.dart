@@ -13,6 +13,8 @@ class RegisterCubit extends Cubit<RegisterStates> {
   late UserModel userModel;
   late UserResponseModel userResponseModel;
 
+
+
   void userRegister(
       {required String username,
       required String email,
@@ -24,7 +26,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
       'password': password,
     }).then((value) {
       userModel = UserModel.fromJson(value.data);
-      emit(PostRegisterStateSuccess(userResponseModel));
+      emit(PostRegisterStateSuccess());
     }).catchError((error) {
       print(error.toString());
       emit(PostRegisterStateError(error));

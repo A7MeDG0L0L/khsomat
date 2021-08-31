@@ -17,7 +17,7 @@ Widget defaultFormField({
 }) =>
     TextFormField(
       cursorColor: Colors.black,
-      style:TextStyle(fontFamily: 'Almarai') ,
+      style: TextStyle(fontFamily: 'Almarai'),
       controller: controller,
       keyboardType: type,
       obscureText: isPassword,
@@ -41,18 +41,18 @@ Widget defaultFormField({
         ),
         suffixIcon: suffix != null
             ? IconButton(
-          onPressed: () {
-            suffixPressed!();
-          },
-          icon: Icon(
-            suffix,
-          ),
-        )
+                onPressed: () {
+                  suffixPressed!();
+                },
+                icon: Icon(
+                  suffix,
+                ),
+              )
             : null,
-        border: OutlineInputBorder(),
+     //   border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+       // border: UnderlineInputBorder(),
       ),
     );
-
 
 void showToast({
   required String text,
@@ -101,7 +101,9 @@ Widget defaultButton({
       width: width,
       height: 50.0,
       child: MaterialButton(
-        onPressed:(){function;} ,
+        onPressed: () {
+          function;
+        },
         child: Text(
           isUpperCase ? text.toUpperCase() : text,
           style: TextStyle(
@@ -122,7 +124,9 @@ Widget defaultTextButton({
   required String text,
 }) =>
     TextButton(
-      onPressed:(){function;},
+      onPressed: () {
+        function;
+      },
       child: Text(
         text.toUpperCase(),
       ),
