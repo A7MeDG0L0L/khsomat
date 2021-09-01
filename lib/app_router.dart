@@ -5,7 +5,7 @@ import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/presentation/UI/app_layout.dart';
 import 'package:khsomat/presentation/UI/login_screen.dart';
 import 'package:khsomat/presentation/UI/product_details_screen.dart';
-import 'package:khsomat/presentation/register_screen.dart';
+import 'package:khsomat/presentation/UI/register_screen.dart';
 
 class AppRouter {
   Route? generateRoute(RouteSettings settings) {

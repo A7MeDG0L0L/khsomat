@@ -4,7 +4,7 @@ abstract class LoginState{}
 class InitialLoginState extends LoginState{}
 class LoginSuccessState extends LoginState{
 
-  LoginResponseModel loginResponseModel;
+  late final LoginResponseModel loginResponseModel;
 
   LoginSuccessState(this.loginResponseModel);
 

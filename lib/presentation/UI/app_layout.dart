@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/Shared/my_colors.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
@@ -68,6 +69,9 @@ class AppLayout extends StatelessWidget {
                 onPressed: () {},
                 icon: Icon(Icons.search),
               ),
+              TextButton(onPressed: (){
+                signOut(context);
+              }, child: Text('تسجيل الخروج',style: TextStyle(color: Colors.black),)),
             ],
             leading:IconButton(onPressed: (){},
             icon: Icon(Icons.menu),)

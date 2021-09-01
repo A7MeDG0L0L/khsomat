@@ -7,16 +7,16 @@ class LoginResponseModel {
   bool? success;
   int? statusCode;
   String? code;
-  late String message;
+   String? message;
   Data? data;
 
   LoginResponseModel(
       {
-        required this.success,
-        required this.statusCode,
-        required this.code,
-        required this.message,
-        required this.data
+         this.success,
+         this.statusCode,
+         this.code,
+         this.message,
+         this.data
       });
 
   LoginResponseModel.fromJson(Map<String, dynamic> json) {
@@ -50,13 +50,13 @@ class Data {
   String? displayName;
 
   Data({
-    required this.token,
-    required this.id,
-    required this.email,
-    required this.nicename,
-    required this.firstName,
-    required this.lastName,
-    required this.displayName,
+     this.token,
+     this.id,
+     this.email,
+     this.nicename,
+     this.firstName,
+     this.lastName,
+     this.displayName,
   });
 
   Data.fromJson(Map<String, dynamic> json) {

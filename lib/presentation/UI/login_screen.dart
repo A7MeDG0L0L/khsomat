@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:khsomat/Shared/components.dart';
+import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/login_cubit/login_cubit.dart';
 import 'package:khsomat/business_logic/login_cubit/login_states.dart';
+import 'package:khsomat/data/cache_helper/cache_helper.dart';
 
 import 'app_layout.dart';
 
 class LoginScreen extends StatelessWidget {
-   LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
 
   var formKey = GlobalKey<FormState>();
   var usernameController = TextEditingController();
@@ -17,21 +19,32 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-
       create: (context) => LoginCubit(),
-      child: BlocConsumer<LoginCubit,LoginState>(
+      child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
-          if(state is LoginSuccessState){
-            showToast(text: state.loginResponseModel.message, state: ToastStates.SUCCESS);
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: AppLayout(),
-                  ),
-                ),
+          if (state is LoginSuccessState) {
+            showToast(
+                text: 'تم التحقق',
+                state: ToastStates.SUCCESS);
+            if (state.loginResponseModel.success!) {
+              print(state.loginResponseModel.message);
+              print(state.loginResponseModel.data!.token);
+              CacheHelper.saveData(
+                key: 'token',
+                value: state.loginResponseModel.data!.token,
+              ).then((value) {
+                 token = state.loginResponseModel.data!.token!;
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: AppLayout(),
+                      ),
+                    ),
                     (route) => false);
+              });
+            }
           }
         },
         builder: (context, state) {
@@ -91,7 +104,7 @@ class LoginScreen extends StatelessWidget {
                                   return 'يجب إدخال إسم المستخدم';
                                 }
                               },
-                              label: 'إسم المستخدم',
+                              label: 'إسم المستخدم أو البريد الإلكتروني',
                               prefix: Icons.person,
                             ),
                             SizedBox(
@@ -126,7 +139,7 @@ class LoginScreen extends StatelessWidget {
                               ),
                               child: Conditional.single(
                                 context: context,
-                                conditionBuilder: (context) => true ,
+                                conditionBuilder: (context) => true,
                                 // State is! PostRegisterStateLoading,
                                 widgetBuilder: (context) => TextButton(
                                   onPressed: () {
@@ -136,8 +149,12 @@ class LoginScreen extends StatelessWidget {
                                         password: passwordController.text,
                                       );
                                     }
-                                    if( usernameController.text.isEmpty || passwordController.text.isEmpty){
-                                      showToast(text: 'يجب إدخال جميع البيانات السابقة.', state:ToastStates.ERROR);
+                                    if (usernameController.text.isEmpty ||
+                                        passwordController.text.isEmpty) {
+                                      showToast(
+                                          text:
+                                              'يجب إدخال جميع البيانات السابقة.',
+                                          state: ToastStates.ERROR);
                                     }
                                   },
                                   child: Text(

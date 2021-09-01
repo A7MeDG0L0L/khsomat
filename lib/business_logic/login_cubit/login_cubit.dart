@@ -12,7 +12,7 @@ class LoginCubit extends Cubit<LoginState> {
   IconData suffix = Icons.visibility_outlined;
   bool isPassword = true;
 
-  late LoginResponseModel? loginResponseModel;
+    LoginResponseModel? loginResponseModel;
 
   void userLogin({
     required String username,
