@@ -32,8 +32,12 @@ class LoginScreen extends StatelessWidget {
               CacheHelper.saveData(
                 key: 'token',
                 value: state.loginResponseModel.data!.token,
-              ).then((value) {
+              );
+              CacheHelper.saveData(key: 'email', value: state.loginResponseModel.data!.email);
+              CacheHelper.saveData(key: 'username', value: state.loginResponseModel.data!.displayName).then((value) {
                  token = state.loginResponseModel.data!.token!;
+                 email = state.loginResponseModel.data!.email!;
+                 username = state.loginResponseModel.data!.displayName!;
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
@@ -139,7 +143,7 @@ class LoginScreen extends StatelessWidget {
                               ),
                               child: Conditional.single(
                                 context: context,
-                                conditionBuilder: (context) => true,
+                                conditionBuilder: (context) => state is! LoginLoadingState,
                                 // State is! PostRegisterStateLoading,
                                 widgetBuilder: (context) => TextButton(
                                   onPressed: () {

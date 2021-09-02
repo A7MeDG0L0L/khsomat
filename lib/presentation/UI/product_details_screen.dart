@@ -7,6 +7,7 @@ import 'package:khsomat/Shared/my_colors.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
 import 'package:khsomat/data/models/products_model.dart';
+import 'dart:math';
 import 'package:html/parser.dart' show parse;
 
 class ProductDetailsScreen extends StatelessWidget {
@@ -332,4 +333,10 @@ class ProductDetailsScreen extends StatelessWidget {
           pauseAutoPlayOnTouch: true,
         ));
   }
+
+  // Widget calculateDiscountPer(){
+  //
+  //  var discount = 100*(product.prices.regularPrice - product.prices.salePrice) /  product.prices.regularPrice;
+  //   return Text();
+  // }
 }

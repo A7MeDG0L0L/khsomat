@@ -64,4 +64,18 @@ class ProductsWebServices {
       return [];
     }
   }
+
+  Future<List<dynamic>> getAllSearchProducts(String searchText) async {
+    try {
+      Response response = await dio.get('wc/store/products', queryParameters: {
+        'per_page': 100,
+        'search':searchText,
+      });
+      print('Response from Web Service : ${response.data.toString()}');
+      return response.data;
+    } catch (e) {
+      print('Product Web Service : ${e.toString()}');
+      return [];
+    }
+  }
 }
