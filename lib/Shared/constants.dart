@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:khsomat/data/cache_helper/cache_helper.dart';
+import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/presentation/UI/login_screen.dart';
 
 const homeLayout = '/';
@@ -10,6 +13,9 @@ const loginScreen = '/login_screen';
 String? token = CacheHelper.getData(key: 'token');
 String email = CacheHelper.getData(key: 'email');
 String username = CacheHelper.getData(key: 'username');
+
+String? stringFavList = CacheHelper.sharedPreferences.getString('favList');
+List<Product> favListConst = jsonDecode(stringFavList!) as List<Product> ;
 
 void signOut(context) {
   CacheHelper.removeData(

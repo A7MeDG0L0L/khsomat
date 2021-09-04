@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/Shared/my_colors.dart';
+import 'package:khsomat/data/cache_helper/cache_helper.dart';
 import 'package:khsomat/data/models/products_model.dart';
 
 class ProductItem extends StatelessWidget {
@@ -11,8 +14,7 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, productDetailsScreen, arguments: product  );
-
+        Navigator.pushNamed(context, productDetailsScreen, arguments: product);
       },
       child: Hero(
         tag: product.id,
@@ -27,12 +29,12 @@ class ProductItem extends StatelessWidget {
                   Container(
                     child: product.images.isNotEmpty
                         ? FadeInImage.assetNetwork(
-                      fit: BoxFit.cover,
-                      image: product.images[0].src,
-                      width: double.infinity,
-                      height: 200.0,
-                      placeholder: 'assets/loading/loading.gif',
-                    )
+                            fit: BoxFit.cover,
+                            image: product.images[0].src,
+                            width: double.infinity,
+                            height: 200.0,
+                            placeholder: 'assets/loading/loading.gif',
+                          )
                         : Image.asset('assets/images/placeholder.jpg'),
                   ),
                   if (product.onSale == true &&
@@ -183,16 +185,22 @@ class ProductItem extends StatelessWidget {
                             onPressed: () {
                               /*  ShopCubit.get(context).changeFavorites(product.id);
                                 print(product.id);*/
+                              favListConst.add(product);
+                              CacheHelper.sharedPreferences.setString(
+                                  'favList', jsonEncode(favListConst));
+                              print(
+                                  'Added This Item to List : ${product.name}');
+                              print(favListConst);
                             },
                             icon: CircleAvatar(
                               radius: 15.0,
                               backgroundColor:
-                              /*ShopCubit
+                                  /*ShopCubit
                                     .get(context)
                                     .favorites[product.id]
                                     ? defaultColor
                                     :*/
-                              Colors.grey,
+                                  Colors.grey,
                               child: Icon(
                                 Icons.favorite_border,
                                 size: 14.0,

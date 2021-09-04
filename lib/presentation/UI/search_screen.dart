@@ -26,7 +26,9 @@ class SearchScreen extends StatelessWidget {
             searchedProducts = state.searchProduct;
           }
           return Scaffold(
-            appBar: AppBar(),
+            appBar: AppBar(
+              title:Text('أبحث عن المنتجات'),
+            ),
             body: Form(
               key: formKey,
               child: Padding(

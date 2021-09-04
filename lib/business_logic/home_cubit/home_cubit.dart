@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
 import 'package:khsomat/data/models/category_model.dart';
 import 'package:khsomat/data/models/products_model.dart';
@@ -16,6 +17,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   static HomeCubit get(context) => BlocProvider.of(context);
   final ProductRepository productRepository;
+
 
   int currentIndex = 0;
   List<Widget> screens = [
@@ -48,17 +50,17 @@ class HomeCubit extends Cubit<HomeStates> {
 
 
  // without repository get data successfully
-  void getProducts(){
-    emit(GetProductsLoadingState());
-    ProductsWebServices.dio.get('/wc/store/products').then((value) {
-      products=value.data;
-      print(products);
-      emit(GetProductsSuccessState(products));
-    }).catchError((error){
-     print(error.toString());
-     emit(GetProductsErrorState(error));
-    });
-  }
+ //  void getProducts(){
+ //    emit(GetProductsLoadingState());
+ //    ProductsWebServices.dio.get('/wc/store/products').then((value) {
+ //      products=value.data;
+ //      print(products);
+ //      emit(GetProductsSuccessState(products));
+ //    }).catchError((error){
+ //     print(error.toString());
+ //     emit(GetProductsErrorState(error));
+ //    });
+ //  }
 
   List<Category> categories=[];
 
@@ -77,5 +79,9 @@ class HomeCubit extends Cubit<HomeStates> {
     getAllProducts();
     getAllCategories();
     emit(GetProductsAndCategoriesSuccessState(products,categories));
+  }
+  void saveFavList(Product product){
+    favListConst.add(product);
+    print('Added This Item to List : ${product.name}');
   }
 }

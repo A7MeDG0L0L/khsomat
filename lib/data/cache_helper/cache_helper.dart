@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:khsomat/data/models/products_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheHelper
