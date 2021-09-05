@@ -185,12 +185,16 @@ class ProductItem extends StatelessWidget {
                             onPressed: () {
                               /*  ShopCubit.get(context).changeFavorites(product.id);
                                 print(product.id);*/
-                              favListConst.add(product);
+                             favListConst.add(product);
                               CacheHelper.sharedPreferences.setString(
                                   'favList', jsonEncode(favListConst));
                               print(
                                   'Added This Item to List : ${product.name}');
                               print(favListConst);
+
+
+
+
                             },
                             icon: CircleAvatar(
                               radius: 15.0,

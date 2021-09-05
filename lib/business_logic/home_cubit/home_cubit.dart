@@ -80,8 +80,8 @@ class HomeCubit extends Cubit<HomeStates> {
     getAllCategories();
     emit(GetProductsAndCategoriesSuccessState(products,categories));
   }
-  void saveFavList(Product product){
-    favListConst.add(product);
-    print('Added This Item to List : ${product.name}');
-  }
+  // void saveFavList(Product product){
+  //   favListConst.add(product);
+  //   print('Added This Item to List : ${product.name}');
+  // }
 }
