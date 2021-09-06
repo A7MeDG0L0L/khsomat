@@ -22,6 +22,8 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   token = CacheHelper.getData(key: 'token');
   print(token);
+  // print(stringFavList);
+  //print(productList);
 
   Widget widget;
   if (token != null) {

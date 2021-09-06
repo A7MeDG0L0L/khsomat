@@ -7,5 +7,7 @@ class FavoritesCubit extends Cubit <FavoritesStates>{
 
    static FavoritesCubit get(context) => BlocProvider.of(context);
 
+void saveToWishlist (){
 
+   }
 }

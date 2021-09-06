@@ -183,14 +183,18 @@ class ProductItem extends StatelessWidget {
                           Spacer(),
                           IconButton(
                             onPressed: () {
-                              /*  ShopCubit.get(context).changeFavorites(product.id);
-                                print(product.id);*/
-                             favListConst.add(product);
+
+
+
+                              convertedList.add(product.toJson());
+                             // print(productList);
+                              print(product);
+                             // print(jsonEncode(productList));
                               CacheHelper.sharedPreferences.setString(
-                                  'favList', jsonEncode(favListConst));
+                                  'favList', jsonEncode(convertedList));
                               print(
                                   'Added This Item to List : ${product.name}');
-                              print(favListConst);
+
 
 
 

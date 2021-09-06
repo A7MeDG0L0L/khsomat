@@ -43,7 +43,7 @@ class ProductsWebServices {
       Response response = await dio.get('wc/store/products', queryParameters: {
         'per_page': 100,
       });
-      print('Response from Web Service : ${response.data.toString()}');
+     // print('Response from Web Service : ${response.data.toString()}');
       return response.data;
     } catch (e) {
       print('Product Web Service : ${e.toString()}');
@@ -57,7 +57,7 @@ class ProductsWebServices {
           await dio.get('wc/store/products/categories', queryParameters: {
         'per_page': 100,
       });
-      print('Response from Web Service : ${response.data.toString()}');
+    //  print('Response from Web Service : ${response.data.toString()}');
       return response.data;
     } catch (e) {
       print(' Web Service : ${e.toString()}');

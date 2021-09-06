@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
@@ -16,18 +17,16 @@ class FavoritesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double cardWidth = MediaQuery.of(context).size.width / 1.8;
     return BlocProvider(
-      create: (context) => FavoritesCubit() ,
+      create: (context) => FavoritesCubit(),
       child: BlocConsumer<FavoritesCubit, FavoritesStates>(
-        listener: (context, state) {
-
-        },
+        listener: (context, state) {},
         builder: (context, state) {
-          List<Product> favList = favListConst;
+          List favList = convertedList;
           return Conditional.single(
             context: context,
-            conditionBuilder: (context) => favList.isNotEmpty ,
+            conditionBuilder: (context) => favList != null,
             widgetBuilder: (context) {
-              return  SingleChildScrollView(
+              return SingleChildScrollView(
                 child: Column(
                   children: [
                     ListView.separated(
@@ -36,8 +35,7 @@ class FavoritesScreen extends StatelessWidget {
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
-
-                          // var product = favList[index];
+                          var product = favList[index];
                           //
                           // final width = MediaQuery.of(context).size.width;
                           // var productImage = '';
@@ -61,9 +59,9 @@ class FavoritesScreen extends StatelessWidget {
                                   // );
                                 },
                                 child: Card(
-                                  margin: EdgeInsets.all(10),
+                                  margin: EdgeInsets.all(15),
                                   child: Container(
-                                    width: 150,
+                                    width: double.infinity,
                                     height: 150,
                                     child: Stack(
                                       // mainAxisAlignment: MainAxisAlignment.center,
@@ -72,24 +70,28 @@ class FavoritesScreen extends StatelessWidget {
                                         Row(
                                           textDirection: TextDirection.rtl,
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             /// RightSide
                                             Column(
                                               textDirection: TextDirection.rtl,
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 /// image
                                                 Padding(
-                                                  padding: const EdgeInsets.all(8.0),
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
                                                   child: Container(
                                                     height: 50,
                                                     width: 80,
                                                     child: CachedNetworkImage(
-                                                      imageUrl: 'assets/images/test2.jpg',
+                                                      imageUrl:
+                                                          'https://sitechecker.pro/wp-content/uploads/2017/12/URL-meaning.png',
                                                       // height: height / 1.7,
                                                       height: 120,
                                                       width: cardWidth / 1.4,
@@ -108,20 +110,21 @@ class FavoritesScreen extends StatelessWidget {
                                                   height: 40,
                                                   child: Center(
                                                     child: Text.rich(
-                                                      TextSpan(children: <InlineSpan>[
+                                                      TextSpan(children: <
+                                                          InlineSpan>[
                                                         WidgetSpan(
                                                           child: Icon(
                                                             Icons.star,
                                                             size: 14,
-                                                            color: Colors.yellow,
+                                                            color:
+                                                                Colors.yellow,
                                                           ),
                                                         ),
                                                         TextSpan(text: " "),
-                                                        TextSpan(
-                                                          text:"4.5"
-                                                          // "${product.reviewCount < 0 ? "4.0" : "4.0"}",
-                                                          // style: spn,
-                                                        ),
+                                                        TextSpan(text: "4.5"
+                                                            // "${product.reviewCount < 0 ? "4.0" : "4.0"}",
+                                                            // style: spn,
+                                                            ),
                                                       ]),
                                                     ),
                                                   ),
@@ -137,17 +140,19 @@ class FavoritesScreen extends StatelessWidget {
                                             Expanded(
                                               child: Column(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.start,
+                                                    MainAxisAlignment.start,
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.end,
+                                                    CrossAxisAlignment.end,
                                                 children: [
                                                   Expanded(
                                                     child: Directionality(
-                                                      textDirection: TextDirection.rtl,
+                                                      textDirection:
+                                                          TextDirection.rtl,
                                                       child: ListTile(
-                                                        title: Text('منبة بشكل ايموجي',
-                                                          // product.name,
-                                                          overflow: TextOverflow.ellipsis,
+                                                        title: Text(
+                                                          product.name,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
                                                           maxLines: 4,
                                                           // style: sProductName,
                                                         ),
@@ -158,36 +163,47 @@ class FavoritesScreen extends StatelessWidget {
                                                     ),
                                                   ),
                                                   Padding(
-                                                    padding: const EdgeInsets.all(8.0),
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
                                                     child: Container(
                                                       // margin: const EdgeInsets.only(bottom: 1.0),
                                                       // height: 30,
                                                       width: double.infinity,
-                                                      padding: const EdgeInsets.only(
-                                                          left: 10, right: 10),
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 10,
+                                                              right: 10),
                                                       decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.only(
-                                                            bottomLeft:
-                                                            Radius.circular(10),
-                                                            bottomRight:
-                                                            Radius.circular(10)),
-                                                        color: Colors.blueAccent,
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                                bottomLeft: Radius
+                                                                    .circular(
+                                                                        10),
+                                                                bottomRight:
+                                                                    Radius
+                                                                        .circular(
+                                                                            10)),
+                                                        color:
+                                                            Colors.blueAccent,
                                                       ),
                                                       child: Center(
                                                         child: RichText(
-                                                          // overflow: TextOverflow.ellipsis,
+                                                            // overflow: TextOverflow.ellipsis,
                                                             maxLines: 2,
-                                                            text: TextSpan(children: [
-                                                              TextSpan(
-                                                                text: 'ر.س ',
-                                                                // style: sSymbleWhite,
-                                                              ),
-                                                              TextSpan(
-                                                                text:'380',
-                                                                //'$productprice',
-                                                                // style: sPriceSmall,
-                                                              )
-                                                            ])),
+                                                            text: TextSpan(
+                                                                children: [
+                                                                  TextSpan(
+                                                                    text:
+                                                                        'ج.م ',
+                                                                    // style: sSymbleWhite,
+                                                                  ),
+                                                                  TextSpan(
+                                                                    text: '380',
+                                                                    //'$productprice',
+                                                                    // style: sPriceSmall,
+                                                                  )
+                                                                ])),
                                                       ),
                                                     ),
                                                   ),
@@ -202,15 +218,19 @@ class FavoritesScreen extends StatelessWidget {
                                             ),
 
                                             Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Center(
                                                   child: Row(
-                                                    textDirection: TextDirection.rtl,
+                                                    textDirection:
+                                                        TextDirection.rtl,
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment.spaceBetween,
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
                                                     crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       GestureDetector(
                                                         onTap: () async {
@@ -221,10 +241,13 @@ class FavoritesScreen extends StatelessWidget {
                                                         },
                                                         child: Padding(
                                                           padding:
-                                                          const EdgeInsets.all(8.0),
+                                                              const EdgeInsets
+                                                                  .all(8.0),
                                                           child: Icon(
                                                             Icons.favorite,
-                                                            color: Colors.pinkAccent[400],
+                                                            color: Colors
+                                                                    .pinkAccent[
+                                                                400],
                                                           ),
                                                         ),
                                                       ),
@@ -237,11 +260,14 @@ class FavoritesScreen extends StatelessWidget {
                                                 ),
                                                 Center(
                                                   child: Row(
-                                                    textDirection: TextDirection.rtl,
+                                                    textDirection:
+                                                        TextDirection.rtl,
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment.spaceBetween,
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
                                                     crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       GestureDetector(
                                                         onTap: () {
@@ -265,10 +291,12 @@ class FavoritesScreen extends StatelessWidget {
                                                         },
                                                         child: Padding(
                                                           padding:
-                                                          const EdgeInsets.all(8.0),
+                                                              const EdgeInsets
+                                                                  .all(8.0),
                                                           child: Icon(
                                                             Icons.shopping_cart,
-                                                            color: Colors.black26,
+                                                            color:
+                                                                Colors.black26,
                                                           ),
                                                         ),
                                                       ),
@@ -281,11 +309,14 @@ class FavoritesScreen extends StatelessWidget {
                                                 ),
                                                 Center(
                                                   child: Row(
-                                                    textDirection: TextDirection.rtl,
+                                                    textDirection:
+                                                        TextDirection.rtl,
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment.spaceBetween,
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
                                                     crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       GestureDetector(
                                                         onTap: () async {
@@ -295,10 +326,12 @@ class FavoritesScreen extends StatelessWidget {
                                                         },
                                                         child: Padding(
                                                           padding:
-                                                          const EdgeInsets.all(8.0),
+                                                              const EdgeInsets
+                                                                  .all(8.0),
                                                           child: Icon(
                                                             Icons.share,
-                                                            color: Colors.black26,
+                                                            color:
+                                                                Colors.black26,
                                                           ),
                                                         ),
                                                       ),
@@ -322,14 +355,22 @@ class FavoritesScreen extends StatelessWidget {
                           );
                         },
                         separatorBuilder: (context, index) => Divider(
-                          thickness: 20,
-                        ),
-                        itemCount: 20),
+                              thickness: 10,
+                            ),
+                        itemCount: favList.length),
                   ],
                 ),
               );
             },
-            fallbackBuilder: (context) => Center(child: CircularProgressIndicator()),
+            fallbackBuilder: (context) => Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image(image: AssetImage('assets/images/heart.png'),),
+                  Text(' قائمة المفضلة فارغة...',style: TextStyle(fontSize: 20),),
+                ],
+              ),
+            ),
           );
         },
       ),

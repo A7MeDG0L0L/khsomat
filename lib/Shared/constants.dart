@@ -868,7 +868,11 @@ String? stringFavList = CacheHelper.sharedPreferences.getString('favList');
 //
 // String? userPref =CacheHelper.sharedPreferences.getString('favList');
 
-List<Product> favListConst = jsonDecode(stringFavList!) as List<Product> ;
+// List<dynamic> favListConst = jsonDecode(stringFavList!)  ;
+
+//Map<String, dynamic> productList=jsonDecode(stringFavList!);
+
+List<Map<String,dynamic>> convertedList=jsonDecode(stringFavList!);
 
 void signOut(context) {
   CacheHelper.removeData(
