@@ -183,22 +183,27 @@ class ProductItem extends StatelessWidget {
                           Spacer(),
                           IconButton(
                             onPressed: () {
+                              // productList.forEach((e) {
+                              //   convertedList.add(e.toJson());
+                              //   CacheHelper.sharedPreferences.setString(
+                              //       'favList', jsonEncode(convertedList));
+                              //   print(
+                              //       'Added This Item to List : ${product.name}');
+                              // });
+                                productList.add(product);
+                                CacheHelper.sharedPreferences.setString(
+                                         'favList', jsonEncode(productList));
+                                     print(
+                                         'Added This Item to List : ${product.name}');
 
-
-
-                              convertedList.add(product.toJson());
-                             // print(productList);
-                              print(product);
-                             // print(jsonEncode(productList));
-                              CacheHelper.sharedPreferences.setString(
-                                  'favList', jsonEncode(convertedList));
-                              print(
-                                  'Added This Item to List : ${product.name}');
-
-
-
-
-
+                             //  convertedList.add(product.toJson());
+                             // // print(productList);
+                             //  print(product);
+                             // // print(jsonEncode(productList));
+                             //  CacheHelper.sharedPreferences.setString(
+                             //      'favList', jsonEncode(convertedList));
+                             //  print(
+                             //      'Added This Item to List : ${product.name}');
                             },
                             icon: CircleAvatar(
                               radius: 15.0,

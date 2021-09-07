@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:khsomat/data/cache_helper/cache_helper.dart';
@@ -863,6 +862,9 @@ String? stringFavList = CacheHelper.sharedPreferences.getString('favList');
 //     }
 //   }
 // ];
+
+
+
 //
 // Future<bool> result =  CacheHelper.sharedPreferences.setString('favList', jsonEncode(stringFavList));
 //
@@ -870,9 +872,12 @@ String? stringFavList = CacheHelper.sharedPreferences.getString('favList');
 
 // List<dynamic> favListConst = jsonDecode(stringFavList!)  ;
 
-//Map<String, dynamic> productList=jsonDecode(stringFavList!);
 
-List<Map<String,dynamic>> convertedList=jsonDecode(stringFavList!);
+// List<Map<String,dynamic>> convertedList= CacheHelper.sharedPreferences.getString('favList') as List<Map<String, dynamic>>;
+
+List<dynamic> productList = jsonDecode(stringFavList!);
+
+
 
 void signOut(context) {
   CacheHelper.removeData(
@@ -890,4 +895,10 @@ void signOut(context) {
           (route) => false);
     }
   });
+}
+
+
+void printWrapped(text) {
+  final pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
+  pattern.allMatches(text).forEach((match) => print(match.group(0)));
 }

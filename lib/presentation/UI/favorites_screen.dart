@@ -21,7 +21,7 @@ class FavoritesScreen extends StatelessWidget {
       child: BlocConsumer<FavoritesCubit, FavoritesStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          List favList = convertedList;
+          List favList = productList;
           return Conditional.single(
             context: context,
             conditionBuilder: (context) => favList != null,
@@ -150,7 +150,7 @@ class FavoritesScreen extends StatelessWidget {
                                                           TextDirection.rtl,
                                                       child: ListTile(
                                                         title: Text(
-                                                          product.name,
+                                                          'Product Name',
                                                           overflow: TextOverflow
                                                               .ellipsis,
                                                           maxLines: 4,
