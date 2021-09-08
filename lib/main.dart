@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khsomat/Shared/my_colors.dart';
+import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
 import 'package:khsomat/data/repository/products_repository.dart';
@@ -27,7 +28,6 @@ void main() async {
   //   // printWrapped(productList);
   //
   // }
-
 
   Widget widget;
   if (token != null) {

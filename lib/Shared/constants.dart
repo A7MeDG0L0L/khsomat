@@ -13,7 +13,7 @@ String? token = CacheHelper.getData(key: 'token');
 String email = CacheHelper.getData(key: 'email');
 String username = CacheHelper.getData(key: 'username');
 
-String? stringFavList = CacheHelper.sharedPreferences.getString('favList');
+//String? stringFavList = CacheHelper.sharedPreferences.getString('favList');
 // List<Map<String,dynamic>> stringFavList = [
 //   {
 //     "id": 49421,
@@ -875,7 +875,7 @@ String? stringFavList = CacheHelper.sharedPreferences.getString('favList');
 
 // List<Map<String,dynamic>> convertedList= CacheHelper.sharedPreferences.getString('favList') as List<Map<String, dynamic>>;
 
-List<dynamic> productList = jsonDecode(stringFavList!);
+//List<dynamic> productList = jsonDecode(stringFavList!);
 
 
 

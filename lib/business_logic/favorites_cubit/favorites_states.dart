@@ -8,3 +8,10 @@ class GetFavoritesErrorState extends FavoritesStates {
 
 }
 class GetFavoritesLoadingState extends FavoritesStates {}
+
+class AppCreatedDatabaseState extends FavoritesStates {}
+class AppInsertedToDatabaseState extends FavoritesStates {}
+
+class AppGetDatabaseLoadingState extends FavoritesStates {}
+
+class GetFromDataBaseState extends FavoritesStates{}
