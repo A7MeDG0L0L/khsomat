@@ -7,6 +7,7 @@ import 'package:khsomat/presentation/UI/login_screen.dart';
 
 const homeLayout = '/';
 const productDetailsScreen = '/product_details_screen';
+const favoritesScreen = '/product_details_screen';
 const registerScreen = '/register_screen';
 const loginScreen = '/login_screen';
 String? token = CacheHelper.getData(key: 'token');

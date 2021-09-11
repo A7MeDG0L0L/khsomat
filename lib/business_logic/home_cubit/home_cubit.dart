@@ -17,11 +17,12 @@ class HomeCubit extends Cubit<HomeStates> {
 
   static HomeCubit get(context) => BlocProvider.of(context);
   final ProductRepository productRepository;
-
-
+ Product? product ;
+//final Product product;
   int currentIndex = 0;
   List<Widget> screens = [
     HomeScreen(),
+    //FavoritesScreen(product: product!),
     FavoritesScreen(),
     CartScreen(),
     ProfileScreen(),

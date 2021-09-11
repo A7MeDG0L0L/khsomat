@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget {
                 HomeCubit(ProductRepository(ProductsWebServices()))
                   ..getAllProducts()
                   ..getAllCategories()),
+        BlocProvider(create: (context)=> FavoritesCubit()..createDatabase()),
         // BlocProvider(
         //   create: (context) => SearchCubit(
         //     ProductRepository(ProductsWebServices())..g,

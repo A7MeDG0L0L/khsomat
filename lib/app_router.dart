@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/presentation/UI/app_layout.dart';
+import 'package:khsomat/presentation/UI/favorites_screen.dart';
 import 'package:khsomat/presentation/UI/login_screen.dart';
 import 'package:khsomat/presentation/UI/product_details_screen.dart';
 import 'package:khsomat/presentation/UI/register_screen.dart';
 
 class AppRouter {
+
   Route? generateRoute(RouteSettings settings) {
+    final product = settings.arguments as Product;
     switch (settings.name) {
       case homeLayout:
         return MaterialPageRoute(
@@ -41,6 +44,16 @@ class AppRouter {
             child: LoginScreen(),
           ),
         );
+      // case favoritesScreen:
+      //
+      //   return MaterialPageRoute(
+      //     builder: (context) => Directionality(
+      //       textDirection: TextDirection.rtl,
+      //       child: FavoritesScreen(
+      //         product: product,
+      //       ),
+      //     ),
+      //   );
     }
   }
 }

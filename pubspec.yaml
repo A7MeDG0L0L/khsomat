@@ -98,8 +98,8 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-     - family: Almarai
-       fonts:
+      - family: Almarai
+        fonts:
          - asset: assets/fonts/Almarai-Regular.ttf
          - asset: assets/fonts/Almarai-Light.ttf
          - asset: assets/fonts/Almarai-Bold.ttf

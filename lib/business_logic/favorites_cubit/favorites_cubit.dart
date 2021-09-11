@@ -11,7 +11,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
 
   late Database database;
 
-  List<Map<dynamic,dynamic>> productList = [];
+  List<Map<dynamic,dynamic>>? productList = [];
 
   void createDatabase() {
     openDatabase(
@@ -30,21 +30,23 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
       onOpen: (database) {
 
         getDataFromDatabase(database);
-        print(productList);
+      //  print(productList);
         print('database Opened Successfully !');
       },
     ).then((value) {
       database = value;
+      print(productList);
+
       emit(AppCreatedDatabaseState());
     });
   }
 
   Future insertToDatabase({
-    required int id,
-    required String text,
-    required String image,
-    required String regularprice,
-    required String saleprice,
+    required int? id,
+    required String? text,
+    required String? image,
+    required String? regularprice,
+    required String? saleprice,
 
   }) async {
     await database.transaction((txn) async {
@@ -63,13 +65,20 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
   }
 
   void getDataFromDatabase(database) {
-    productList = [];
+   // productList = [];
     emit(AppGetDatabaseLoadingState());
-    database.rawQuery('SELECT * FROM wishlist').then((value) {
+    productList =  database.rawQuery('SELECT * FROM wishlist').then((value) {
       value.forEach((product) {
-        productList.add(product);
+        productList!.add(product);
       });
       emit(GetFromDataBaseState());
+    });
+  }
+
+  void removeDataFromDatabase()async{
+    await database.rawUpdate('DELETE * FROM wishlist').then((value) {
+      getDataFromDatabase(database);
+      emit(RemoveDataFromDatabase());
     });
   }
 }

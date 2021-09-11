@@ -11,9 +11,9 @@ import 'dart:math';
 import 'package:html/parser.dart' show parse;
 
 class ProductDetailsScreen extends StatelessWidget {
-  final Product product;
-  const ProductDetailsScreen({Key? key, required this.product})
-      : super(key: key);
+  Product? product;
+  ProductDetailsScreen({this.product});
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class ProductDetailsScreen extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.teal.shade500,
             title: Text(
-              product.name,
+              product!.name ?? 'name',
               style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Almarai',
@@ -50,7 +50,7 @@ class ProductDetailsScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              product.name,
+                              product!.name ?? 'name',
                               style: TextStyle(
                                 fontFamily: 'Almarai',
                                 fontSize: 24,
@@ -61,40 +61,40 @@ class ProductDetailsScreen extends StatelessWidget {
                             ),
                             Row(
                               children: <Widget>[
-                                if (product.prices.salePrice.length == 4)
+                                if (product!.prices!.salePrice!.length == 4)
                                   Text(
-                                    product.prices.salePrice.substring(0, 2)
-                                    /*'${product.price.round()}'*/,
+                                    product!.prices!.salePrice!.substring(0, 2)
+                                    /*'${product!.price.round()}'*/,
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
                                       fontSize: 20.0,
                                       color: defColor,
                                     ),
                                   ),
-                                if (product.prices.salePrice.length == 5)
+                                if (product!.prices!.salePrice!.length == 5)
                                   Text(
-                                    product.prices.salePrice.substring(0, 3)
-                                    /*'${product.price.round()}'*/,
+                                    product!.prices!.salePrice!.substring(0, 3)
+                                    /*'${product!.price.round()}'*/,
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
                                       fontSize: 20.0,
                                       color: defColor,
                                     ),
                                   ),
-                                if (product.prices.salePrice.length == 6)
+                                if (product!.prices!.salePrice!.length == 6)
                                   Text(
-                                    product.prices.salePrice.substring(0, 4)
-                                    /*'${product.price.round()}'*/,
+                                    product!.prices!.salePrice!.substring(0, 4)
+                                    /*'${product!.price.round()}'*/,
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
                                       fontSize: 20.0,
                                       color: defColor,
                                     ),
                                   ),
-                                if (product.prices.salePrice.length == 7)
+                                if (product!.prices!.salePrice!.length == 7)
                                   Text(
-                                    product.prices.salePrice.substring(0, 5)
-                                    /*'${product.price.round()}'*/,
+                                    product!.prices!.salePrice!.substring(0, 5)
+                                    /*'${product!.price.round()}'*/,
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
                                       fontSize: 20.0,
@@ -121,13 +121,13 @@ class ProductDetailsScreen extends StatelessWidget {
                                 SizedBox(
                                   width: 8,
                                 ),
-                                if (product.onSale == true &&
-                                    product.prices.regularPrice !=
-                                        product.prices.salePrice &&
-                                    product.prices.regularPrice.length == 4)
+                                if (product!.onSale == true &&
+                                    product!.prices!.regularPrice !=
+                                        product!.prices!.salePrice &&
+                                    product!.prices!.regularPrice!.length == 4)
                                   Text(
-                                    product.prices.regularPrice.substring(0, 2)
-                                    /* '${product.oldPrice.round()}'*/,
+                                    product!.prices!.regularPrice!.substring(0, 2)
+                                    /* '${product!.oldPrice.round()}'*/,
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
                                       fontSize: 18.0,
@@ -135,13 +135,13 @@ class ProductDetailsScreen extends StatelessWidget {
                                       decoration: TextDecoration.lineThrough,
                                     ),
                                   ),
-                                if (product.onSale == true &&
-                                    product.prices.regularPrice !=
-                                        product.prices.salePrice &&
-                                    product.prices.regularPrice.length == 5)
+                                if (product!.onSale == true &&
+                                    product!.prices!.regularPrice !=
+                                        product!.prices!.salePrice &&
+                                    product!.prices!.regularPrice!.length == 5)
                                   Text(
-                                    product.prices.regularPrice.substring(0, 3)
-                                    /* '${product.oldPrice.round()}'*/,
+                                    product!.prices!.regularPrice!.substring(0, 3)
+                                    /* '${product!.oldPrice.round()}'*/,
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
                                       fontSize: 18.0,
@@ -149,13 +149,13 @@ class ProductDetailsScreen extends StatelessWidget {
                                       decoration: TextDecoration.lineThrough,
                                     ),
                                   ),
-                                if (product.onSale == true &&
-                                    product.prices.regularPrice !=
-                                        product.prices.salePrice &&
-                                    product.prices.regularPrice.length == 6)
+                                if (product!.onSale == true &&
+                                    product!.prices!.regularPrice !=
+                                        product!.prices!.salePrice &&
+                                    product!.prices!.regularPrice!.length == 6)
                                   Text(
-                                    product.prices.regularPrice.substring(0, 4)
-                                    /* '${product.oldPrice.round()}'*/,
+                                    product!.prices!.regularPrice!.substring(0, 4)
+                                    /* '${product!.oldPrice.round()}'*/,
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
                                       fontSize: 18.0,
@@ -163,13 +163,13 @@ class ProductDetailsScreen extends StatelessWidget {
                                       decoration: TextDecoration.lineThrough,
                                     ),
                                   ),
-                                if (product.onSale == true &&
-                                    product.prices.regularPrice !=
-                                        product.prices.salePrice &&
-                                    product.prices.regularPrice.length == 7)
+                                if (product!.onSale == true &&
+                                    product!.prices!.regularPrice !=
+                                        product!.prices!.salePrice &&
+                                    product!.prices!.regularPrice!.length == 7)
                                   Text(
-                                    product.prices.regularPrice.substring(0, 5)
-                                    /* '${product.oldPrice.round()}'*/,
+                                    product!.prices!.regularPrice!.substring(0, 5)
+                                    /* '${product!.oldPrice.round()}'*/,
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
                                       fontSize: 18.0,
@@ -257,9 +257,9 @@ class ProductDetailsScreen extends StatelessWidget {
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         background: Hero(
-          tag: product.id,
+          tag: product!.id!,
           child: Image.network(
-            product.images[0].src,
+            product!.images![0].src!,
             fit: BoxFit.cover,
           ),
         ),
@@ -268,7 +268,7 @@ class ProductDetailsScreen extends StatelessWidget {
   }
 
   Widget parseHtmlDescription() {
-    var document = parse(product.description);
+    var document = parse(product!.description);
     String parsedString = parse(document.body!.text).documentElement!.text;
     print(parsedString);
     return Text(
@@ -280,26 +280,26 @@ class ProductDetailsScreen extends StatelessWidget {
   // Widget carouselProductImage() {
   //   return CarouselSlider(
   //     items: [
-  //       if(product.images.length >= 1)
-  //       Image(image: NetworkImage(product.images[0].src),),
-  //       if(product.images.length >= 2)
-  //       Image(image: NetworkImage(product.images[1].src),),
-  //       if(product.images.length >= 3)
-  //       Image(image: NetworkImage(product.images[2].src),),
-  //       if(product.images.length >= 4 )
-  //         Image(image: NetworkImage(product.images[3].src),),
-  //       if(product.images.length >= 5 )
-  //         Image(image: NetworkImage(product.images[4].src),),
-  //       if(product.images.length >= 6 )
-  //         Image(image: NetworkImage(product.images[5].src),),
-  //       if(product.images.length >= 7 )
-  //         Image(image: NetworkImage(product.images[6].src),),
-  //       if(product.images.length >= 8 )
-  //         Image(image: NetworkImage(product.images[7].src),),
-  //       if(product.images.length >= 9 )
-  //         Image(image: NetworkImage(product.images[8].src),),
-  //       if(product.images.length >= 10 )
-  //         Image(image: NetworkImage(product.images[9].src),),
+  //       if(product!.images.length >= 1)
+  //       Image(image: NetworkImage(product!.images[0].src),),
+  //       if(product!.images.length >= 2)
+  //       Image(image: NetworkImage(product!.images[1].src),),
+  //       if(product!.images.length >= 3)
+  //       Image(image: NetworkImage(product!.images[2].src),),
+  //       if(product!.images.length >= 4 )
+  //         Image(image: NetworkImage(product!.images[3].src),),
+  //       if(product!.images.length >= 5 )
+  //         Image(image: NetworkImage(product!.images[4].src),),
+  //       if(product!.images.length >= 6 )
+  //         Image(image: NetworkImage(product!.images[5].src),),
+  //       if(product!.images.length >= 7 )
+  //         Image(image: NetworkImage(product!.images[6].src),),
+  //       if(product!.images.length >= 8 )
+  //         Image(image: NetworkImage(product!.images[7].src),),
+  //       if(product!.images.length >= 9 )
+  //         Image(image: NetworkImage(product!.images[8].src),),
+  //       if(product!.images.length >= 10 )
+  //         Image(image: NetworkImage(product!.images[9].src),),
   //     ],
   //     options: CarouselOptions(
   //       height: 250.0,
@@ -318,9 +318,9 @@ class ProductDetailsScreen extends StatelessWidget {
 
   Widget carouselProductImages() {
     return CarouselSlider.builder(
-        itemCount: product.images.length,
+        itemCount: product!.images!.length,
         itemBuilder: (context, index, realIndex) =>
-            Image.network(product.images[index].src),
+            Image.network(product!.images![index].src!),
         options: CarouselOptions(
           initialPage: 0,
           autoPlay: true,
@@ -336,7 +336,7 @@ class ProductDetailsScreen extends StatelessWidget {
 
   // Widget calculateDiscountPer(){
   //
-  //  var discount = 100*(product.prices.regularPrice - product.prices.salePrice) /  product.prices.regularPrice;
+  //  var discount = 100*(product!.prices.regularPrice - product!.prices.salePrice) /  product!.prices.regularPrice;
   //   return Text();
   // }
 }

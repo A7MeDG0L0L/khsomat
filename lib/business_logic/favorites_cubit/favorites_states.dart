@@ -15,3 +15,5 @@ class AppInsertedToDatabaseState extends FavoritesStates {}
 class AppGetDatabaseLoadingState extends FavoritesStates {}
 
 class GetFromDataBaseState extends FavoritesStates{}
+
+class RemoveDataFromDatabase extends FavoritesStates{}

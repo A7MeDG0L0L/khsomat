@@ -41,33 +41,33 @@ class Product {
     required this.addToCart,
   });
 
-  int id;
-  String name;
-  int parent;
+  int? id;
+  String? name;
+  int? parent;
   Type? type;
-  String variation;
-  String permalink;
-  String sku;
-  String shortDescription;
-  String description;
-  bool onSale;
-  Prices prices;
-  String priceHtml;
-  String averageRating;
-  int reviewCount;
-  List<Image2> images;
-  List<Category2> categories;
-  List<dynamic> tags;
-  List<dynamic> attributes;
-  List<dynamic> variations;
-  bool hasOptions;
-  bool isPurchasable;
-  bool isInStock;
-  bool isOnBackorder;
-  dynamic lowStockRemaining;
-  bool soldIndividually;
-  int quantityLimit;
-  AddToCart addToCart;
+  String? variation;
+  String? permalink;
+  String? sku;
+  String? shortDescription;
+  String? description;
+  bool? onSale;
+  Prices? prices;
+  String? priceHtml;
+  String? averageRating;
+  int? reviewCount;
+  List<Image2>? images;
+  List<Category2>? categories;
+  List<dynamic>? tags;
+  List<dynamic>? attributes;
+  List<dynamic>? variations;
+  bool? hasOptions;
+  bool? isPurchasable;
+  bool? isInStock;
+  bool? isOnBackorder;
+  dynamic? lowStockRemaining;
+  bool? soldIndividually;
+  int? quantityLimit;
+  AddToCart? addToCart;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
     id: json["id"],
@@ -112,15 +112,15 @@ class Product {
     "short_description": shortDescription,
     "description": description,
     "on_sale": onSale,
-    "prices": prices.toJson(),
+    "prices": prices!.toJson(),
     "price_html": priceHtml,
     "average_rating": averageRating,
     "review_count": reviewCount,
-    "images": List<dynamic>.from(images.map((x) => x.toJson())),
-    "categories": List<dynamic>.from(categories.map((x) => x.toJson())),
-    "tags": List<dynamic>.from(tags.map((x) => x)),
-    "attributes": List<dynamic>.from(attributes.map((x) => x)),
-    "variations": List<dynamic>.from(variations.map((x) => x)),
+    "images": List<dynamic>.from(images!.map((x) => x.toJson())),
+    "categories": List<dynamic>.from(categories!.map((x) => x.toJson())),
+    "tags": List<dynamic>.from(tags!.map((x) => x)),
+    "attributes": List<dynamic>.from(attributes!.map((x) => x)),
+    "variations": List<dynamic>.from(variations!.map((x) => x)),
     "has_options": hasOptions,
     "is_purchasable": isPurchasable,
     "is_in_stock": isInStock,
@@ -128,7 +128,7 @@ class Product {
     "low_stock_remaining": lowStockRemaining,
     "sold_individually": soldIndividually,
     "quantity_limit": quantityLimit,
-    "add_to_cart": addToCart.toJson(),
+    "add_to_cart": addToCart!.toJson(),
   };
 }
 
@@ -140,8 +140,8 @@ class AddToCart {
   });
 
   Text2? text;
-  String description;
-  String url;
+  String? description;
+  String? url;
 
   factory AddToCart.fromJson(Map<String, dynamic> json) => AddToCart(
     text: textValues.map[json["text"]],
@@ -168,10 +168,10 @@ class Category2 {
     required this.link,
   });
 
-  int id;
+  int? id;
   Name? name;
-  String slug;
-  String link;
+  String? slug;
+  String?link;
 
   factory Category2.fromJson(Map<String, dynamic> json) => Category2(
     id: json["id"],
@@ -207,13 +207,13 @@ class Image2 {
     required this.alt,
   });
 
-  int id;
-  String src;
-  String thumbnail;
-  String srcset;
+  int? id;
+  String? src;
+  String? thumbnail;
+  String? srcset;
   Sizes? sizes;
-  String name;
-  String alt;
+  String? name;
+  String? alt;
 
   factory Image2.fromJson(Map<String, dynamic> json) => Image2(
     id: json["id"],
@@ -258,15 +258,15 @@ class Prices {
 
   Currency? currencyCode;
   Currency? currencySymbol;
-  int currencyMinorUnit;
+  int? currencyMinorUnit;
   CurrencyDecimalSeparator? currencyDecimalSeparator;
   CurrencyThousandSeparator? currencyThousandSeparator;
   CurrencyPrefix? currencyPrefix;
-  String currencySuffix;
-  String price;
-  String regularPrice;
-  String salePrice;
-  dynamic priceRange;
+  String? currencySuffix;
+  String? price;
+  String? regularPrice;
+  String? salePrice;
+  dynamic? priceRange;
 
   factory Prices.fromJson(Map<String, dynamic> json) => Prices(
     currencyCode: currencyValues.map[json["currency_code"]],
