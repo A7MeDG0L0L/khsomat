@@ -9,11 +9,14 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
 
   static FavoritesCubit get(context) => BlocProvider.of(context);
 
-  late Database database;
 
-  List<Map<dynamic,dynamic>>? productList = [];
+  List<Map>? productList = [];
 
-  void createDatabase() {
+   late Database database;
+
+
+
+  void createDatabase()  {
     openDatabase(
       'wishlist.db',
       version: 1,
@@ -21,38 +24,40 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
         print('database Created Successfully !');
         database
             .execute(
-                'CREATE TABLE wishlist (id INTEGER PRIMARY KEY, title TEXT, image TEXT, regularprice TEXT,saleprice TEXT)')
+                'CREATE TABLE wishlist (id INTEGER PRIMARY KEY, title TEXT, image TEXT, regularprice TEXT,saleprice TEXT, permalink TEXT)')
             .then((value) => print('table Created Successfully !'))
             .catchError((error) {
           print('Error While Creating Table Wishlist : ${error.toString()}');
         });
       },
-      onOpen: (database) {
+      onOpen: (database) async {
 
-        getDataFromDatabase(database);
+       getDataFromDatabase(database);
       //  print(productList);
         print('database Opened Successfully !');
       },
     ).then((value) {
       database = value;
+
       print(productList);
 
       emit(AppCreatedDatabaseState());
     });
   }
 
-  Future insertToDatabase({
+   insertToDatabase({
     required int? id,
     required String? text,
     required String? image,
     required String? regularprice,
     required String? saleprice,
+    required String? permalink,
 
   }) async {
-    await database.transaction((txn) async {
-      return await txn
+    await database.transaction((txn)  {
+      return  txn
           .rawInsert(
-              'INSERT INTO wishlist(title,image,regularprice,saleprice) VALUES("$text","$image","$regularprice","$saleprice")')
+              'INSERT INTO wishlist(title,image,regularprice,saleprice,permalink) VALUES("$text","$image","$regularprice","$saleprice","$permalink")')
           .then((value) {
         print('$value inserted successfully');
         getDataFromDatabase(database);
@@ -64,10 +69,10 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     });
   }
 
-  void getDataFromDatabase(database) {
-   // productList = [];
+  void getDataFromDatabase(database)  {
+     // productList = [];
     emit(AppGetDatabaseLoadingState());
-    productList =  database.rawQuery('SELECT * FROM wishlist').then((value) {
+      productList = database.rawQuery('SELECT * FROM wishlist').then((value) {
       value.forEach((product) {
         productList!.add(product);
       });

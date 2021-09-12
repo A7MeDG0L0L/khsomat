@@ -194,6 +194,7 @@ class ProductItem extends StatelessWidget {
                                     image: product.images![0].src!,
                                     regularprice: product.prices!.regularPrice!,
                                     saleprice: product.prices!.salePrice!,
+                                    permalink: product.permalink!,
                                   );
 
                                   // productList.forEach((e) {

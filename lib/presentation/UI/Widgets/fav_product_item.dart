@@ -5,6 +5,7 @@ import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/presentation/UI/product_details_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // class FavoritesItem extends StatelessWidget {
 //   const FavoritesItem({Key? key,required this.product}) : super(key: key);
@@ -278,7 +279,7 @@ Widget showFav(
   Map model,
   index,
   context,
- // Product? product,
+  // Product? product,
 ) {
   double cardWidth = MediaQuery.of(context).size.width / 1.8;
 
@@ -318,8 +319,8 @@ Widget showFav(
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            height: 50,
-                            width: 80,
+                            height: 80,
+                            width: 100,
                             child: CachedNetworkImage(
                               imageUrl: '${model['image']}',
                               // height: height / 1.7,
@@ -402,19 +403,50 @@ Widget showFav(
                               ),
                               child: Center(
                                 child: RichText(
-                                    // overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
-                                    text: TextSpan(children: [
+                                  // overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                  text: TextSpan(
+                                    children: [
+
+                                      if (model['saleprice'].length == 4)
+                                        TextSpan(
+                                          text:
+                                              '${model['saleprice'].substring(0, 2)}',
+                                          //'$productprice',
+                                          // style: sPriceSmall,
+                                        ),
+                                      if (model['saleprice'].length == 5)
+                                        TextSpan(
+                                          text:
+                                          '${model['saleprice'].substring(0, 3)}',
+                                          //'$productprice',
+                                          // style: sPriceSmall,
+                                        ),
+                                      if (model['saleprice'].length == 6)
+                                        TextSpan(
+                                          text:
+                                          '${model['saleprice'].substring(0, 4)}',
+                                          //'$productprice',
+                                          // style: sPriceSmall,
+                                        ),
+                                      if (model['saleprice'].length == 7)
+                                        TextSpan(
+                                          text:
+                                          '${model['saleprice'].substring(0, 5)}',
+                                          //'$productprice',
+                                          // style: sPriceSmall,
+                                        ),
+                                      TextSpan(
+                                        text: ' ',
+                                        // style: sSymbleWhite,
+                                      ),
                                       TextSpan(
                                         text: 'ج.م ',
                                         // style: sSymbleWhite,
                                       ),
-                                      TextSpan(
-                                        text: '${model['saleprice']}',
-                                        //'$productprice',
-                                        // style: sPriceSmall,
-                                      )
-                                    ])),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -508,7 +540,9 @@ Widget showFav(
                             children: [
                               GestureDetector(
                                 onTap: () async {
-                                  print("Pressed");
+                                  print("Share Button Pressed");
+                                  void launchURL() async =>
+                                      await canLaunch('${model['permalink']}') ? await launch('${model['permalink']}') : throw 'Could not launch ${model['permalink']}';
 
                                   // await launchShare(context, "s");
                                 },

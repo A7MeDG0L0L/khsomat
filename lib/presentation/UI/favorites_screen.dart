@@ -13,10 +13,7 @@ class FavoritesScreen extends StatelessWidget {
   // Product? product;
  // FavoritesScreen({required this.product});
 
-  // اعتقد المفروض ما لازم تعملها هيك
-  // جرب هيك واحكيلي اشطا
-  // لاب الشغل بعافية شويه
-  // انت معايا اشطا بص دلوقتي اوريك حاجه تانيه بالمره طلاما انت دخلت لحد مده يخلص
+
 
   //List<Product> favList = favListConst;
 
