@@ -5,6 +5,8 @@ import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/presentation/UI/product_details_screen.dart';
+import 'package:share/share.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // class FavoritesItem extends StatelessWidget {
@@ -463,6 +465,7 @@ Widget showFav(
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        /// favorite button
                         Center(
                           child: Row(
                             textDirection: TextDirection.rtl,
@@ -470,7 +473,16 @@ Widget showFav(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               GestureDetector(
-                                onTap: () async {
+                                onTap: ()  async { //TODO: Must double tap to remove item from the list because database initialize
+                                  print('Favorite Button Pressed');
+                                  FavoritesCubit.get(context).createDatabase();
+                                  Future.delayed(Duration(seconds: 5));
+                                  Database database = FavoritesCubit.get(context).database!;
+                                  FavoritesCubit.get(context).getDataFromDatabase(database);
+                                  print(FavoritesCubit.get(context).database!);
+                                  FavoritesCubit.get(context).deleteFromDatabase(id: model['id']);
+
+                                  // FavoritesCubit.get(context).deleteFromDatabase(id: model['id']);
                                   //   favList.removeFromFav(favList.favoriteList[index]);
 
                                   /// or
@@ -491,6 +503,7 @@ Widget showFav(
                             ],
                           ),
                         ),
+                        ///cart button
                         Center(
                           child: Row(
                             textDirection: TextDirection.rtl,
@@ -532,6 +545,7 @@ Widget showFav(
                             ],
                           ),
                         ),
+                        ///share button
                         Center(
                           child: Row(
                             textDirection: TextDirection.rtl,
@@ -541,10 +555,8 @@ Widget showFav(
                               GestureDetector(
                                 onTap: () async {
                                   print("Share Button Pressed");
-                                  void launchURL() async =>
-                                      await canLaunch('${model['permalink']}') ? await launch('${model['permalink']}') : throw 'Could not launch ${model['permalink']}';
-
-                                  // await launchShare(context, "s");
+                                     // await canLaunch('${model['permalink']}') ? await launch('${model['permalink']}') : throw 'Could not launch ${model['permalink']}';
+                                  Share.share(' شاهد هذا المنتج علي خصومات دوت كوم : ${model['permalink']}  ');
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),

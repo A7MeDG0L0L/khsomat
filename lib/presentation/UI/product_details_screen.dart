@@ -2,18 +2,16 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:khsomat/Shared/my_colors.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
 import 'package:khsomat/data/models/products_model.dart';
-import 'dart:math';
 import 'package:html/parser.dart' show parse;
+import 'package:share/share.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   Product? product;
   ProductDetailsScreen({this.product});
-
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +124,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                         product!.prices!.salePrice &&
                                     product!.prices!.regularPrice!.length == 4)
                                   Text(
-                                    product!.prices!.regularPrice!.substring(0, 2)
+                                    product!.prices!.regularPrice!
+                                        .substring(0, 2)
                                     /* '${product!.oldPrice.round()}'*/,
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
@@ -140,7 +139,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                         product!.prices!.salePrice &&
                                     product!.prices!.regularPrice!.length == 5)
                                   Text(
-                                    product!.prices!.regularPrice!.substring(0, 3)
+                                    product!.prices!.regularPrice!
+                                        .substring(0, 3)
                                     /* '${product!.oldPrice.round()}'*/,
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
@@ -154,7 +154,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                         product!.prices!.salePrice &&
                                     product!.prices!.regularPrice!.length == 6)
                                   Text(
-                                    product!.prices!.regularPrice!.substring(0, 4)
+                                    product!.prices!.regularPrice!
+                                        .substring(0, 4)
                                     /* '${product!.oldPrice.round()}'*/,
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
@@ -168,7 +169,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                         product!.prices!.salePrice &&
                                     product!.prices!.regularPrice!.length == 7)
                                   Text(
-                                    product!.prices!.regularPrice!.substring(0, 5)
+                                    product!.prices!.regularPrice!
+                                        .substring(0, 5)
                                     /* '${product!.oldPrice.round()}'*/,
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
@@ -177,6 +179,21 @@ class ProductDetailsScreen extends StatelessWidget {
                                       decoration: TextDecoration.lineThrough,
                                     ),
                                   ),
+                                Spacer(),
+                                CircleAvatar(
+                                  radius: 20,
+                                  backgroundColor: Colors.grey[600],
+                                  child: IconButton(
+                                    onPressed: () {
+                                      Share.share(
+                                          ' شاهد هذا المنتج علي خصومات دوت كوم :${product!.permalink!}  ');
+                                    },
+                                    icon: Icon(
+                                      Icons.share,
+                                      color: Colors.amber,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                             SizedBox(

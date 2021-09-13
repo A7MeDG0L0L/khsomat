@@ -1,18 +1,11 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dot_navigation_bar/dot_navigation_bar.dart';
+
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:khsomat/Shared/constants.dart';
-import 'package:khsomat/Shared/my_colors.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
-import 'package:khsomat/presentation/UI/favorites_screen.dart';
-import 'package:khsomat/presentation/UI/home_screen.dart';
 import 'package:khsomat/presentation/UI/search_screen.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
