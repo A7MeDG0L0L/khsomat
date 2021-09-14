@@ -473,13 +473,13 @@ Widget showFav(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               GestureDetector(
-                                onTap: ()  async { //TODO: Must double tap to remove item from the list because database initialize
+                                onTap: ()  async { //TODO: Must double tap to remove item from the list to make database initialized
                                   print('Favorite Button Pressed');
                                   FavoritesCubit.get(context).createDatabase();
                                   Future.delayed(Duration(seconds: 5));
-                                  Database database = FavoritesCubit.get(context).database!;
-                                  FavoritesCubit.get(context).getDataFromDatabase(database);
-                                  print(FavoritesCubit.get(context).database!);
+                                 // Database database = FavoritesCubit.get(context).database;
+                                  // FavoritesCubit.get(context).getDataFromDatabase(database);
+                                  print(FavoritesCubit.get(context).database);
                                   FavoritesCubit.get(context).deleteFromDatabase(id: model['id']);
 
                                   // FavoritesCubit.get(context).deleteFromDatabase(id: model['id']);

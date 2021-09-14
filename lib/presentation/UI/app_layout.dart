@@ -1,12 +1,15 @@
-
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
+import 'package:khsomat/presentation/UI/Widgets/drawer_item.dart';
+import 'package:khsomat/presentation/UI/login_screen.dart';
 import 'package:khsomat/presentation/UI/search_screen.dart';
+import 'package:lottie/lottie.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -53,29 +56,77 @@ class AppLayout extends StatelessWidget {
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-              title: SvgPicture.asset('assets/images/company logo.svg'),
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: SearchScreen()),
+            title: SvgPicture.asset('assets/images/company logo.svg'),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: SearchScreen()),
+                    ),
+                  );
+                },
+                icon: Icon(Icons.search),
+              ),
+              // TextButton(onPressed: (){
+              //   signOut(context);
+              // }, child: Text('تسجيل الخروج',style: TextStyle(color: Colors.black),)),
+            ],
+          ),
+          drawer: Drawer(
+            semanticLabel: 'Menu',
+            elevation: 20.0,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      if (token == null)
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LoginScreen(),
+                              ),
+                            );
+                          },
+                          child: Text('سجل الدخول الآن'),
+                        ),
+                      if (token != null)
+                       // Image.asset('assets/images/avatar.png', height: 100),
+                        Lottie.asset('assets/loading/hi.json',height: 200,),
+                      SizedBox(
+                        height: 20,
                       ),
-                    );
-                  },
-                  icon: Icon(Icons.search),
+                      Center(
+                        child: Text(
+                          'أهلا يا $username',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ),
+                      ListView.separated(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) => buildDrawerItem(
+                              HomeCubit.get(context).categories[index],
+                              context),
+                          separatorBuilder: (context, index) => Divider(
+                                thickness: 1,
+                                height: 2,
+                              ),
+                          itemCount: HomeCubit.get(context).categories.length),
+                    ],
+                  ),
                 ),
-                // TextButton(onPressed: (){
-                //   signOut(context);
-                // }, child: Text('تسجيل الخروج',style: TextStyle(color: Colors.black),)),
-              ],
-              leading: IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.menu),
-              )),
+              ),
+            ),
+          ),
           bottomNavigationBar: SalomonBottomBar(
             items: items,
             currentIndex: HomeCubit.get(context).currentIndex,

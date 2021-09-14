@@ -18,7 +18,7 @@ class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //List<Product>? product;
-    Database database = FavoritesCubit.get(context).database!;
+    Database database = FavoritesCubit.get(context).database;
     //double cardWidth = MediaQuery.of(context).size.width / 1.8;
     return BlocProvider(
       create: (context) => FavoritesCubit()..getDataFromDatabase(database),

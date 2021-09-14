@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:khsomat/Shared/components.dart';
 import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/Shared/my_colors.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
@@ -195,7 +196,8 @@ class ProductItem extends StatelessWidget {
                                     regularprice: product.prices!.regularPrice!,
                                     saleprice: product.prices!.salePrice!,
                                     permalink: product.permalink!,
-                                  );
+                                  ).then((value) =>  showToast(text: 'تم إضافة المنتج إلي قائمة المفضلة', state:ToastStates.SUCCESS));
+
 
                                   // productList.forEach((e) {
                                   //   convertedList.add(e.toJson());

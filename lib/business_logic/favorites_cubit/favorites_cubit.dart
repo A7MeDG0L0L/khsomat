@@ -8,7 +8,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
 
   static FavoritesCubit get(context) => BlocProvider.of(context);
 
-   Database? database;
+  late Database database;
 
   List<Map<dynamic, dynamic>> productList = [];
 
@@ -47,7 +47,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     required String saleprice,
     required String permalink,
   }) async {
-    await database!.transaction((txn) async {
+    await database.transaction((txn) async {
       return await txn
           .rawInsert(
               'INSERT INTO wishlist(title,image,regularprice,saleprice,permalink) VALUES("$text","$image","$regularprice","$saleprice","$permalink")')
@@ -79,7 +79,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     required int id,
   }) async {
 
-    await database!
+    await database
         .rawDelete('DELETE FROM wishlist WHERE id = ?', [id]).then((value) {
       getDataFromDatabase(database);
       emit(DeleteDataFromDatabaseState());
