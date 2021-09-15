@@ -12,31 +12,31 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
 
   List<Map<dynamic, dynamic>> productList = [];
 
-  void createDatabase() {
-    openDatabase(
+  Future<void> createDatabase() async {
+  database = await openDatabase(
       'wishlist.db',
       version: 1,
       onCreate: (database, version) {
         print('database Created Successfully !');
         database
             .execute(
-                'CREATE TABLE wishlist (id INTEGER PRIMARY KEY, title TEXT, image TEXT, regularprice TEXT,saleprice TEXT,permalink TEXT)')
-            .then((value) => print('table Created Successfully !'))
-            .catchError((error) {
-          print('Error While Creating Table Wishlist : ${error.toString()}');
-        });
+                'CREATE TABLE wishlist (id INTEGER PRIMARY KEY, title TEXT, image TEXT, regularprice TEXT,saleprice TEXT,permalink TEXT)');
+             print('table Created Successfully !');
+        //     .catchError((error) {
+        //   print('Error While Creating Table Wishlist : ${error.toString()}');
+        // });
       },
       onOpen: (database) {
         getDataFromDatabase(database);
         // print(productList);
         print('database Opened Successfully !');
       },
-    ).then((value) {
-      database = value;
+    );
+     // database = value;
       print(productList);
 
       emit(AppCreatedDatabaseState());
-    });
+
   }
 
   Future insertToDatabase({
