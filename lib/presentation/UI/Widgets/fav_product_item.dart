@@ -409,7 +409,6 @@ Widget showFav(
                                   maxLines: 2,
                                   text: TextSpan(
                                     children: [
-
                                       if (model['saleprice'].length == 4)
                                         TextSpan(
                                           text:
@@ -420,21 +419,21 @@ Widget showFav(
                                       if (model['saleprice'].length == 5)
                                         TextSpan(
                                           text:
-                                          '${model['saleprice'].substring(0, 3)}',
+                                              '${model['saleprice'].substring(0, 3)}',
                                           //'$productprice',
                                           // style: sPriceSmall,
                                         ),
                                       if (model['saleprice'].length == 6)
                                         TextSpan(
                                           text:
-                                          '${model['saleprice'].substring(0, 4)}',
+                                              '${model['saleprice'].substring(0, 4)}',
                                           //'$productprice',
                                           // style: sPriceSmall,
                                         ),
                                       if (model['saleprice'].length == 7)
                                         TextSpan(
                                           text:
-                                          '${model['saleprice'].substring(0, 5)}',
+                                              '${model['saleprice'].substring(0, 5)}',
                                           //'$productprice',
                                           // style: sPriceSmall,
                                         ),
@@ -473,14 +472,16 @@ Widget showFav(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               GestureDetector(
-                                onTap: ()  async { //TODO: Must double tap to remove item from the list to make database initialized
+                                onTap: () async {
+                                  //TODO: Must double tap to remove item from the list to make database initialized
                                   print('Favorite Button Pressed');
-                                 FavoritesCubit.get(context).createDatabase();
-                                  Future.delayed(Duration(seconds: 5));
-                                 // Database database = FavoritesCubit.get(context).database;
+                                  // await FavoritesCubit.get(context).createDatabase();
+                                  //   Future.delayed(Duration(seconds: 5));
+                                  // Database database = FavoritesCubit.get(context).database;
                                   // FavoritesCubit.get(context).getDataFromDatabase(database);
                                   print(FavoritesCubit.get(context).database);
-                                  FavoritesCubit.get(context).deleteFromDatabase(id: model['id']);
+                                  FavoritesCubit.get(context)
+                                      .deleteFromDatabase(id: model['id']);
 
                                   // FavoritesCubit.get(context).deleteFromDatabase(id: model['id']);
                                   //   favList.removeFromFav(favList.favoriteList[index]);
@@ -503,6 +504,7 @@ Widget showFav(
                             ],
                           ),
                         ),
+
                         ///cart button
                         Center(
                           child: Row(
@@ -545,6 +547,7 @@ Widget showFav(
                             ],
                           ),
                         ),
+
                         ///share button
                         Center(
                           child: Row(
@@ -555,8 +558,9 @@ Widget showFav(
                               GestureDetector(
                                 onTap: () async {
                                   print("Share Button Pressed");
-                                     // await canLaunch('${model['permalink']}') ? await launch('${model['permalink']}') : throw 'Could not launch ${model['permalink']}';
-                                  Share.share(' شاهد هذا المنتج علي خصومات دوت كوم : ${model['permalink']}  ');
+                                  // await canLaunch('${model['permalink']}') ? await launch('${model['permalink']}') : throw 'Could not launch ${model['permalink']}';
+                                  Share.share(
+                                      ' شاهد هذا المنتج علي خصومات دوت كوم : ${model['permalink']}  ');
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),

@@ -9,9 +9,7 @@ import 'package:sqflite/sqflite.dart';
 
 class FavoritesScreen extends StatelessWidget {
   // Product? product;
- // FavoritesScreen({required this.product});
-
-
+  // FavoritesScreen({required this.product});
 
   //List<Product> favList = favListConst;
 
@@ -21,10 +19,12 @@ class FavoritesScreen extends StatelessWidget {
     Database database = FavoritesCubit.get(context).database;
     //double cardWidth = MediaQuery.of(context).size.width / 1.8;
     return BlocProvider(
-      create: (context) => FavoritesCubit()..getDataFromDatabase(database),
+      create: (context) => FavoritesCubit()
+        ..createDatabase()
+        ..getDataFromDatabase(database),
       child: BlocConsumer<FavoritesCubit, FavoritesStates>(
         listener: (context, state) {
-        //product = FavoritesCubit.get(context).productList;
+          //product = FavoritesCubit.get(context).productList;
         },
         builder: (context, state) {
           // List favList = productList;
@@ -36,10 +36,13 @@ class FavoritesScreen extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.all(15),
                 child: ListView.separated(
-                  shrinkWrap: true,
+                    shrinkWrap: true,
                     itemBuilder: (context, index) {
-
-                      return showFav(FavoritesCubit.get(context).productList[index], index, context,);
+                      return showFav(
+                        FavoritesCubit.get(context).productList[index],
+                        index,
+                        context,
+                      );
                     },
                     separatorBuilder: (context, index) {
                       return Divider(
