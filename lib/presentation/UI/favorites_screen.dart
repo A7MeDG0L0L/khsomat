@@ -5,6 +5,7 @@ import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
 import 'package:khsomat/presentation/UI/Widgets/fav_product_item.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sqflite/sqflite.dart';
 
 class FavoritesScreen extends StatelessWidget {
@@ -21,7 +22,7 @@ class FavoritesScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => FavoritesCubit()
         ..createDatabase()
-        ..getDataFromDatabase(database),
+        ..getWishListDataFromDatabase(database),
       child: BlocConsumer<FavoritesCubit, FavoritesStates>(
         listener: (context, state) {
           //product = FavoritesCubit.get(context).productList;
@@ -31,15 +32,15 @@ class FavoritesScreen extends StatelessWidget {
           return Conditional.single(
             context: context,
             conditionBuilder: (context) =>
-                FavoritesCubit.get(context).productList.isNotEmpty,
+                FavoritesCubit.get(context).wishList.isNotEmpty,
             widgetBuilder: (context) {
               return Padding(
                 padding: const EdgeInsets.all(15),
                 child: ListView.separated(
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return showFav(
-                        FavoritesCubit.get(context).productList[index],
+                      return showWishItem(
+                        FavoritesCubit.get(context).wishList[index],
                         index,
                         context,
                       );
@@ -50,16 +51,18 @@ class FavoritesScreen extends StatelessWidget {
                         height: 1,
                       );
                     },
-                    itemCount: FavoritesCubit.get(context).productList.length),
+                    itemCount: FavoritesCubit.get(context).wishList.length),
               );
             },
             fallbackBuilder: (context) => Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image(
-                    image: AssetImage('assets/images/heart.png'),
-                  ),
+                  Lottie.asset('assets/loading/flying-heart.json'),
+                  // Image(
+                  //   image: AssetImage('assets/images/heart.png'),
+                  // ),
+                  SizedBox(height: 15,),
                   Text(
                     ' قائمة المفضلة فارغة...',
                     style: TextStyle(fontSize: 20),

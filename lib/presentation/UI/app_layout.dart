@@ -81,49 +81,46 @@ class AppLayout extends StatelessWidget {
             elevation: 20.0,
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      if (token == null)
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => LoginScreen(),
-                              ),
-                            );
-                          },
-                          child: Text('سجل الدخول الآن'),
-                        ),
-                      if (token != null)
-                       // Image.asset('assets/images/avatar.png', height: 100),
-                        Lottie.asset('assets/loading/hi.json',height: 200,),
-                      SizedBox(
-                        height: 20,
+              child: Column(
+                children: [
+                  if (token == null)
+                    Container(
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginScreen(),
+                            ),
+                          );
+                        },
+                        child: Text('سجل الدخول الآن'),
                       ),
-                      Center(
-                        child: Text(
-                          'أهلا يا $username',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                      ListView.separated(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) => buildDrawerItem(
-                              HomeCubit.get(context).categories[index],
-                              context),
-                          separatorBuilder: (context, index) => Divider(
-                                thickness: 1,
-                                height: 2,
-                              ),
-                          itemCount: HomeCubit.get(context).categories.length),
-                    ],
+                    ),
+                  if (token != null)
+                   // Image.asset('assets/images/avatar.png', height: 100),
+                    Lottie.asset('assets/loading/hi.json',height: 200,),
+                  SizedBox(
+                    height: 20,
                   ),
-                ),
+                  Center(
+                    child: Text(
+                      'أهلا يا $username',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  ListView.separated(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) => buildDrawerItem(
+                          HomeCubit.get(context).categories[index],
+                          context),
+                      separatorBuilder: (context, index) => Divider(
+                            thickness: 1,
+                            height: 2,
+                          ),
+                      itemCount: HomeCubit.get(context).categories.length),
+                ],
               ),
             ),
           ),

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khsomat/Shared/my_colors.dart';
+import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
+import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
 import 'package:khsomat/data/models/products_model.dart';
@@ -15,7 +17,7 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeStates>(
+    return BlocConsumer<FavoritesCubit, FavoritesStates>(
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
@@ -61,8 +63,8 @@ class ProductDetailsScreen extends StatelessWidget {
                               children: <Widget>[
                                 if (product!.prices!.salePrice!.length == 4)
                                   Text(
-                                    product!.prices!.salePrice!.substring(0, 2)
-                                    /*'${product!.price.round()}'*/,
+                                    product!.prices!.salePrice!.substring(
+                                        0, 2) /*'${product!.price.round()}'*/,
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
                                       fontSize: 20.0,
@@ -71,8 +73,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                   ),
                                 if (product!.prices!.salePrice!.length == 5)
                                   Text(
-                                    product!.prices!.salePrice!.substring(0, 3)
-                                    /*'${product!.price.round()}'*/,
+                                    product!.prices!.salePrice!.substring(
+                                        0, 3) /*'${product!.price.round()}'*/,
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
                                       fontSize: 20.0,
@@ -81,8 +83,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                   ),
                                 if (product!.prices!.salePrice!.length == 6)
                                   Text(
-                                    product!.prices!.salePrice!.substring(0, 4)
-                                    /*'${product!.price.round()}'*/,
+                                    product!.prices!.salePrice!.substring(
+                                        0, 4) /*'${product!.price.round()}'*/,
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
                                       fontSize: 20.0,
@@ -91,8 +93,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                   ),
                                 if (product!.prices!.salePrice!.length == 7)
                                   Text(
-                                    product!.prices!.salePrice!.substring(0, 5)
-                                    /*'${product!.price.round()}'*/,
+                                    product!.prices!.salePrice!.substring(
+                                        0, 5) /*'${product!.price.round()}'*/,
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
                                       fontSize: 20.0,
@@ -124,9 +126,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                         product!.prices!.salePrice &&
                                     product!.prices!.regularPrice!.length == 4)
                                   Text(
-                                    product!.prices!.regularPrice!
-                                        .substring(0, 2)
-                                    /* '${product!.oldPrice.round()}'*/,
+                                    product!.prices!.regularPrice!.substring(0,
+                                        2) /* '${product!.oldPrice.round()}'*/,
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
                                       fontSize: 18.0,
@@ -139,9 +140,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                         product!.prices!.salePrice &&
                                     product!.prices!.regularPrice!.length == 5)
                                   Text(
-                                    product!.prices!.regularPrice!
-                                        .substring(0, 3)
-                                    /* '${product!.oldPrice.round()}'*/,
+                                    product!.prices!.regularPrice!.substring(0,
+                                        3) /* '${product!.oldPrice.round()}'*/,
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
                                       fontSize: 18.0,
@@ -154,9 +154,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                         product!.prices!.salePrice &&
                                     product!.prices!.regularPrice!.length == 6)
                                   Text(
-                                    product!.prices!.regularPrice!
-                                        .substring(0, 4)
-                                    /* '${product!.oldPrice.round()}'*/,
+                                    product!.prices!.regularPrice!.substring(0,
+                                        4) /* '${product!.oldPrice.round()}'*/,
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
                                       fontSize: 18.0,
@@ -169,9 +168,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                         product!.prices!.salePrice &&
                                     product!.prices!.regularPrice!.length == 7)
                                   Text(
-                                    product!.prices!.regularPrice!
-                                        .substring(0, 5)
-                                    /* '${product!.oldPrice.round()}'*/,
+                                    product!.prices!.regularPrice!.substring(0,
+                                        5) /* '${product!.oldPrice.round()}'*/,
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
                                       fontSize: 18.0,
@@ -236,7 +234,18 @@ class ProductDetailsScreen extends StatelessWidget {
                                 color: Colors.white,
                               ),
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  FavoritesCubit.get(context)
+                                      .insertToOrderListDatabase(
+                                          id: product!.id!,
+                                          text: product!.name!,
+                                          image: product!.images![0].src!,
+                                          regularprice:
+                                              product!.prices!.regularPrice!,
+                                          saleprice:
+                                              product!.prices!.salePrice!,
+                                          permalink: product!.permalink!);
+                                },
                                 style: ButtonStyle(
                                   overlayColor:
                                       MaterialStateProperty.all(Colors.black),

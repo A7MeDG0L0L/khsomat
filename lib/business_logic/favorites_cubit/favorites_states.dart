@@ -12,10 +12,16 @@ class GetFavoritesLoadingState extends FavoritesStates {}
 class AppCreatedDatabaseState extends FavoritesStates {}
 class AppInsertedToDatabaseState extends FavoritesStates {}
 
-class AppGetDatabaseLoadingState extends FavoritesStates {}
+class AppGetWishListDatabaseLoadingState extends FavoritesStates {}
+class AppGetOrderListDatabaseLoadingState extends FavoritesStates {}
 
-class GetFromDataBaseState extends FavoritesStates{}
+class GetWishListFromDataBaseState extends FavoritesStates{}
+class GetOrderListFromDataBaseState extends FavoritesStates{}
 
 class RemoveDataFromDatabase extends FavoritesStates{}
 
-class DeleteDataFromDatabaseState extends FavoritesStates {}
+class DeleteWishListDataFromDatabaseState extends FavoritesStates {}
+class DeleteOrderListDataFromDatabaseState extends FavoritesStates {}
+
+class IncreaseQuantityState extends FavoritesStates{}
+class DecreaseQuantityState extends FavoritesStates{}
