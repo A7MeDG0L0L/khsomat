@@ -111,6 +111,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                 SizedBox(
                                   width: 10.0,
                                 ),
+                                if(product!.onSale==true)
                                 Text(
                                   'بدلاً من',
                                   style: TextStyle(
@@ -244,7 +245,9 @@ class ProductDetailsScreen extends StatelessWidget {
                                               product!.prices!.regularPrice!,
                                           saleprice:
                                               product!.prices!.salePrice!,
-                                          permalink: product!.permalink!);
+                                          permalink: product!.permalink!,
+                                    quantity: product!.quantityLimit!,
+                                  );
                                 },
                                 style: ButtonStyle(
                                   overlayColor:

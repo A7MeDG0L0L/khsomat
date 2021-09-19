@@ -1,19 +1,39 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
+import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
+import 'package:khsomat/data/models/products_model.dart';
 import 'package:share/share.dart';
 
 Widget showOrderItem(
-    Map model,
-    index,
-    context,
-    // Product? product,
-    ) {
+  Map model,
+  index,
+  context,
+{Product? product}
+) {
+  dynamic convertPrice(int length) {
+    if (model['saleprice'].length == length) {
+      String price = model['saleprice'];
+      String stringPrice = price.substring(0, length - 2);
+      int parsePrice = int.parse(stringPrice);
+      return parsePrice;
+    }
+  }
+  int quantity= product!.quantity;
+
+
+  //   String price = model['saleprice'];
+  // String stringPrice =  price.substring(0,3);
+  //   int parsePrice= int.parse(stringPrice);
+//   var intPrice= parsePrice.toStringAsFixed(4);
+// //  print(intPrice.toStringAsFixed(5));
+  //print(intPrice);
   double cardWidth = MediaQuery.of(context).size.width / 1.8;
   return Dismissible(
     key: UniqueKey(),
     onDismissed: (direction) {
-      FavoritesCubit.get(context).deleteItemOrderListFromDatabase(id: model['id']);
+      FavoritesCubit.get(context)
+          .deleteItemOrderListFromDatabase(id: model['id']);
     },
     child: Column(
       children: [
@@ -69,27 +89,93 @@ Widget showOrderItem(
                           ),
 
                           /// Rating
-                          Container(
-                            height: 40,
-                            child: Center(
-                              child: Text.rich(
-                                TextSpan(children: <InlineSpan>[
-                                  WidgetSpan(
-                                    child: Icon(
-                                      Icons.star,
-                                      size: 14,
-                                      color: Colors.yellow,
+                          // Container(
+                          //   height: 40,
+                          //   child: Center(
+                          //     child: Text.rich(
+                          //       TextSpan(children: <InlineSpan>[
+                          //         WidgetSpan(
+                          //           child: Icon(
+                          //             Icons.star,
+                          //             size: 14,
+                          //             color: Colors.yellow,
+                          //           ),
+                          //         ),
+                          //         TextSpan(text: " "),
+                          //         TextSpan(text: "4.5"
+                          //           // "${product.reviewCount < 0 ? "4.0" : "4.0"}",
+                          //           // style: spn,
+                          //         ),
+                          //       ]),
+                          //     ),
+                          //   ),
+                          // )
+                          Spacer(),
+                          Column(
+                            children: [
+                              Text('الكمية'),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  TextButton(
+                                    onPressed: () {
+                                     // FavoritesCubit.get(context).quantity++;
+                                     // model['quantity']++;
+                                     //  FavoritesCubit.get(context)
+                                     //      .increaseQuantity(index);
+                                      quantity++;
+                                      FavoritesCubit.get(context).increaseQuantity();
+
+                                    // var quantity =  product!.quantity;
+                                    // quantity++;
+                                    // FavoritesCubit.get(context).emit(IncreaseQuantityState());
+                                    },
+                                    style: ButtonStyle(),
+                                    child: Text(
+                                      '+',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                      ),
                                     ),
                                   ),
-                                  TextSpan(text: " "),
-                                  TextSpan(text: "4.5"
-                                    // "${product.reviewCount < 0 ? "4.0" : "4.0"}",
-                                    // style: spn,
+                                  //SizedBox(width: 20,),
+                                  Text(
+                                    '$quantity'
+                                   // '${model['quantity']}'
+                                  //  '${FavoritesCubit.get(context).quantity}',
+                                    //'${model['quantity']}',
                                   ),
-                                ]),
+                                  // SizedBox(width: 10,),
+                                  TextButton(
+                                    onPressed: () {
+                                      // FavoritesCubit.get(context)
+                                      //     .decreaseQuantity();
+                                      if(quantity > 1)
+                                      {
+                                        quantity--;
+                                      }
+                                      FavoritesCubit.get(context).decreaseQuantity();
+
+                                      // var quantity =  product.quantity;
+                                      // quantity--;
+                                      // FavoritesCubit.get(context).emit(DecreaseQuantityState());
+                                    },
+                                    child: Text(
+                                      '-',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          )
+                            ],
+                          ),
                         ],
                       ),
                       Container(
@@ -119,35 +205,6 @@ Widget showOrderItem(
                                 ),
                               ),
                             ),
-                            Column(
-                              children: [
-                                Text('الكمية'),
-                                SizedBox(height: 10,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    CircleAvatar(
-                                      radius:20,
-                                      backgroundColor: Colors.amber,
-                                      child: TextButton(onPressed: (){
-                                        FavoritesCubit.get(context).increaseQuantity();
-                                      }, child: Text('+',style: TextStyle(color: Colors.black,fontSize: 20),)),
-                                    ),
-                                    SizedBox(width: 20,),
-                                    Text('${FavoritesCubit.get(context).quantity}'),
-                                    SizedBox(width: 20,),
-                                    CircleAvatar(
-                                      radius: 20,
-                                      backgroundColor: Colors.amber,
-                                      child: TextButton(onPressed: (){
-                                       FavoritesCubit.get(context).decreaseQuantity();
-                                      }, child: Text('-',style: TextStyle(color: Colors.black,fontSize: 20),),),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
@@ -155,11 +212,12 @@ Widget showOrderItem(
                                 // height: 30,
                                 width: double.infinity,
                                 padding:
-                                const EdgeInsets.only(left: 10, right: 10),
+                                    const EdgeInsets.only(left: 10, right: 10),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(10),
-                                      bottomRight: Radius.circular(10)),
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10),
+                                  ),
                                   color: Colors.blueAccent,
                                 ),
                                 child: Center(
@@ -170,32 +228,38 @@ Widget showOrderItem(
                                       children: [
                                         if (model['saleprice'].length == 4)
                                           TextSpan(
-                                            text:
-                                            '${model['saleprice'].substring(0, 2)}',
-                                            //'$productprice',
-                                            // style: sPriceSmall,
-                                          ),
+                                              text:
+                                                  //'${intPrice}',
+                                                  '${convertPrice(4)! * FavoritesCubit.get(context).quantity}'
+                                              //'${model['saleprice'].substring(0, 2)*FavoritesCubit.get(context).quantity}',
+                                              //'$productprice',
+                                              // style: sPriceSmall,
+                                              ),
                                         if (model['saleprice'].length == 5)
                                           TextSpan(
-                                            text:
-                                            '${model['saleprice'].substring(0, 3)}',
-                                            //'$productprice',
-                                            // style: sPriceSmall,
-                                          ),
+                                              text:
+                                                  //  '${intPrice}',
+                                                  '${convertPrice(5)! * FavoritesCubit.get(context).quantity}'
+                                              //'${model['saleprice'].substring(0, 3)*FavoritesCubit.get(context).quantity}',
+                                              //'$productprice',
+                                              // style: sPriceSmall,
+                                              ),
                                         if (model['saleprice'].length == 6)
                                           TextSpan(
-                                            text:
-                                            '${model['saleprice'].substring(0, 4)}',
-                                            //'$productprice',
-                                            // style: sPriceSmall,
-                                          ),
+                                              text:
+                                                  '${convertPrice(6)! * FavoritesCubit.get(context).quantity}'
+                                              //  '${model['saleprice'].substring(0, 4)*FavoritesCubit.get(context).quantity}',
+                                              //'$productprice',
+                                              // style: sPriceSmall,
+                                              ),
                                         if (model['saleprice'].length == 7)
                                           TextSpan(
-                                            text:
-                                            '${model['saleprice'].substring(0, 5)}',
-                                            //'$productprice',
-                                            // style: sPriceSmall,
-                                          ),
+                                              text:
+                                                  '${convertPrice(7)! * FavoritesCubit.get(context).quantity}'
+                                              //'${model['saleprice'].substring(0, 5)*FavoritesCubit.get(context).quantity}',
+                                              //'$productprice',
+                                              // style: sPriceSmall,
+                                              ),
                                         TextSpan(
                                           text: ' ',
                                           // style: sSymbleWhite,
@@ -240,7 +304,8 @@ Widget showOrderItem(
                                     // FavoritesCubit.get(context).getDataFromDatabase(database);
                                     print(FavoritesCubit.get(context).database);
                                     FavoritesCubit.get(context)
-                                        .deleteItemOrderListFromDatabase(id: model['id']);
+                                        .deleteItemOrderListFromDatabase(
+                                            id: model['id']);
 
                                     // FavoritesCubit.get(context).deleteFromDatabase(id: model['id']);
                                     //   favList.removeFromFav(favList.favoriteList[index]);

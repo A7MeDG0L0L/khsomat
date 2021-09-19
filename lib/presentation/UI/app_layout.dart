@@ -65,7 +65,7 @@ class AppLayout extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (context) => Directionality(
                           textDirection: TextDirection.rtl,
-                          child: SearchScreen()),
+                          child: SearchScreen(),),
                     ),
                   );
                 },
@@ -79,48 +79,52 @@ class AppLayout extends StatelessWidget {
           drawer: Drawer(
             semanticLabel: 'Menu',
             elevation: 20.0,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                children: [
-                  if (token == null)
-                    Container(
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginScreen(),
-                            ),
-                          );
-                        },
-                        child: Text('سجل الدخول الآن'),
+            child: SafeArea(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: [
+                    if (token == null)
+                      Container(
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LoginScreen(),
+                              ),
+                            );
+                          },
+                          child: Text('سجل الدخول الآن'),
+                        ),
+                      ),
+                    if (token != null)
+                     Image.asset('assets/images/avatar.png', height: 100),
+                     // Lottie.asset('assets/loading/hi.json',height: 200,),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Center(
+                      child: Text(
+                        'أهلا يا $username',
+                        style: TextStyle(fontSize: 20),
                       ),
                     ),
-                  if (token != null)
-                   // Image.asset('assets/images/avatar.png', height: 100),
-                    Lottie.asset('assets/loading/hi.json',height: 200,),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Center(
-                    child: Text(
-                      'أهلا يا $username',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                  ListView.separated(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) => buildDrawerItem(
-                          HomeCubit.get(context).categories[index],
-                          context),
-                      separatorBuilder: (context, index) => Divider(
-                            thickness: 1,
-                            height: 2,
-                          ),
-                      itemCount: HomeCubit.get(context).categories.length),
-                ],
+                    //Image.asset('assets/images/avatar.png'),
+                    ListView.separated(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
+                        itemBuilder: (context, index) => buildDrawerItem(
+                            HomeCubit.get(context).categories[index],
+                            context),
+                        separatorBuilder: (context, index) => Divider(
+                          thickness: 1,
+                          height: 2,
+                        ),
+                        itemCount: HomeCubit.get(context).categories.length),
+                  ],
+                ),
               ),
             ),
           ),

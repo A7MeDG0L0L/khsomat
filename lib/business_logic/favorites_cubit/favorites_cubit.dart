@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
+import 'package:khsomat/data/models/products_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 class FavoritesCubit extends Cubit<FavoritesStates> {
@@ -24,7 +25,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
                 'CREATE TABLE wishlist (id INTEGER PRIMARY KEY, title TEXT, image TEXT, regularprice TEXT,saleprice TEXT,permalink TEXT)');
         database
             .execute(
-            'CREATE TABLE orderlist (id INTEGER PRIMARY KEY, title TEXT, image TEXT, regularprice TEXT,saleprice TEXT,permalink TEXT)');
+            'CREATE TABLE orderlist (id INTEGER PRIMARY KEY, title TEXT, image TEXT, regularprice TEXT,saleprice TEXT,permalink TEXT,quantity INTEGER)');
 
         print('table Created Successfully !');
         //     .catchError((error) {
@@ -52,6 +53,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     required String regularprice,
     required String saleprice,
     required String permalink,
+
   }) async {
     await database.transaction((txn) async {
       return await txn
@@ -75,11 +77,12 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     required String regularprice,
     required String saleprice,
     required String permalink,
+    required int quantity,
   }) async {
     await database.transaction((txn) async {
       return await txn
           .rawInsert(
-          'INSERT INTO orderlist(title,image,regularprice,saleprice,permalink) VALUES("$text","$image","$regularprice","$saleprice","$permalink")')
+          'INSERT INTO orderlist(title,image,regularprice,saleprice,permalink,quantity) VALUES("$text","$image","$regularprice","$saleprice","$permalink","$quantity")')
           .then((value) {
         print('$value inserted successfully');
         getWishListDataFromDatabase(database);
@@ -140,17 +143,27 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     });
   }
 
-  int quantity=1;
+  // Product? product;
+  //
+  // int? quantity = product!.quantityLimit!;
+  //var quantity2= database.rawQuery('SELECT quantity from orderlist');
+int quantity=1;
+
+  void updateQuantity(){
+    var quantity = database.rawUpdate('');
+  }
 
   void increaseQuantity(){
-    quantity++;
+
+ //   quantity++;
     emit(IncreaseQuantityState());
   }
   void decreaseQuantity(){
-    if(quantity > 1)
-      {
-        quantity--;
-      }
+    // if(quantity > 1)
+    //   {
+    //     quantity--;
+    //   }
     emit(DecreaseQuantityState());
   }
+
 }

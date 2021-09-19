@@ -288,7 +288,8 @@ Widget showWishItem(
   return Dismissible(
     key: UniqueKey(),
     onDismissed: (direction) {
-      FavoritesCubit.get(context).deleteItemWishListFromDatabase(id: model['id']);
+      FavoritesCubit.get(context)
+          .deleteItemWishListFromDatabase(id: model['id']);
     },
     child: Column(
       children: [
@@ -486,7 +487,8 @@ Widget showWishItem(
                                     // FavoritesCubit.get(context).getDataFromDatabase(database);
                                     print(FavoritesCubit.get(context).database);
                                     FavoritesCubit.get(context)
-                                        .deleteItemWishListFromDatabase(id: model['id']);
+                                        .deleteItemWishListFromDatabase(
+                                            id: model['id']);
 
                                     // FavoritesCubit.get(context).deleteFromDatabase(id: model['id']);
                                     //   favList.removeFromFav(favList.favoriteList[index]);
@@ -520,6 +522,16 @@ Widget showWishItem(
                                 GestureDetector(
                                   onTap: () {
                                     // // TODO: ADD TO CART
+                                    FavoritesCubit.get(context)
+                                        .insertToOrderListDatabase(
+                                      id: model['id'],
+                                      text: model['title'],
+                                      image: model['image'],
+                                      regularprice: model['regularprice'],
+                                      saleprice: model['saleprice'],
+                                      permalink: model['permalink'],
+                                      quantity: model['quantity'],
+                                    );
                                     // // CartItem cartItem = CartItem(widget.product, quantity);
                                     //
                                     // var add = context
