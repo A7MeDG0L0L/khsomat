@@ -40,6 +40,7 @@ class Product {
     required this.quantityLimit,
     required this.addToCart,
     required this.quantity,
+    //required this.counter,
   });
 
   int? id;
@@ -69,7 +70,8 @@ class Product {
   bool? soldIndividually;
   int? quantityLimit;
   AddToCart? addToCart;
-  int quantity = 1;
+    int quantity = 1;
+ // Quantity counter=1;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         id: json["id"],
@@ -102,6 +104,7 @@ class Product {
         quantityLimit: json["quantity_limit"],
         addToCart: AddToCart.fromJson(json["add_to_cart"]),
         quantity: 1,
+       // counter: Quantity(counter: 1),
       );
 
   Map<String, dynamic> toJson() => {
@@ -133,6 +136,19 @@ class Product {
         "quantity_limit": quantityLimit,
         "add_to_cart": addToCart!.toJson(),
       };
+}
+
+class Quantity {
+  int counter = 1;
+  Quantity({required this.counter});
+
+  void increaseCounter(){
+    counter++;
+  }
+  void decreaseCounter(){
+   if(counter>1)
+     counter--;
+  }
 }
 
 class AddToCart {

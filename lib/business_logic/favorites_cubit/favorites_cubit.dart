@@ -143,26 +143,29 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     });
   }
 
-  // Product? product;
+   Product? product;
   //
-  // int? quantity = product!.quantityLimit!;
+  // int quantity = product!.quantityLimit!;
   //var quantity2= database.rawQuery('SELECT quantity from orderlist');
+
 int quantity=1;
+
+
 
   void updateQuantity(){
     var quantity = database.rawUpdate('');
   }
 
   void increaseQuantity(){
-
- //   quantity++;
+    print(product);
+   quantity++;
     emit(IncreaseQuantityState());
   }
   void decreaseQuantity(){
-    // if(quantity > 1)
-    //   {
-    //     quantity--;
-    //   }
+    if(quantity > 1)
+      {
+        quantity--;
+      }
     emit(DecreaseQuantityState());
   }
 

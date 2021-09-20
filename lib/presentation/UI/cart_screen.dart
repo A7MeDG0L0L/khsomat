@@ -14,6 +14,7 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   // final Product product;
     return BlocProvider(
       create: (context) => FavoritesCubit()
         ..createDatabase()

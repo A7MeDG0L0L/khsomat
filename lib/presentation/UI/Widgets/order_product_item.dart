@@ -9,7 +9,7 @@ Widget showOrderItem(
   Map model,
   index,
   context,
-{Product? product}
+{ Product? product}
 ) {
   dynamic convertPrice(int length) {
     if (model['saleprice'].length == length) {
@@ -19,9 +19,10 @@ Widget showOrderItem(
       return parsePrice;
     }
   }
-  int quantity= product!.quantity;
-
-
+  var counter = 1;
+  // var quantity= product!.quantity;
+//  print(quantity);
+  print(product);
   //   String price = model['saleprice'];
   // String stringPrice =  price.substring(0,3);
   //   int parsePrice= int.parse(stringPrice);
@@ -126,10 +127,19 @@ Widget showOrderItem(
                                      // model['quantity']++;
                                      //  FavoritesCubit.get(context)
                                      //      .increaseQuantity(index);
-                                      quantity++;
-                                      FavoritesCubit.get(context).increaseQuantity();
+                                   //   Quantity
 
-                                    // var quantity =  product!.quantity;
+                                      //quantity++;
+                                      //print(product.quantity);
+                                    // model['quantity'][index]++;
+                                    //  FavoritesCubit.get(context).orderList['quantity'][index];
+                                      FavoritesCubit.get(context).increaseQuantity();
+                                     // print('increase Button Pressed With index : $index');
+                                     // print(FavoritesCubit.get(context).orderList);
+
+
+
+                                      // var quantity =  product!.quantity;
                                     // quantity++;
                                     // FavoritesCubit.get(context).emit(IncreaseQuantityState());
                                     },
@@ -144,21 +154,35 @@ Widget showOrderItem(
                                   ),
                                   //SizedBox(width: 20,),
                                   Text(
-                                    '$quantity'
+                                    '$counter',
+                                    //'$quantity',
+                                  //  '${model['quantity'][index]}',
+                                    //'$quantity',
                                    // '${model['quantity']}'
-                                  //  '${FavoritesCubit.get(context).quantity}',
+                                  // '${FavoritesCubit.get(context).quantity}',
                                     //'${model['quantity']}',
                                   ),
                                   // SizedBox(width: 10,),
                                   TextButton(
                                     onPressed: () {
+                                      // if (FavoritesCubit.get(context).quantity>1){
+                                      //
+                                      // }
+                                      // if(model['quantity'][index]>1)
+                                      //   {
+                                      //     model['quantity'][index]--;
+                                      //   }
                                       // FavoritesCubit.get(context)
-                                      //     .decreaseQuantity();
-                                      if(quantity > 1)
-                                      {
-                                        quantity--;
-                                      }
-                                      FavoritesCubit.get(context).decreaseQuantity();
+                                      // //     .decreaseQuantity();
+                                      // if(quantity > 1)
+                                      // {
+                                      //   quantity--;
+                                      // }
+                                      // print(product.quantity);
+                                      // FavoritesCubit.get(context).decreaseQuantity();
+                                      //
+                                      // print('Decrease Button Pressed With index : $index');
+                                      // print(FavoritesCubit.get(context).orderList);
 
                                       // var quantity =  product.quantity;
                                       // quantity--;
