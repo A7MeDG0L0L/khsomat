@@ -39,7 +39,7 @@ class ProductItem extends StatelessWidget {
                           image: product.images![0].src!,
                           width: double.infinity,
                           height: 200.0,
-                          placeholder: 'assets/loading/loading.gif',
+                          placeholder: 'assets/loading/loading2.gif',
                         )
                             : Image.asset('assets/images/placeholder.jpg'),
                       ),

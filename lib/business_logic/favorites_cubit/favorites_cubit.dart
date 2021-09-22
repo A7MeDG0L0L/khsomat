@@ -151,17 +151,12 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
 int quantity=1;
 
 
+  void increaseQuantity(index){
 
-  void updateQuantity(){
-    var quantity = database.rawUpdate('');
-  }
-
-  void increaseQuantity(){
-    print(product);
    quantity++;
     emit(IncreaseQuantityState());
   }
-  void decreaseQuantity(){
+  void decreaseQuantity(index){
     if(quantity > 1)
       {
         quantity--;

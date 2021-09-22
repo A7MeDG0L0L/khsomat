@@ -133,7 +133,7 @@ Widget showOrderItem(
                                       //print(product.quantity);
                                     // model['quantity'][index]++;
                                     //  FavoritesCubit.get(context).orderList['quantity'][index];
-                                      FavoritesCubit.get(context).increaseQuantity();
+                                      FavoritesCubit.get(context).increaseQuantity(index);
                                      // print('increase Button Pressed With index : $index');
                                      // print(FavoritesCubit.get(context).orderList);
 
@@ -154,12 +154,12 @@ Widget showOrderItem(
                                   ),
                                   //SizedBox(width: 20,),
                                   Text(
-                                    '$counter',
+                                   // '$counter',
                                     //'$quantity',
                                   //  '${model['quantity'][index]}',
                                     //'$quantity',
                                    // '${model['quantity']}'
-                                  // '${FavoritesCubit.get(context).quantity}',
+                                   '${FavoritesCubit.get(context).quantity}',
                                     //'${model['quantity']}',
                                   ),
                                   // SizedBox(width: 10,),
@@ -179,7 +179,7 @@ Widget showOrderItem(
                                       //   quantity--;
                                       // }
                                       // print(product.quantity);
-                                      // FavoritesCubit.get(context).decreaseQuantity();
+                                       FavoritesCubit.get(context).decreaseQuantity(index);
                                       //
                                       // print('Decrease Button Pressed With index : $index');
                                       // print(FavoritesCubit.get(context).orderList);

@@ -448,7 +448,7 @@ class HomeScreen extends StatelessWidget {
       child: Container(
           height: 150,
           width: 200,
-          child: Lottie.asset('assets/loading/loading.json')),
+          child: Lottie.asset('assets/loading/lottielogojson.json')),
     );
   }
 }
