@@ -246,7 +246,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                           saleprice:
                                               product!.prices!.salePrice!,
                                           permalink: product!.permalink!,
-                                    quantity: product!.quantityLimit!,
+                                    quantity: 1,
                                   );
                                 },
                                 style: ButtonStyle(

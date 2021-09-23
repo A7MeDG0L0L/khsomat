@@ -530,7 +530,7 @@ Widget showWishItem(
                                       regularprice: model['regularprice'],
                                       saleprice: model['saleprice'],
                                       permalink: model['permalink'],
-                                      quantity: model['quantity'],
+                                      quantity: 1,
                                     );
                                     // // CartItem cartItem = CartItem(widget.product, quantity);
                                     //

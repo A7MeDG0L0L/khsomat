@@ -22,7 +22,7 @@ Widget showOrderItem(
   var counter = 1;
   // var quantity= product!.quantity;
 //  print(quantity);
-  print(product);
+ // print(product);
   //   String price = model['saleprice'];
   // String stringPrice =  price.substring(0,3);
   //   int parsePrice= int.parse(stringPrice);
@@ -159,7 +159,7 @@ Widget showOrderItem(
                                   //  '${model['quantity'][index]}',
                                     //'$quantity',
                                    // '${model['quantity']}'
-                                   '${FavoritesCubit.get(context).quantity}',
+                                   '${FavoritesCubit.get(context). orderList[index]['quantity']}',
                                     //'${model['quantity']}',
                                   ),
                                   // SizedBox(width: 10,),
@@ -254,7 +254,7 @@ Widget showOrderItem(
                                           TextSpan(
                                               text:
                                                   //'${intPrice}',
-                                                  '${convertPrice(4)! * FavoritesCubit.get(context).quantity}'
+                                                  '${convertPrice(4)! * FavoritesCubit.get(context).orderList[index]['quantity']}'
                                               //'${model['saleprice'].substring(0, 2)*FavoritesCubit.get(context).quantity}',
                                               //'$productprice',
                                               // style: sPriceSmall,
@@ -263,7 +263,7 @@ Widget showOrderItem(
                                           TextSpan(
                                               text:
                                                   //  '${intPrice}',
-                                                  '${convertPrice(5)! * FavoritesCubit.get(context).quantity}'
+                                                  '${convertPrice(5)! *FavoritesCubit.get(context).orderList[index]['quantity']}'
                                               //'${model['saleprice'].substring(0, 3)*FavoritesCubit.get(context).quantity}',
                                               //'$productprice',
                                               // style: sPriceSmall,
@@ -271,7 +271,7 @@ Widget showOrderItem(
                                         if (model['saleprice'].length == 6)
                                           TextSpan(
                                               text:
-                                                  '${convertPrice(6)! * FavoritesCubit.get(context).quantity}'
+                                                  '${convertPrice(6)! * FavoritesCubit.get(context).orderList[index]['quantity']}'
                                               //  '${model['saleprice'].substring(0, 4)*FavoritesCubit.get(context).quantity}',
                                               //'$productprice',
                                               // style: sPriceSmall,
@@ -279,7 +279,7 @@ Widget showOrderItem(
                                         if (model['saleprice'].length == 7)
                                           TextSpan(
                                               text:
-                                                  '${convertPrice(7)! * FavoritesCubit.get(context).quantity}'
+                                                  '${convertPrice(7)! *FavoritesCubit.get(context).orderList[index]['quantity']}'
                                               //'${model['saleprice'].substring(0, 5)*FavoritesCubit.get(context).quantity}',
                                               //'$productprice',
                                               // style: sPriceSmall,

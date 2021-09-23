@@ -36,22 +36,47 @@ class FavoritesScreen extends StatelessWidget {
             widgetBuilder: (context) {
               return Padding(
                 padding: const EdgeInsets.all(15),
-                child: ListView.separated(
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return showWishItem(
-                        FavoritesCubit.get(context).wishList[index],
-                        index,
-                        context,
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return Divider(
-                        thickness: 1,
-                        height: 1,
-                      );
-                    },
-                    itemCount: FavoritesCubit.get(context).wishList.length),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    children: [
+                      ListView.separated(
+                          physics: BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return showWishItem(
+                              FavoritesCubit.get(context).wishList[index],
+                              index,
+                              context,
+                            );
+                          },
+                          separatorBuilder: (context, index) {
+                            return Divider(
+                              thickness: 1,
+                              height: 1,
+                            );
+                          },
+                          itemCount:
+                              FavoritesCubit.get(context).wishList.length),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Container(
+                          width: double.infinity,
+                          height: 60,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              FavoritesCubit.get(context).deleteAllItemsFromWishList();
+                            },
+                            child: Text(
+                              'حذف جميع المنتجات المفضلة',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               );
             },
             fallbackBuilder: (context) => Center(
@@ -62,7 +87,9 @@ class FavoritesScreen extends StatelessWidget {
                   // Image(
                   //   image: AssetImage('assets/images/heart.png'),
                   // ),
-                  SizedBox(height: 15,),
+                  SizedBox(
+                    height: 15,
+                  ),
                   Text(
                     ' قائمة المفضلة فارغة...',
                     style: TextStyle(fontSize: 20),

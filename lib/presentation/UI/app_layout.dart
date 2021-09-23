@@ -56,7 +56,7 @@ class AppLayout extends StatelessWidget {
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            title: SvgPicture.asset('assets/images/120x120 SVG white.svg',),
+            title: SvgPicture.asset('assets/images/120x120 SVG white.svg',color: Colors.white,cacheColorFilter: true,),
             //Image(image: AssetImage('assets/images/150x150 Png White-01.png'),),
             actions: [
               IconButton(

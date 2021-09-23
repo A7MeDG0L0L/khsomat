@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
+import 'package:khsomat/Shared/components.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
 import 'package:khsomat/data/models/products_model.dart';
@@ -9,12 +11,18 @@ import 'package:lottie/lottie.dart';
 import 'Widgets/order_product_item.dart';
 
 class CartScreen extends StatelessWidget {
-  const CartScreen({Key? key}) : super(key: key);
+  CartScreen({Key? key}) : super(key: key);
 
+  var firstNameController = TextEditingController();
+  var lastNameController = TextEditingController();
+  var addressController = TextEditingController();
+  var cityController = TextEditingController();
+  var emailController = TextEditingController();
+  var phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-   // final Product product;
+    // final Product product;
     return BlocProvider(
       create: (context) => FavoritesCubit()
         ..createDatabase()
@@ -53,10 +61,18 @@ class CartScreen extends StatelessWidget {
                           width: double.infinity,
                           height: 60,
                           child: ElevatedButton(
-                            onPressed: () {},
-                            child: Text('إنشئ الطلب',style: TextStyle(fontSize: 20),),
-                            style: ButtonStyle(
+                            onPressed: () {
+                              showBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return showSheet();
+                                  });
+                            },
+                            child: Text(
+                              'إنشئ الطلب',
+                              style: TextStyle(fontSize: 20),
                             ),
+                            style: ButtonStyle(),
                           ),
                         ),
                       ),
@@ -65,19 +81,57 @@ class CartScreen extends StatelessWidget {
                 );
               },
               fallbackBuilder: (context) => Center(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Lottie.asset('assets/loading/empty.json'),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Text('السلة تبدو فارغه 🙄'),
-                ],
-              )),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset('assets/loading/empty.json'),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Text('السلة تبدو فارغه 🙄'),
+                  ],
+                ),
+              ),
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget showSheet() {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              defaultFormField(
+                  controller: firstNameController,
+                  type: TextInputType.text,
+                  validate: (String value) {
+                    if (value.isEmpty) {
+                      return 'يجب إدخال الإسم الأول';
+                    }
+                  },
+                  label: 'الإسم الأول',
+                  prefix: Icons.person),
+              defaultFormField(
+                  controller: lastNameController,
+                  type: TextInputType.text,
+                  validate: (String value) {
+                    if (value.isEmpty) {
+                      return 'يجب إدخال الإسم الأول';
+                    }
+                  },
+                  label: 'الإسم الأخير',
+                  prefix: Icons.person),
+            ],
+          ),
+          ElevatedButton(onPressed: (){
+
+          }, child: Text('إدفع'),),
+        ],
       ),
     );
   }

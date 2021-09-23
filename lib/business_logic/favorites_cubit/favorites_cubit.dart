@@ -1,3 +1,5 @@
+
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
@@ -13,18 +15,17 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
 
   List<Map<dynamic, dynamic>> wishList = [];
   List<Map<dynamic, dynamic>> orderList = [];
+  List<Map<dynamic, dynamic>> copyList = [];
 
   Future<void> createDatabase() async {
-  database = await openDatabase(
+    database = await openDatabase(
       'wishlist.db',
       version: 1,
       onCreate: (database, version) {
         print('database Created Successfully !');
-        database
-            .execute(
-                'CREATE TABLE wishlist (id INTEGER PRIMARY KEY, title TEXT, image TEXT, regularprice TEXT,saleprice TEXT,permalink TEXT)');
-        database
-            .execute(
+        database.execute(
+            'CREATE TABLE wishlist (id INTEGER PRIMARY KEY, title TEXT, image TEXT, regularprice TEXT,saleprice TEXT,permalink TEXT)');
+        database.execute(
             'CREATE TABLE orderlist (id INTEGER PRIMARY KEY, title TEXT, image TEXT, regularprice TEXT,saleprice TEXT,permalink TEXT,quantity INTEGER)');
 
         print('table Created Successfully !');
@@ -39,11 +40,10 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
         print('database Opened Successfully !');
       },
     );
-     // database = value;
-      print(wishList);
+    // database = value;
+    print(wishList);
 
-      emit(AppCreatedDatabaseState());
-
+    emit(AppCreatedDatabaseState());
   }
 
   Future insertToDatabase({
@@ -53,7 +53,6 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     required String regularprice,
     required String saleprice,
     required String permalink,
-
   }) async {
     await database.transaction((txn) async {
       return await txn
@@ -82,7 +81,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     await database.transaction((txn) async {
       return await txn
           .rawInsert(
-          'INSERT INTO orderlist(title,image,regularprice,saleprice,permalink,quantity) VALUES("$text","$image","$regularprice","$saleprice","$permalink","$quantity")')
+              'INSERT INTO orderlist(title,image,regularprice,saleprice,permalink,quantity) VALUES("$text","$image","$regularprice","$saleprice","$permalink","$quantity")')
           .then((value) {
         print('$value inserted successfully');
         getWishListDataFromDatabase(database);
@@ -113,7 +112,8 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
 
     await database.rawQuery('SELECT * FROM orderlist').then((value) {
       value.forEach((product) {
-        orderList.add(product);
+      //  orderList.add(product);
+        orderList.add(Map.of(product));
         print(orderList);
       });
       emit(GetOrderListFromDataBaseState());
@@ -123,19 +123,16 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
   void deleteItemWishListFromDatabase({
     required int id,
   }) async {
-
     await database
         .rawDelete('DELETE FROM wishlist WHERE id = ?', [id]).then((value) {
-    //  getWishListDataFromDatabase(database);
+      getWishListDataFromDatabase(database);
       emit(DeleteWishListDataFromDatabaseState());
     });
   }
 
-
   void deleteItemOrderListFromDatabase({
     required int id,
   }) async {
-
     await database
         .rawDelete('DELETE FROM orderlist WHERE id = ?', [id]).then((value) {
       getWishListDataFromDatabase(database);
@@ -143,25 +140,50 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     });
   }
 
-   Product? product;
+  void deleteAllItemsFromWishList() async {
+    await database.rawDelete('DELETE FROM wishlist').then((value) {
+      //  getWishListDataFromDatabase(database);
+      emit(DeleteAllItemsFromWishlistState());
+    });
+  }
+
+  Product? product;
   //
   // int quantity = product!.quantityLimit!;
   //var quantity2= database.rawQuery('SELECT quantity from orderlist');
 
-int quantity=1;
+  int quantity = 1;
+
+  void increaseQuantity(index) async {
 
 
-  void increaseQuantity(index){
+    // List<Map<dynamic, dynamic>> modifiedQuantity =
+    //     await database.rawQuery('SELECT * FROM orderlist');
+    //
+    // Map<dynamic, dynamic> quantity = modifiedQuantity[index];
+    // dynamic modifyQuantity = Map<dynamic, dynamic>.from(quantity);
+    // modifyQuantity = (await database.rawUpdate(
+    //     'UPDATE orderlist SET quantity = ${orderList[index][quantity]++} WHERE id = ${index + 1};'));
+    // modifyQuantity['quantity']++;
+    // print('$modifyQuantity and index : $index');
+    // print(modifiedQuantity);
 
-   quantity++;
+    //  var modifiedQuantity = orderList[index]['quantity'];
+    // modifiedQuantity++;
+     orderList[index]['quantity']++;
+     print(orderList[index]['quantity']);
     emit(IncreaseQuantityState());
   }
-  void decreaseQuantity(index){
-    if(quantity > 1)
-      {
-        quantity--;
-      }
+
+  void decreaseQuantity(index) {
+
+    if (orderList[index]['quantity'] > 1) {
+      orderList[index]['quantity']--;
+    }
     emit(DecreaseQuantityState());
   }
 
+  void createOrder(){
+
+  }
 }

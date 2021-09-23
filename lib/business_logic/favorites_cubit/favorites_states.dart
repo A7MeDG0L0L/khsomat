@@ -25,3 +25,5 @@ class DeleteOrderListDataFromDatabaseState extends FavoritesStates {}
 
 class IncreaseQuantityState extends FavoritesStates{}
 class DecreaseQuantityState extends FavoritesStates{}
+class DeleteAllItemsFromWishlistState extends FavoritesStates{}
+class DeleteAllItemsFromOrderlistState extends FavoritesStates{}
