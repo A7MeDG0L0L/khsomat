@@ -19,12 +19,12 @@ class LoginCubit extends Cubit<LoginState> {
     required String password,
   }) {
     emit(LoginLoadingState());
-    ProductsWebServices.dio.post('jwt-auth/v1/token', data: {
+    WebServices.dio.post('jwt-auth/v1/token', data: {
       'username': username,
       'password': password,
     }).then((value) {
       loginResponseModel = LoginResponseModel.fromJson(value.data);
-      emit(LoginSuccessState(loginResponseModel!));
+      emit(LoginSuccessState(loginResponseModel!  ));
     }).catchError((error) {
       print(error.toString());
       emit(LoginErrorState(error));

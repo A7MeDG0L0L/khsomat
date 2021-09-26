@@ -1,9 +1,9 @@
-
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
+import 'package:khsomat/data/models/order_model.dart';
 import 'package:khsomat/data/models/products_model.dart';
+import 'package:khsomat/data/web_services/web_services.dart';
 import 'package:sqflite/sqflite.dart';
 
 class FavoritesCubit extends Cubit<FavoritesStates> {
@@ -112,7 +112,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
 
     await database.rawQuery('SELECT * FROM orderlist').then((value) {
       value.forEach((product) {
-      //  orderList.add(product);
+        //  orderList.add(product);
         orderList.add(Map.of(product));
         print(orderList);
       });
@@ -155,8 +155,6 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
   int quantity = 1;
 
   void increaseQuantity(index) async {
-
-
     // List<Map<dynamic, dynamic>> modifiedQuantity =
     //     await database.rawQuery('SELECT * FROM orderlist');
     //
@@ -170,20 +168,65 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
 
     //  var modifiedQuantity = orderList[index]['quantity'];
     // modifiedQuantity++;
-     orderList[index]['quantity']++;
-     print(orderList[index]['quantity']);
+    orderList[index]['quantity']++;
+    print(orderList[index]['quantity']);
     emit(IncreaseQuantityState());
   }
 
   void decreaseQuantity(index) {
-
     if (orderList[index]['quantity'] > 1) {
       orderList[index]['quantity']--;
     }
     emit(DecreaseQuantityState());
   }
 
-  void createOrder(){
+  OrderModel? orderModel;
+  void createOrder({
+    required String firstname,
+    required String lastname,
+    required String address,
+    required String city,
+    required String email,
+    required String phone,
+    // required String customerNote,
+    // required List itemsList,
+  }) {
+    emit(CreatingOrderLoadingState());
+    WebServices.dio.post(
+      'wc/v3/orders',
+      data: {
+        'currency': 'EGP',
+        "billing": {
+          "first_name": firstname,
+          "last_name": lastname,
+          "address_1": address,
+          "city": city,
+          "country": 'Egypt',
+          "email": email,
+          "phone": phone,
+        },
+        "shipping": {
+          "first_name": firstname,
+          "last_name": lastname,
+          "address_1": address,
+          "city": city,
+          "country": 'Egypt',
+        },
+      },
+      queryParameters: {
+        'Content-Type': "application/json",
+        'consumer_key': 'ck_9eb0aa4e0a0bc07c15549d30051ee9ec90ef2710',
+        'consumer_secret': 'cs_135d3231db48637c464000067a4606147eec301c',
+      },
+    ).then((value) {
+      orderModel = OrderModel.fromJson(value.data);
+      print(orderModel);
 
+      ///TODO:....
+      emit(CreatingOrderSuccessState());
+    }).catchError((error) {
+      print('error while creating order: $error');
+      emit(CreatingOrderErrorState(error));
+    });
   }
 }

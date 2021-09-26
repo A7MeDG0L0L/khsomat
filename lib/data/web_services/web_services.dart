@@ -2,10 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/data/models/register_model.dart';
 
-class ProductsWebServices {
+class WebServices {
   static late Dio dio;
 
-  ProductsWebServices() {
+  WebServices() {
     BaseOptions options = BaseOptions(
       baseUrl: 'https://khsomat.net/wp-json/',
       receiveDataWhenStatusError: true,

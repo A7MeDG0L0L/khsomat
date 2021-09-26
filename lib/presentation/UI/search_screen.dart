@@ -18,7 +18,7 @@ class SearchScreen extends StatelessWidget {
     late List<Product> searchedProducts;
 
     return BlocProvider(
-      create: (BuildContext context) => SearchCubit(ProductRepository(ProductsWebServices())),
+      create: (BuildContext context) => SearchCubit(ProductRepository(WebServices())),
       child: BlocConsumer<SearchCubit, SearchStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -35,21 +35,26 @@ class SearchScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   children: [
-                    defaultFormField(
+                    SizedBox(height: 15,),
+                    TextFormField(
                       controller: searchController,
-                      type: TextInputType.text,
-                      validate: (String value) {
-                        if (value.isEmpty) {
-                          return 'enter text to search';
-                        }
-
-                        return null;
-                      },
-                      onSubmit: (String searchText) {
+                      keyboardType: TextInputType.text,
+                      onFieldSubmitted: (String searchText){
                         SearchCubit.get(context).getAllSearchProducts(searchText);
                       },
-                      label: 'Search',
-                      prefix: Icons.search,
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return 'إدخل كلمة للبحث عنها';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.search),
+                        label: Text('البحث ...'),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
                     ),
                     SizedBox(
                       height: 10.0,

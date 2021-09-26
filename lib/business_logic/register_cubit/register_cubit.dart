@@ -20,7 +20,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
       required String email,
       required String password}) {
     emit(PostRegisterStateLoading());
-    ProductsWebServices.dio.post('wp/v2/users/register', data: {
+    WebServices.dio.post('wp/v2/users/register', data: {
       'username': username,
       'email': email,
       'password': password,

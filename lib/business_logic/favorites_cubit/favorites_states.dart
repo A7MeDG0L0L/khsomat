@@ -27,3 +27,11 @@ class IncreaseQuantityState extends FavoritesStates{}
 class DecreaseQuantityState extends FavoritesStates{}
 class DeleteAllItemsFromWishlistState extends FavoritesStates{}
 class DeleteAllItemsFromOrderlistState extends FavoritesStates{}
+class CreatingOrderLoadingState extends FavoritesStates{}
+class CreatingOrderSuccessState extends FavoritesStates{}
+class CreatingOrderErrorState extends FavoritesStates{
+  final error;
+
+  CreatingOrderErrorState(this.error);
+
+}

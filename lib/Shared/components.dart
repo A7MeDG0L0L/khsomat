@@ -28,11 +28,11 @@ Widget defaultFormField({
       // onChanged: (s) {
       //   onChange!(s);
       // },
-      onTap: () {
-        onTap!();
-      },
+      // onTap: () {
+      //   onTap!();
+      // },
       validator: (s) {
-        validate(s);
+        validate(s!);
       },
       decoration: InputDecoration(
         labelText: label,

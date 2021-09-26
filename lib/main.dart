@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (context) =>
-                HomeCubit(ProductRepository(ProductsWebServices()))
+                HomeCubit(ProductRepository(WebServices()))
                   ..getAllProducts()
                   ..getAllCategories()),
         BlocProvider(create: (context)=> FavoritesCubit()..createDatabase()),

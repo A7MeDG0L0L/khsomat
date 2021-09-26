@@ -107,6 +107,7 @@ class LoginScreen extends StatelessWidget {
                                 if (value.isEmpty) {
                                   return 'يجب إدخال إسم المستخدم';
                                 }
+                                return null;
                               },
                               label: 'إسم المستخدم أو البريد الإلكتروني',
                               prefix: Icons.person,
@@ -121,6 +122,7 @@ class LoginScreen extends StatelessWidget {
                                 if (value.isEmpty) {
                                   return 'يجب إدخال كلمة الحماية';
                                 }
+                                return null;
                               },
                               label: 'كلمة الحماية',
                               prefix: Icons.lock,
