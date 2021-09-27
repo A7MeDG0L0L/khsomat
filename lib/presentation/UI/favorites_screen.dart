@@ -83,7 +83,7 @@ class FavoritesScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Lottie.asset('assets/loading/flying-heart.json'),
+                  Lottie.asset('assets/loading/heart4.json',width: 200,height: 200),
                   // Image(
                   //   image: AssetImage('assets/images/heart.png'),
                   // ),

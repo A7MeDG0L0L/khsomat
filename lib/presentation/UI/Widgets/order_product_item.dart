@@ -218,7 +218,7 @@ Widget showOrderItem(
                                 textDirection: TextDirection.rtl,
                                 child: ListTile(
                                   title: Text(
-                                    '${model['title']}',
+                                    '${model['name']}',
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 4,
                                     // style: sProductName,

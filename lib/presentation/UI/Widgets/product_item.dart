@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khsomat/Shared/components.dart';
@@ -14,18 +13,21 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<FavoritesCubit,FavoritesStates>(listener: (context, state) {
-
-      },
+    return BlocConsumer<FavoritesCubit, FavoritesStates>(
+      listener: (context, state) {},
       builder: (context, state) {
         return InkWell(
           onTap: () {
-            Navigator.pushNamed(context, productDetailsScreen, arguments: product);
+            Navigator.pushNamed(context, productDetailsScreen,
+                arguments: product);
           },
           child: Hero(
             tag: product.id!,
             child: Container(
-              color: Colors.white,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade50,
+                borderRadius: BorderRadius.circular(15),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -33,18 +35,25 @@ class ProductItem extends StatelessWidget {
                     alignment: AlignmentDirectional.bottomStart,
                     children: [
                       Container(
-                        child: product.images!.isNotEmpty
-                            ? FadeInImage.assetNetwork(
-                          fit: BoxFit.cover,
-                          image: product.images![0].src!,
-                          width: double.infinity,
-                          height: 200.0,
-                          placeholder: 'assets/loading/loading2.gif',
-                        )
-                            : Image.asset('assets/images/placeholder.jpg'),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15),
+                          ),
+                          child: product.images!.isNotEmpty
+                              ? FadeInImage.assetNetwork(
+                                  fit: BoxFit.cover,
+                                  image: product.images![0].src!,
+                                  width: double.infinity,
+                                  height: 200.0,
+                                  placeholder: 'assets/loading/loading2.gif',
+                                )
+                              : Image.asset('assets/images/placeholder.jpg'),
+                        ),
                       ),
                       if (product.onSale == true &&
-                          product.prices!.regularPrice! != product.prices!.salePrice!)
+                          product.prices!.regularPrice! !=
+                              product.prices!.salePrice!)
                         Container(
                           color: Colors.red,
                           padding: EdgeInsets.symmetric(
@@ -82,8 +91,8 @@ class ProductItem extends StatelessWidget {
                             children: [
                               if (product.prices!.salePrice!.length == 4)
                                 Text(
-                                  product.prices!.salePrice!.substring(0, 2)
-                                  /*'${product.price.round()}'*/,
+                                  product.prices!.salePrice!.substring(
+                                      0, 2) /*'${product.price.round()}'*/,
                                   style: TextStyle(
                                     fontFamily: 'Almarai',
                                     fontSize: 20.0,
@@ -91,19 +100,22 @@ class ProductItem extends StatelessWidget {
                                   ),
                                 ),
                               if (product.prices!.salePrice!.length == 5)
-                                Text(
-                                  product.prices!.salePrice!.substring(0, 3)
-                                  /*'${product.price.round()}'*/,
-                                  style: TextStyle(
-                                    fontFamily: 'Almarai',
-                                    fontSize: 20.0,
-                                    color: defColor,
+                                Container(
+                                  // color: Colors.blue,
+                                  child: Text(
+                                    product.prices!.salePrice!.substring(
+                                        0, 3) /*'${product.price.round()}'*/,
+                                    style: TextStyle(
+                                      fontFamily: 'Almarai',
+                                      fontSize: 20.0,
+                                      color: Colors.blue,
+                                    ),
                                   ),
                                 ),
                               if (product.prices!.salePrice!.length == 6)
                                 Text(
-                                  product.prices!.salePrice!.substring(0, 4)
-                                  /*'${product.price.round()}'*/,
+                                  product.prices!.salePrice!.substring(
+                                      0, 4) /*'${product.price.round()}'*/,
                                   style: TextStyle(
                                     fontFamily: 'Almarai',
                                     fontSize: 20.0,
@@ -112,8 +124,8 @@ class ProductItem extends StatelessWidget {
                                 ),
                               if (product.prices!.salePrice!.length == 7)
                                 Text(
-                                  product.prices!.salePrice!.substring(0, 5)
-                                  /*'${product.price.round()}'*/,
+                                  product.prices!.salePrice!.substring(
+                                      0, 5) /*'${product.price.round()}'*/,
                                   style: TextStyle(
                                     fontFamily: 'Almarai',
                                     fontSize: 20.0,
@@ -135,8 +147,8 @@ class ProductItem extends StatelessWidget {
                                       product.prices!.salePrice! &&
                                   product.prices!.regularPrice!.length == 4)
                                 Text(
-                                  product.prices!.regularPrice!.substring(0, 2)
-                                  /* '${product.oldPrice.round()}'*/,
+                                  product.prices!.regularPrice!.substring(
+                                      0, 2) /* '${product.oldPrice.round()}'*/,
                                   style: TextStyle(
                                     fontFamily: 'Almarai',
                                     fontSize: 18.0,
@@ -149,8 +161,8 @@ class ProductItem extends StatelessWidget {
                                       product.prices!.salePrice! &&
                                   product.prices!.regularPrice!.length == 5)
                                 Text(
-                                  product.prices!.regularPrice!.substring(0, 3)
-                                  /* '${product.oldPrice.round()}'*/,
+                                  product.prices!.regularPrice!.substring(
+                                      0, 3) /* '${product.oldPrice.round()}'*/,
                                   style: TextStyle(
                                     fontFamily: 'Almarai',
                                     fontSize: 18.0,
@@ -163,8 +175,8 @@ class ProductItem extends StatelessWidget {
                                       product.prices!.salePrice! &&
                                   product.prices!.regularPrice!.length == 6)
                                 Text(
-                                  product.prices!.regularPrice!.substring(0, 4)
-                                  /* '${product.oldPrice.round()}'*/,
+                                  product.prices!.regularPrice!.substring(
+                                      0, 4) /* '${product.oldPrice.round()}'*/,
                                   style: TextStyle(
                                     fontFamily: 'Almarai',
                                     fontSize: 18.0,
@@ -177,8 +189,8 @@ class ProductItem extends StatelessWidget {
                                       product.prices!.salePrice! &&
                                   product.prices!.regularPrice!.length == 7)
                                 Text(
-                                  product.prices!.regularPrice!.substring(0, 5)
-                                  /* '${product.oldPrice.round()}'*/,
+                                  product.prices!.regularPrice!.substring(
+                                      0, 5) /* '${product.oldPrice.round()}'*/,
                                   style: TextStyle(
                                     fontFamily: 'Almarai',
                                     fontSize: 18.0,
@@ -189,15 +201,23 @@ class ProductItem extends StatelessWidget {
                               Spacer(),
                               IconButton(
                                 onPressed: () {
-                                  FavoritesCubit.get(context).insertToDatabase(
-                                    id: product.id!,
-                                    text: product.name!,
-                                    image: product.images![0].src!,
-                                    regularprice: product.prices!.regularPrice!,
-                                    saleprice: product.prices!.salePrice!,
-                                    permalink: product.permalink!,
-                                  ).then((value) =>  showToast(text: 'تم إضافة المنتج إلي قائمة المفضلة', state:ToastStates.SUCCESS));
-
+                                  FavoritesCubit.get(context)
+                                      .insertToDatabase(
+                                        id: product.id!,
+                                        productId: product.id!,
+                                        text: product.name!,
+                                        image: product.images![0].src!,
+                                        regularprice:
+                                            product.prices!.regularPrice!,
+                                        saleprice: product.prices!.salePrice!,
+                                        permalink: product.permalink!,
+                                      )
+                                      .then(
+                                        (value) => showToast(
+                                            text:
+                                                'تم إضافة المنتج إلي قائمة المفضلة',
+                                            state: ToastStates.SUCCESS),
+                                      );
 
                                   // productList.forEach((e) {
                                   //   convertedList.add(e.toJson());
@@ -224,12 +244,12 @@ class ProductItem extends StatelessWidget {
                                 icon: CircleAvatar(
                                   radius: 15.0,
                                   backgroundColor:
-                                  /*ShopCubit
+                                      /*ShopCubit
                                       .get(context)
                                       .favorites[product.id]
                                       ? defaultColor
                                       :*/
-                                  Colors.grey,
+                                      Colors.grey,
                                   child: Icon(
                                     Icons.favorite_border,
                                     size: 14.0,
@@ -248,7 +268,7 @@ class ProductItem extends StatelessWidget {
             ),
           ),
         );
-      },);
-
+      },
+    );
   }
 }

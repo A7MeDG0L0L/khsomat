@@ -384,7 +384,7 @@ Widget showWishItem(
                                 textDirection: TextDirection.rtl,
                                 child: ListTile(
                                   title: Text(
-                                    '${model['title']}',
+                                    '${model['name']}',
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 4,
                                     // style: sProductName,
@@ -525,7 +525,8 @@ Widget showWishItem(
                                     FavoritesCubit.get(context)
                                         .insertToOrderListDatabase(
                                       id: model['id'],
-                                      text: model['title'],
+                                      productId: model['product_id'],
+                                      productName: model['name'],
                                       image: model['image'],
                                       regularprice: model['regularprice'],
                                       saleprice: model['saleprice'],

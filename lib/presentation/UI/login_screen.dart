@@ -82,8 +82,9 @@ class LoginScreen extends StatelessWidget {
                           children: [
                             Center(
                               child: Image(
-                                image: AssetImage('assets/images/logoo.png'),
+                                image: AssetImage('assets/images/150x150 Png.png'),
                                 height: 200,
+                                width: 250,
                               ),
                             ),
                             Text(
@@ -100,39 +101,72 @@ class LoginScreen extends StatelessWidget {
                             SizedBox(
                               height: 30,
                             ),
-                            defaultFormField(
+                            TextFormField(
                               controller: usernameController,
-                              type: TextInputType.text,
-                              validate: (String value) {
-                                if (value.isEmpty) {
+                              keyboardType: TextInputType.text,
+                              validator: (String? value){
+                                if(value!.isEmpty){
                                   return 'يجب إدخال إسم المستخدم';
                                 }
                                 return null;
                               },
-                              label: 'إسم المستخدم أو البريد الإلكتروني',
-                              prefix: Icons.person,
+                              decoration: InputDecoration(
+                                label: Text('إسم المستخدم أو البريد الإلكتروني'),
+                                prefixIcon: Icon(Icons.person),
+                                border: UnderlineInputBorder(),
+                              ),
                             ),
+                            // defaultFormField(
+                            //   controller: usernameController,
+                            //   type: TextInputType.text,
+                            //   validate: (String value) {
+                            //     if (value.isEmpty) {
+                            //       return 'يجب إدخال إسم المستخدم';
+                            //     }
+                            //     return null;
+                            //   },
+                            //   label: 'إسم المستخدم أو البريد الإلكتروني',
+                            //   prefix: Icons.person,
+                            // ),
                             SizedBox(
                               height: 20,
                             ),
-                            defaultFormField(
+                            TextFormField(
                               controller: passwordController,
-                              type: TextInputType.visiblePassword,
-                              validate: (String value) {
-                                if (value.isEmpty) {
-                                  return 'يجب إدخال كلمة الحماية';
+                              keyboardType: TextInputType.visiblePassword,
+                              validator: (String? value){
+                                if(value!.isEmpty){
+                                  return 'يجب إدخال كلمة المرور';
                                 }
                                 return null;
-                              },
-                              label: 'كلمة الحماية',
-                              prefix: Icons.lock,
-                              suffix: LoginCubit.get(context).suffix,
-                              isPassword: LoginCubit.get(context).isPassword,
-                              suffixPressed: () {
-                                LoginCubit.get(context)
-                                    .changePasswordVisibility();
-                              },
+                              },obscureText: LoginCubit.get(context).isPassword,
+                              enabled: true,
+
+                              decoration: InputDecoration(
+                                label: Text('كلمة المرور'),
+                                prefixIcon: Icon(Icons.lock),
+                                suffixIcon:Icon(LoginCubit.get(context).suffix)!=null? IconButton(onPressed: (){LoginCubit.get(context).changePasswordVisibility();}, icon: Icon(LoginCubit.get(context).suffix),):null,
+                                border: UnderlineInputBorder(),
+                              ),
                             ),
+                            // defaultFormField(
+                            //   controller: passwordController,
+                            //   type: TextInputType.visiblePassword,
+                            //   validate: (String value) {
+                            //     if (value.isEmpty) {
+                            //       return 'يجب إدخال كلمة الحماية';
+                            //     }
+                            //     return null;
+                            //   },
+                            //   label: 'كلمة الحماية',
+                            //   prefix: Icons.lock,
+                            //   suffix: LoginCubit.get(context).suffix,
+                            //   isPassword: LoginCubit.get(context).isPassword,
+                            //   suffixPressed: () {
+                            //     LoginCubit.get(context)
+                            //         .changePasswordVisibility();
+                            //   },
+                            // ),
                             SizedBox(
                               height: 60,
                             ),
@@ -140,7 +174,7 @@ class LoginScreen extends StatelessWidget {
                               width: 400,
                               height: 60,
                               decoration: BoxDecoration(
-                                color: Colors.teal,
+                                color: Colors.lightBlueAccent.shade400,
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Conditional.single(
@@ -172,7 +206,7 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                 ),
                                 fallbackBuilder: (context) =>
-                                    Center(child: CircularProgressIndicator()),
+                                    Center(child: CircularProgressIndicator(color: Colors.white,),),
                               ),
                             ),
                             SizedBox(

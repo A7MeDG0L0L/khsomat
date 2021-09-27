@@ -86,7 +86,7 @@ class CartScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Lottie.asset('assets/loading/empty.json'),
+                    Lottie.asset('assets/loading/buyBasket2.json',height: 200,width: double.infinity),
                     SizedBox(
                       height: 15,
                     ),

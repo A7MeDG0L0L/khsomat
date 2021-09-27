@@ -84,8 +84,10 @@ class RegisterScreen extends StatelessWidget {
                           children: [
                             Center(
                               child: Image(
-                                image: AssetImage('assets/images/logoo.png'),
+                                image:
+                                    AssetImage('assets/images/150x150 Png.png'),
                                 height: 200,
+                                width: 250,
                               ),
                             ),
                             Text(
@@ -102,52 +104,113 @@ class RegisterScreen extends StatelessWidget {
                             SizedBox(
                               height: 30,
                             ),
-                            defaultFormField(
+                            TextFormField(
                               controller: usernameController,
-                              type: TextInputType.text,
-                              validate: (String value) {
-                                if (value.isEmpty) {
+                              keyboardType: TextInputType.text,
+                              validator: (String? value) {
+                                if (value!.isEmpty) {
                                   return 'يجب إدخال إسم المستخدم';
                                 }
+                                return null;
                               },
-                              label: 'إسم المستخدم',
-                              prefix: Icons.person,
+                              decoration: InputDecoration(
+                                label: Text('إسم المستخدم'),
+                                prefixIcon: Icon(Icons.person),
+                                border: UnderlineInputBorder(),
+                              ),
                             ),
+                            // defaultFormField(
+                            //   controller: usernameController,
+                            //   type: TextInputType.text,
+                            //   validate: (String value) {
+                            //     if (value.isEmpty) {
+                            //       return 'يجب إدخال إسم المستخدم';
+                            //     }
+                            //   },
+                            //   label: 'إسم المستخدم',
+                            //   prefix: Icons.person,
+                            // ),
                             SizedBox(
                               height: 20,
                             ),
-                            defaultFormField(
+                            TextFormField(
                               controller: emailController,
-                              type: TextInputType.emailAddress,
-                              validate: (String value) {
-                                if (value.isEmpty) {
+                              keyboardType: TextInputType.emailAddress,
+                              validator: (String? value) {
+                                if (value!.isEmpty) {
                                   return 'يجب إدخال البريد الإلكتروني';
                                 }
                                 return null;
                               },
-                              label: 'البريد الإلكتروني',
-                              prefix: Icons.email,
+                              decoration: InputDecoration(
+                                label: Text('البريد الإلكتروني'),
+                                prefixIcon: Icon(Icons.email),
+                                border: UnderlineInputBorder(),
+                              ),
                             ),
+                            // defaultFormField(
+                            //   controller: emailController,
+                            //   type: TextInputType.emailAddress,
+                            //   validate: (String value) {
+                            //     if (value.isEmpty) {
+                            //       return 'يجب إدخال البريد الإلكتروني';
+                            //     }
+                            //     return null;
+                            //   },
+                            //   label: 'البريد الإلكتروني',
+                            //   prefix: Icons.email,
+                            // ),
                             SizedBox(
                               height: 20,
                             ),
-                            defaultFormField(
+                            TextFormField(
                               controller: passwordController,
-                              type: TextInputType.visiblePassword,
-                              validate: (String value) {
-                                if (value.isEmpty) {
-                                  return 'يجب إدخال كلمة الحماية';
+                              keyboardType: TextInputType.visiblePassword,
+                              validator: (String? value) {
+                                if (value!.isEmpty) {
+                                  return 'يجب إدخال كلمة المرور';
                                 }
+                                return null;
                               },
-                              label: 'كلمة الحماية',
-                              prefix: Icons.lock,
-                              suffix: RegisterCubit.get(context).suffix,
-                              isPassword: RegisterCubit.get(context).isPassword,
-                              suffixPressed: () {
-                                RegisterCubit.get(context)
-                                    .changePasswordVisibility();
-                              },
+                              obscureText:
+                                  RegisterCubit.get(context).isPassword,
+                              enabled: true,
+                              decoration: InputDecoration(
+                                label: Text('كلمة المرور'),
+                                prefixIcon: Icon(Icons.lock),
+                                suffixIcon:
+                                    Icon(RegisterCubit.get(context).suffix) !=
+                                            null
+                                        ? IconButton(
+                                            onPressed: () {
+                                              RegisterCubit.get(context)
+                                                  .changePasswordVisibility();
+                                            },
+                                            icon: Icon(
+                                                RegisterCubit.get(context)
+                                                    .suffix),
+                                          )
+                                        : null,
+                                border: UnderlineInputBorder(),
+                              ),
                             ),
+                            // defaultFormField(
+                            //   controller: passwordController,
+                            //   type: TextInputType.visiblePassword,
+                            //   validate: (String value) {
+                            //     if (value.isEmpty) {
+                            //       return 'يجب إدخال كلمة الحماية';
+                            //     }
+                            //   },
+                            //   label: 'كلمة الحماية',
+                            //   prefix: Icons.lock,
+                            //   suffix: RegisterCubit.get(context).suffix,
+                            //   isPassword: RegisterCubit.get(context).isPassword,
+                            //   suffixPressed: () {
+                            //     RegisterCubit.get(context)
+                            //         .changePasswordVisibility();
+                            //   },
+                            // ),
                             SizedBox(
                               height: 60,
                             ),
@@ -155,8 +218,7 @@ class RegisterScreen extends StatelessWidget {
                               width: 400,
                               height: 60,
                               decoration: BoxDecoration(
-                                color: Colors.teal,
-
+                                color: Colors.lightBlue.shade600,
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Conditional.single(
@@ -192,8 +254,11 @@ class RegisterScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                fallbackBuilder: (context) =>
-                                    Center(child: CircularProgressIndicator()),
+                                fallbackBuilder: (context) => Center(
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
                             ),
                             SizedBox(

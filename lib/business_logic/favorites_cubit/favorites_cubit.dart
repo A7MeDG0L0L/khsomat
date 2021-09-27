@@ -24,9 +24,9 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
       onCreate: (database, version) {
         print('database Created Successfully !');
         database.execute(
-            'CREATE TABLE wishlist (id INTEGER PRIMARY KEY, title TEXT, image TEXT, regularprice TEXT,saleprice TEXT,permalink TEXT)');
+            'CREATE TABLE wishlist (id INTEGER PRIMARY KEY, product_id INTEGER, name TEXT, image TEXT, regularprice TEXT,saleprice TEXT,permalink TEXT)');
         database.execute(
-            'CREATE TABLE orderlist (id INTEGER PRIMARY KEY, title TEXT, image TEXT, regularprice TEXT,saleprice TEXT,permalink TEXT,quantity INTEGER)');
+            'CREATE TABLE orderlist (id INTEGER PRIMARY KEY, product_id INTEGER, name TEXT, image TEXT, regularprice TEXT,saleprice TEXT,permalink TEXT,quantity INTEGER)');
 
         print('table Created Successfully !');
         //     .catchError((error) {
@@ -48,6 +48,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
 
   Future insertToDatabase({
     required int id,
+    required int productId,
     required String text,
     required String image,
     required String regularprice,
@@ -57,7 +58,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     await database.transaction((txn) async {
       return await txn
           .rawInsert(
-              'INSERT INTO wishlist(title,image,regularprice,saleprice,permalink) VALUES("$text","$image","$regularprice","$saleprice","$permalink")')
+              'INSERT INTO wishlist(product_id,name,image,regularprice,saleprice,permalink) VALUES("$productId","$text","$image","$regularprice","$saleprice","$permalink")')
           .then((value) {
         print('$value inserted successfully');
         getWishListDataFromDatabase(database);
@@ -71,7 +72,8 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
 
   Future insertToOrderListDatabase({
     required int id,
-    required String text,
+    required String productName,
+    required int productId,
     required String image,
     required String regularprice,
     required String saleprice,
@@ -81,7 +83,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     await database.transaction((txn) async {
       return await txn
           .rawInsert(
-              'INSERT INTO orderlist(title,image,regularprice,saleprice,permalink,quantity) VALUES("$text","$image","$regularprice","$saleprice","$permalink","$quantity")')
+              'INSERT INTO orderlist(product_id,name,image,regularprice,saleprice,permalink,quantity) VALUES("$productId","$productName","$image","$regularprice","$saleprice","$permalink","$quantity")')
           .then((value) {
         print('$value inserted successfully');
         getWishListDataFromDatabase(database);

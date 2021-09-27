@@ -22,7 +22,7 @@ class ProductDetailsScreen extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.teal.shade500,
+            backgroundColor: Colors.blue,
             title: Text(
               product!.name ?? 'name',
               style: TextStyle(
@@ -101,6 +101,9 @@ class ProductDetailsScreen extends StatelessWidget {
                                       color: defColor,
                                     ),
                                   ),
+                                SizedBox(
+                                  width: 4,
+                                ),
                                 Text(
                                   'جنية مصري',
                                   style: TextStyle(
@@ -109,16 +112,16 @@ class ProductDetailsScreen extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 10.0,
+                                  width: 5.0,
                                 ),
-                                if(product!.onSale==true)
-                                Text(
-                                  'بدلاً من',
-                                  style: TextStyle(
-                                    fontFamily: 'Almarai',
-                                    fontSize: 12,
+                                if (product!.onSale == true)
+                                  Text(
+                                    'بدلاً من',
+                                    style: TextStyle(
+                                      fontFamily: 'Almarai',
+                                      fontSize: 12,
+                                    ),
                                   ),
-                                ),
                                 SizedBox(
                                   width: 8,
                                 ),
@@ -209,7 +212,15 @@ class ProductDetailsScreen extends StatelessWidget {
                             SizedBox(
                               height: 15,
                             ),
-                            parseHtmlDescription(),
+                            Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.grey.shade300,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: parseHtmlDescription(),
+                                )),
                           ],
                         ),
                       ),
@@ -224,7 +235,7 @@ class ProductDetailsScreen extends StatelessWidget {
                           width: 250,
                           height: 65,
                           decoration: BoxDecoration(
-                            color: Colors.teal.shade500,
+                            color: defColor,
                             borderRadius: BorderRadius.circular(50),
                           ),
                           child: Row(
@@ -238,15 +249,15 @@ class ProductDetailsScreen extends StatelessWidget {
                                 onPressed: () {
                                   FavoritesCubit.get(context)
                                       .insertToOrderListDatabase(
-                                          id: product!.id!,
-                                          text: product!.name!,
-                                          image: product!.images![0].src!,
-                                          regularprice:
-                                              product!.prices!.regularPrice!,
-                                          saleprice:
-                                              product!.prices!.salePrice!,
-                                          permalink: product!.permalink!,
+                                    id: product!.id!,
+                                    productName: product!.name!,
+                                    image: product!.images![0].src!,
+                                    regularprice:
+                                        product!.prices!.regularPrice!,
+                                    saleprice: product!.prices!.salePrice!,
+                                    permalink: product!.permalink!,
                                     quantity: 1,
+                                    productId: product!.id!,
                                   );
                                 },
                                 style: ButtonStyle(
