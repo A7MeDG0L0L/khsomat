@@ -21,6 +21,21 @@ class CartScreen extends StatelessWidget {
   var phoneController = TextEditingController();
   var customerNoteController = TextEditingController();
   var formKey = GlobalKey<FormState>();
+  var _selectedValue;
+  List<DropdownMenuItem<dynamic>> cities = [
+    DropdownMenuItem(
+      child: Text('القاهرة'),
+    ),
+    DropdownMenuItem(
+      child: Text('الجيزة'),
+    ),
+    DropdownMenuItem(
+      child: Text('الاسكندرية'),
+    ),
+    DropdownMenuItem(
+      child: Text('الفيوم'),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +101,8 @@ class CartScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Lottie.asset('assets/loading/buyBasket2.json',height: 200,width: double.infinity),
+                    Lottie.asset('assets/loading/buyBasket2.json',
+                        height: 200, width: double.infinity),
                     SizedBox(
                       height: 15,
                     ),
@@ -170,6 +186,11 @@ class CartScreen extends StatelessWidget {
               SizedBox(
                 height: 15,
               ),
+              // DropdownButtonFormField(
+              //   items: cities,
+              //   value: null,
+              //   isDense: true,
+              // ),
               TextFormField(
                 controller: cityController,
                 keyboardType: TextInputType.text,
@@ -259,10 +280,12 @@ class CartScreen extends StatelessWidget {
                       city: cityController.text,
                       email: emailController.text,
                       phone: phoneController.text,
-                    //  customerNote: customerNoteController.text,
-                      //  itemsList: FavoritesCubit.get(context).orderList,
+                      customerNote: customerNoteController.text,
+                      //itemsList: FavoritesCubit.get(context).orderList,
                     );
-                    showToast(text: 'تم ارسال الاوردر بأنتظار التأكيد', state: ToastStates.SUCCESS);
+                    showToast(
+                        text: 'تم ارسال الاوردر بأنتظار التأكيد',
+                        state: ToastStates.SUCCESS);
                     Navigator.pop(context);
                   }
                 },

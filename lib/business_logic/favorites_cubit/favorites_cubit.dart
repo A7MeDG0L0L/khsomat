@@ -190,35 +190,44 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     required String city,
     required String email,
     required String phone,
-    // required String customerNote,
-    // required List itemsList,
+    required String customerNote,
+    //  required List itemsList,
   }) {
     emit(CreatingOrderLoadingState());
     WebServices.dio.post(
       'wc/v3/orders',
       data: {
-        'currency': 'EGP',
+        "currency": "EGP",
         "billing": {
           "first_name": firstname,
           "last_name": lastname,
           "address_1": address,
           "city": city,
-          "country": 'Egypt',
+          "country": "Egypt",
           "email": email,
-          "phone": phone,
+          "phone": phone
         },
         "shipping": {
           "first_name": firstname,
           "last_name": lastname,
           "address_1": address,
           "city": city,
-          "country": 'Egypt',
+          "country": "Egypt",
         },
+        "payment_method": "cod",
+        "customer_note": customerNote,
+        "line_items": [
+          {
+            "name": "عوامة الفلامنجو",
+            "product_id": 48079,
+            "quantity":1
+          }
+        ]
       },
       queryParameters: {
         'Content-Type': "application/json",
         'consumer_key': 'ck_9eb0aa4e0a0bc07c15549d30051ee9ec90ef2710',
-        'consumer_secret': 'cs_135d3231db48637c464000067a4606147eec301c',
+        'consumer_secret': 'cs_135d3231db48637c464000067a4606147eec301c'
       },
     ).then((value) {
       orderModel = OrderModel.fromJson(value.data);
