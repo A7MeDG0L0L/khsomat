@@ -289,7 +289,7 @@ Widget showWishItem(
     key: UniqueKey(),
     onDismissed: (direction) {
       FavoritesCubit.get(context)
-          .deleteItemWishListFromDatabase(id: model['id']);
+          .deleteItemWishListFromDatabase(id: model['product_id']);
     },
     child: Column(
       children: [
@@ -488,7 +488,7 @@ Widget showWishItem(
                                     print(FavoritesCubit.get(context).database);
                                     FavoritesCubit.get(context)
                                         .deleteItemWishListFromDatabase(
-                                            id: model['id']);
+                                            id: model['product_id']);
 
                                     // FavoritesCubit.get(context).deleteFromDatabase(id: model['id']);
                                     //   favList.removeFromFav(favList.favoriteList[index]);
@@ -524,7 +524,7 @@ Widget showWishItem(
                                     // // TODO: ADD TO CART
                                     FavoritesCubit.get(context)
                                         .insertToOrderListDatabase(
-                                      id: model['id'],
+                                      // id: model['id'],
                                       productId: model['product_id'],
                                       productName: model['name'],
                                       image: model['image'],

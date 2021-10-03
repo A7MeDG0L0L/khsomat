@@ -249,7 +249,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                 onPressed: () {
                                   FavoritesCubit.get(context)
                                       .insertToOrderListDatabase(
-                                    id: product!.id!,
+                                    // id: product!.id!,
                                     productName: product!.name!,
                                     image: product!.images![0].src!,
                                     regularprice:

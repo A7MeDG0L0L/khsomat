@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
@@ -15,7 +17,9 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
 
   List<Map<dynamic, dynamic>> wishList = [];
   List<Map<dynamic, dynamic>> orderList = [];
-  List<Map<dynamic, dynamic>> copyList = [];
+
+
+
 
   Future<void> createDatabase() async {
     database = await openDatabase(
@@ -24,9 +28,9 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
       onCreate: (database, version) {
         print('database Created Successfully !');
         database.execute(
-            'CREATE TABLE wishlist (id INTEGER PRIMARY KEY, product_id INTEGER, name TEXT, image TEXT, regularprice TEXT,saleprice TEXT,permalink TEXT)');
+            'CREATE TABLE wishlist (product_id INTEGER, name TEXT, image TEXT, regularprice TEXT,saleprice TEXT,permalink TEXT)');
         database.execute(
-            'CREATE TABLE orderlist (id INTEGER PRIMARY KEY, product_id INTEGER, name TEXT, image TEXT, regularprice TEXT,saleprice TEXT,permalink TEXT,quantity INTEGER)');
+            'CREATE TABLE orderlist ("product_id" INTEGER, "name" TEXT, "image" TEXT, "regularprice" TEXT,"saleprice" TEXT,"permalink" TEXT,"quantity" INTEGER)');
 
         print('table Created Successfully !');
         //     .catchError((error) {
@@ -47,7 +51,6 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
   }
 
   Future insertToDatabase({
-    required int id,
     required int productId,
     required String text,
     required String image,
@@ -58,7 +61,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     await database.transaction((txn) async {
       return await txn
           .rawInsert(
-              'INSERT INTO wishlist(product_id,name,image,regularprice,saleprice,permalink) VALUES("$productId","$text","$image","$regularprice","$saleprice","$permalink")')
+              'INSERT INTO wishlist("product_id","name","image","regularprice","saleprice","permalink") VALUES("$productId","$text","$image","$regularprice","$saleprice","$permalink")')
           .then((value) {
         print('$value inserted successfully');
         getWishListDataFromDatabase(database);
@@ -71,7 +74,6 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
   }
 
   Future insertToOrderListDatabase({
-    required int id,
     required String productName,
     required int productId,
     required String image,
@@ -126,7 +128,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     required int id,
   }) async {
     await database
-        .rawDelete('DELETE FROM wishlist WHERE id = ?', [id]).then((value) {
+        .rawDelete('DELETE FROM wishlist WHERE product_id = ?', [id]).then((value) {
       getWishListDataFromDatabase(database);
       emit(DeleteWishListDataFromDatabaseState());
     });
@@ -136,7 +138,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     required int id,
   }) async {
     await database
-        .rawDelete('DELETE FROM orderlist WHERE id = ?', [id]).then((value) {
+        .rawDelete('DELETE FROM orderlist WHERE product_id = ?', [id]).then((value) {
       getWishListDataFromDatabase(database);
       emit(DeleteOrderListDataFromDatabaseState());
     });
@@ -181,6 +183,15 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     }
     emit(DecreaseQuantityState());
   }
+  dynamic orderListToJson(){
+    createDatabase();
+    //getOrderListDataFromDatabase(database);
+    print(orderList);
+    dynamic copyList = jsonEncode(orderList);
+    List<dynamic>dynamicList = [copyList];
+    print(dynamicList);
+    return dynamicList;
+  }
 
   OrderModel? orderModel;
   void createOrder({
@@ -191,7 +202,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     required String email,
     required String phone,
     required String customerNote,
-    //  required List itemsList,
+      required List itemsList,
   }) {
     emit(CreatingOrderLoadingState());
     WebServices.dio.post(
@@ -216,18 +227,19 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
         },
         "payment_method": "cod",
         "customer_note": customerNote,
-        "line_items": [
-          {
-            "name": "عوامة الفلامنجو",
-            "product_id": 48079,
-            "quantity":1
-          }
-        ]
+        "line_items": itemsList
+        // "line_items": [
+        //   {
+        //     "name": "عوامة الفلامنجو",
+        //     "product_id": 48079,
+        //     "quantity":1
+        //   }
+        // ]
       },
       queryParameters: {
         'Content-Type': "application/json",
-        'consumer_key': 'ck_9eb0aa4e0a0bc07c15549d30051ee9ec90ef2710',
-        'consumer_secret': 'cs_135d3231db48637c464000067a4606147eec301c'
+        'consumer_key': 'ck_9b0673d68b415ac2f9f0776b2b1333d7266f9dcd',
+        'consumer_secret': 'cs_ea9063a6a5a8f4d5e2326957102c0bb64f1be232'
       },
     ).then((value) {
       orderModel = OrderModel.fromJson(value.data);

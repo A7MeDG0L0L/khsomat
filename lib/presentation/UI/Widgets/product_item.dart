@@ -203,7 +203,7 @@ class ProductItem extends StatelessWidget {
                                 onPressed: () {
                                   FavoritesCubit.get(context)
                                       .insertToDatabase(
-                                        id: product.id!,
+                                        // id: product.id!,
                                         productId: product.id!,
                                         text: product.name!,
                                         image: product.images![0].src!,

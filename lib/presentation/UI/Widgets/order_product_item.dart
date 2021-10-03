@@ -34,7 +34,7 @@ Widget showOrderItem(
     key: UniqueKey(),
     onDismissed: (direction) {
       FavoritesCubit.get(context)
-          .deleteItemOrderListFromDatabase(id: model['id']);
+          .deleteItemOrderListFromDatabase(id: model['product_id']);
     },
     child: Column(
       children: [
