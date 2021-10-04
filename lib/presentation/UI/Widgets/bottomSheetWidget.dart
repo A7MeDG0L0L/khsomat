@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:khsomat/Shared/components.dart';
@@ -167,7 +169,7 @@ Widget showSheet(context) {
               onPressed: () {
                 print(FavoritesCubit.get(context).orderList);
                 if (formKey.currentState!.validate()) {
-                  print(firstNameController.text);
+                 // print(firstNameController.text);
                   FavoritesCubit.get(context).createOrder(
                     firstname: firstNameController.text,
                     lastname: lastNameController.text,
@@ -176,8 +178,9 @@ Widget showSheet(context) {
                     email: emailController.text,
                     phone: phoneController.text,
                     customerNote: customerNoteController.text,
-                    itemsList: FavoritesCubit.get(context).orderListToJson(),
+                  //  itemsList: jsonEncode(FavoritesCubit.get(context).orderList),
                   );
+                 // print(jsonEncode(FavoritesCubit.get(context).orderList));
                   showToast(
                       text: 'تم ارسال الاوردر بأنتظار التأكيد',
                       state: ToastStates.SUCCESS);

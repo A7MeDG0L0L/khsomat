@@ -21,6 +21,8 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
 
 
 
+
+
   Future<void> createDatabase() async {
     database = await openDatabase(
       'wishlist.db',
@@ -173,24 +175,31 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     //  var modifiedQuantity = orderList[index]['quantity'];
     // modifiedQuantity++;
     orderList[index]['quantity']++;
+    database.rawUpdate('UPDATE orderlist SET quantity = ${orderList[index]['quantity']+1}');
     print(orderList[index]['quantity']);
+    print(json.encode(orderList));
     emit(IncreaseQuantityState());
   }
 
   void decreaseQuantity(index) {
     if (orderList[index]['quantity'] > 1) {
       orderList[index]['quantity']--;
+      database.rawUpdate('UPDATE orderlist SET quantity = ${orderList[index]['quantity']-1} WHERE quantity > 1');
     }
     emit(DecreaseQuantityState());
   }
-  dynamic orderListToJson(){
-    createDatabase();
+  dynamic orderListToJson()async{
+  await  createDatabase();
+
+    dynamic copyList = await database.rawQuery('SELECT * FROM orderlist');
+    json.encode(copyList);
+    print(copyList);
     //getOrderListDataFromDatabase(database);
-    print(orderList);
-    dynamic copyList = jsonEncode(orderList);
-    List<dynamic>dynamicList = [copyList];
-    print(dynamicList);
-    return dynamicList;
+    //print(orderList);
+  //  dynamic copyList = json.encode(orderList);
+   // dynamic dynamicList = copyList;
+    //print(dynamicList);
+    return json.encode(copyList);
   }
 
   OrderModel? orderModel;
@@ -202,9 +211,17 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     required String email,
     required String phone,
     required String customerNote,
-      required List itemsList,
-  }) {
+
+    //  required dynamic itemsList,
+  })async{
     emit(CreatingOrderLoadingState());
+     await createDatabase();
+     // getOrderListDataFromDatabase(database);
+     // print('CO$orderList');
+     // print('Create Order Print for encoding orderList${json.encode(orderList)}');
+    dynamic copyList = await database.rawQuery('SELECT * FROM orderlist');
+    print('this is copylist before encoding it : $copyList');
+    print(json.encode(copyList));
     WebServices.dio.post(
       'wc/v3/orders',
       data: {
@@ -227,7 +244,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
         },
         "payment_method": "cod",
         "customer_note": customerNote,
-        "line_items": itemsList
+        "line_items":copyList
         // "line_items": [
         //   {
         //     "name": "عوامة الفلامنجو",
@@ -238,8 +255,8 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
       },
       queryParameters: {
         'Content-Type': "application/json",
-        'consumer_key': 'ck_9b0673d68b415ac2f9f0776b2b1333d7266f9dcd',
-        'consumer_secret': 'cs_ea9063a6a5a8f4d5e2326957102c0bb64f1be232'
+        'consumer_key': 'ck_fa054c2eea7057ed605ce37417fe5e92fb2d428b',
+        'consumer_secret': 'cs_a2bcff0feec2d96d830b08ecf93015f6de9b409e'
       },
     ).then((value) {
       orderModel = OrderModel.fromJson(value.data);
