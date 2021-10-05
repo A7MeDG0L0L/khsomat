@@ -5,8 +5,17 @@ Widget buildDrawerItem(Category model, context) {
   return Padding(
     padding: const EdgeInsets.all(20.0),
     child: Container(
-      child: Text(
-        model.name,
+      child: Row(
+        children: [
+          Text(
+            model.name,
+          ),
+          SizedBox(width: 20,),
+          ///TODO: Remove model.id before end
+          Text(
+            '${model.id}',
+          ),
+        ],
       ),
     ),
   );

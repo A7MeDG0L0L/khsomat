@@ -49,6 +49,21 @@ class HomeCubit extends Cubit<HomeStates> {
     return products;
   }
 
+  List<Product> productsForCategory = [];
+
+  List<Product>? getAllProductsForCategory(int id) {
+    emit(GetProductsForCategoryLoadingState());
+    productRepository.getAllProductsForCategory(id).then((product) {
+      productsForCategory = product;
+       print('Response From Cubit : ${productsForCategory.toString()}');
+      emit(GetProductsForCategorySuccessState(product));
+    }).catchError((error) {
+      print('Cubit Error : ${error.toString()}');
+      emit(GetProductsForCategoryErrorState(error));
+    });
+    return productsForCategory;
+  }
+
 
  // without repository get data successfully
  //  void getProducts(){
@@ -69,7 +84,7 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(GetCategoriesLoadingState());
     productRepository.getAllCategories().then((category) {
       categories=category;
-    //  print(categories);
+     print(categories[1].id.toString());
       emit(GetCategoriesSuccessState(category));
     }).catchError((error){
       print('Cubit Error : ${error.toString()}');

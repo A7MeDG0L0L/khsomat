@@ -19,6 +19,19 @@ class GetProductsErrorState extends HomeStates{
 
 }
 
+class GetProductsForCategorySuccessState extends HomeStates{
+  final List<Product>productsForCategory;
+
+  GetProductsForCategorySuccessState(this.productsForCategory);
+}
+class GetProductsForCategoryLoadingState extends HomeStates{}
+class GetProductsForCategoryErrorState extends HomeStates{
+  final String error;
+
+  GetProductsForCategoryErrorState(this.error);
+
+}
+
 
 class GetCategoriesSuccessState extends HomeStates{
   final List<Category>category;

@@ -11,6 +11,10 @@ class ProductRepository{
        final products= await productsWebServices.getAllProducts();
        return products.map((product) => Product.fromJson(product)).toList();
      }
+     Future<List<Product>> getAllProductsForCategory(int id) async {
+       final products= await productsWebServices.getAllProductsForCategory(id);
+       return products.map((product) => Product.fromJson(product)).toList();
+     }
 
      Future<List<Product>> getAllSearchProducts(String searchText) async{
        final searchProducts = await productsWebServices.getAllSearchProducts(searchText);

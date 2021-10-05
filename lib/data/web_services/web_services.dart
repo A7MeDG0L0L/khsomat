@@ -50,6 +50,19 @@ class WebServices {
       return [];
     }
   }
+  Future<List<dynamic>> getAllProductsForCategory(int id) async {
+    try {
+      Response response = await dio.get('wc/store/products', queryParameters: {
+        'per_page': 100,
+        'category':id,
+      });
+       print('Response from Web Service : ${response.data.toString()}');
+      return response.data;
+    } catch (e) {
+      print('Product Web Service : ${e.toString()}');
+      return [];
+    }
+  }
 
   Future<List<dynamic>> getAllCategories() async {
     try {

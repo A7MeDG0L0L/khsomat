@@ -1,5 +1,3 @@
-
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +7,7 @@ import 'package:khsomat/business_logic/home_cubit/home_state.dart';
 import 'package:khsomat/data/models/category_model.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/presentation/UI/Widgets/product_item.dart';
+import 'package:khsomat/presentation/UI/products_category_screen.dart';
 import 'package:lottie/lottie.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -47,7 +46,6 @@ class HomeScreen extends StatelessWidget {
 
   late List<Product> allProducts;
   late List<Category> allCategories;
-
 
   @override
   Widget build(BuildContext context) {
@@ -117,8 +115,8 @@ class HomeScreen extends StatelessWidget {
                   shrinkWrap: true,
                   physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) =>
-                      buildCatItem(HomeCubit.get(context).categories[index],context),
+                  itemBuilder: (context, index) => buildCatItem(
+                      HomeCubit.get(context).categories[index], context),
                   separatorBuilder: (context, index) => myDivider(),
                   itemCount: HomeCubit.get(context).categories.length),
             ),
@@ -144,9 +142,9 @@ class HomeScreen extends StatelessWidget {
               shrinkWrap: true,
               children: List.generate(
                 allProducts.length,
-                (index) =>  ProductItem(product: allProducts[index]),
+                (index) => ProductItem(product: allProducts[index]),
 
-                  // here wasn't route to product details Screen
+                // here wasn't route to product details Screen
 
                 /* buildGridProduct(allProducts[index],context),*/
               ),
@@ -182,40 +180,53 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget buildCatItem(Category model,context) {
+  Widget buildCatItem(Category model, context) {
     return Conditional.single(
       context: context,
-      conditionBuilder:(context) =>  model.parent ==0,
-      widgetBuilder: (context) => Container(
-        height: 100,
-        child: Column(
-          children: [
-            Container(
-              height: 100,
-              width: 100,
-              child: model.image !=null
-                  ? FadeInImage.assetNetwork(
-                placeholder: 'assets/loading/loading.gif',
-                image: model.image!.src,
-              )
-                  : Image.asset('assets/images/placeholder.jpg'),),
-            SizedBox(
-              height: 8,
-            ),
-            Container(
-              width: 100,
-              child: Text(
-                model.name,
-                maxLines: 1,
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                textWidthBasis: TextWidthBasis.parent,
-                style: TextStyle(
-                  fontFamily: 'Almarai',
+      conditionBuilder: (context) => model.parent == 0,
+      widgetBuilder: (context) => InkWell(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: ProductsForCategoryScreen(id: model.id,name: model.name,),
+                ),
+              ));
+        },
+        child: Container(
+          height: 100,
+          child: Column(
+            children: [
+              Container(
+                height: 100,
+                width: 100,
+                child: model.image != null
+                    ? FadeInImage.assetNetwork(
+                        placeholder: 'assets/loading/loading.gif',
+                        image: model.image!.src,
+                      )
+                    : Image.asset('assets/images/placeholder.jpg'),
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              Container(
+                width: 100,
+                child: Text(
+                  model.name,
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  textWidthBasis: TextWidthBasis.parent,
+                  style: TextStyle(
+                    fontFamily: 'Almarai',
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       fallbackBuilder: (context) => Text(''),

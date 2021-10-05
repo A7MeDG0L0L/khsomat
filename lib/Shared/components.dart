@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:lottie/lottie.dart';
 
 Widget defaultFormField({
   required TextEditingController? controller,
@@ -131,3 +132,11 @@ Widget defaultTextButton({
         text.toUpperCase(),
       ),
     );
+Widget loadingIndicator() {
+  return Center(
+    child: Container(
+        height: 150,
+        width: 200,
+        child: Lottie.asset('assets/loading/lottielogojson.json')),
+  );
+}
