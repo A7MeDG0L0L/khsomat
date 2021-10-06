@@ -201,6 +201,13 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     //print(dynamicList);
     return json.encode(copyList);
   }
+List<Map<dynamic,dynamic>> copyList2=[{"product_id": 45127, "name": "System صوت كامل حائط DM858", "image": "https://khsomat.net/wp-content/uploads/2021/07/6-6.jpg", "regularprice": 960000, "saleprice": 929500, "permalink": "https://khsomat.net/product/system-%d8%b5%d9%88%d8%aa-%d9%83%d8%a7%d9%85%d9%84-dm858/", "quantity": 3}];
+  dynamic copylist()async{
+    await createDatabase();
+    dynamic copyList = await database.rawQuery('SELECT * FROM orderlist');
+    print(copyList);
+    return copyList;
+  }
 
   OrderModel? orderModel;
   void createOrder({

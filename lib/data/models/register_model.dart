@@ -8,18 +8,25 @@ class UserModel {
   String? emailId;
   String? password;
   String? confirmPassword;
+  String? firstname;
+  String? lastname;
+
 
   UserModel({
     required this.userName,
     required this.emailId,
     required this.password,
     required this.confirmPassword,
+    required this.firstname,
+    required this.lastname,
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
     userName = json['username'];
     emailId = json['email'];
     password = json['password'];
+    firstname = json['firstname'];
+    lastname = json['lastname'];
   }
 
   Map<String, dynamic> toJson() {
@@ -27,6 +34,8 @@ class UserModel {
     data['username'] = this.userName;
     data['email'] = this.emailId;
     data['password'] = this.password;
+    data['firstname'] = this.firstname;
+    data['lastname'] = this.lastname;
     return data;
   }
 }

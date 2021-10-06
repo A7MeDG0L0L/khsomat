@@ -23,20 +23,21 @@ class CheckoutScreen extends StatelessWidget {
               child: Column(
                 // mainAxisSize: MainAxisSize.max,
                 children: [
+
                   ListView.separated(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     physics: BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
+
                       return showCheckoutItem(
-                          FavoritesCubit.get(context).orderList[index],
-                          index,
+                          FavoritesCubit.get(context).copyList2[index],
                           context);
                     },
                     separatorBuilder: (context, index) => Divider(
                       thickness: 1,
                     ),
-                    itemCount: FavoritesCubit.get(context).orderList.length,
+                    itemCount: FavoritesCubit.get(context).copyList2.length,
                   ),
                   showSheet(context),
                 ],

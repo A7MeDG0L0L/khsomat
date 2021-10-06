@@ -16,6 +16,8 @@ class RegisterScreen extends StatelessWidget {
   var usernameController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
+  var firstnameController = TextEditingController();
+  var lastnameController = TextEditingController();
   // static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -99,10 +101,46 @@ class RegisterScreen extends StatelessWidget {
                             ),
                             Text(
                               'إكتشف معني العروض الحقيقي مع خصومات',
-                              style: TextStyle(fontSize: 15),
+                              style: TextStyle(fontSize: 15,color: Colors.grey.shade500),
                             ),
                             SizedBox(
                               height: 30,
+                            ),
+                            TextFormField(
+                              controller: firstnameController,
+                              keyboardType: TextInputType.text,
+                              validator: (String? value) {
+                                if (value!.isEmpty) {
+                                  return 'يجب إدخال إسم الأول';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                label: Text('الإسم الأول'),
+                                prefixIcon: Icon(Icons.person),
+                                border: UnderlineInputBorder(),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            TextFormField(
+                              controller: lastnameController,
+                              keyboardType: TextInputType.text,
+                              validator: (String? value) {
+                                if (value!.isEmpty) {
+                                  return 'يجب إدخال إسم الأخير';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                label: Text('الإسم الأخير'),
+                                prefixIcon: Icon(Icons.person),
+                                border: UnderlineInputBorder(),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
                             ),
                             TextFormField(
                               controller: usernameController,
@@ -232,11 +270,13 @@ class RegisterScreen extends StatelessWidget {
                                         username: usernameController.text,
                                         email: emailController.text,
                                         password: passwordController.text,
+                                        firstname: firstnameController.text,
+                                        lastname: lastnameController.text,
                                       );
                                     }
                                     if (emailController.text.isEmpty ||
                                         usernameController.text.isEmpty ||
-                                        passwordController.text.isEmpty) {
+                                        passwordController.text.isEmpty || firstnameController.text.isEmpty || lastnameController.text.isEmpty) {
                                       showToast(
                                           text:
                                               'يجب إدخال جميع البيانات السابقة.',

@@ -7,7 +7,7 @@ import 'package:share/share.dart';
 
 Widget showCheckoutItem(
     Map model,
-    index,
+   // index,
     context,
     { Product? product}
     ) {
@@ -21,13 +21,21 @@ Widget showCheckoutItem(
   }
 
   double cardWidth = MediaQuery.of(context).size.width / 1.8;
-  return Row(
-    children: [
-      Text(model['name']),
-      SizedBox(width: 10,),
-      Text(model['saleprice']),
-      SizedBox(width: 10,),
-      Text(model['quantity']),
-    ],
+  ///TODO: Enhance This Widget
+  return Padding(
+    padding: const EdgeInsets.all(15.0),
+    child: Row(
+      children: [
+        Text(model['name']),
+        SizedBox(width: 10,),
+        Text("${model['saleprice'].toString().substring(0,4)}"),
+        SizedBox(width: 5,),
+        Text('x'),
+        SizedBox(width: 5,),
+        Text("${model['quantity']}"),
+        SizedBox(width: 10,),
+        Text('${model['saleprice']*model['quantity']}'),
+      ],
+    ),
   );
 }

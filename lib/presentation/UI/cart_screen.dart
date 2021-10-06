@@ -83,7 +83,7 @@ class CartScreen extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => CheckoutScreen(),
+                                  builder: (context) => Directionality(textDirection: TextDirection.rtl,child: CheckoutScreen()),
                                 ),
                               );
                               // showBottomSheet(

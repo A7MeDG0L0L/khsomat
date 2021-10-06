@@ -6,6 +6,7 @@ import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/login_cubit/login_cubit.dart';
 import 'package:khsomat/business_logic/login_cubit/login_states.dart';
 import 'package:khsomat/data/cache_helper/cache_helper.dart';
+import 'package:khsomat/presentation/UI/register_screen.dart';
 
 import 'app_layout.dart';
 
@@ -211,6 +212,15 @@ class LoginScreen extends StatelessWidget {
                             ),
                             SizedBox(
                               height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('لا تمتلك حساب ؟'),
+                                TextButton(onPressed: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Directionality(textDirection: TextDirection.rtl,child: RegisterScreen()) ,));
+                                }, child: Text('انشئ حساب الآن'),),
+                              ],
                             ),
                           ],
                         ),

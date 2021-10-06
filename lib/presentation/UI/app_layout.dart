@@ -41,9 +41,9 @@ class AppLayout extends StatelessWidget {
     ),
   ];
 
-  static const _whatsapp = 'https://wa.me/+201119369127';
+  static const _whatsapp = 'https://wa.me/+201220255556';
   static const _facebook = 'https://www.facebook.com/khsomatcom';
-  static const _phone = 'tel:+201119369127';
+  static const _phone = 'tel:+201220255556';
 
   void _launchURL(url) async =>
       await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';

@@ -18,14 +18,20 @@ class RegisterCubit extends Cubit<RegisterStates> {
   void userRegister(
       {required String username,
       required String email,
-      required String password}) {
+      required String password,
+      required String firstname,
+      required String lastname,
+      }) {
     emit(PostRegisterStateLoading());
     WebServices.dio.post('wp/v2/users/register', data: {
       'username': username,
       'email': email,
       'password': password,
+      'firstname': firstname,
+      'lastname': lastname,
     }).then((value) {
       userModel = UserModel.fromJson(value.data);
+      print(userModel);
       emit(PostRegisterStateSuccess());
     }).catchError((error) {
       print(error.toString());

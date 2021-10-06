@@ -228,55 +228,58 @@ class ProductDetailsScreen extends StatelessWidget {
                     SizedBox(
                       height: 15,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 250,
-                          height: 65,
-                          decoration: BoxDecoration(
-                            color: defColor,
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.add_shopping_cart_outlined,
-                                color: Colors.white,
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  FavoritesCubit.get(context)
-                                      .insertToOrderListDatabase(
-                                    // id: product!.id!,
-                                    productName: product!.name!,
-                                    image: product!.images![0].src!,
-                                    regularprice:
-                                        product!.prices!.regularPrice!,
-                                    saleprice: product!.prices!.salePrice!,
-                                    permalink: product!.permalink!,
-                                    quantity: 1,
-                                    productId: product!.id!,
-                                  );
-                                },
-                                style: ButtonStyle(
-                                  overlayColor:
-                                      MaterialStateProperty.all(Colors.black),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 250,
+                            height: 65,
+                            decoration: BoxDecoration(
+                              color: defColor,
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add_shopping_cart_outlined,
+                                  color: Colors.white,
                                 ),
-                                child: Text(
-                                  'إضافة إلي السلة',
-                                  style: TextStyle(
-                                      fontFamily: 'Almarai',
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
+                                TextButton(
+                                  onPressed: () {
+                                    FavoritesCubit.get(context)
+                                        .insertToOrderListDatabase(
+                                      // id: product!.id!,
+                                      productName: product!.name!,
+                                      image: product!.images![0].src!,
+                                      regularprice:
+                                          product!.prices!.regularPrice!,
+                                      saleprice: product!.prices!.salePrice!,
+                                      permalink: product!.permalink!,
+                                      quantity: 1,
+                                      productId: product!.id!,
+                                    );
+                                  },
+                                  style: ButtonStyle(
+                                    overlayColor:
+                                        MaterialStateProperty.all(Colors.black),
+                                  ),
+                                  child: Text(
+                                    'إضافة إلي السلة',
+                                    style: TextStyle(
+                                        fontFamily: 'Almarai',
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),
