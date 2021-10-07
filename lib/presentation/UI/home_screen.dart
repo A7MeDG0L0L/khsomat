@@ -137,7 +137,7 @@ class HomeScreen extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               mainAxisSpacing: 10,
               crossAxisSpacing: 10,
-              childAspectRatio: 1 / 1.8,
+              childAspectRatio: 1 / 2,
               crossAxisCount: 2,
               shrinkWrap: true,
               children: List.generate(

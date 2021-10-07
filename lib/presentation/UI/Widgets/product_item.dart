@@ -118,7 +118,7 @@ class ProductItem extends StatelessWidget {
                                       0, 4) /*'${product.price.round()}'*/,
                                   style: TextStyle(
                                     fontFamily: 'Almarai',
-                                    fontSize: 20.0,
+                                    fontSize: 19.0,
                                     color: defColor,
                                   ),
                                 ),

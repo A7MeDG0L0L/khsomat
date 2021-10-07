@@ -7,20 +7,27 @@ import 'package:khsomat/presentation/UI/products_category_screen.dart';
 Widget buildDrawerItem(Category model, context) {
   return Padding(
     padding: const EdgeInsets.all(20.0),
-    child:InkWell(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => Directionality(textDirection: TextDirection.rtl,child: ProductsForCategoryScreen(id: model.id, name: model.name)),));
+    child: InkWell(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: ProductsForCategoryScreen(
+                      id: model.id, name: model.name)),
+            ));
       },
       child: Container(
         child: Row(
           children: [
             Text(
               model.name,
+             // style: TextStyle(color: Colors.white),
             ),
           ],
         ),
       ),
-      ),
-
+    ),
   );
 }

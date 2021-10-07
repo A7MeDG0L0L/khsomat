@@ -46,7 +46,8 @@ class Product {
   int? id;
   String? name;
   int? parent;
-  Type? type;
+ // Type? type;
+  String? type;
   String? variation;
   String? permalink;
   String? sku;
@@ -77,7 +78,8 @@ class Product {
         id: json["id"],
         name: json["name"],
         parent: json["parent"],
-        type: typeValues.map[json["type"]],
+        //type: typeValues.map[json["type"]],
+    type: json["type"],
         variation: json["variation"],
         permalink: json["permalink"],
         sku: json["sku"],

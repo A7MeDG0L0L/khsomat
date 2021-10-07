@@ -33,56 +33,58 @@ class ProfileScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(25.0),
                 child: Form(
                   key: formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset('assets/images/avatar.png', height: 200),
-                      defaultFormField(
-                          controller: usernameController,
-                          type: TextInputType.text,
-                          validate: (String value) {
-                            if (value.isEmpty) {
-                              return 'يجب إدخال إسم المستخدم';
-                            }
-                          },
-                          label: 'إسم المستخدم',
-                          prefix: Icons.person),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      defaultFormField(
-                          controller: emailController,
-                          type: TextInputType.emailAddress,
-                          validate: (String value) {
-                            if (value.isEmpty) {
-                              return 'يجب إدخال البريد الإلكتروني';
-                            }
-                          },
-                          label: 'البريد الإلكتروني',
-                          prefix: Icons.person),
-                      SizedBox(
-                        height: 100,
-                      ),
-                      Container(
-                        height: 70,
-                        width: 200,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.amber),
-                        child: TextButton(
-                          onPressed: () {
-                            signOut(context);
-                          },
-                          child: Text(
-                            'تسجيل الخروج',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset('assets/images/avatar.png', height: 200),
+                        defaultFormField(
+                            controller: usernameController,
+                            type: TextInputType.text,
+                            validate: (String value) {
+                              if (value.isEmpty) {
+                                return 'يجب إدخال إسم المستخدم';
+                              }
+                            },
+                            label: 'إسم المستخدم',
+                            prefix: Icons.person),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        defaultFormField(
+                            controller: emailController,
+                            type: TextInputType.emailAddress,
+                            validate: (String value) {
+                              if (value.isEmpty) {
+                                return 'يجب إدخال البريد الإلكتروني';
+                              }
+                            },
+                            label: 'البريد الإلكتروني',
+                            prefix: Icons.person),
+                        SizedBox(
+                          height: 100,
+                        ),
+                        Container(
+                          height: 70,
+                          width: 200,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.amber),
+                          child: TextButton(
+                            onPressed: () {
+                              signOut(context);
+                            },
+                            child: Text(
+                              'تسجيل الخروج',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               );

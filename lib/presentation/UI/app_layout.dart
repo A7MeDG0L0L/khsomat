@@ -3,15 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
+import 'package:khsomat/presentation/UI/Widgets/drawer/drawer_menu_screen.dart';
 import 'package:khsomat/presentation/UI/Widgets/drawer_item.dart';
+import 'package:khsomat/presentation/UI/home_screen.dart';
 import 'package:khsomat/presentation/UI/login_screen.dart';
 import 'package:khsomat/presentation/UI/search_screen.dart';
 import 'package:lottie/lottie.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'Widgets/drawer/drawer_home_screen.dart';
 
 class AppLayout extends StatelessWidget {
   late List<SalomonBottomBarItem> items = [
@@ -44,6 +49,7 @@ class AppLayout extends StatelessWidget {
   static const _whatsapp = 'https://wa.me/+201220255556';
   static const _facebook = 'https://www.facebook.com/khsomatcom';
   static const _phone = 'tel:+201220255556';
+  final drawerController = ZoomDrawerController();
 
   void _launchURL(url) async =>
       await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
@@ -166,6 +172,19 @@ class AppLayout extends StatelessWidget {
           ),
           body: HomeCubit.get(context)
               .screens[HomeCubit.get(context).currentIndex],
+          // body: ZoomDrawer(
+          //   controller: drawerController,
+          //   style: DrawerStyle.DefaultStyle,
+          //   menuScreen: DrawerMenuScreen(),
+          //   mainScreen: DrawerHomeScreen(drawerController: drawerController,),
+          //   borderRadius: 24.0,
+          //   showShadow: true,
+          //   angle: -12.0,
+          //   backgroundColor: Colors.grey[300]!,
+          //   slideWidth: MediaQuery.of(context).size.width*.65,
+          //   openCurve: Curves.fastOutSlowIn,
+          //   closeCurve: Curves.bounceIn,
+          // isRtl: true,),
         );
       },
     );

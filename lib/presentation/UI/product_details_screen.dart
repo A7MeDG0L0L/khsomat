@@ -201,6 +201,26 @@ class ProductDetailsScreen extends StatelessWidget {
                             SizedBox(
                               height: 30,
                             ),
+                            if (product!.type == "variable")
+                              Container(
+                                width:double.infinity,
+                                height: 50,
+                                child: ListView.separated(
+                                  scrollDirection: Axis.horizontal,
+                                    physics: BouncingScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) =>
+                                        OutlinedButton(
+                                          onPressed: () {},
+                                          child: Text(product!.attributes![0]
+                                              ['terms'][index]['name']),
+                                        ),
+                                    separatorBuilder: (context, index) =>
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                    itemCount: product!.attributes!.length),
+                              ),
                             SizedBox(
                               height: 20,
                             ),
