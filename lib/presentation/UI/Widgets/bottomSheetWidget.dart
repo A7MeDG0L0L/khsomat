@@ -1,4 +1,4 @@
-import 'dart:convert';
+
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -180,6 +180,7 @@ Widget showSheet(context) {
                     customerNote: customerNoteController.text,
                   //  itemsList: jsonEncode(FavoritesCubit.get(context).orderList),
                   );
+                 // showDialog(context: context, builder: (context) => Text('تم ارسال الطلب'),);
                  // print(jsonEncode(FavoritesCubit.get(context).orderList));
                   showToast(
                       text: 'تم ارسال الاوردر بأنتظار التأكيد',

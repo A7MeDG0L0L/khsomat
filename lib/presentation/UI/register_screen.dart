@@ -106,38 +106,50 @@ class RegisterScreen extends StatelessWidget {
                             SizedBox(
                               height: 30,
                             ),
-                            TextFormField(
-                              controller: firstnameController,
-                              keyboardType: TextInputType.text,
-                              validator: (String? value) {
-                                if (value!.isEmpty) {
-                                  return 'يجب إدخال إسم الأول';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                label: Text('الإسم الأول'),
-                                prefixIcon: Icon(Icons.person),
-                                border: UnderlineInputBorder(),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            TextFormField(
-                              controller: lastnameController,
-                              keyboardType: TextInputType.text,
-                              validator: (String? value) {
-                                if (value!.isEmpty) {
-                                  return 'يجب إدخال إسم الأخير';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                label: Text('الإسم الأخير'),
-                                prefixIcon: Icon(Icons.person),
-                                border: UnderlineInputBorder(),
-                              ),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 150,
+                                  child: TextFormField(
+                                    controller: firstnameController,
+                                    keyboardType: TextInputType.text,
+                                    validator: (String? value) {
+                                      if (value!.isEmpty) {
+                                        return 'يجب إدخال إسم الأول';
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                      label: Text('الإسم الأول'),
+                                      prefixIcon: Icon(Icons.person),
+                                      border: UnderlineInputBorder(),
+                                    ),
+                                  ),
+                                ),
+                                // SizedBox(
+                                //   height: 20,
+                                //   width: 30,
+                                // ),
+                                Spacer(),
+                                Container(
+                                  width: 150,
+                                  child: TextFormField(
+                                    controller: lastnameController,
+                                    keyboardType: TextInputType.text,
+                                    validator: (String? value) {
+                                      if (value!.isEmpty) {
+                                        return 'يجب إدخال إسم الأخير';
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                      label: Text('الإسم الأخير'),
+                                      prefixIcon: Icon(Icons.person),
+                                      border: UnderlineInputBorder(),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                             SizedBox(
                               height: 20,

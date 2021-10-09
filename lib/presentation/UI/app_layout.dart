@@ -98,7 +98,7 @@ class AppLayout extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => LoginScreen(),
+                                builder: (context) => Directionality(textDirection: TextDirection.rtl,child: LoginScreen()),
                               ),
                             );
                           },

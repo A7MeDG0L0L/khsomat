@@ -32,7 +32,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
         database.execute(
             'CREATE TABLE wishlist (product_id INTEGER, name TEXT, image TEXT, regularprice TEXT,saleprice TEXT,permalink TEXT)');
         database.execute(
-            'CREATE TABLE orderlist ("product_id" INTEGER, "name" TEXT, "image" TEXT, "regularprice" TEXT,"saleprice" TEXT,"permalink" TEXT,"quantity" INTEGER)');
+            'CREATE TABLE orderlist (id INTEGER PRIMARY KEY,"product_id" INTEGER, "name" TEXT, "image" TEXT, "regularprice" TEXT,"saleprice" TEXT,"permalink" TEXT,"quantity" INTEGER)');
 
         print('table Created Successfully !');
         //     .catchError((error) {
@@ -174,18 +174,24 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
 
     //  var modifiedQuantity = orderList[index]['quantity'];
     // modifiedQuantity++;
-    orderList[index]['quantity']++;
-    database.rawUpdate('UPDATE orderlist SET quantity = ${orderList[index]['quantity']+1}');
+
+  //  orderList[index]['quantity']++;
+    var quantity = ++orderList[index]['quantity'];
+    database.rawUpdate('UPDATE orderlist SET quantity = $quantity WHERE id = ${index + 1};');
     print(orderList[index]['quantity']);
-    print(json.encode(orderList));
+    // print(orderList[1]);
+    // print(orderList);
     emit(IncreaseQuantityState());
   }
 
   void decreaseQuantity(index) {
     if (orderList[index]['quantity'] > 1) {
-      orderList[index]['quantity']--;
-      database.rawUpdate('UPDATE orderlist SET quantity = ${orderList[index]['quantity']-1} WHERE quantity > 1');
+      //orderList[index]['quantity']--;
+      var quantity = --orderList[index]['quantity'];
+      database.rawUpdate('UPDATE orderlist SET quantity = $quantity WHERE id = ${index + 1};');
     }
+  //  print(orderList);
+    print(orderList[index]['quantity']);
     emit(DecreaseQuantityState());
   }
   dynamic orderListToJson()async{

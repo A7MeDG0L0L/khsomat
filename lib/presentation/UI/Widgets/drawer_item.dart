@@ -19,13 +19,17 @@ Widget buildDrawerItem(Category model, context) {
             ));
       },
       child: Container(
-        child: Row(
-          children: [
-            Text(
-              model.name,
-             // style: TextStyle(color: Colors.white),
-            ),
-          ],
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Row(
+            children: [
+              Text(
+                model.name,
+               // style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
         ),
       ),
     ),

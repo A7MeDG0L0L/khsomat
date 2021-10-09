@@ -1,16 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:share/share.dart';
 
+import '../product_details_screen.dart';
+
 Widget showOrderItem(
-  Map model,
-  index,
-  context,
-{ Product? product}
-) {
+    Map model,
+    index,
+    context,
+ //   Product product,
+    ) {
   dynamic convertPrice(int length) {
     if (model['saleprice'].length == length) {
       String price = model['saleprice'];
@@ -19,10 +22,10 @@ Widget showOrderItem(
       return parsePrice;
     }
   }
-  var counter = 1;
+//  var counter = 1;
   // var quantity= product!.quantity;
 //  print(quantity);
- // print(product);
+  // print(product);
   //   String price = model['saleprice'];
   // String stringPrice =  price.substring(0,3);
   //   int parsePrice= int.parse(stringPrice);
@@ -40,12 +43,12 @@ Widget showOrderItem(
       children: [
         GestureDetector(
           onTap: () {
-            /*Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProductDetailsScreen(product: product!),
-                ));*/
-            //Navigator.pushNamed(context, productDetailsScreen, arguments: product);
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //       builder: (context) => ProductDetailsScreen(product: product),
+            //     ));
+         //   Navigator.pushNamed(context, productDetailsScreen, arguments: product);
             //Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductDetailsScreen(product: product),));
           },
           child: Card(
@@ -123,25 +126,25 @@ Widget showOrderItem(
                                 children: [
                                   TextButton(
                                     onPressed: () {
-                                     // FavoritesCubit.get(context).quantity++;
-                                     // model['quantity']++;
-                                     //  FavoritesCubit.get(context)
-                                     //      .increaseQuantity(index);
-                                   //   Quantity
+                                      // FavoritesCubit.get(context).quantity++;
+                                      // model['quantity']++;
+                                      //  FavoritesCubit.get(context)
+                                      //      .increaseQuantity(index);
+                                      //   Quantity
 
                                       //quantity++;
                                       //print(product.quantity);
-                                    // model['quantity'][index]++;
-                                    //  FavoritesCubit.get(context).orderList['quantity'][index];
+                                      // model['quantity'][index]++;
+                                      //  FavoritesCubit.get(context).orderList['quantity'][index];
                                       FavoritesCubit.get(context).increaseQuantity(index);
-                                     // print('increase Button Pressed With index : $index');
-                                     // print(FavoritesCubit.get(context).orderList);
+                                      // print('increase Button Pressed With index : $index');
+                                      // print(FavoritesCubit.get(context).orderList);
 
 
 
                                       // var quantity =  product!.quantity;
-                                    // quantity++;
-                                    // FavoritesCubit.get(context).emit(IncreaseQuantityState());
+                                      // quantity++;
+                                      // FavoritesCubit.get(context).emit(IncreaseQuantityState());
                                     },
                                     style: ButtonStyle(),
                                     child: Text(
@@ -154,12 +157,12 @@ Widget showOrderItem(
                                   ),
                                   //SizedBox(width: 20,),
                                   Text(
-                                   // '$counter',
+                                    // '$counter',
                                     //'$quantity',
-                                  //  '${model['quantity'][index]}',
+                                    //  '${model['quantity'][index]}',
                                     //'$quantity',
-                                   // '${model['quantity']}'
-                                   '${FavoritesCubit.get(context). orderList[index]['quantity']}',
+                                    // '${model['quantity']}'
+                                    '${FavoritesCubit.get(context). orderList[index]['quantity']}',
                                     //'${model['quantity']}',
                                   ),
                                   // SizedBox(width: 10,),
@@ -179,7 +182,7 @@ Widget showOrderItem(
                                       //   quantity--;
                                       // }
                                       // print(product.quantity);
-                                       FavoritesCubit.get(context).decreaseQuantity(index);
+                                      FavoritesCubit.get(context).decreaseQuantity(index);
                                       //
                                       // print('Decrease Button Pressed With index : $index');
                                       // print(FavoritesCubit.get(context).orderList);
@@ -236,7 +239,7 @@ Widget showOrderItem(
                                 // height: 30,
                                 width: double.infinity,
                                 padding:
-                                    const EdgeInsets.only(left: 10, right: 10),
+                                const EdgeInsets.only(left: 10, right: 10),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.only(
                                     bottomLeft: Radius.circular(10),
@@ -253,37 +256,37 @@ Widget showOrderItem(
                                         if (model['saleprice'].length == 4)
                                           TextSpan(
                                               text:
-                                                  //'${intPrice}',
-                                                  '${convertPrice(4)! * FavoritesCubit.get(context).orderList[index]['quantity']}'
-                                              //'${model['saleprice'].substring(0, 2)*FavoritesCubit.get(context).quantity}',
-                                              //'$productprice',
-                                              // style: sPriceSmall,
-                                              ),
+                                              //'${intPrice}',
+                                              '${convertPrice(4)! * FavoritesCubit.get(context).orderList[index]['quantity']}'
+                                            //'${model['saleprice'].substring(0, 2)*FavoritesCubit.get(context).quantity}',
+                                            //'$productprice',
+                                            // style: sPriceSmall,
+                                          ),
                                         if (model['saleprice'].length == 5)
                                           TextSpan(
                                               text:
-                                                  //  '${intPrice}',
-                                                  '${convertPrice(5)! *FavoritesCubit.get(context).orderList[index]['quantity']}'
-                                              //'${model['saleprice'].substring(0, 3)*FavoritesCubit.get(context).quantity}',
-                                              //'$productprice',
-                                              // style: sPriceSmall,
-                                              ),
+                                              //  '${intPrice}',
+                                              '${convertPrice(5)! *FavoritesCubit.get(context).orderList[index]['quantity']}'
+                                            //'${model['saleprice'].substring(0, 3)*FavoritesCubit.get(context).quantity}',
+                                            //'$productprice',
+                                            // style: sPriceSmall,
+                                          ),
                                         if (model['saleprice'].length == 6)
                                           TextSpan(
                                               text:
-                                                  '${convertPrice(6)! * FavoritesCubit.get(context).orderList[index]['quantity']}'
-                                              //  '${model['saleprice'].substring(0, 4)*FavoritesCubit.get(context).quantity}',
-                                              //'$productprice',
-                                              // style: sPriceSmall,
-                                              ),
+                                              '${convertPrice(6)! * FavoritesCubit.get(context).orderList[index]['quantity']}'
+                                            //  '${model['saleprice'].substring(0, 4)*FavoritesCubit.get(context).quantity}',
+                                            //'$productprice',
+                                            // style: sPriceSmall,
+                                          ),
                                         if (model['saleprice'].length == 7)
                                           TextSpan(
                                               text:
-                                                  '${convertPrice(7)! *FavoritesCubit.get(context).orderList[index]['quantity']}'
-                                              //'${model['saleprice'].substring(0, 5)*FavoritesCubit.get(context).quantity}',
-                                              //'$productprice',
-                                              // style: sPriceSmall,
-                                              ),
+                                              '${convertPrice(7)! *FavoritesCubit.get(context).orderList[index]['quantity']}'
+                                            //'${model['saleprice'].substring(0, 5)*FavoritesCubit.get(context).quantity}',
+                                            //'$productprice',
+                                            // style: sPriceSmall,
+                                          ),
                                         TextSpan(
                                           text: ' ',
                                           // style: sSymbleWhite,
@@ -329,7 +332,7 @@ Widget showOrderItem(
                                     print(FavoritesCubit.get(context).database);
                                     FavoritesCubit.get(context)
                                         .deleteItemOrderListFromDatabase(
-                                            id: model['id']);
+                                        id: model['id']);
 
                                     // FavoritesCubit.get(context).deleteFromDatabase(id: model['id']);
                                     //   favList.removeFromFav(favList.favoriteList[index]);

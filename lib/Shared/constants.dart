@@ -14,6 +14,15 @@ String? token = CacheHelper.getData(key: 'token');
 String email = CacheHelper.getData(key: 'email');
 String username = CacheHelper.getData(key: 'username');
 
+
+dynamic convertPrice(int length,Map model) {
+  if (model['saleprice'].length == length) {
+    String price = model['saleprice'];
+    String stringPrice = price.substring(0, length - 2);
+    int parsePrice = int.parse(stringPrice);
+    return parsePrice;
+  }
+}
 //String? stringFavList = CacheHelper.sharedPreferences.getString('favList');
 // List<Map<String,dynamic>> stringFavList = [
 //   {
