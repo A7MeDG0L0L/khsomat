@@ -18,7 +18,7 @@ class HomeCubit extends Cubit<HomeStates> {
   static HomeCubit get(context) => BlocProvider.of(context);
   final ProductRepository productRepository;
 
-//final Product product;
+ Product? product;
   int currentIndex = 0;
   List<Widget> screens = [
     HomeScreen(),

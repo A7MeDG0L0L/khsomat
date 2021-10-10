@@ -18,11 +18,6 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
   List<Map<dynamic, dynamic>> wishList = [];
   List<Map<dynamic, dynamic>> orderList = [];
 
-
-
-
-
-
   Future<void> createDatabase() async {
     database = await openDatabase(
       'wishlist.db',
@@ -129,8 +124,8 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
   void deleteItemWishListFromDatabase({
     required int id,
   }) async {
-    await database
-        .rawDelete('DELETE FROM wishlist WHERE product_id = ?', [id]).then((value) {
+    await database.rawDelete(
+        'DELETE FROM wishlist WHERE product_id = ?', [id]).then((value) {
       getWishListDataFromDatabase(database);
       emit(DeleteWishListDataFromDatabaseState());
     });
@@ -139,8 +134,8 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
   void deleteItemOrderListFromDatabase({
     required int id,
   }) async {
-    await database
-        .rawDelete('DELETE FROM orderlist WHERE product_id = ?', [id]).then((value) {
+    await database.rawDelete(
+        'DELETE FROM orderlist WHERE product_id = ?', [id]).then((value) {
       getWishListDataFromDatabase(database);
       emit(DeleteOrderListDataFromDatabaseState());
     });
@@ -175,9 +170,10 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     //  var modifiedQuantity = orderList[index]['quantity'];
     // modifiedQuantity++;
 
-  //  orderList[index]['quantity']++;
+    //  orderList[index]['quantity']++;
     var quantity = ++orderList[index]['quantity'];
-    database.rawUpdate('UPDATE orderlist SET quantity = $quantity WHERE id = ${index + 1};');
+    database.rawUpdate(
+        'UPDATE orderlist SET quantity = $quantity WHERE id = ${index + 1};');
     print(orderList[index]['quantity']);
     // print(orderList[1]);
     // print(orderList);
@@ -188,27 +184,45 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     if (orderList[index]['quantity'] > 1) {
       //orderList[index]['quantity']--;
       var quantity = --orderList[index]['quantity'];
-      database.rawUpdate('UPDATE orderlist SET quantity = $quantity WHERE id = ${index + 1};');
+      database.rawUpdate(
+          'UPDATE orderlist SET quantity = $quantity WHERE id = ${index + 1};');
     }
-  //  print(orderList);
+    //  print(orderList);
     print(orderList[index]['quantity']);
     emit(DecreaseQuantityState());
   }
-  dynamic orderListToJson()async{
-  await  createDatabase();
 
-    dynamic copyList = await database.rawQuery('SELECT * FROM orderlist');
+  dynamic orderListToJson() async {
+    await createDatabase();
+
+    List<Map<dynamic, dynamic>> copyList =
+        await database.rawQuery('SELECT * FROM orderlist');
+    copyList.forEach((element) {
+      element.remove('id');
+    });
     json.encode(copyList);
-    print(copyList);
+    print(json.encode(copyList));
     //getOrderListDataFromDatabase(database);
     //print(orderList);
-  //  dynamic copyList = json.encode(orderList);
-   // dynamic dynamicList = copyList;
+    //  dynamic copyList = json.encode(orderList);
+    // dynamic dynamicList = copyList;
     //print(dynamicList);
     return json.encode(copyList);
   }
-List<Map<dynamic,dynamic>> copyList2=[{"product_id": 45127, "name": "System صوت كامل حائط DM858", "image": "https://khsomat.net/wp-content/uploads/2021/07/6-6.jpg", "regularprice": 960000, "saleprice": 929500, "permalink": "https://khsomat.net/product/system-%d8%b5%d9%88%d8%aa-%d9%83%d8%a7%d9%85%d9%84-dm858/", "quantity": 3}];
-  dynamic copylist()async{
+
+  List<Map<dynamic, dynamic>> copyList2 = [
+    {
+      "product_id": 45127,
+      "name": "System صوت كامل حائط DM858",
+      "image": "https://khsomat.net/wp-content/uploads/2021/07/6-6.jpg",
+      "regularprice": 960000,
+      "saleprice": 929500,
+      "permalink":
+          "https://khsomat.net/product/system-%d8%b5%d9%88%d8%aa-%d9%83%d8%a7%d9%85%d9%84-dm858/",
+      "quantity": 3
+    }
+  ];
+  dynamic copylist() async {
     await createDatabase();
     dynamic copyList = await database.rawQuery('SELECT * FROM orderlist');
     print(copyList);
@@ -226,15 +240,50 @@ List<Map<dynamic,dynamic>> copyList2=[{"product_id": 45127, "name": "System صو
     required String customerNote,
 
     //  required dynamic itemsList,
-  })async{
+  }) async {
     emit(CreatingOrderLoadingState());
-     await createDatabase();
-     // getOrderListDataFromDatabase(database);
-     // print('CO$orderList');
-     // print('Create Order Print for encoding orderList${json.encode(orderList)}');
-    dynamic copyList = await database.rawQuery('SELECT * FROM orderlist');
+    await createDatabase();
+    // getOrderListDataFromDatabase(database);
+    // print('CO$orderList');
+    // print('Create Order Print for encoding orderList${json.encode(orderList)}');
+    // List<Map<dynamic, dynamic>> copyList = [
+    //   {
+    //     'id': 1,
+    //     'product_id': 52457,
+    //     'name': ' جهاز بلايستيشن سونى Sony playstation 4 (1 تيرا)',
+    //     'image': 'https://khsomat.net/wp-content/uploads/2021/09/kh2037-1.jpg',
+    //     'regularprice': 870000,
+    //     'saleprice': 810000,
+    //     'permalink':
+    //         'https://khsomat.net/product/%d8%ac%d9%87%d8%a7%d8%b2-%d8%a8%d9%84%d8%a7%d9%8a%d8%b3%d8%aa%d9%8a%d8%b4%d9%86-%d8%b3%d9%88%d9%86%d9%89-sony-playstation-4-1-%d8%aa%d9%8a%d8%b1%d8%a7/',
+    //     'quantity': 7
+    //   },
+    //   {
+    //     'id': 2,
+    //     'product_id': 52302,
+    //     'name': ' جمبسوت اطفالي',
+    //     'image': 'https://khsomat.net/wp-content/uploads/2021/09/2-54.jpg',
+    //     'regularprice': 34000,
+    //     'saleprice': 27500,
+    //     'permalink':
+    //         'https://khsomat.net/product/%d8%ac%d9%85%d8%a8%d8%b3%d9%88%d8%aa-%d8%a7%d8%b7%d9%81%d8%a7%d9%84%d9%8a/',
+    //     'quantity': 11
+    //   }
+    // ];
+    List<Map<dynamic, dynamic>> copyList = await database.rawQuery('SELECT * FROM orderlist');
+    //copyList = await database.rawQuery('ALTER TABLE orderlist DROP id;');
     print('this is copylist before encoding it : $copyList');
-    print(json.encode(copyList));
+
+   var encodedList =  json.encode(copyList);
+    List list = json.decode(encodedList);
+
+
+
+     list.forEach((element) {
+      element.remove('id');
+    });
+
+    print(list);
     WebServices.dio.post(
       'wc/v3/orders',
       data: {
@@ -257,7 +306,7 @@ List<Map<dynamic,dynamic>> copyList2=[{"product_id": 45127, "name": "System صو
         },
         "payment_method": "cod",
         "customer_note": customerNote,
-        "line_items":copyList
+        "line_items": list
         // "line_items": [
         //   {
         //     "name": "عوامة الفلامنجو",
