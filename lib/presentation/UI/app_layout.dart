@@ -62,7 +62,11 @@ class AppLayout extends StatelessWidget {
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            title: SvgPicture.asset('assets/images/120x120 SVG white edited.svg',color: Colors.white,cacheColorFilter: true,),
+            title: SvgPicture.asset(
+              'assets/images/120x120 SVG white edited.svg',
+              color: Colors.white,
+              cacheColorFilter: true,
+            ),
             //Image(image: AssetImage('assets/images/150x150 Png White-01.png'),),
             actions: [
               IconButton(
@@ -71,8 +75,9 @@ class AppLayout extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => Directionality(
-                          textDirection: TextDirection.rtl,
-                          child: SearchScreen(),),
+                        textDirection: TextDirection.rtl,
+                        child: SearchScreen(),
+                      ),
                     ),
                   );
                 },
@@ -86,51 +91,129 @@ class AppLayout extends StatelessWidget {
           drawer: Drawer(
             semanticLabel: 'Menu',
             elevation: 20.0,
-            child: SafeArea(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: [
-                    if (token == null)
-                      Container(
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Directionality(textDirection: TextDirection.rtl,child: LoginScreen()),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade400,
+                 // borderRadius: BorderRadius.circular(20),
+                  gradient: LinearGradient(
+                    begin: Alignment.centerRight,
+                    end: Alignment.centerLeft,
+                    colors:
+                    [
+                      Colors.blue,
+                      //Colors.white,
+                      Colors.grey
+                    ],
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      if (token == null)
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade400,
+                            borderRadius: BorderRadius.circular(20),
+                            gradient: LinearGradient(
+                              begin: Alignment.centerRight,
+                              end: Alignment.centerLeft,
+                              colors:
+                              [
+                                Colors.blue,
+                                //Colors.white,
+                                Colors.grey
+                              ],
+                            ),
+                          ),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: LoginScreen(),
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Text('سجل الدخول الآن'),
+                          ),
+                        ),
+
+                      // Lottie.asset('assets/loading/hi.json',height: 200,),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade400,
+                            borderRadius: BorderRadius.circular(20),
+                            gradient: LinearGradient(
+                              begin: Alignment.centerRight,
+                              end: Alignment.centerLeft,
+                              colors:
+                              [
+                                Colors.blue,
+                                //Colors.white,
+                                Colors.grey
+                              ],
+                            ),
+                          ),
+                          child: Column(
+                            children: [
+                              if (token != null)
+                                Image.asset('assets/images/avatar.png',
+                                    height: 100),
+                              SizedBox(
+                                height: 20,
                               ),
-                            );
-                          },
-                          child: Text('سجل الدخول الآن'),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: Text(
+                                    'أهلا يا $username',
+                                    style: TextStyle(fontSize: 20,color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    if (token != null)
-                     Image.asset('assets/images/avatar.png', height: 100),
-                     // Lottie.asset('assets/loading/hi.json',height: 200,),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: Text(
-                        'أهلا يا $username',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                    //Image.asset('assets/images/avatar.png'),
-                    ListView.separated(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        physics: ClampingScrollPhysics(),
-                        itemBuilder: (context, index) => buildDrawerItem(
-                            HomeCubit.get(context).categories[index],
-                            context),
-                        separatorBuilder: (context, index) => Divider(
-                          thickness: 1,
-                          height: 2,
+                      //Image.asset('assets/images/avatar.png'),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade400,
+                          borderRadius: BorderRadius.circular(20),
+                          gradient: LinearGradient(
+                            begin: Alignment.centerRight,
+                            end: Alignment.centerLeft,
+                            colors:
+                            [
+                              Colors.blue,
+                              //Colors.white,
+                              Colors.grey
+                            ],
+                          ),
                         ),
-                        itemCount: HomeCubit.get(context).categories.length),
-                  ],
+                       // decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),gradient: Lin),
+                        child: ListView.separated(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            itemBuilder: (context, index) => buildDrawerItem(
+                                HomeCubit.get(context).categories[index], context),
+                            separatorBuilder: (context, index) => Divider(
+                                  thickness: 1,
+                                  height: 2,
+                                ),
+                            itemCount: HomeCubit.get(context).categories.length),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

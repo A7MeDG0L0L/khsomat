@@ -1,9 +1,11 @@
-
-
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:khsomat/Shared/components.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
+
+import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+
 var firstNameController = TextEditingController();
 var lastNameController = TextEditingController();
 var addressController = TextEditingController();
@@ -169,7 +171,7 @@ Widget showSheet(context) {
               onPressed: () {
                 print(FavoritesCubit.get(context).orderList);
                 if (formKey.currentState!.validate()) {
-                 // print(firstNameController.text);
+                  // print(firstNameController.text);
                   FavoritesCubit.get(context).createOrder(
                     firstname: firstNameController.text,
                     lastname: lastNameController.text,
@@ -178,15 +180,39 @@ Widget showSheet(context) {
                     email: emailController.text,
                     phone: phoneController.text,
                     customerNote: customerNoteController.text,
-                  //  itemsList: jsonEncode(FavoritesCubit.get(context).orderList),
+                    //  itemsList: jsonEncode(FavoritesCubit.get(context).orderList),
                   );
-                 // showDialog(context: context, builder: (context) => Text('تم ارسال الطلب'),);
-                 // print(jsonEncode(FavoritesCubit.get(context).orderList));
+                  // showDialog(context: context, builder: (context) => Text('تم ارسال الطلب'),);
+                  // print(jsonEncode(FavoritesCubit.get(context).orderList));
                   showToast(
                       text: 'تم ارسال الاوردر بأنتظار التأكيد',
                       state: ToastStates.SUCCESS);
                   Navigator.pop(context);
                 }
+                //showDialog(context: context, builder: (context) => Text('تم ارسال الطلب'),);
+                // showOkAlertDialog(
+                //   context: context,
+                //   title: 'معلومات عن الطلب',
+                //   message: 'تم إرسال الطلب بنجاح !',
+                //   okLabel: 'موافق',
+                // );
+                showAnimatedDialog(
+                  context: context,
+                  builder: (context) => ClassicGeneralDialogWidget(
+                    titleText: 'معلومات عن الطلب',
+                    contentText: 'تم إرسال الطلب بنجاح إنتظر مكالمة من خدمه العملاء',
+                    onPositiveClick: () {
+                      Navigator.of(context).pop();
+                    },
+                    onNegativeClick: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  animationType: DialogTransitionType.slideFromBottomFade,
+                  curve: Curves.fastOutSlowIn,
+                  duration: Duration(seconds: 1),
+                );
+                FavoritesCubit.get(context).deleteAllItemsFromOrderList();
               },
               child: Text('إدفع'),
             ),

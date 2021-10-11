@@ -148,6 +148,13 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     });
   }
 
+  void deleteAllItemsFromOrderList() async {
+    await database.rawDelete('DELETE FROM orderlist').then((value) {
+      //  getWishListDataFromDatabase(database);
+      emit(DeleteAllItemsFromOrderlistState());
+    });
+  }
+
   Product? product;
   //
   // int quantity = product!.quantityLimit!;
@@ -222,11 +229,55 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
       "quantity": 3
     }
   ];
-  dynamic copylist() async {
-    await createDatabase();
-    dynamic copyList = await database.rawQuery('SELECT * FROM orderlist');
-    print(copyList);
-    return copyList;
+  dynamic copyList() async {
+    //await createDatabase();
+   // getOrderListDataFromDatabase(database);
+    // getOrderListDataFromDatabase(database);
+    // print('CO$orderList');
+    // print('Create Order Print for encoding orderList${json.encode(orderList)}');
+    // List<Map<dynamic, dynamic>> copyList = [
+    //   {
+    //     'id': 1,
+    //     'product_id': 52457,
+    //     'name': ' جهاز بلايستيشن سونى Sony playstation 4 (1 تيرا)',
+    //     'image': 'https://khsomat.net/wp-content/uploads/2021/09/kh2037-1.jpg',
+    //     'regularprice': 870000,
+    //     'saleprice': 810000,
+    //     'permalink':
+    //         'https://khsomat.net/product/%d8%ac%d9%87%d8%a7%d8%b2-%d8%a8%d9%84%d8%a7%d9%8a%d8%b3%d8%aa%d9%8a%d8%b4%d9%86-%d8%b3%d9%88%d9%86%d9%89-sony-playstation-4-1-%d8%aa%d9%8a%d8%b1%d8%a7/',
+    //     'quantity': 7
+    //   },
+    //   {
+    //     'id': 2,
+    //     'product_id': 52302,
+    //     'name': ' جمبسوت اطفالي',
+    //     'image': 'https://khsomat.net/wp-content/uploads/2021/09/2-54.jpg',
+    //     'regularprice': 34000,
+    //     'saleprice': 27500,
+    //     'permalink':
+    //         'https://khsomat.net/product/%d8%ac%d9%85%d8%a8%d8%b3%d9%88%d8%aa-%d8%a7%d8%b7%d9%81%d8%a7%d9%84%d9%8a/',
+    //     'quantity': 11
+    //   }
+    // ];
+    List<Map<dynamic, dynamic>> copyList = await database.rawQuery('SELECT * FROM orderlist');
+    //copyList = await database.rawQuery('ALTER TABLE orderlist DROP id;');
+    print('this is copylist before encoding it : $copyList');
+
+    var encodedList =  json.encode(copyList);
+    List list = json.decode(encodedList);
+
+    list.forEach((element) {
+      element.remove('id');
+    });
+    print(list);
+    return list;
+  }
+  Future<int> totalPrice()async{
+   // await createDatabase();
+    List<Map<dynamic,dynamic>> list = copyList();
+    var quantitymulPrice= list[0]['quantity']*list[0]['saleprice'];
+    // list.forEach((element) { element });
+    return quantitymulPrice  ;
   }
 
   OrderModel? orderModel;

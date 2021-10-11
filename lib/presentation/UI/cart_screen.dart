@@ -14,9 +14,6 @@ import 'Widgets/order_product_item.dart';
 class CartScreen extends StatelessWidget {
   CartScreen({Key? key}) : super(key: key);
 
-
-
-
   var firstNameController = TextEditingController();
   var lastNameController = TextEditingController();
   var addressController = TextEditingController();
@@ -51,73 +48,120 @@ class CartScreen extends StatelessWidget {
       child: BlocConsumer<FavoritesCubit, FavoritesStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          return Padding(
-            padding: const EdgeInsets.all(15),
-            child: Conditional.single(
-              context: context,
-              conditionBuilder: (context) =>
-                  FavoritesCubit.get(context).orderList.isNotEmpty,
-              widgetBuilder: (context) {
-                return SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Column(
-                    children: [
-                      ListView.separated(
-                        shrinkWrap: true,
-                        physics: BouncingScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (context, index) => showOrderItem(
-                            FavoritesCubit.get(context).orderList[index],
-                            index,
-                            context),
-                        separatorBuilder: (context, index) => Divider(
-                          thickness: 1,
-                          height: 2,
-                        ),
-                        itemCount: FavoritesCubit.get(context).orderList.length,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Container(
-                          width: double.infinity,
-                          height: 60,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Directionality(textDirection: TextDirection.rtl,child: CheckoutScreen()),
-                                ),
-                              );
-                              // showBottomSheet(
-                              //     context: context,
-                              //     builder: (context) {
-                              //       return showSheet(context);
-                              //     });
-                            },
-                            child: Text(
-                              'إنشئ الطلب',
-                              style: TextStyle(fontSize: 20),
+          return Scaffold(
+            bottomSheet: Container(
+              color: Colors.transparent,
+              width: double.infinity,
+              // height: 200,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('الإجمالي'),
+                //  FavoritesCubit.get(context).orderList.length==0?  Text('${FavoritesCubit.get(context).orderList[0]['quantity']}'):Text('Null'),
+                  Text('${FavoritesCubit.get(context).totalPrice()}'),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Container(
+                      width: double.infinity,
+                      height: 60,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Directionality(
+                                  textDirection: TextDirection.rtl,
+                                  child: CheckoutScreen()),
                             ),
-                            style: ButtonStyle(),
-                          ),
+                          );
+                          // showBottomSheet(
+                          //     context: context,
+                          //     builder: (context) {
+                          //       return showSheet(context);
+                          //     });
+                        },
+                        child: Text(
+                          'إنشئ الطلب',
+                          style: TextStyle(fontSize: 20),
                         ),
+                        style: ButtonStyle(),
                       ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Conditional.single(
+                context: context,
+                conditionBuilder: (context) =>
+                    FavoritesCubit.get(context).orderList.isNotEmpty,
+                widgetBuilder: (context) {
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: [
+                        ListView.separated(
+                          shrinkWrap: true,
+                          physics: BouncingScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) => showOrderItem(
+                              FavoritesCubit.get(context).orderList[index],
+                              index,
+                              context),
+                          separatorBuilder: (context, index) => Divider(
+                            thickness: 1,
+                            height: 2,
+                          ),
+                          itemCount:
+                              FavoritesCubit.get(context).orderList.length,
+                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(15.0),
+                        //   child: Container(
+                        //     width: double.infinity,
+                        //     height: 60,
+                        //     child: ElevatedButton(
+                        //       onPressed: () {
+                        //         Navigator.push(
+                        //           context,
+                        //           MaterialPageRoute(
+                        //             builder: (context) => Directionality(
+                        //                 textDirection: TextDirection.rtl,
+                        //                 child: CheckoutScreen()),
+                        //           ),
+                        //         );
+                        //         // showBottomSheet(
+                        //         //     context: context,
+                        //         //     builder: (context) {
+                        //         //       return showSheet(context);
+                        //         //     });
+                        //       },
+                        //       child: Text(
+                        //         'إنشئ الطلب',
+                        //         style: TextStyle(fontSize: 20),
+                        //       ),
+                        //       style: ButtonStyle(),
+                        //     ),
+                        //   ),
+                        // ),
+                      ],
+                    ),
+                  );
+                },
+                fallbackBuilder: (context) => Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Lottie.asset('assets/loading/buyBasket2.json',
+                          height: 200, width: double.infinity),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text('السلة تبدو فارغه 🙄'),
                     ],
                   ),
-                );
-              },
-              fallbackBuilder: (context) => Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Lottie.asset('assets/loading/buyBasket2.json',
-                        height: 200, width: double.infinity),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Text('السلة تبدو فارغه 🙄'),
-                  ],
                 ),
               ),
             ),

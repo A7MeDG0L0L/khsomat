@@ -13,9 +13,10 @@ Widget buildDrawerItem(Category model, context) {
             context,
             MaterialPageRoute(
               builder: (context) => Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: ProductsForCategoryScreen(
-                      id: model.id, name: model.name)),
+                textDirection: TextDirection.rtl,
+                child:
+                    ProductsForCategoryScreen(id: model.id, name: model.name),
+              ),
             ));
       },
       child: Container(
@@ -26,7 +27,7 @@ Widget buildDrawerItem(Category model, context) {
             children: [
               Text(
                 model.name,
-               // style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white),
               ),
             ],
           ),
