@@ -14,6 +14,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
   static FavoritesCubit get(context) => BlocProvider.of(context);
 
   late Database database;
+  // late List list;
 
   List<Map<dynamic, dynamic>> wishList = [];
   List<Map<dynamic, dynamic>> orderList = [];
@@ -219,19 +220,43 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
 
   List<Map<dynamic, dynamic>> copyList2 = [
     {
-      "product_id": 45127,
-      "name": "System صوت كامل حائط DM858",
-      "image": "https://khsomat.net/wp-content/uploads/2021/07/6-6.jpg",
-      "regularprice": 960000,
-      "saleprice": 929500,
-      "permalink":
-          "https://khsomat.net/product/system-%d8%b5%d9%88%d8%aa-%d9%83%d8%a7%d9%85%d9%84-dm858/",
-      "quantity": 3
+      'id': 1,
+      'product_id': 52457,
+      'name': ' جهاز بلايستيشن سونى Sony playstation 4 (1 تيرا)',
+      'image': 'https://khsomat.net/wp-content/uploads/2021/09/kh2037-1.jpg',
+      'regularprice': 870000,
+      'saleprice': 8100,
+      'permalink':
+          'https://khsomat.net/product/%d8%ac%d9%87%d8%a7%d8%b2-%d8%a8%d9%84%d8%a7%d9%8a%d8%b3%d8%aa%d9%8a%d8%b4%d9%86-%d8%b3%d9%88%d9%86%d9%89-sony-playstation-4-1-%d8%aa%d9%8a%d8%b1%d8%a7/',
+      'quantity': 2
+    },
+    {
+      'id': 2,
+      'product_id': 52302,
+      'name': ' جمبسوت اطفالي',
+      'image': 'https://khsomat.net/wp-content/uploads/2021/09/2-54.jpg',
+      'regularprice': 34000,
+      'saleprice': 275,
+      'permalink':
+          'https://khsomat.net/product/%d8%ac%d9%85%d8%a8%d8%b3%d9%88%d8%aa-%d8%a7%d8%b7%d9%81%d8%a7%d9%84%d9%8a/',
+      'quantity': 11
+    },
+    {
+      'id': 2,
+      'product_id': 52302,
+      'name': ' جمبسوت اطفالي',
+      'image': 'https://khsomat.net/wp-content/uploads/2021/09/2-54.jpg',
+      'regularprice': 34000,
+      'saleprice': 275,
+      'permalink':
+      'https://khsomat.net/product/%d8%ac%d9%85%d8%a8%d8%b3%d9%88%d8%aa-%d8%a7%d8%b7%d9%81%d8%a7%d9%84%d9%8a/',
+      'quantity': 9
     }
   ];
+
   dynamic copyList() async {
     //await createDatabase();
-   // getOrderListDataFromDatabase(database);
+    // getOrderListDataFromDatabase(database);
     // getOrderListDataFromDatabase(database);
     // print('CO$orderList');
     // print('Create Order Print for encoding orderList${json.encode(orderList)}');
@@ -259,11 +284,12 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     //     'quantity': 11
     //   }
     // ];
-    List<Map<dynamic, dynamic>> copyList = await database.rawQuery('SELECT * FROM orderlist');
+    List<Map<dynamic, dynamic>> copyList =
+        await database.rawQuery('SELECT * FROM orderlist');
     //copyList = await database.rawQuery('ALTER TABLE orderlist DROP id;');
     print('this is copylist before encoding it : $copyList');
 
-    var encodedList =  json.encode(copyList);
+    var encodedList = json.encode(copyList);
     List list = json.decode(encodedList);
 
     list.forEach((element) {
@@ -272,12 +298,23 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     print(list);
     return list;
   }
-  Future<int> totalPrice()async{
-   // await createDatabase();
-    List<Map<dynamic,dynamic>> list = copyList();
-    var quantitymulPrice= list[0]['quantity']*list[0]['saleprice'];
-    // list.forEach((element) { element });
-    return quantitymulPrice  ;
+
+  int totalPrice()  {
+    // await createDatabase();
+    // List<Map<dynamic, dynamic>> copyList =
+    //     await database.rawQuery('SELECT * FROM orderlist');
+    // print("total price copyList #####>> :  $copyList");
+    var total;
+    for(int i=0 ; copyList2.length>i;i++){
+     total = copyList2[i]['quantity']*copyList2[i]['saleprice'];
+    print(total);
+  }
+    return total;
+    // copyList2.forEach((element) {
+    //   total += (element['quantity'])*(element['saleprice']);
+    // });
+    // print(total);
+    // return total;
   }
 
   OrderModel? orderModel;
@@ -321,16 +358,15 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     //     'quantity': 11
     //   }
     // ];
-    List<Map<dynamic, dynamic>> copyList = await database.rawQuery('SELECT * FROM orderlist');
+    List<Map<dynamic, dynamic>> copyList =
+        await database.rawQuery('SELECT * FROM orderlist');
     //copyList = await database.rawQuery('ALTER TABLE orderlist DROP id;');
     print('this is copylist before encoding it : $copyList');
 
-   var encodedList =  json.encode(copyList);
+    var encodedList = json.encode(copyList);
     List list = json.decode(encodedList);
 
-
-
-     list.forEach((element) {
+    list.forEach((element) {
       element.remove('id');
     });
 
@@ -356,6 +392,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
           "country": "Egypt",
         },
         "payment_method": "cod",
+        "payment_method_title": "الدفع نقدًا عند الإستلام",
         "customer_note": customerNote,
         "line_items": list
         // "line_items": [

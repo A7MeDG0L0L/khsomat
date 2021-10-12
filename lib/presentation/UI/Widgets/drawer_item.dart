@@ -20,7 +20,7 @@ Widget buildDrawerItem(Category model, context) {
             ));
       },
       child: Container(
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+       // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
         child: Padding(
           padding: const EdgeInsets.all(5.0),
           child: Row(

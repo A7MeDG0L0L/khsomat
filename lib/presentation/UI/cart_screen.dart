@@ -23,6 +23,7 @@ class CartScreen extends StatelessWidget {
   var customerNoteController = TextEditingController();
   var formKey = GlobalKey<FormState>();
   var _selectedValue;
+
   List<DropdownMenuItem<dynamic>> cities = [
     DropdownMenuItem(
       child: Text('القاهرة'),

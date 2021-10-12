@@ -84,7 +84,7 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(GetCategoriesLoadingState());
     productRepository.getAllCategories().then((category) {
       categories=category;
-     print(categories[1].id.toString());
+     //print(categories[1].id.toString());
       emit(GetCategoriesSuccessState(category));
     }).catchError((error){
       print('Cubit Error : ${error.toString()}');

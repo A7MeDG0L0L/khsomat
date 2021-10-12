@@ -94,20 +94,20 @@ class AppLayout extends StatelessWidget {
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade400,
-                 // borderRadius: BorderRadius.circular(20),
-                  gradient: LinearGradient(
-                    begin: Alignment.centerRight,
-                    end: Alignment.centerLeft,
-                    colors:
-                    [
-                      Colors.blue,
-                      //Colors.white,
-                      Colors.grey
-                    ],
-                  ),
-                ),
+                // decoration: BoxDecoration(
+                //   color: Colors.grey.shade400,
+                //  // borderRadius: BorderRadius.circular(20),
+                //   gradient: LinearGradient(
+                //     begin: Alignment.centerRight,
+                //     end: Alignment.centerLeft,
+                //     colors:
+                //     [
+                //       Colors.blue,
+                //       //Colors.white,
+                //       Colors.grey
+                //     ],
+                //   ),
+                // ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
