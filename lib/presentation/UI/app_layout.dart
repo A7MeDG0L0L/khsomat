@@ -91,128 +91,119 @@ class AppLayout extends StatelessWidget {
           drawer: Drawer(
             semanticLabel: 'Menu',
             elevation: 20.0,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Container(
-                // decoration: BoxDecoration(
-                //   color: Colors.grey.shade400,
-                //  // borderRadius: BorderRadius.circular(20),
-                //   gradient: LinearGradient(
-                //     begin: Alignment.centerRight,
-                //     end: Alignment.centerLeft,
-                //     colors:
-                //     [
-                //       Colors.blue,
-                //       //Colors.white,
-                //       Colors.grey
-                //     ],
-                //   ),
-                // ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      if (token == null)
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade400,
-                            borderRadius: BorderRadius.circular(20),
-                            gradient: LinearGradient(
-                              begin: Alignment.centerRight,
-                              end: Alignment.centerLeft,
-                              colors:
-                              [
-                                Colors.blue,
-                                //Colors.white,
-                                Colors.grey
-                              ],
+            child: SafeArea(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Container(
+                  // decoration: BoxDecoration(
+                  //   color: Colors.grey.shade400,
+                  //  // borderRadius: BorderRadius.circular(20),
+                  //   gradient: LinearGradient(
+                  //     begin: Alignment.centerRight,
+                  //     end: Alignment.centerLeft,
+                  //     colors:
+                  //     [
+                  //       Colors.blue,
+                  //       //Colors.white,
+                  //       Colors.grey
+                  //     ],
+                  //   ),
+                  // ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (token == null)
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade300,
+                              borderRadius: BorderRadius.circular(20),
+                              // gradient: LinearGradient(
+                              //   begin: Alignment.centerRight,
+                              //   end: Alignment.centerLeft,
+                              //   colors:
+                              //   [
+                              //     Colors.blue,
+                              //     //Colors.white,
+                              //     Colors.grey
+                              //   ],
+                              // ),
                             ),
-                          ),
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Directionality(
-                                    textDirection: TextDirection.rtl,
-                                    child: LoginScreen(),
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Directionality(
+                                      textDirection: TextDirection.rtl,
+                                      child: LoginScreen(),
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
-                            child: Text('سجل الدخول الآن'),
-                          ),
-                        ),
-
-                      // Lottie.asset('assets/loading/hi.json',height: 200,),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade400,
-                            borderRadius: BorderRadius.circular(20),
-                            gradient: LinearGradient(
-                              begin: Alignment.centerRight,
-                              end: Alignment.centerLeft,
-                              colors:
-                              [
-                                Colors.blue,
-                                //Colors.white,
-                                Colors.grey
-                              ],
+                                );
+                              },
+                              child: Text('سجل الدخول الآن'),
                             ),
                           ),
+
+                        // Lottie.asset('assets/loading/hi.json',height: 200,),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               if (token != null)
                                 Image.asset('assets/images/avatar.png',
-                                    height: 100),
+                                    height: 80),
                               SizedBox(
                                 height: 20,
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Center(
-                                  child: Text(
-                                    'أهلا يا $username',
-                                    style: TextStyle(fontSize: 20,color: Colors.white),
-                                  ),
+                                child: Text(
+                                  '$username',
+                                  style: TextStyle(fontSize: 20,color: Colors.black),
                                 ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8),
+                                child: Text('$email',style: TextStyle(color: Colors.grey),),
                               ),
                             ],
                           ),
                         ),
-                      ),
-                      //Image.asset('assets/images/avatar.png'),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade400,
-                          borderRadius: BorderRadius.circular(20),
-                          gradient: LinearGradient(
-                            begin: Alignment.centerRight,
-                            end: Alignment.centerLeft,
-                            colors:
-                            [
-                              Colors.blue,
-                              //Colors.white,
-                              Colors.grey
-                            ],
-                          ),
+                        //Image.asset('assets/images/avatar.png'),
+                        Container(
+                          // decoration: BoxDecoration(
+                          //   color: Colors.grey.shade400,
+                          //   borderRadius: BorderRadius.circular(20),
+                          //   gradient: LinearGradient(
+                          //     begin: Alignment.centerRight,
+                          //     end: Alignment.centerLeft,
+                          //     colors:
+                          //     [
+                          //       Colors.blue,
+                          //       //Colors.white,
+                          //       Colors.grey
+                          //     ],
+                          //   ),
+                          // ),
+                         // decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),gradient: Lin),
+                          child: ListView.separated(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              physics: ClampingScrollPhysics(),
+                              itemBuilder: (context, index) => buildDrawerItem(
+                                  HomeCubit.get(context).categories[index], context),
+                              separatorBuilder: (context, index) => Divider(
+                                    thickness: 1,
+                                    height: 2,
+                                  ),
+                              itemCount: HomeCubit.get(context).categories.length),
                         ),
-                       // decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),gradient: Lin),
-                        child: ListView.separated(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            physics: ClampingScrollPhysics(),
-                            itemBuilder: (context, index) => buildDrawerItem(
-                                HomeCubit.get(context).categories[index], context),
-                            separatorBuilder: (context, index) => Divider(
-                                  thickness: 1,
-                                  height: 2,
-                                ),
-                            itemCount: HomeCubit.get(context).categories.length),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

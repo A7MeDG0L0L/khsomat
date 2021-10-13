@@ -205,13 +205,17 @@ class ProductDetailsScreen extends StatelessWidget {
                               Container(
                                 width:double.infinity,
                                 height: 50,
-                                child: ListView.separated(
+                                child: ListView.separated (
                                   scrollDirection: Axis.horizontal,
                                     physics: BouncingScrollPhysics(),
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) =>
                                         OutlinedButton(
-                                          onPressed: () {},
+
+                                          onPressed: () {
+
+
+                                          },
                                           child: Text(product!.attributes![0]
                                               ['terms'][index]['name']),
                                         ),
@@ -219,7 +223,31 @@ class ProductDetailsScreen extends StatelessWidget {
                                         SizedBox(
                                           width: 5,
                                         ),
-                                    itemCount: product!.attributes!.length),
+                                    itemCount: product!.attributes![0]['terms'].length),
+                              ),
+                            SizedBox(height: 20,),
+                            if (product!.type == "variable"&&product!.attributes!.length==2)
+                              Container(
+                                width:double.infinity,
+                                height: 50,
+                                child: ListView.separated(
+                                    scrollDirection: Axis.horizontal,
+                                    physics: BouncingScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) =>
+                                        OutlinedButton(
+                                          onPressed: () {
+
+                                          },
+                                          child: Text(product!.attributes![1]
+                                          ['terms'][index]['name']),
+                                        ),
+                                    separatorBuilder: (context, index) =>
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                    itemCount:product!.attributes![1]
+                                    ['terms'].length),
                               ),
                             SizedBox(
                               height: 20,

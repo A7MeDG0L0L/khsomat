@@ -27,7 +27,7 @@ Widget buildDrawerItem(Category model, context) {
             children: [
               Text(
                 model.name,
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.black),
               ),
             ],
           ),

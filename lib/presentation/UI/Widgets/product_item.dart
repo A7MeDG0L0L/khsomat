@@ -95,7 +95,7 @@ class ProductItem extends StatelessWidget {
                                       0, 2) /*'${product.price.round()}'*/,
                                   style: TextStyle(
                                     fontFamily: 'Almarai',
-                                    fontSize: 20.0,
+                                    fontSize: 21.0,
                                     color: defColor,
                                   ),
                                 ),
@@ -128,7 +128,7 @@ class ProductItem extends StatelessWidget {
                                       0, 5) /*'${product.price.round()}'*/,
                                   style: TextStyle(
                                     fontFamily: 'Almarai',
-                                    fontSize: 20.0,
+                                    fontSize: 18.0,
                                     color: defColor,
                                   ),
                                 ),
@@ -165,7 +165,7 @@ class ProductItem extends StatelessWidget {
                                       0, 3) /* '${product.oldPrice.round()}'*/,
                                   style: TextStyle(
                                     fontFamily: 'Almarai',
-                                    fontSize: 18.0,
+                                    fontSize: 17.0,
                                     color: Colors.grey,
                                     decoration: TextDecoration.lineThrough,
                                   ),
@@ -179,7 +179,7 @@ class ProductItem extends StatelessWidget {
                                       0, 4) /* '${product.oldPrice.round()}'*/,
                                   style: TextStyle(
                                     fontFamily: 'Almarai',
-                                    fontSize: 18.0,
+                                    fontSize: 16.0,
                                     color: Colors.grey,
                                     decoration: TextDecoration.lineThrough,
                                   ),
@@ -193,7 +193,7 @@ class ProductItem extends StatelessWidget {
                                       0, 5) /* '${product.oldPrice.round()}'*/,
                                   style: TextStyle(
                                     fontFamily: 'Almarai',
-                                    fontSize: 18.0,
+                                    fontSize: 15.0,
                                     color: Colors.grey,
                                     decoration: TextDecoration.lineThrough,
                                   ),

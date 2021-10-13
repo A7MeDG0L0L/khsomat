@@ -357,47 +357,47 @@ Widget showOrderItem(
                           ),
 
                           ///cart button
-                          Center(
-                            child: Row(
-                              textDirection: TextDirection.rtl,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    // // TODO: ADD TO CART
-                                    // // CartItem cartItem = CartItem(widget.product, quantity);
-                                    //
-                                    // var add = context
-                                    //     .read(cartChangeNotifierProvider)
-                                    //     .addToCart(wooProduct: product, pQuantity: quantity);
-                                    //
-                                    // var isExist =
-                                    //     context.read(cartChangeNotifierProvider).isExist;
-                                    // if (isExist) {
-                                    //   _scaffoldKey.currentState.showSnackBar(mShowSnackBar(
-                                    //       context,
-                                    //       "المنتج موجود مسبقا هل تريد تغير الكمية",
-                                    //       "نعم"));
-                                    // } else {
-                                    //   _scaffoldKey.currentState.showSnackBar(mShowSnackBar(
-                                    //       context, "تم إضافة المنتج بنجاح", "تم"));
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Icon(
-                                      Icons.shopping_cart,
-                                      color: Colors.black26,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  width: 1,
-                                  color: Colors.black26,
-                                ),
-                              ],
-                            ),
-                          ),
+                          // Center(
+                          //   child: Row(
+                          //     textDirection: TextDirection.rtl,
+                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //     crossAxisAlignment: CrossAxisAlignment.start,
+                          //     children: [
+                          //       GestureDetector(
+                          //         onTap: () {
+                          //           // // TODO: ADD TO CART
+                          //           // // CartItem cartItem = CartItem(widget.product, quantity);
+                          //           //
+                          //           // var add = context
+                          //           //     .read(cartChangeNotifierProvider)
+                          //           //     .addToCart(wooProduct: product, pQuantity: quantity);
+                          //           //
+                          //           // var isExist =
+                          //           //     context.read(cartChangeNotifierProvider).isExist;
+                          //           // if (isExist) {
+                          //           //   _scaffoldKey.currentState.showSnackBar(mShowSnackBar(
+                          //           //       context,
+                          //           //       "المنتج موجود مسبقا هل تريد تغير الكمية",
+                          //           //       "نعم"));
+                          //           // } else {
+                          //           //   _scaffoldKey.currentState.showSnackBar(mShowSnackBar(
+                          //           //       context, "تم إضافة المنتج بنجاح", "تم"));
+                          //         },
+                          //         child: Padding(
+                          //           padding: const EdgeInsets.all(8.0),
+                          //           child: Icon(
+                          //             Icons.shopping_cart,
+                          //             color: Colors.black26,
+                          //           ),
+                          //         ),
+                          //       ),
+                          //       Container(
+                          //         width: 1,
+                          //         color: Colors.black26,
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
 
                           ///share button
                           Center(

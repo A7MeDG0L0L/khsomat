@@ -16,8 +16,9 @@ class ProductsForCategoryScreen extends StatelessWidget {
   final String name;
   late List<Product> productsCategory = [];
 
-   ProductsForCategoryScreen( {Key? key, required this.id, required this.name}) : super(key: key);
- // final Product product;
+  ProductsForCategoryScreen({Key? key, required this.id, required this.name})
+      : super(key: key);
+  // final Product product;
 
 //   ProductsForCategoryScreen({Key? key, required this.product}) : super(key: key);
 
@@ -36,18 +37,23 @@ class ProductsForCategoryScreen extends StatelessWidget {
           if (state is GetProductsForCategorySuccessState) {
             productsCategory = state.productsForCategory;
             return builderWidgetForProductsCategory();
-          }
-          else{
-            return Scaffold(backgroundColor: Colors.white,appBar: AppBar(),body: loadingIndicator());
+          } else {
+            return Scaffold(
+                backgroundColor: Colors.white,
+                appBar: AppBar(),
+                body: loadingIndicator());
           }
         },
       ),
     );
   }
-  Widget builderWidgetForProductsCategory(){
+
+  Widget builderWidgetForProductsCategory() {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar:AppBar(title: Text(name),),
+      appBar: AppBar(
+        title: Text(name),
+      ),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
@@ -64,7 +70,7 @@ class ProductsForCategoryScreen extends StatelessWidget {
                   shrinkWrap: true,
                   children: List.generate(
                     productsCategory.length,
-                        (index) => ProductItem(product: productsCategory[index]),
+                    (index) => ProductItem(product: productsCategory[index]),
                   ),
                 ),
               ],
@@ -74,5 +80,4 @@ class ProductsForCategoryScreen extends StatelessWidget {
       ),
     );
   }
-
 }

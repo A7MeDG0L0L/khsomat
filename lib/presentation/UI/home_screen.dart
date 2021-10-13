@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
+import 'package:khsomat/Shared/components.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
 import 'package:khsomat/data/models/category_model.dart';
@@ -137,7 +138,7 @@ class HomeScreen extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               mainAxisSpacing: 10,
               crossAxisSpacing: 10,
-              childAspectRatio: 1 / 2,
+              childAspectRatio: 1 / 1.8,
               crossAxisCount: 2,
               shrinkWrap: true,
               children: List.generate(
@@ -170,7 +171,7 @@ class HomeScreen extends StatelessWidget {
               crossAxisCount: 3,
               shrinkWrap: true,
               children: List.generate(
-                30,
+                15,
                 (index) => buildLargeCatItem(),
               ),
             ),
@@ -454,12 +455,5 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget loadingIndicator() {
-    return Center(
-      child: Container(
-          height: 150,
-          width: 200,
-          child: Lottie.asset('assets/loading/lottielogojson.json')),
-    );
-  }
+
 }

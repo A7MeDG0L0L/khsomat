@@ -57,9 +57,9 @@ class CartScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('الإجمالي'),
-                //  FavoritesCubit.get(context).orderList.length==0?  Text('${FavoritesCubit.get(context).orderList[0]['quantity']}'):Text('Null'),
-                  Text('${FavoritesCubit.get(context).totalPrice()}'),
+                //   Text('الإجمالي'),
+                // //  FavoritesCubit.get(context).orderList.length==0?  Text('${FavoritesCubit.get(context).orderList[0]['quantity']}'):Text('Null'),
+                //   Text('${FavoritesCubit.get(context).totalPrice()}'),
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Container(
@@ -101,53 +101,56 @@ class CartScreen extends StatelessWidget {
                 widgetBuilder: (context) {
                   return SingleChildScrollView(
                     scrollDirection: Axis.vertical,
-                    child: Column(
-                      children: [
-                        ListView.separated(
-                          shrinkWrap: true,
-                          physics: BouncingScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) => showOrderItem(
-                              FavoritesCubit.get(context).orderList[index],
-                              index,
-                              context),
-                          separatorBuilder: (context, index) => Divider(
-                            thickness: 1,
-                            height: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 150),
+                      child: Column(
+                        children: [
+                          ListView.separated(
+                            shrinkWrap: true,
+                            physics: BouncingScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            itemBuilder: (context, index) => showOrderItem(
+                                FavoritesCubit.get(context).orderList[index],
+                                index,
+                                context),
+                            separatorBuilder: (context, index) => Divider(
+                              thickness: 1,
+                              height: 2,
+                            ),
+                            itemCount:
+                                FavoritesCubit.get(context).orderList.length,
                           ),
-                          itemCount:
-                              FavoritesCubit.get(context).orderList.length,
-                        ),
-                        // Padding(
-                        //   padding: const EdgeInsets.all(15.0),
-                        //   child: Container(
-                        //     width: double.infinity,
-                        //     height: 60,
-                        //     child: ElevatedButton(
-                        //       onPressed: () {
-                        //         Navigator.push(
-                        //           context,
-                        //           MaterialPageRoute(
-                        //             builder: (context) => Directionality(
-                        //                 textDirection: TextDirection.rtl,
-                        //                 child: CheckoutScreen()),
-                        //           ),
-                        //         );
-                        //         // showBottomSheet(
-                        //         //     context: context,
-                        //         //     builder: (context) {
-                        //         //       return showSheet(context);
-                        //         //     });
-                        //       },
-                        //       child: Text(
-                        //         'إنشئ الطلب',
-                        //         style: TextStyle(fontSize: 20),
-                        //       ),
-                        //       style: ButtonStyle(),
-                        //     ),
-                        //   ),
-                        // ),
-                      ],
+                          // Padding(
+                          //   padding: const EdgeInsets.all(15.0),
+                          //   child: Container(
+                          //     width: double.infinity,
+                          //     height: 60,
+                          //     child: ElevatedButton(
+                          //       onPressed: () {
+                          //         Navigator.push(
+                          //           context,
+                          //           MaterialPageRoute(
+                          //             builder: (context) => Directionality(
+                          //                 textDirection: TextDirection.rtl,
+                          //                 child: CheckoutScreen()),
+                          //           ),
+                          //         );
+                          //         // showBottomSheet(
+                          //         //     context: context,
+                          //         //     builder: (context) {
+                          //         //       return showSheet(context);
+                          //         //     });
+                          //       },
+                          //       child: Text(
+                          //         'إنشئ الطلب',
+                          //         style: TextStyle(fontSize: 20),
+                          //       ),
+                          //       style: ButtonStyle(),
+                          //     ),
+                          //   ),
+                          // ),
+                        ],
+                      ),
                     ),
                   );
                 },
