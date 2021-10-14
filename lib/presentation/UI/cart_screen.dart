@@ -57,9 +57,10 @@ class CartScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                //   Text('الإجمالي'),
+                  CloseButton(onPressed: (){FavoritesCubit.get(context).copyList();},),
+                  Text('الإجمالي'),
                 // //  FavoritesCubit.get(context).orderList.length==0?  Text('${FavoritesCubit.get(context).orderList[0]['quantity']}'):Text('Null'),
-                //   Text('${FavoritesCubit.get(context).totalPrice()}'),
+                   //Text('${FavoritesCubit.get(context).totalPrice()}'),
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Container(
@@ -67,14 +68,19 @@ class CartScreen extends StatelessWidget {
                       height: 60,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Directionality(
-                                  textDirection: TextDirection.rtl,
-                                  child: CheckoutScreen()),
-                            ),
-                          );
+                          if(FavoritesCubit.get(context).orderList.isNotEmpty){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: CheckoutScreen()),
+                              ),
+                            );
+                          }
+                          else{
+                            showToast(text: 'السلة فارغة !', state: ToastStates.ERROR);
+                          }
                           // showBottomSheet(
                           //     context: context,
                           //     builder: (context) {

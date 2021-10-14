@@ -284,6 +284,8 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     //     'quantity': 11
     //   }
     // ];
+
+    //await createDatabase();
     List<Map<dynamic, dynamic>> copyList =
         await database.rawQuery('SELECT * FROM orderlist');
     //copyList = await database.rawQuery('ALTER TABLE orderlist DROP id;');
@@ -299,16 +301,19 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     return list;
   }
 
-  int totalPrice()  {
+  dynamic total=0;
+  Future<int> totalPrice()  async {
     // await createDatabase();
-    // List<Map<dynamic, dynamic>> copyList =
-    //     await database.rawQuery('SELECT * FROM orderlist');
-    // print("total price copyList #####>> :  $copyList");
-    var total;
-    for(int i=0 ; copyList2.length>i;i++){
-     total = copyList2[i]['quantity']*copyList2[i]['saleprice'];
+     List<Map<dynamic, dynamic>> copyList =
+         await database.rawQuery('SELECT * FROM orderlist');
+    // dynamic list=copyList();
+     print("total price copyList #####>> :  $copyList");
+//dynamic list=copyList();
+    for(int i=0 ; copyList.length>i;i++){
+     total =total + (copyList[i]['quantity']*copyList[i]['saleprice']);
     print(total);
   }
+    print(total);
     return total;
     // copyList2.forEach((element) {
     //   total += (element['quantity'])*(element['saleprice']);

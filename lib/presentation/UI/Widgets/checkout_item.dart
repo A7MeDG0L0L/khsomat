@@ -28,7 +28,7 @@ Widget showCheckoutItem(
       children: [
         Text(model['name']),
         SizedBox(width: 10,),
-        Text("${model['saleprice'].toString().substring(0,4)}"),
+       // Text("${model['saleprice'].toString().substring(0,4)}"),
         SizedBox(width: 5,),
         Text('x'),
         SizedBox(width: 5,),

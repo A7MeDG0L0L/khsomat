@@ -11,8 +11,8 @@ const favoritesScreen = '/product_details_screen';
 const registerScreen = '/register_screen';
 const loginScreen = '/login_screen';
 String? token = CacheHelper.getData(key: 'token');
-String email = CacheHelper.getData(key: 'email');
-String username = CacheHelper.getData(key: 'username');
+String? email = CacheHelper.getData(key: 'email');
+String? username = CacheHelper.getData(key: 'username');
 
 
 dynamic convertPrice(int length,Map model) {

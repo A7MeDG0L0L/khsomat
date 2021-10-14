@@ -6,6 +6,8 @@ import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/login_cubit/login_cubit.dart';
 import 'package:khsomat/business_logic/login_cubit/login_states.dart';
 
+import 'login_screen.dart';
+
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
 
@@ -24,10 +26,11 @@ class ProfileScreen extends StatelessWidget {
           return Conditional.single(
             context: context,
             conditionBuilder: (context) =>
-                username.isNotEmpty && email.isNotEmpty,
+            username!=null&&email!=null,
+                // username!.isNotEmpty && email!.isNotEmpty,
             widgetBuilder: (context) {
-              usernameController.text = username;
-              emailController.text = email;
+              usernameController.text = username!;
+              emailController.text = email!;
 
               return Padding(
                 padding: const EdgeInsets.all(25.0),
@@ -90,7 +93,20 @@ class ProfileScreen extends StatelessWidget {
               );
             },
             fallbackBuilder: (context) =>
-                Center(child: CircularProgressIndicator()),
+                Center(child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: LoginScreen(),
+                        ),
+                      ),
+                    );
+                  },
+                  child: Text('سجل الدخول الآن'),
+                ),),
           );
 
           // usernameController.text = model!.data!.displayName!;
