@@ -26,9 +26,9 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
       onCreate: (database, version) {
         print('database Created Successfully !');
         database.execute(
-            'CREATE TABLE wishlist (product_id INTEGER, name TEXT, image TEXT, regularprice TEXT,saleprice TEXT,permalink TEXT)');
+            'CREATE TABLE wishlist (product_id INTEGER, name TEXT, image TEXT, regularprice INTEGER,saleprice INTEGER,permalink TEXT)');
         database.execute(
-            'CREATE TABLE orderlist (id INTEGER PRIMARY KEY,"product_id" INTEGER, "name" TEXT, "image" TEXT, "regularprice" TEXT,"saleprice" TEXT,"permalink" TEXT,"quantity" INTEGER)');
+            'CREATE TABLE orderlist (id INTEGER PRIMARY KEY,"product_id" INTEGER, "name" TEXT, "image" TEXT, "regularprice" INTEGER,"saleprice" INTEGER,"permalink" TEXT,"quantity" INTEGER)');
 
         print('table Created Successfully !');
         //     .catchError((error) {
@@ -52,8 +52,8 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     required int productId,
     required String text,
     required String image,
-    required String regularprice,
-    required String saleprice,
+    required int regularprice,
+    required int saleprice,
     required String permalink,
   }) async {
     await database.transaction((txn) async {
@@ -75,8 +75,8 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     required String productName,
     required int productId,
     required String image,
-    required String regularprice,
-    required String saleprice,
+    required int regularprice,
+    required int saleprice,
     required String permalink,
     required int quantity,
   }) async {
@@ -183,6 +183,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     database.rawUpdate(
         'UPDATE orderlist SET quantity = $quantity WHERE id = ${index + 1};');
     print(orderList[index]['quantity']);
+    total=0;
     // print(orderList[1]);
     // print(orderList);
     emit(IncreaseQuantityState());
@@ -197,6 +198,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     }
     //  print(orderList);
     print(orderList[index]['quantity']);
+    total=0;
     emit(DecreaseQuantityState());
   }
 
@@ -254,7 +256,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     }
   ];
 
-  dynamic copyList() async {
+  Future<dynamic> copyList() async {
     //await createDatabase();
     // getOrderListDataFromDatabase(database);
     // getOrderListDataFromDatabase(database);
@@ -302,15 +304,15 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
   }
 
   dynamic total=0;
-  Future<int> totalPrice()  async {
+  int totalPrice()   {
     // await createDatabase();
-     List<Map<dynamic, dynamic>> copyList =
-         await database.rawQuery('SELECT * FROM orderlist');
+    //  List<Map<dynamic, dynamic>> copyList =
+    //      await database.rawQuery('SELECT * FROM orderlist');
     // dynamic list=copyList();
-     print("total price copyList #####>> :  $copyList");
+   //  print("total price copyList #####>> :  ${copyList}");
 //dynamic list=copyList();
-    for(int i=0 ; copyList.length>i;i++){
-     total =total + (copyList[i]['quantity']*copyList[i]['saleprice']);
+    for(int i=0 ; orderList.length>i;i++){
+     total += (orderList[i]['quantity']*orderList[i]['saleprice']);
     print(total);
   }
     print(total);

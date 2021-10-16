@@ -17,6 +17,12 @@ class HomeScreen extends StatelessWidget {
       image: NetworkImage('https://khsomat.com/wp-content/slider/1.png'),
     ),
     Image(
+      image: AssetImage('assets/images/bannertest3.jpg'),
+    ),
+    Image(
+      image: AssetImage('assets/images/slide1.jpg'),
+    ),
+    Image(
       image: AssetImage('assets/images/bannertest.jpg'),
     ),
     Image(

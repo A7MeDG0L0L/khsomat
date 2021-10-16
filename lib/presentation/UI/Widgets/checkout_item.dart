@@ -11,14 +11,14 @@ Widget showCheckoutItem(
     context,
     { Product? product}
     ) {
-  dynamic convertPrice(int length) {
-    if (model['saleprice'].length == length) {
-      String price = model['saleprice'];
-      String stringPrice = price.substring(0, length - 2);
-      int parsePrice = int.parse(stringPrice);
-      return parsePrice;
-    }
-  }
+  // dynamic convertPrice(int length) {
+  //   if (model['saleprice'].length == length) {
+  //     String price = model['saleprice'];
+  //     String stringPrice = price.substring(0, length - 2);
+  //     int parsePrice = int.parse(stringPrice);
+  //     return parsePrice;
+  //   }
+  // }
 
   double cardWidth = MediaQuery.of(context).size.width / 1.8;
   ///TODO: Enhance This Widget
@@ -28,7 +28,7 @@ Widget showCheckoutItem(
       children: [
         Text(model['name']),
         SizedBox(width: 10,),
-       // Text("${model['saleprice'].toString().substring(0,4)}"),
+        Text("${model['saleprice']}"),
         SizedBox(width: 5,),
         Text('x'),
         SizedBox(width: 5,),

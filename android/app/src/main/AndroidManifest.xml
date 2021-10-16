@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.khsomat.khsomat">
    <application
-        android:label="khsomat"
+        android:label="خصومات"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

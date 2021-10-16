@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,10 +58,21 @@ class CartScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  CloseButton(onPressed: (){FavoritesCubit.get(context).copyList();},),
-                  Text('الإجمالي'),
+                  //CloseButton(onPressed: (){FavoritesCubit.get(context).copyList();},),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 50),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Text('الإجمالي'),
+                        Spacer(),
+                        Text('${FavoritesCubit.get(context).totalPrice()}'),
+                      ],
+                    ),
+                  ),
+
                 // //  FavoritesCubit.get(context).orderList.length==0?  Text('${FavoritesCubit.get(context).orderList[0]['quantity']}'):Text('Null'),
-                   //Text('${FavoritesCubit.get(context).totalPrice()}'),
+
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Container(

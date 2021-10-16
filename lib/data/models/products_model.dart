@@ -285,8 +285,8 @@ class Prices {
   CurrencyPrefix? currencyPrefix;
   String? currencySuffix;
   String? price;
-  String? regularPrice;
-  String? salePrice;
+  int? regularPrice;
+  int? salePrice;
   dynamic? priceRange;
 
   factory Prices.fromJson(Map<String, dynamic> json) => Prices(
@@ -300,8 +300,8 @@ class Prices {
         currencyPrefix: currencyPrefixValues.map[json["currency_prefix"]],
         currencySuffix: json["currency_suffix"],
         price: json["price"],
-        regularPrice: json["regular_price"],
-        salePrice: json["sale_price"],
+        regularPrice: int.parse(json["regular_price"]),
+        salePrice: int.parse(json["sale_price"]),
         priceRange: json["price_range"],
       );
 

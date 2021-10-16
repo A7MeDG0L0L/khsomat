@@ -61,46 +61,51 @@ class ProductDetailsScreen extends StatelessWidget {
                             ),
                             Row(
                               children: <Widget>[
-                                if (product!.prices!.salePrice!.length == 4)
-                                  Text(
-                                    product!.prices!.salePrice!.substring(
-                                        0, 2) /*'${product!.price.round()}'*/,
-                                    style: TextStyle(
-                                      fontFamily: 'Almarai',
-                                      fontSize: 20.0,
-                                      color: defColor,
-                                    ),
-                                  ),
-                                if (product!.prices!.salePrice!.length == 5)
-                                  Text(
-                                    product!.prices!.salePrice!.substring(
-                                        0, 3) /*'${product!.price.round()}'*/,
-                                    style: TextStyle(
-                                      fontFamily: 'Almarai',
-                                      fontSize: 20.0,
-                                      color: defColor,
-                                    ),
-                                  ),
-                                if (product!.prices!.salePrice!.length == 6)
-                                  Text(
-                                    product!.prices!.salePrice!.substring(
-                                        0, 4) /*'${product!.price.round()}'*/,
-                                    style: TextStyle(
-                                      fontFamily: 'Almarai',
-                                      fontSize: 20.0,
-                                      color: defColor,
-                                    ),
-                                  ),
-                                if (product!.prices!.salePrice!.length == 7)
-                                  Text(
-                                    product!.prices!.salePrice!.substring(
-                                        0, 5) /*'${product!.price.round()}'*/,
-                                    style: TextStyle(
-                                      fontFamily: 'Almarai',
-                                      fontSize: 20.0,
-                                      color: defColor,
-                                    ),
-                                  ),
+                                Text('${product!.prices!.salePrice}',style: TextStyle(
+                                        fontFamily: 'Almarai',
+                                        fontSize: 20.0,
+                                        color: defColor,
+                                      ),),
+                                // if (product!.prices!.salePrice!.length == 4)
+                                //   Text(
+                                //     product!.prices!.salePrice!.substring(
+                                //         0, 2) /*'${product!.price.round()}'*/,
+                                //     style: TextStyle(
+                                //       fontFamily: 'Almarai',
+                                //       fontSize: 20.0,
+                                //       color: defColor,
+                                //     ),
+                                //   ),
+                                // if (product!.prices!.salePrice!.length == 5)
+                                //   Text(
+                                //     product!.prices!.salePrice!.substring(
+                                //         0, 3) /*'${product!.price.round()}'*/,
+                                //     style: TextStyle(
+                                //       fontFamily: 'Almarai',
+                                //       fontSize: 20.0,
+                                //       color: defColor,
+                                //     ),
+                                //   ),
+                                // if (product!.prices!.salePrice!.length == 6)
+                                //   Text(
+                                //     product!.prices!.salePrice!.substring(
+                                //         0, 4) /*'${product!.price.round()}'*/,
+                                //     style: TextStyle(
+                                //       fontFamily: 'Almarai',
+                                //       fontSize: 20.0,
+                                //       color: defColor,
+                                //     ),
+                                //   ),
+                                // if (product!.prices!.salePrice!.length == 7)
+                                //   Text(
+                                //     product!.prices!.salePrice!.substring(
+                                //         0, 5) /*'${product!.price.round()}'*/,
+                                //     style: TextStyle(
+                                //       fontFamily: 'Almarai',
+                                //       fontSize: 20.0,
+                                //       color: defColor,
+                                //     ),
+                                //   ),
                                 SizedBox(
                                   width: 4,
                                 ),
@@ -125,62 +130,69 @@ class ProductDetailsScreen extends StatelessWidget {
                                 SizedBox(
                                   width: 8,
                                 ),
-                                if (product!.onSale == true &&
-                                    product!.prices!.regularPrice !=
-                                        product!.prices!.salePrice &&
-                                    product!.prices!.regularPrice!.length == 4)
-                                  Text(
-                                    product!.prices!.regularPrice!.substring(0,
-                                        2) /* '${product!.oldPrice.round()}'*/,
+                                Text('${product!.prices!.regularPrice}',
                                     style: TextStyle(
-                                      fontFamily: 'Almarai',
-                                      fontSize: 18.0,
-                                      color: Colors.grey,
-                                      decoration: TextDecoration.lineThrough,
-                                    ),
-                                  ),
-                                if (product!.onSale == true &&
-                                    product!.prices!.regularPrice !=
-                                        product!.prices!.salePrice &&
-                                    product!.prices!.regularPrice!.length == 5)
-                                  Text(
-                                    product!.prices!.regularPrice!.substring(0,
-                                        3) /* '${product!.oldPrice.round()}'*/,
-                                    style: TextStyle(
-                                      fontFamily: 'Almarai',
-                                      fontSize: 18.0,
-                                      color: Colors.grey,
-                                      decoration: TextDecoration.lineThrough,
-                                    ),
-                                  ),
-                                if (product!.onSale == true &&
-                                    product!.prices!.regularPrice !=
-                                        product!.prices!.salePrice &&
-                                    product!.prices!.regularPrice!.length == 6)
-                                  Text(
-                                    product!.prices!.regularPrice!.substring(0,
-                                        4) /* '${product!.oldPrice.round()}'*/,
-                                    style: TextStyle(
-                                      fontFamily: 'Almarai',
-                                      fontSize: 18.0,
-                                      color: Colors.grey,
-                                      decoration: TextDecoration.lineThrough,
-                                    ),
-                                  ),
-                                if (product!.onSale == true &&
-                                    product!.prices!.regularPrice !=
-                                        product!.prices!.salePrice &&
-                                    product!.prices!.regularPrice!.length == 7)
-                                  Text(
-                                    product!.prices!.regularPrice!.substring(0,
-                                        5) /* '${product!.oldPrice.round()}'*/,
-                                    style: TextStyle(
-                                      fontFamily: 'Almarai',
-                                      fontSize: 18.0,
-                                      color: Colors.grey,
-                                      decoration: TextDecoration.lineThrough,
-                                    ),
-                                  ),
+                                            fontFamily: 'Almarai',
+                                            fontSize: 18.0,
+                                            color: Colors.grey,
+                                            decoration: TextDecoration.lineThrough,
+                                          ),),
+                                // if (product!.onSale == true &&
+                                //     product!.prices!.regularPrice !=
+                                //         product!.prices!.salePrice &&
+                                //     product!.prices!.regularPrice!.length == 4)
+                                //   Text(
+                                //     product!.prices!.regularPrice!.substring(0,
+                                //         2) /* '${product!.oldPrice.round()}'*/,
+                                //     style: TextStyle(
+                                //       fontFamily: 'Almarai',
+                                //       fontSize: 18.0,
+                                //       color: Colors.grey,
+                                //       decoration: TextDecoration.lineThrough,
+                                //     ),
+                                //   ),
+                                // if (product!.onSale == true &&
+                                //     product!.prices!.regularPrice !=
+                                //         product!.prices!.salePrice &&
+                                //     product!.prices!.regularPrice!.length == 5)
+                                //   Text(
+                                //     product!.prices!.regularPrice!.substring(0,
+                                //         3) /* '${product!.oldPrice.round()}'*/,
+                                //     style: TextStyle(
+                                //       fontFamily: 'Almarai',
+                                //       fontSize: 18.0,
+                                //       color: Colors.grey,
+                                //       decoration: TextDecoration.lineThrough,
+                                //     ),
+                                //   ),
+                                // if (product!.onSale == true &&
+                                //     product!.prices!.regularPrice !=
+                                //         product!.prices!.salePrice &&
+                                //     product!.prices!.regularPrice!.length == 6)
+                                //   Text(
+                                //     product!.prices!.regularPrice!.substring(0,
+                                //         4) /* '${product!.oldPrice.round()}'*/,
+                                //     style: TextStyle(
+                                //       fontFamily: 'Almarai',
+                                //       fontSize: 18.0,
+                                //       color: Colors.grey,
+                                //       decoration: TextDecoration.lineThrough,
+                                //     ),
+                                //   ),
+                                // if (product!.onSale == true &&
+                                //     product!.prices!.regularPrice !=
+                                //         product!.prices!.salePrice &&
+                                //     product!.prices!.regularPrice!.length == 7)
+                                //   Text(
+                                //     product!.prices!.regularPrice!.substring(0,
+                                //         5) /* '${product!.oldPrice.round()}'*/,
+                                //     style: TextStyle(
+                                //       fontFamily: 'Almarai',
+                                //       fontSize: 18.0,
+                                //       color: Colors.grey,
+                                //       decoration: TextDecoration.lineThrough,
+                                //     ),
+                                //   ),
                                 Spacer(),
                                 CircleAvatar(
                                   radius: 20,

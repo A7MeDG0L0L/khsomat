@@ -11,7 +11,7 @@ class CheckoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => FavoritesCubit(),
+      create: (context) => FavoritesCubit()..getOrderListDataFromDatabase(FavoritesCubit.get(context).database),
       child: BlocConsumer<FavoritesCubit, FavoritesStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -23,21 +23,25 @@ class CheckoutScreen extends StatelessWidget {
               child: Column(
                 // mainAxisSize: MainAxisSize.max,
                 children: [
-
                   ListView.separated(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     physics: BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
+                      // if(FavoritesCubit.get(context).orderList.isEmpty){
+                      //   FavoritesCubit.get(context).getOrderListDataFromDatabase(FavoritesCubit.get(context).database);
+                      //
+                      // }
+                      print(FavoritesCubit.get(context).orderList);
 
                       return showCheckoutItem(
-                          FavoritesCubit.get(context).copyList2[index],
+                          FavoritesCubit.get(context).orderList[index],
                           context);
                     },
                     separatorBuilder: (context, index) => Divider(
                       thickness: 1,
                     ),
-                    itemCount: FavoritesCubit.get(context).copyList2.length,
+                    itemCount: FavoritesCubit.get(context).orderList.length,
                   ),
                   showSheet(context),
                 ],
