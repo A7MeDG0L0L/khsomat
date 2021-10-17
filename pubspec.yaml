@@ -51,6 +51,7 @@ dependencies:
   share: ^2.0.4
   adaptive_dialog: ^1.1.0
   flutter_animated_dialog: ^2.0.1
+  horizontal_data_table: ^3.5.0
 
 
 

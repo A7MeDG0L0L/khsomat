@@ -187,7 +187,7 @@ packages:
       name: flutter_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.1.0"
+    version: "7.2.0"
   flutter_blurhash:
     dependency: transitive
     description:
@@ -261,6 +261,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  horizontal_data_table:
+    dependency: "direct main"
+    description:
+      name: horizontal_data_table
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.5.0"
   html:
     dependency: "direct main"
     description:
@@ -435,7 +442,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0"
+    version: "6.0.1"
   rxdart:
     dependency: transitive
     description:

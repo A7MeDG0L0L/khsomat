@@ -68,8 +68,14 @@ Widget showSheet(context) {
               controller: phoneController,
               keyboardType: TextInputType.phone,
               validator: (String? value) {
-                if (value!.isEmpty) {
+                if (value!.isEmpty ) {
                   return 'يجب إدخال رقم التليفون';
+                }
+                else if( value.length != 11){
+                  return 'رقم التليفون يجب أن يكون مكون من 11 رقم';
+                }
+                else if (value.startsWith('01')!=true){
+                  return 'يجب أن يبدأ رقم التليفون ب *********01';
                 }
                 return null;
               },
@@ -167,60 +173,81 @@ Widget showSheet(context) {
                 ),
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                print(FavoritesCubit.get(context).orderList);
-                if (formKey.currentState!.validate()) {
-                  // print(firstNameController.text);
-                  FavoritesCubit.get(context).createOrder(
-                    firstname: firstNameController.text,
-                    lastname: lastNameController.text,
-                    address: addressController.text,
-                    city: cityController.text,
-                    email: emailController.text,
-                    phone: phoneController.text,
-                    customerNote: customerNoteController.text,
-                    //  itemsList: jsonEncode(FavoritesCubit.get(context).orderList),
-                  );
-                  // showDialog(context: context, builder: (context) => Text('تم ارسال الطلب'),);
-                  // print(jsonEncode(FavoritesCubit.get(context).orderList));
-                  showToast(
-                      text: 'تم ارسال الاوردر بأنتظار التأكيد',
-                      state: ToastStates.SUCCESS);
-                  Navigator.pop(context);
-                }
-                //showDialog(context: context, builder: (context) => Text('تم ارسال الطلب'),);
-                // showOkAlertDialog(
-                //   context: context,
-                //   title: 'معلومات عن الطلب',
-                //   message: 'تم إرسال الطلب بنجاح !',
-                //   okLabel: 'موافق',
-                // );
-                showAnimatedDialog(
-                  context: context,
-                  builder: (context) => ClassicGeneralDialogWidget(
-                    titleText: 'معلومات عن الطلب',
-                    contentText: 'تم إرسال الطلب بنجاح إنتظر مكالمة من خدمه العملاء',
-                    onPositiveClick: () {
-                      Navigator.of(context).pop();
-                    },
-                    onNegativeClick: () {
-                      Navigator.of(context).pop();
-                    },
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 80,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        //print(FavoritesCubit.get(context).orderList);
+                        if (formKey.currentState!.validate()) {
+                          // print(firstNameController.text);
+                          FavoritesCubit.get(context).createOrder(
+                            firstname: firstNameController.text,
+                            lastname: lastNameController.text,
+                            address: addressController.text,
+                            city: cityController.text,
+                            email: emailController.text,
+                            phone: phoneController.text,
+                            customerNote: customerNoteController.text,
+                            //  itemsList: jsonEncode(FavoritesCubit.get(context).orderList),
+                          );
+                          // showDialog(context: context, builder: (context) => Text('تم ارسال الطلب'),);
+                          // print(jsonEncode(FavoritesCubit.get(context).orderList));
+                          showAnimatedDialog(
+                            context: context,
+                            builder: (context) => ClassicGeneralDialogWidget(
+                              titleText: 'معلومات عن الطلب',
+                              contentText: 'تم إرسال الطلب بنجاح إنتظر مكالمة من خدمه العملاء',
+                              onPositiveClick: () {
+                                Navigator.of(context).pop();
+                                FavoritesCubit.get(context).deleteAllItemsFromOrderList();
+
+                              },
+                              onNegativeClick: () {
+                                Navigator.of(context).pop();
+                                FavoritesCubit.get(context).deleteAllItemsFromOrderList();
+                              },
+                            ),
+                            animationType: DialogTransitionType.slideFromBottomFade,
+                            curve: Curves.fastOutSlowIn,
+                            duration: Duration(seconds: 1),
+                          );
+                          FavoritesCubit.get(context).deleteAllItemsFromOrderList();
+                          showToast(
+                              text: 'تم ارسال الاوردر بأنتظار التأكيد',
+                              state: ToastStates.SUCCESS);
+                          Navigator.pop(context);
+                        }
+                        //showDialog(context: context, builder: (context) => Text('تم ارسال الطلب'),);
+                        // showOkAlertDialog(
+                        //   context: context,
+                        //   title: 'معلومات عن الطلب',
+                        //   message: 'تم إرسال الطلب بنجاح !',
+                        //   okLabel: 'موافق',
+                        // );
+
+                      },
+                      child: Text('تم'),
+                    ),
                   ),
-                  animationType: DialogTransitionType.slideFromBottomFade,
-                  curve: Curves.fastOutSlowIn,
-                  duration: Duration(seconds: 1),
-                );
-                FavoritesCubit.get(context).deleteAllItemsFromOrderList();
-              },
-              child: Text('إدفع'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('اخلع'),
+                  SizedBox(width: 70,),
+                  Container(
+                    width: 80,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text('رجوع'),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

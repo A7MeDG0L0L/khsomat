@@ -20,6 +20,18 @@ class HomeScreen extends StatelessWidget {
       image: AssetImage('assets/images/bannertest3.jpg'),
     ),
     Image(
+      image: AssetImage('assets/images/slideshow1.jpg'),
+    ),
+    Image(
+      image: AssetImage('assets/images/slideResize.jpg'),
+    ),
+    Image(
+      image: AssetImage('assets/images/resize2.jpg'),
+    ),
+    Image(
+      image: AssetImage('assets/images/800x600.jpg'),
+    ),
+    Image(
       image: AssetImage('assets/images/slide1.jpg'),
     ),
     Image(
@@ -91,6 +103,10 @@ class HomeScreen extends StatelessWidget {
               items: carouselItems,
               options: CarouselOptions(
                 height: 250.0,
+                scrollPhysics: BouncingScrollPhysics(),
+                enlargeCenterPage: true,
+               // pageSnapping: false,
+                //aspectRatio: 1/2,
                 initialPage: 0,
                 viewportFraction: 1.0,
                 enableInfiniteScroll: true,

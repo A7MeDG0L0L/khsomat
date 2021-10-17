@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
@@ -26,15 +27,16 @@ Widget showCheckoutItem(
     padding: const EdgeInsets.all(15.0),
     child: Row(
       children: [
-        Text(model['name']),
+        Container(width: 150,child: Text(model['name'],textWidthBasis: TextWidthBasis.parent,overflow: TextOverflow.ellipsis ,maxLines: 1,style: TextStyle(color: Colors.white),),),
         SizedBox(width: 10,),
-        Text("${model['saleprice']}"),
-        SizedBox(width: 5,),
-        Text('x'),
-        SizedBox(width: 5,),
-        Text("${model['quantity']}"),
+        Text("${model['saleprice']}",style: TextStyle(color: Colors.white),),
+        //SizedBox(width: 5,),
+        Text('×',style: TextStyle(color: Colors.white),),
+        //SizedBox(width: 5,),
+        Text("${model['quantity']}",style: TextStyle(color: Colors.white),),
         SizedBox(width: 10,),
-        Text('${model['saleprice']*model['quantity']}'),
+        Spacer(),
+        Text('${model['saleprice']*model['quantity']}',style: TextStyle(fontSize: 15,color: Colors.amberAccent),),
       ],
     ),
   );
