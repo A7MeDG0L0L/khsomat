@@ -91,7 +91,7 @@ class ProductItem extends StatelessWidget {
                             children: [
                               Text('${product.prices!.salePrice}',style: TextStyle(
                                   fontFamily: 'Almarai',
-                                  fontSize: 21.0,
+                                  fontSize: MediaQuery.of(context).size.width/22,
                                   color: defColor,
                                 ),),
                               // if (product.prices!.salePrice!.length == 4)
@@ -149,7 +149,7 @@ class ProductItem extends StatelessWidget {
                               ),
                               Text('${product.prices!.regularPrice}',style: TextStyle(
                                       fontFamily: 'Almarai',
-                                      fontSize: 18.0,
+                                      fontSize: MediaQuery.of(context).size.width/26,
                                       color: Colors.grey,
                                       decoration: TextDecoration.lineThrough,
                                     ),),
@@ -253,7 +253,7 @@ class ProductItem extends StatelessWidget {
                                   //      'Added This Item to List : ${product.name}');
                                 },
                                 icon: CircleAvatar(
-                                  radius: 15.0,
+                                  radius: MediaQuery.of(context).size.aspectRatio/0.01,
                                   backgroundColor:
                                       /*ShopCubit
                                       .get(context)
@@ -263,7 +263,7 @@ class ProductItem extends StatelessWidget {
                                       Colors.grey,
                                   child: Icon(
                                     Icons.favorite_border,
-                                    size: 14.0,
+                                    size: MediaQuery.of(context).size.aspectRatio/0.03,
                                     color: Colors.white,
                                   ),
                                 ),
