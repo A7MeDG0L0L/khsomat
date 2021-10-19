@@ -4,7 +4,6 @@ import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
 import 'package:khsomat/presentation/UI/Widgets/bottomSheetWidget.dart';
 import 'package:khsomat/presentation/UI/Widgets/checkout_item.dart';
-import 'package:horizontal_data_table/horizontal_data_table.dart';
 
 class CheckoutScreen extends StatelessWidget {
   const CheckoutScreen({Key? key}) : super(key: key);

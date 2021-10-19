@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "282186501591",
+    "project_id": "khsomat-dea6a",
+    "storage_bucket": "khsomat-dea6a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282186501591:android:fb324b4261551c5316cf92",
+        "android_client_info": {
+          "package_name": "com.khsomat.khsomat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282186501591-b59jd3vevfkl8inr7b9016278gvg2lkr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyQKHY31RWuKgHBNRfFmnBLrm1chcqXMw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "282186501591-b59jd3vevfkl8inr7b9016278gvg2lkr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
