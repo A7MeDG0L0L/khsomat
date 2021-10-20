@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:khsomat/Shared/components.dart';
 import 'package:khsomat/Shared/my_colors.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
@@ -309,18 +310,24 @@ class ProductDetailsScreen extends StatelessWidget {
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    FavoritesCubit.get(context)
-                                        .insertToOrderListDatabase(
-                                      // id: product!.id!,
-                                      productName: product!.name!,
-                                      image: product!.images![0].src!,
-                                      regularprice:
-                                          product!.prices!.regularPrice!,
-                                      saleprice: product!.prices!.salePrice!,
-                                      permalink: product!.permalink!,
-                                      quantity: 1,
-                                      productId: product!.id!,
-                                    );
+                                    if(FavoritesCubit.get(context).checkItem(product!.id)==true){
+                                      showToast(text: 'المنتج موجود بالفعل في السلة', state: ToastStates.WARNING);
+                                    }
+                                    else{
+                                      FavoritesCubit.get(context)
+                                          .insertToOrderListDatabase(
+                                        // id: product!.id!,
+                                        productName: product!.name!,
+                                        image: product!.images![0].src!,
+                                        regularprice:
+                                        product!.prices!.regularPrice!,
+                                        saleprice: product!.prices!.salePrice!,
+                                        permalink: product!.permalink!,
+                                        quantity: 1,
+                                        productId: product!.id!,
+                                      );
+                                      showToast(text: 'تم إضافة المنتج إلي السلة', state: ToastStates.SUCCESS);
+                                    }
                                   },
                                   style: ButtonStyle(
                                     overlayColor:

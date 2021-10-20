@@ -4,11 +4,14 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:khsomat/Shared/components.dart';
 import 'package:khsomat/Shared/constants.dart';
+import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
 import 'package:khsomat/presentation/UI/Widgets/drawer/drawer_menu_screen.dart';
 import 'package:khsomat/presentation/UI/Widgets/drawer_item.dart';
+import 'package:khsomat/presentation/UI/cart_screen.dart';
 import 'package:khsomat/presentation/UI/home_screen.dart';
 import 'package:khsomat/presentation/UI/login_screen.dart';
 import 'package:khsomat/presentation/UI/search_screen.dart';
@@ -83,6 +86,31 @@ class AppLayout extends StatelessWidget {
                 },
                 icon: Icon(Icons.search),
               ),
+              ///TODO:Test This Condition
+              if(HomeCubit.get(context).currentIndex==2 && FavoritesCubit.get(context).orderList.isNotEmpty)
+              IconButton(
+                onPressed: () {
+                  if(FavoritesCubit.get(context).orderList.isEmpty)
+                    {
+                      showToast(text: 'السلة فارغة بالفعل', state: ToastStates.WARNING);
+                    }
+                  else {
+                    FavoritesCubit.get(context).deleteAllItemsFromOrderList();
+                    showToast(text: 'تم حذف جميع المنتجات من السلة', state: ToastStates.SUCCESS);
+                  }
+                },
+                icon: Icon(Icons.delete_forever_rounded),
+                color: Colors.pinkAccent[400],
+              ),
+              if(HomeCubit.get(context).currentIndex==1)
+                IconButton(
+                  onPressed: () {
+                    FavoritesCubit.get(context).deleteAllItemsFromWishList();
+                  },
+                  icon: Icon(Icons.remove),
+                  color: Colors.pinkAccent[400],
+
+                ),
               // TextButton(onPressed: (){
               //   signOut(context);
               // }, child: Text('تسجيل الخروج',style: TextStyle(color: Colors.black),)),

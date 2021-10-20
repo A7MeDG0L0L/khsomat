@@ -150,10 +150,13 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
   }
 
   void deleteAllItemsFromOrderList() async {
-    await database.rawDelete('DELETE FROM orderlist').then((value) {
-      //  getWishListDataFromDatabase(database);
-      emit(DeleteAllItemsFromOrderlistState());
-    });
+    await database.rawDelete('DELETE FROM orderlist');
+    emit(DeleteAllItemsFromOrderlistState());
+
+    // await database.rawDelete('DELETE FROM orderlist').then((value) {
+    //   //  getWishListDataFromDatabase(database);
+    //   emit(DeleteAllItemsFromOrderlistState());
+    // });
   }
 
   Product? product;
@@ -200,6 +203,17 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     print(orderList[index]['quantity']);
     total=0;
     emit(DecreaseQuantityState());
+  }
+
+
+  bool checkItem(int? productId) {
+    for(var element in orderList) {
+      if (element['product_id'] == productId) {
+        print('Item already in the orderList');
+        return true;
+      }
+    }
+    return false;
   }
 
   dynamic orderListToJson() async {
