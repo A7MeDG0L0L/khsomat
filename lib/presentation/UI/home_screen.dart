@@ -13,38 +13,50 @@ import 'package:lottie/lottie.dart';
 
 class HomeScreen extends StatelessWidget {
   List<Widget> carouselItems = [
+    // Image(
+    //   image: NetworkImage('https://khsomat.com/wp-content/slider/1.png'),
+    // ),
+    // Image(
+    //   image: AssetImage('assets/images/bannertest3.jpg'),
+    // ),
+    // Image(
+    //   image: AssetImage('assets/images/slideshow1.jpg'),
+    // ),
+    // Image(
+    //   image: AssetImage('assets/images/slideResize.jpg'),
+    // ),
+    // Image(
+    //   image: AssetImage('assets/images/resize2.jpg'),
+    // ),
+    // Image(
+    //   image: AssetImage('assets/images/800x600.jpg'),
+    // ),
+    // Image(
+    //   image: AssetImage('assets/images/slide1.jpg'),
+    // ),
+    // Image(
+    //   image: AssetImage('assets/images/bannertest.jpg'),
+    // ),
+    // Image(
+    //   image: AssetImage('assets/images/bannertest2.jpg'),
+    // ),
+    // Image(
+    //   image: AssetImage('assets/images/test.jpg'),
+    // ),
     Image(
-      image: NetworkImage('https://khsomat.com/wp-content/slider/1.png'),
+      image: AssetImage('assets/images/shoes arrival 800x300.jpg'),
     ),
-    Image(
-      image: AssetImage('assets/images/bannertest3.jpg'),
+    Container(
+      decoration: BoxDecoration(borderRadius: BorderRadiusDirectional.circular(40)),
+      child: Image(
+        image: AssetImage('assets/images/Summer and winter800x300.jpg'),
+      ),
     ),
-    Image(
-      image: AssetImage('assets/images/slideshow1.jpg'),
-    ),
-    Image(
-      image: AssetImage('assets/images/slideResize.jpg'),
-    ),
-    Image(
-      image: AssetImage('assets/images/resize2.jpg'),
-    ),
-    Image(
-      image: AssetImage('assets/images/800x600.jpg'),
-    ),
-    Image(
-      image: AssetImage('assets/images/slide1.jpg'),
-    ),
-    Image(
-      image: AssetImage('assets/images/bannertest.jpg'),
-    ),
-    Image(
-      image: AssetImage('assets/images/bannertest2.jpg'),
-    ),
-    Image(
-      image: AssetImage('assets/images/test.jpg'),
-    ),
-    Image(
-      image: AssetImage('assets/images/test2.jpg'),
+    Container(
+      decoration: BoxDecoration(borderRadius: BorderRadiusDirectional.circular(40)),
+      child: Image(
+        image: AssetImage('assets/images/800x300 weekend.jpg'),
+      ),
     ),
   ];
 
@@ -102,7 +114,7 @@ class HomeScreen extends StatelessWidget {
             CarouselSlider(
               items: carouselItems,
               options: CarouselOptions(
-                height: 250.0,
+                height: 150,
                 scrollPhysics: BouncingScrollPhysics(),
                 enlargeCenterPage: true,
                // pageSnapping: false,
