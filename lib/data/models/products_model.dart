@@ -41,6 +41,7 @@ class Product {
     required this.addToCart,
    // required this.quantity,
     //required this.counter,
+  //  required this.relatedIds,
   });
 
   int? id;
@@ -73,6 +74,7 @@ class Product {
   AddToCart? addToCart;
   //  int quantity = 1;
  // Quantity counter =1;
+  //List<int>? relatedIds;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         id: json["id"],
@@ -105,6 +107,7 @@ class Product {
         soldIndividually: json["sold_individually"],
         quantityLimit: json["quantity_limit"],
         addToCart: AddToCart.fromJson(json["add_to_cart"]),
+     // relatedIds: json["cross_sell_ids"].cast<int>(),
       //  quantity: 1,
        // counter: Quantity(counter: 1),
       );
@@ -137,6 +140,7 @@ class Product {
         "sold_individually": soldIndividually,
         "quantity_limit": quantityLimit,
         "add_to_cart": addToCart!.toJson(),
+
       };
 }
 

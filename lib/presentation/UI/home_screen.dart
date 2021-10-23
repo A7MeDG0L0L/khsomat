@@ -173,7 +173,7 @@ class HomeScreen extends StatelessWidget {
               mainAxisSpacing: 10,
               crossAxisSpacing: 10,
               /// TODO: Enhance this later
-              childAspectRatio: MediaQuery.of(context).size.aspectRatio / MediaQuery.of(context).size.aspectRatio/1.7,
+              childAspectRatio: MediaQuery.of(context).size.aspectRatio / MediaQuery.of(context).size.aspectRatio,
               crossAxisCount: 2,
               shrinkWrap: true,
               children: List.generate(

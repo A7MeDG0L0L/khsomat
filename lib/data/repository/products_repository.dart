@@ -7,8 +7,8 @@ class ProductRepository{
      final WebServices productsWebServices;
      ProductRepository(this.productsWebServices);
 
-     Future<List<Product>> getAllProducts() async {
-       final products= await productsWebServices.getAllProducts();
+     Future<List<Product>> getAllProducts({List<int>? productIds}) async {
+       final products= await productsWebServices.getAllProducts(productIds: productIds);
        return products.map((product) => Product.fromJson(product)).toList();
      }
      Future<List<Product>> getAllProductsForCategory(int id) async {

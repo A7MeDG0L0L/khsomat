@@ -14,6 +14,7 @@ import 'package:share/share.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   Product? product;
+  final CarouselController carouselController = CarouselController();
   ProductDetailsScreen({this.product});
 
   @override
@@ -41,7 +42,8 @@ class ProductDetailsScreen extends StatelessWidget {
               SliverList(
                 delegate: SliverChildListDelegate(
                   [
-                    carouselProductImages(),
+                    carouselProductImages(context),
+
                     // carouselProductImage(),
                     Container(
                       child: Padding(
@@ -62,11 +64,14 @@ class ProductDetailsScreen extends StatelessWidget {
                             ),
                             Row(
                               children: <Widget>[
-                                Text('${product!.prices!.salePrice}',style: TextStyle(
-                                        fontFamily: 'Almarai',
-                                        fontSize: 20.0,
-                                        color: defColor,
-                                      ),),
+                                Text(
+                                  '${product!.prices!.salePrice}',
+                                  style: TextStyle(
+                                    fontFamily: 'Almarai',
+                                    fontSize: 20.0,
+                                    color: defColor,
+                                  ),
+                                ),
                                 // if (product!.prices!.salePrice!.length == 4)
                                 //   Text(
                                 //     product!.prices!.salePrice!.substring(
@@ -131,13 +136,15 @@ class ProductDetailsScreen extends StatelessWidget {
                                 SizedBox(
                                   width: 8,
                                 ),
-                                Text('${product!.prices!.regularPrice}',
-                                    style: TextStyle(
-                                            fontFamily: 'Almarai',
-                                            fontSize: 18.0,
-                                            color: Colors.grey,
-                                            decoration: TextDecoration.lineThrough,
-                                          ),),
+                                Text(
+                                  '${product!.prices!.regularPrice}',
+                                  style: TextStyle(
+                                    fontFamily: 'Almarai',
+                                    fontSize: 18.0,
+                                    color: Colors.grey,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                                ),
                                 // if (product!.onSale == true &&
                                 //     product!.prices!.regularPrice !=
                                 //         product!.prices!.salePrice &&
@@ -216,32 +223,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             ),
                             if (product!.type == "variable")
                               Container(
-                                width:double.infinity,
-                                height: 50,
-                                child: ListView.separated (
-                                  scrollDirection: Axis.horizontal,
-                                    physics: BouncingScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, index) =>
-                                        OutlinedButton(
-
-                                          onPressed: () {
-
-
-                                          },
-                                          child: Text(product!.attributes![0]
-                                              ['terms'][index]['name']),
-                                        ),
-                                    separatorBuilder: (context, index) =>
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                    itemCount: product!.attributes![0]['terms'].length),
-                              ),
-                            SizedBox(height: 20,),
-                            if (product!.type == "variable"&&product!.attributes!.length==2)
-                              Container(
-                                width:double.infinity,
+                                width: double.infinity,
                                 height: 50,
                                 child: ListView.separated(
                                     scrollDirection: Axis.horizontal,
@@ -249,18 +231,41 @@ class ProductDetailsScreen extends StatelessWidget {
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) =>
                                         OutlinedButton(
-                                          onPressed: () {
-
-                                          },
-                                          child: Text(product!.attributes![1]
-                                          ['terms'][index]['name']),
+                                          onPressed: () {},
+                                          child: Text(product!.attributes![0]
+                                              ['terms'][index]['name']),
                                         ),
                                     separatorBuilder: (context, index) =>
                                         SizedBox(
                                           width: 5,
                                         ),
-                                    itemCount:product!.attributes![1]
-                                    ['terms'].length),
+                                    itemCount: product!
+                                        .attributes![0]['terms'].length),
+                              ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            if (product!.type == "variable" &&
+                                product!.attributes!.length == 2)
+                              Container(
+                                width: double.infinity,
+                                height: 50,
+                                child: ListView.separated(
+                                    scrollDirection: Axis.horizontal,
+                                    physics: BouncingScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) =>
+                                        OutlinedButton(
+                                          onPressed: () {},
+                                          child: Text(product!.attributes![1]
+                                              ['terms'][index]['name']),
+                                        ),
+                                    separatorBuilder: (context, index) =>
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                    itemCount: product!
+                                        .attributes![1]['terms'].length),
                               ),
                             SizedBox(
                               height: 20,
@@ -295,7 +300,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            width: 250,
+                            width: MediaQuery.of(context).size.width/2,
                             height: 65,
                             decoration: BoxDecoration(
                               color: defColor,
@@ -310,23 +315,28 @@ class ProductDetailsScreen extends StatelessWidget {
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    if(FavoritesCubit.get(context).checkItem(product!.id)==true){
-                                      showToast(text: 'المنتج موجود بالفعل في السلة', state: ToastStates.WARNING);
-                                    }
-                                    else{
+                                    if (FavoritesCubit.get(context)
+                                            .checkItem(product!.id) ==
+                                        true) {
+                                      showToast(
+                                          text: 'المنتج موجود بالفعل في السلة',
+                                          state: ToastStates.WARNING);
+                                    } else {
                                       FavoritesCubit.get(context)
                                           .insertToOrderListDatabase(
                                         // id: product!.id!,
                                         productName: product!.name!,
                                         image: product!.images![0].src!,
                                         regularprice:
-                                        product!.prices!.regularPrice!,
+                                            product!.prices!.regularPrice!,
                                         saleprice: product!.prices!.salePrice!,
                                         permalink: product!.permalink!,
                                         quantity: 1,
                                         productId: product!.id!,
                                       );
-                                      showToast(text: 'تم إضافة المنتج إلي السلة', state: ToastStates.SUCCESS);
+                                      showToast(
+                                          text: 'تم إضافة المنتج إلي السلة',
+                                          state: ToastStates.SUCCESS);
                                     }
                                   },
                                   style: ButtonStyle(
@@ -338,7 +348,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                     style: TextStyle(
                                         fontFamily: 'Almarai',
                                         color: Colors.white,
-                                        fontSize: 20,
+                                        fontSize: MediaQuery.of(context).size.width/20,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -426,22 +436,54 @@ class ProductDetailsScreen extends StatelessWidget {
   //   );
   // }
 
-  Widget carouselProductImages() {
-    return CarouselSlider.builder(
-        itemCount: product!.images!.length,
-        itemBuilder: (context, index, realIndex) =>
-            Image.network(product!.images![index].src!),
-        options: CarouselOptions(
-          initialPage: 0,
-          autoPlay: true,
-          height: 400,
-          autoPlayCurve: Curves.fastOutSlowIn,
-          scrollDirection: Axis.horizontal,
-          reverse: false,
-          pageSnapping: true,
-          viewportFraction: 1.0,
-          pauseAutoPlayOnTouch: true,
-        ));
+  Widget carouselProductImages(context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: 400,
+      child: Stack(
+        children: [
+          Container(
+            alignment: Alignment.center,
+            child: CarouselSlider.builder(
+                itemCount: product!.images!.length,
+                carouselController: carouselController,
+                itemBuilder: (context, index, realIndex) =>
+                    Image.network(product!.images![index].src!),
+                options: CarouselOptions(
+                  initialPage: 0,
+                  autoPlay: false,
+                  height: 400,
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  scrollDirection: Axis.horizontal,
+                  reverse: false,
+                  pageSnapping: true,
+                  viewportFraction: 1.0,
+                  pauseAutoPlayOnTouch: true,
+                  enlargeCenterPage: true,
+                )),
+          ),
+          Positioned(
+            top: 150.0,
+            child: IconButton(
+              onPressed: () {
+                carouselController.nextPage();
+              },
+              icon: Icon(Icons.arrow_back_ios),
+            ),
+          ),
+          Positioned(
+            top: 150.0,
+            left: MediaQuery.of(context).size.width/333,
+            child: IconButton(
+              onPressed: () {
+                carouselController.previousPage();
+              },
+              icon: Icon(Icons.arrow_forward_ios),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   // Widget calculateDiscountPer(){

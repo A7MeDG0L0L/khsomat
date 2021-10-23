@@ -248,9 +248,10 @@ class AppLayout extends StatelessWidget {
             alignment: Alignment.bottomLeft,
             fabSize: 54,
             fabMargin: EdgeInsets.only(bottom: 10, right: 15),
-            fabOpenIcon: Icon(Icons.contact_support_outlined),
+            fabOpenIcon: Icon(Icons.contact_support_outlined,color: Colors.white,),
             ringDiameter: 250,
             ringWidth: 60,
+
             children: [
               IconButton(
                 onPressed: () {

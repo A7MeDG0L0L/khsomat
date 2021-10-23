@@ -77,7 +77,7 @@ class CheckoutScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade500,
+                      //  color: Colors.grey.shade500,
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: ListView.separated(

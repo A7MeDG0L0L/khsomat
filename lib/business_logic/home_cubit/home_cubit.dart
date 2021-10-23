@@ -36,9 +36,9 @@ class HomeCubit extends Cubit<HomeStates> {
 
   List<Product> products = [];
 
-  List<Product>? getAllProducts() {
+  List<Product>? getAllProducts({List<int>? productIds}) {
     emit(GetProductsLoadingState());
-    productRepository.getAllProducts().then((product) {
+    productRepository.getAllProducts(productIds:productIds ).then((product) {
       products = product;
      // print(products);
       emit(GetProductsSuccessState(product));

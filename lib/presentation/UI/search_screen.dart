@@ -40,8 +40,13 @@ class SearchScreen extends StatelessWidget {
                       controller: searchController,
                       keyboardType: TextInputType.text,
                       onFieldSubmitted: (String searchText){
+                        if(formKey.currentState!.validate()){
                         SearchCubit.get(context).getAllSearchProducts(searchText);
+                        }
                       },
+                      // onChanged: (String searchText){
+                      //   SearchCubit.get(context).getAllSearchProducts(searchText);
+                      // },
                       validator: (String? value) {
                         if (value!.isEmpty) {
                           return 'إدخل كلمة للبحث عنها';

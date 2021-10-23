@@ -8,10 +8,9 @@ import 'package:share/share.dart';
 
 Widget showCheckoutItem(
     Map model,
-   // index,
+    // index,
     context,
-    { Product? product}
-    ) {
+    {Product? product}) {
   // dynamic convertPrice(int length) {
   //   if (model['saleprice'].length == length) {
   //     String price = model['saleprice'];
@@ -22,21 +21,47 @@ Widget showCheckoutItem(
   // }
 
   double cardWidth = MediaQuery.of(context).size.width / 1.8;
+
   ///TODO: Enhance This Widget
   return Padding(
     padding: const EdgeInsets.all(15.0),
     child: Row(
       children: [
-        Container(width: 150,child: Text(model['name'],textWidthBasis: TextWidthBasis.parent,overflow: TextOverflow.ellipsis ,maxLines: 1,style: TextStyle(color: Colors.white),),),
-        SizedBox(width: 10,),
-        Text("${model['saleprice']}",style: TextStyle(color: Colors.white),),
+        Container(
+          width: 150,
+          child: Text(
+            model['name'],
+            textWidthBasis: TextWidthBasis.parent,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+         //   style: TextStyle(color: Colors.white),
+          ),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Text(
+          "${model['saleprice']}",
+        //  style: TextStyle(color: Colors.white),
+        ),
         //SizedBox(width: 5,),
-        Text('×',style: TextStyle(color: Colors.white),),
+        Text(
+          '×',
+         // style: TextStyle(color: Colors.white),
+        ),
         //SizedBox(width: 5,),
-        Text("${model['quantity']}",style: TextStyle(color: Colors.white),),
-        SizedBox(width: 10,),
+        Text(
+          "${model['quantity']}",
+        //  style: TextStyle(color: Colors.white),
+        ),
+        SizedBox(
+          width: 10,
+        ),
         Spacer(),
-        Text('${model['saleprice']*model['quantity']}',style: TextStyle(fontSize: 15,color: Colors.amberAccent),),
+        Text(
+          '${model['saleprice'] * model['quantity']}',
+          style: TextStyle(fontSize: 15, color: Colors.blue),
+        ),
       ],
     ),
   );

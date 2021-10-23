@@ -205,6 +205,15 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     emit(DecreaseQuantityState());
   }
 
+  bool checkItemWishList(int? productId) {
+    for(var element in orderList) {
+      if (element['product_id'] == productId) {
+        print('Item already in the wishList');
+        return true;
+      }
+    }
+    return false;
+  }
 
   bool checkItem(int? productId) {
     for(var element in orderList) {
