@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khsomat/Shared/components.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
@@ -64,9 +65,9 @@ class CartScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        Text('الإجمالي'),
+                        Text('الإجمالي',style: TextStyle(fontSize: 20.sp),),
                         Spacer(),
-                        Text('${FavoritesCubit.get(context).totalPrice()}'),
+                        Text('${FavoritesCubit.get(context).totalPrice()}',style: TextStyle(fontSize: 20.sp),),
                       ],
                     ),
                   ),
@@ -77,7 +78,7 @@ class CartScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(15.0),
                     child: Container(
                       width: double.infinity,
-                      height: 60,
+                      height: 60.h,
                       child: ElevatedButton(
                         onPressed: () {
                           if(FavoritesCubit.get(context).orderList.isNotEmpty){
@@ -101,7 +102,7 @@ class CartScreen extends StatelessWidget {
                         },
                         child: Text(
                           'إنشئ الطلب',
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(fontSize: 20.sp),
                         ),
                         style: ButtonStyle(),
                       ),
@@ -132,8 +133,8 @@ class CartScreen extends StatelessWidget {
                                 index,
                                 context),
                             separatorBuilder: (context, index) => Divider(
-                              thickness: 1,
-                              height: 2,
+                              thickness: 1.w,
+                              height: 2.h,
                             ),
                             itemCount:
                                 FavoritesCubit.get(context).orderList.length,
@@ -177,9 +178,9 @@ class CartScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Lottie.asset('assets/loading/buyBasket2.json',
-                          height: 200, width: double.infinity),
+                          height: 200.h, width: double.infinity),
                       SizedBox(
-                        height: 15,
+                        height: 15.h,
                       ),
                       Text('السلة تبدو فارغه 🙄'),
                     ],

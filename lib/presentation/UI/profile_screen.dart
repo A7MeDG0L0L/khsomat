@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khsomat/Shared/components.dart';
 import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/login_cubit/login_cubit.dart';
@@ -40,7 +41,7 @@ class ProfileScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image.asset('assets/images/avatar.png', height: 200),
+                        Image.asset('assets/images/avatar.png', height: 200.h),
                         defaultFormField(
                             controller: usernameController,
                             type: TextInputType.text,
@@ -52,7 +53,7 @@ class ProfileScreen extends StatelessWidget {
                             label: 'إسم المستخدم',
                             prefix: Icons.person),
                         SizedBox(
-                          height: 15,
+                          height: 15.h,
                         ),
                         defaultFormField(
                             controller: emailController,
@@ -65,13 +66,13 @@ class ProfileScreen extends StatelessWidget {
                             label: 'البريد الإلكتروني',
                             prefix: Icons.person),
                         SizedBox(
-                          height: 100,
+                          height: 100.h,
                         ),
                         Container(
-                          height: 70,
-                          width: 200,
+                          height: 70.h,
+                          width: 200.w,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(20.r),
                               color: Colors.amber),
                           child: TextButton(
                             onPressed: () {
@@ -81,7 +82,7 @@ class ProfileScreen extends StatelessWidget {
                               'تسجيل الخروج',
                               style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 20
+                                fontSize: 20.sp,
                               ),
                             ),
                           ),
@@ -105,7 +106,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Text('سجل الدخول الآن'),
+                  child: Text('سجل الدخول الآن',style: TextStyle(fontSize: 20.sp),),
                 ),),
           );
 

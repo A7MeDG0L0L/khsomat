@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khsomat/Shared/components.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
@@ -47,13 +48,15 @@ class HomeScreen extends StatelessWidget {
       image: AssetImage('assets/images/shoes arrival 800x300.jpg'),
     ),
     Container(
-      decoration: BoxDecoration(borderRadius: BorderRadiusDirectional.circular(40)),
+      decoration:
+          BoxDecoration(borderRadius: BorderRadiusDirectional.circular(40)),
       child: Image(
         image: AssetImage('assets/images/Summer and winter800x300.jpg'),
       ),
     ),
     Container(
-      decoration: BoxDecoration(borderRadius: BorderRadiusDirectional.circular(40)),
+      decoration:
+          BoxDecoration(borderRadius: BorderRadiusDirectional.circular(40)),
       child: Image(
         image: AssetImage('assets/images/800x300 weekend.jpg'),
       ),
@@ -114,10 +117,10 @@ class HomeScreen extends StatelessWidget {
             CarouselSlider(
               items: carouselItems,
               options: CarouselOptions(
-                height: 150,
+                height: 150.h,
                 scrollPhysics: BouncingScrollPhysics(),
                 enlargeCenterPage: true,
-               // pageSnapping: false,
+                // pageSnapping: false,
                 //aspectRatio: 1/2,
                 initialPage: 0,
                 viewportFraction: 1.0,
@@ -131,20 +134,20 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 15,
+              height: 15.h,
             ),
             Text(
               'الأقسام',
               style: TextStyle(
                 fontFamily: 'Almarai',
-                fontSize: 20,
+                fontSize: 20.sp,
               ),
             ),
             SizedBox(
-              height: 15,
+              height: 15.h,
             ),
             Container(
-              height: 150,
+              height: 150.h,
               child: ListView.separated(
                   padding: EdgeInsets.all(9.0),
                   shrinkWrap: true,
@@ -156,52 +159,58 @@ class HomeScreen extends StatelessWidget {
                   itemCount: HomeCubit.get(context).categories.length),
             ),
             SizedBox(
-              height: 20,
+              height: 20.h,
             ),
             Text(
               'المنتجات الجديدة',
               style: TextStyle(
                 fontFamily: 'Almarai',
-                fontSize: 20,
+                fontSize: 20.sp,
               ),
             ),
             SizedBox(
-              height: 15,
+              height: 15.h,
             ),
-            GridView.count(
-              physics: BouncingScrollPhysics(),
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 10,
-              /// TODO: Enhance this later
-              childAspectRatio: MediaQuery.of(context).size.aspectRatio / MediaQuery.of(context).size.aspectRatio,
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              children: List.generate(
-                allProducts.length,
-                (index) => ProductItem(product: allProducts[index]),
+            LayoutBuilder(builder: (context, constraints) {
+              print(MediaQuery.of(context).size.aspectRatio);
+              print(MediaQuery.of(context).size.height.toInt());
+              print(MediaQuery.of(context).size.width.toInt());
+              return GridView.count(
+                physics: BouncingScrollPhysics(),
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
 
-                // here wasn't route to product details Screen
+                /// TODO: Enhance this later
+                childAspectRatio: 1.w/1.82.h,
+                crossAxisCount: 2,
+                shrinkWrap: true,
+                children: List.generate(
+                  allProducts.length,
+                  (index) => ProductItem(product: allProducts[index]),
 
-                /* buildGridProduct(allProducts[index],context),*/
-              ),
-            ),
+                  // here wasn't route to product details Screen
+
+                  /* buildGridProduct(allProducts[index],context),*/
+                ),
+              );
+            }),
             SizedBox(
-              height: 15,
+              height: 15.h,
             ),
             Text(
               'الأقسام',
               style: TextStyle(
                 fontFamily: 'Almarai',
-                fontSize: 20,
+                fontSize: 20.sp,
               ),
             ),
             SizedBox(
-              height: 15,
+              height: 15.h,
             ),
             GridView.count(
               physics: BouncingScrollPhysics(),
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 10,
+              mainAxisSpacing: 10.w,
+              crossAxisSpacing: 10.h,
               childAspectRatio: 1 / 1,
               crossAxisCount: 3,
               shrinkWrap: true,
@@ -227,17 +236,20 @@ class HomeScreen extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) => Directionality(
                   textDirection: TextDirection.rtl,
-                  child: ProductsForCategoryScreen(id: model.id,name: model.name,),
+                  child: ProductsForCategoryScreen(
+                    id: model.id,
+                    name: model.name,
+                  ),
                 ),
               ));
         },
         child: Container(
-          height: 100,
+          height: 100.h,
           child: Column(
             children: [
               Container(
-                height: 100,
-                width: 100,
+                height: 100.h,
+                width: 100.w,
                 child: model.image != null
                     ? FadeInImage.assetNetwork(
                         placeholder: 'assets/loading/loading.gif',
@@ -246,10 +258,10 @@ class HomeScreen extends StatelessWidget {
                     : Image.asset('assets/images/placeholder.jpg'),
               ),
               SizedBox(
-                height: 8,
+                height: 8.h,
               ),
               Container(
-                width: 100,
+                width: 100.w,
                 child: Text(
                   model.name,
                   maxLines: 1,
@@ -258,6 +270,7 @@ class HomeScreen extends StatelessWidget {
                   textWidthBasis: TextWidthBasis.parent,
                   style: TextStyle(
                     fontFamily: 'Almarai',
+                    fontSize: 12.w
                   ),
                 ),
               ),
@@ -271,7 +284,7 @@ class HomeScreen extends StatelessWidget {
 
   Widget myDivider() {
     return SizedBox(
-      width: 1,
+      width: 1.w,
     );
   }
 
@@ -489,6 +502,4 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
-
 }

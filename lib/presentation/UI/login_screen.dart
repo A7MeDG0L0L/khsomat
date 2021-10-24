@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khsomat/Shared/components.dart';
 import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/login_cubit/login_cubit.dart';
@@ -71,7 +72,7 @@ class LoginScreen extends StatelessWidget {
                           ),
                         );
                       },
-                      child: Text('تخطي'),
+                      child: Text('تخطي',style: TextStyle(fontSize: 15.sp),),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(30.0),
@@ -84,23 +85,23 @@ class LoginScreen extends StatelessWidget {
                             Center(
                               child: Image(
                                 image: AssetImage('assets/images/150x150 Png.png'),
-                                height: 200,
-                                width: 250,
+                                height: 200.h,
+                                width: 250.w,
                               ),
                             ),
                             Text(
                               'سجل الدخول إلي حسابك',
-                              style: TextStyle(fontSize: 25),
+                              style: TextStyle(fontSize: 25.sp),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 10.h,
                             ),
                             Text(
                               'للتسوق متعة مع خصومات',
-                              style: TextStyle(fontSize: 15),
+                              style: TextStyle(fontSize: 15.sp),
                             ),
                             SizedBox(
-                              height: 30,
+                              height: 30.h,
                             ),
                             TextFormField(
                               controller: usernameController,
@@ -112,7 +113,7 @@ class LoginScreen extends StatelessWidget {
                                 return null;
                               },
                               decoration: InputDecoration(
-                                label: Text('إسم المستخدم أو البريد الإلكتروني'),
+                                label: Text('إسم المستخدم أو البريد الإلكتروني',style: TextStyle(fontSize: 20.sp),),
                                 prefixIcon: Icon(Icons.person),
                                 border: UnderlineInputBorder(),
                               ),
@@ -130,7 +131,7 @@ class LoginScreen extends StatelessWidget {
                             //   prefix: Icons.person,
                             // ),
                             SizedBox(
-                              height: 20,
+                              height: 20.h,
                             ),
                             TextFormField(
                               controller: passwordController,
@@ -144,7 +145,7 @@ class LoginScreen extends StatelessWidget {
                               enabled: true,
 
                               decoration: InputDecoration(
-                                label: Text('كلمة المرور'),
+                                label: Text('كلمة المرور',style: TextStyle(fontSize: 20.sp),),
                                 prefixIcon: Icon(Icons.lock),
                                 suffixIcon:Icon(LoginCubit.get(context).suffix)!=null? IconButton(onPressed: (){LoginCubit.get(context).changePasswordVisibility();}, icon: Icon(LoginCubit.get(context).suffix),):null,
                                 border: UnderlineInputBorder(),
@@ -169,14 +170,14 @@ class LoginScreen extends StatelessWidget {
                             //   },
                             // ),
                             SizedBox(
-                              height: 60,
+                              height: 60.h,
                             ),
                             Container(
-                              width: 400,
-                              height: 60,
+                              width: 400.w,
+                              height: 60.h,
                               decoration: BoxDecoration(
                                 color: Colors.lightBlueAccent.shade400,
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(20.r),
                               ),
                               child: Conditional.single(
                                 context: context,
@@ -202,7 +203,7 @@ class LoginScreen extends StatelessWidget {
                                     'سجل الدخول',
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 20,
+                                      fontSize: 20.sp,
                                     ),
                                   ),
                                 ),
@@ -211,15 +212,15 @@ class LoginScreen extends StatelessWidget {
                               ),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 20.h,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('لا تمتلك حساب ؟'),
+                                Text('لا تمتلك حساب ؟',style: TextStyle(fontSize: 20.sp),),
                                 TextButton(onPressed: (){
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => Directionality(textDirection: TextDirection.rtl,child: RegisterScreen()) ,));
-                                }, child: Text('انشئ حساب الآن'),),
+                                }, child: Text('انشئ حساب الآن',style: TextStyle(fontSize: 20.sp),),),
                               ],
                             ),
                           ],

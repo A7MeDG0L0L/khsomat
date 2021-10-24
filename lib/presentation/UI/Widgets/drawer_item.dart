@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khsomat/data/models/category_model.dart';
 import 'package:khsomat/presentation/UI/products_category_screen.dart';
 
@@ -27,7 +28,10 @@ Widget buildDrawerItem(Category model, context) {
             children: [
               Text(
                 model.name,
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.black,fontSize: 16.sp,overflow: TextOverflow.ellipsis),
+                overflow: TextOverflow.ellipsis,
+                textScaleFactor: 1.w,
+                maxLines: 1,
               ),
             ],
           ),

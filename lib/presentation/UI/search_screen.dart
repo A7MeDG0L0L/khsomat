@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khsomat/Shared/components.dart';
 import 'package:khsomat/business_logic/search_cubit/search_cubit.dart';
 import 'package:khsomat/business_logic/search_cubit/search_states.dart';
@@ -27,7 +28,7 @@ class SearchScreen extends StatelessWidget {
           }
           return Scaffold(
             appBar: AppBar(
-              title:Text('أبحث عن المنتجات'),
+              title:Text('أبحث عن المنتجات',style: TextStyle(fontSize: 20.sp),),
             ),
             body: Form(
               key: formKey,
@@ -35,7 +36,7 @@ class SearchScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   children: [
-                    SizedBox(height: 15,),
+                    SizedBox(height: 15.h,),
                     TextFormField(
                       controller: searchController,
                       keyboardType: TextInputType.text,
@@ -55,24 +56,24 @@ class SearchScreen extends StatelessWidget {
                       },
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.search),
-                        label: Text('البحث ...'),
+                        label: Text('البحث ...',style: TextStyle(fontSize: 20.sp),),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: 10.0,
+                      height: 10.0.h,
                     ),
                     if (state is SearchLoadingState) LinearProgressIndicator(),
                     SizedBox(
-                      height: 10.0,
+                      height: 10.0.h,
                     ),
                     if (state is SearchSuccessState)
                       Expanded(
                         child: ListView.separated(
                           itemBuilder: (context, index) => ProductItem(product: searchedProducts[index] ),
-                          separatorBuilder: (context, index) => Container(height: 1,
+                          separatorBuilder: (context, index) => Container(height: 1.h,
                           color: Colors.grey,),
                           itemCount:
                           searchedProducts.length,

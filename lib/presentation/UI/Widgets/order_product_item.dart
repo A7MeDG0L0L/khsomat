@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
@@ -55,7 +56,7 @@ Widget showOrderItem(
             margin: EdgeInsets.all(15),
             child: Container(
               width: double.infinity,
-              height: 200,
+              height: 203.h,
               child: Stack(
                 // mainAxisAlignment: MainAxisAlignment.center,
                 // crossAxisAlignment: CrossAxisAlignment.center,
@@ -75,12 +76,12 @@ Widget showOrderItem(
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
-                              height: 80,
-                              width: 100,
+                              height: 80.h,
+                              width: 100.w,
                               child: CachedNetworkImage(
                                 imageUrl: '${model['image']}',
                                 // height: height / 1.7,
-                                height: 120,
+                                height: 120.h,
                                 width: cardWidth / 1.4,
                                 fit: BoxFit.contain,
                               ),
@@ -89,7 +90,7 @@ Widget showOrderItem(
 
                           Container(
                             color: Colors.black12,
-                            height: 11,
+                            height: 11.h,
                           ),
 
                           /// Rating
@@ -117,9 +118,9 @@ Widget showOrderItem(
                           Spacer(),
                           Column(
                             children: [
-                              Text('الكمية'),
+                              Text('الكمية',style: TextStyle(fontSize: 16.sp),),
                               SizedBox(
-                                height: 5,
+                                height: 5.h,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -151,7 +152,7 @@ Widget showOrderItem(
                                       '+',
                                       style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: 20,
+                                        fontSize: 20.sp,
                                       ),
                                     ),
                                   ),
@@ -162,7 +163,7 @@ Widget showOrderItem(
                                     //  '${model['quantity'][index]}',
                                     //'$quantity',
                                     // '${model['quantity']}'
-                                    '${FavoritesCubit.get(context). orderList[index]['quantity']}',
+                                    '${FavoritesCubit.get(context). orderList[index]['quantity']}',style: TextStyle(fontSize: 16.sp),
                                     //'${model['quantity']}',
                                   ),
                                   // SizedBox(width: 10,),
@@ -195,7 +196,7 @@ Widget showOrderItem(
                                       '-',
                                       style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: 20,
+                                        fontSize: 20.sp,
                                       ),
                                     ),
                                   ),
@@ -206,7 +207,7 @@ Widget showOrderItem(
                         ],
                       ),
                       Container(
-                        width: 1,
+                        width: 1.w,
                         color: Colors.black12,
                       ),
 
@@ -221,7 +222,7 @@ Widget showOrderItem(
                                 textDirection: TextDirection.rtl,
                                 child: ListTile(
                                   title: Text(
-                                    '${model['name']}',
+                                    '${model['name']}',style: TextStyle(fontSize: 16.sp),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 4,
                                     // style: sProductName,
@@ -242,8 +243,8 @@ Widget showOrderItem(
                                 const EdgeInsets.only(left: 10, right: 10),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(10),
-                                    bottomRight: Radius.circular(10),
+                                    bottomLeft: Radius.circular(10.r),
+                                    bottomRight: Radius.circular(10.r),
                                   ),
                                   color: Colors.blueAccent,
                                 ),
@@ -257,7 +258,7 @@ Widget showOrderItem(
                                           TextSpan(
                                               text:
                                               //'${intPrice}',
-                                              '${model['saleprice'] * FavoritesCubit.get(context).orderList[index]['quantity']}'
+                                              '${model['saleprice'] * FavoritesCubit.get(context).orderList[index]['quantity']}',style: TextStyle(fontSize: 17.sp)
                                               // '${convertPrice(4)! * FavoritesCubit.get(context).orderList[index]['quantity']}'
                                             //'${model['saleprice'].substring(0, 2)*FavoritesCubit.get(context).quantity}',
                                             //'$productprice',
@@ -295,7 +296,7 @@ Widget showOrderItem(
                                         ),
                                         TextSpan(
                                           text: 'ج.م ',
-                                          // style: sSymbleWhite,
+                                           style: TextStyle(fontSize: 12.sp),
                                         ),
                                       ],
                                     ),
@@ -309,7 +310,7 @@ Widget showOrderItem(
 
                       /// left side
                       Container(
-                        width: 1,
+                        width: 1.w,
                         color: Colors.black12,
                       ),
 
@@ -342,16 +343,17 @@ Widget showOrderItem(
                                     /// or
                                     // context.read(favoriteChangeNotifierProvider).removeFromFav(favList.favoriteList[index]);
                                   },
+                                  ///TODO:Make it tnawar w tatfe
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child:true? Icon(Icons.favorite_border) : Icon(
+                                    child:true? Icon(Icons.favorite_border,size: 20.w,) : Icon(
                                       Icons.favorite,
                                       color: Colors.pinkAccent[400],
                                     ),
                                   ),
                                 ),
                                 Container(
-                                  width: 1,
+                                  width: 1.w,
                                   color: Colors.black26,
                                 ),
                               ],
@@ -419,12 +421,12 @@ Widget showOrderItem(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Icon(
                                       Icons.share,
-                                      color: Colors.black26,
+                                      color: Colors.black26,size: 20.w,
                                     ),
                                   ),
                                 ),
                                 Container(
-                                  width: 1,
+                                  width: 1.w,
                                   color: Colors.black26,
                                 ),
                               ],

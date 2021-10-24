@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/data/models/products_model.dart';
@@ -307,7 +308,7 @@ Widget showWishItem(
             margin: EdgeInsets.all(15),
             child: Container(
               width: double.infinity,
-              height: 150,
+              height: 204.h,
               child: Stack(
                 // mainAxisAlignment: MainAxisAlignment.center,
                 // crossAxisAlignment: CrossAxisAlignment.center,
@@ -327,12 +328,12 @@ Widget showWishItem(
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
-                              height: 80,
-                              width: 100,
+                              height: 80.h,
+                              width: 100.w,
                               child: CachedNetworkImage(
                                 imageUrl: '${model['image']}',
                                 // height: height / 1.7,
-                                height: 120,
+                                height: 120.h,
                                 width: cardWidth / 1.4,
                                 fit: BoxFit.contain,
                               ),
@@ -341,24 +342,24 @@ Widget showWishItem(
 
                           Container(
                             color: Colors.black12,
-                            height: 11,
+                            height: 11.h,
                           ),
 
                           /// Rating
                           Container(
-                            height: 40,
+                            height: 40.h,
                             child: Center(
                               child: Text.rich(
                                 TextSpan(children: <InlineSpan>[
                                   WidgetSpan(
                                     child: Icon(
                                       Icons.star,
-                                      size: 14,
+                                      size: 14.w,
                                       color: Colors.yellow,
                                     ),
                                   ),
                                   TextSpan(text: " "),
-                                  TextSpan(text: "4.5"
+                                  TextSpan(text: "4.5",style: TextStyle(fontSize: 15.sp),
                                       // "${product.reviewCount < 0 ? "4.0" : "4.0"}",
                                       // style: spn,
                                       ),
@@ -386,7 +387,7 @@ Widget showWishItem(
                                   title: Text(
                                     '${model['name']}',
                                     overflow: TextOverflow.ellipsis,
-                                    maxLines: 4,
+                                    maxLines: 4,style: TextStyle(fontSize: 18.sp),
                                     // style: sProductName,
                                   ),
                                   // subtitle: Text(product.type ?? ""),
@@ -405,8 +406,8 @@ Widget showWishItem(
                                     const EdgeInsets.only(left: 10, right: 10),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(10),
-                                      bottomRight: Radius.circular(10)),
+                                      bottomLeft: Radius.circular(10.r),
+                                      bottomRight: Radius.circular(10.r)),
                                   color: Colors.blueAccent,
                                 ),
                                 child: Center(
@@ -415,40 +416,47 @@ Widget showWishItem(
                                     maxLines: 2,
                                     text: TextSpan(
                                       children: [
-                                        if (model['saleprice'].length == 4)
-                                          TextSpan(
-                                            text:
-                                                '${model['saleprice'].substring(0, 2)}',
-                                            //'$productprice',
-                                            // style: sPriceSmall,
-                                          ),
-                                        if (model['saleprice'].length == 5)
-                                          TextSpan(
-                                            text:
-                                                '${model['saleprice'].substring(0, 3)}',
-                                            //'$productprice',
-                                            // style: sPriceSmall,
-                                          ),
-                                        if (model['saleprice'].length == 6)
-                                          TextSpan(
-                                            text:
-                                                '${model['saleprice'].substring(0, 4)}',
-                                            //'$productprice',
-                                            // style: sPriceSmall,
-                                          ),
-                                        if (model['saleprice'].length == 7)
-                                          TextSpan(
-                                            text:
-                                                '${model['saleprice'].substring(0, 5)}',
-                                            //'$productprice',
-                                            // style: sPriceSmall,
-                                          ),
+                                        TextSpan(
+                                          text:
+                                          '${model['saleprice']}'
+                                        ,style: TextStyle(fontSize: 18.sp),
+                                          //'$productprice',
+                                          // style: sPriceSmall,
+                                        ),
+                                        // if (model['saleprice'].length == 4)
+                                        //   TextSpan(
+                                        //     text:
+                                        //         '${model['saleprice'].substring(0, 2)}',
+                                        //     //'$productprice',
+                                        //     // style: sPriceSmall,
+                                        //   ),
+                                        // if (model['saleprice'].length == 5)
+                                        //   TextSpan(
+                                        //     text:
+                                        //         '${model['saleprice'].substring(0, 3)}',
+                                        //     //'$productprice',
+                                        //     // style: sPriceSmall,
+                                        //   ),
+                                        // if (model['saleprice'].length == 6)
+                                        //   TextSpan(
+                                        //     text:
+                                        //         '${model['saleprice'].substring(0, 4)}',
+                                        //     //'$productprice',
+                                        //     // style: sPriceSmall,
+                                        //   ),
+                                        // if (model['saleprice'].length == 7)
+                                        //   TextSpan(
+                                        //     text:
+                                        //         '${model['saleprice'].substring(0, 5)}',
+                                        //     //'$productprice',
+                                        //     // style: sPriceSmall,
+                                        //   ),
                                         TextSpan(
                                           text: ' ',
                                           // style: sSymbleWhite,
                                         ),
                                         TextSpan(
-                                          text: 'ج.م ',
+                                          text: 'ج.م ',style: TextStyle(fontSize: 15.sp),
                                           // style: sSymbleWhite,
                                         ),
                                       ],
@@ -463,7 +471,7 @@ Widget showWishItem(
 
                       /// left side
                       Container(
-                        width: 1,
+                        width: 1.w,
                         color: Colors.black12,
                       ),
 
@@ -505,7 +513,7 @@ Widget showWishItem(
                                   ),
                                 ),
                                 Container(
-                                  width: 1,
+                                  width: 1.w,
                                   color: Colors.black26,
                                 ),
                               ],
@@ -559,7 +567,7 @@ Widget showWishItem(
                                   ),
                                 ),
                                 Container(
-                                  width: 1,
+                                  width: 1.w,
                                   color: Colors.black26,
                                 ),
                               ],
@@ -589,7 +597,7 @@ Widget showWishItem(
                                   ),
                                 ),
                                 Container(
-                                  width: 1,
+                                  width: 1.w,
                                   color: Colors.black26,
                                 ),
                               ],

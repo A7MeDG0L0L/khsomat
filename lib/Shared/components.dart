@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
 
@@ -66,7 +67,7 @@ void showToast({
       timeInSecForIosWeb: 5,
       backgroundColor: chooseToastColor(state),
       textColor: Colors.white,
-      fontSize: 16.0,
+      fontSize: 16.0.sp,
     );
 
 // enum
@@ -100,7 +101,7 @@ Widget defaultButton({
 }) =>
     Container(
       width: width,
-      height: 50.0,
+      height: 50.0.h,
       child: MaterialButton(
         onPressed: () {
           function;
@@ -114,7 +115,7 @@ Widget defaultButton({
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(
-          30,
+          30.r,
         ),
         color: Colors.teal,
       ),
@@ -135,8 +136,8 @@ Widget defaultTextButton({
 Widget loadingIndicator() {
   return Center(
     child: Container(
-        height: 150,
-        width: 200,
+        height: 150.h,
+        width: 200.w,
         child: Lottie.asset('assets/loading/loading4.json'),),
   );
 }

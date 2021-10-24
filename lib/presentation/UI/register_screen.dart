@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khsomat/Shared/components.dart';
 import 'package:khsomat/business_logic/register_cubit/register_cubit.dart';
 import 'package:khsomat/business_logic/register_cubit/register_states.dart';
@@ -74,7 +75,7 @@ class RegisterScreen extends StatelessWidget {
                           ),
                         );
                       },
-                      child: Text('تخطي'),
+                      child: Text('تخطي',style: TextStyle(fontSize: 16.sp),),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(30.0),
@@ -88,28 +89,28 @@ class RegisterScreen extends StatelessWidget {
                               child: Image(
                                 image:
                                     AssetImage('assets/images/150x150 Png.png'),
-                                height: 200,
-                                width: 250,
+                                height: 200.h,
+                                width: 250.w,
                               ),
                             ),
                             Text(
                               'إنشاء حساب جديد',
-                              style: TextStyle(fontSize: 25),
+                              style: TextStyle(fontSize: 25.sp),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 10.h,
                             ),
                             Text(
                               'إكتشف معني العروض الحقيقي مع خصومات',
-                              style: TextStyle(fontSize: 15,color: Colors.grey.shade500),
+                              style: TextStyle(fontSize: 15.sp,color: Colors.grey.shade500),
                             ),
                             SizedBox(
-                              height: 30,
+                              height: 30.h,
                             ),
                             Row(
                               children: <Widget>[
                                 Container(
-                                  width: 150,
+                                  width: 150.w,
                                   child: TextFormField(
                                     controller: firstnameController,
                                     keyboardType: TextInputType.text,
@@ -120,7 +121,7 @@ class RegisterScreen extends StatelessWidget {
                                       return null;
                                     },
                                     decoration: InputDecoration(
-                                      label: Text('الإسم الأول'),
+                                      label: Text('الإسم الأول',style: TextStyle(fontSize: 20.sp),),
                                       prefixIcon: Icon(Icons.person),
                                       border: UnderlineInputBorder(),
                                     ),
@@ -132,7 +133,7 @@ class RegisterScreen extends StatelessWidget {
                                 // ),
                                 Spacer(),
                                 Container(
-                                  width: 150,
+                                  width: 150.w,
                                   child: TextFormField(
                                     controller: lastnameController,
                                     keyboardType: TextInputType.text,
@@ -152,7 +153,7 @@ class RegisterScreen extends StatelessWidget {
                               ],
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 20.h,
                             ),
                             TextFormField(
                               controller: usernameController,
@@ -164,7 +165,7 @@ class RegisterScreen extends StatelessWidget {
                                 return null;
                               },
                               decoration: InputDecoration(
-                                label: Text('إسم المستخدم'),
+                                label: Text('إسم المستخدم',style: TextStyle(fontSize: 20.sp),),
                                 prefixIcon: Icon(Icons.person),
                                 border: UnderlineInputBorder(),
                               ),
@@ -181,7 +182,7 @@ class RegisterScreen extends StatelessWidget {
                             //   prefix: Icons.person,
                             // ),
                             SizedBox(
-                              height: 20,
+                              height: 20.h,
                             ),
                             TextFormField(
                               controller: emailController,
@@ -193,7 +194,7 @@ class RegisterScreen extends StatelessWidget {
                                 return null;
                               },
                               decoration: InputDecoration(
-                                label: Text('البريد الإلكتروني'),
+                                label: Text('البريد الإلكتروني',style: TextStyle(fontSize: 20.sp),),
                                 prefixIcon: Icon(Icons.email),
                                 border: UnderlineInputBorder(),
                               ),
@@ -211,7 +212,7 @@ class RegisterScreen extends StatelessWidget {
                             //   prefix: Icons.email,
                             // ),
                             SizedBox(
-                              height: 20,
+                              height: 20.h,
                             ),
                             TextFormField(
                               controller: passwordController,
@@ -226,7 +227,7 @@ class RegisterScreen extends StatelessWidget {
                                   RegisterCubit.get(context).isPassword,
                               enabled: true,
                               decoration: InputDecoration(
-                                label: Text('كلمة المرور'),
+                                label: Text('كلمة المرور',style: TextStyle(fontSize: 20.sp),),
                                 prefixIcon: Icon(Icons.lock),
                                 suffixIcon:
                                     Icon(RegisterCubit.get(context).suffix) !=
@@ -262,14 +263,14 @@ class RegisterScreen extends StatelessWidget {
                             //   },
                             // ),
                             SizedBox(
-                              height: 60,
+                              height: 60.h,
                             ),
                             Container(
-                              width: 400,
-                              height: 60,
+                              width: 400.w,
+                              height: 60.h,
                               decoration: BoxDecoration(
                                 color: Colors.lightBlue.shade600,
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(20.r),
                               ),
                               child: Conditional.single(
                                 context: context,
@@ -302,7 +303,7 @@ class RegisterScreen extends StatelessWidget {
                                     'إنشاء الحساب',
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 20,
+                                      fontSize: 20.sp,
                                     ),
                                   ),
                                 ),
@@ -314,12 +315,12 @@ class RegisterScreen extends StatelessWidget {
                               ),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 20.h,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('لديك حساب بالفعل ؟'),
+                                Text('لديك حساب بالفعل ؟',style: TextStyle(fontSize: 20.sp),),
                                 TextButton(
                                   onPressed: () {
                                     Navigator.push(
@@ -332,7 +333,7 @@ class RegisterScreen extends StatelessWidget {
                                       ),
                                     );
                                   },
-                                  child: Text('سجل الدخول'),
+                                  child: Text('سجل الدخول',style: TextStyle(fontSize: 20.sp),),
                                 ),
                               ],
                             ),

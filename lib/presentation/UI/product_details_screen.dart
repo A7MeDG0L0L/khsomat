@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khsomat/Shared/components.dart';
 import 'package:khsomat/Shared/my_colors.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
@@ -31,7 +32,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   color: Colors.white,
                   fontFamily: 'Almarai',
                   fontWeight: FontWeight.bold,
-                  fontSize: 18),
+                  fontSize: 18.sp),
             ),
             foregroundColor: Colors.white,
           ),
@@ -56,11 +57,11 @@ class ProductDetailsScreen extends StatelessWidget {
                               product!.name ?? 'name',
                               style: TextStyle(
                                 fontFamily: 'Almarai',
-                                fontSize: 24,
+                                fontSize: 24.sp,
                               ),
                             ),
                             SizedBox(
-                              height: 15,
+                              height: 15.h,
                             ),
                             Row(
                               children: <Widget>[
@@ -68,7 +69,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                   '${product!.prices!.salePrice}',
                                   style: TextStyle(
                                     fontFamily: 'Almarai',
-                                    fontSize: 20.0,
+                                    fontSize: 20.0.sp,
                                     color: defColor,
                                   ),
                                 ),
@@ -113,34 +114,34 @@ class ProductDetailsScreen extends StatelessWidget {
                                 //     ),
                                 //   ),
                                 SizedBox(
-                                  width: 4,
+                                  width: 4.w,
                                 ),
                                 Text(
                                   'جنية مصري',
                                   style: TextStyle(
                                     fontFamily: 'Almarai',
-                                    fontSize: 12,
+                                    fontSize: 12.sp,
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 5.0,
+                                  width: 5.0.w,
                                 ),
                                 if (product!.onSale == true)
                                   Text(
                                     'بدلاً من',
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
-                                      fontSize: 12,
+                                      fontSize: 12.sp,
                                     ),
                                   ),
                                 SizedBox(
-                                  width: 8,
+                                  width: 8.w,
                                 ),
                                 Text(
                                   '${product!.prices!.regularPrice}',
                                   style: TextStyle(
                                     fontFamily: 'Almarai',
-                                    fontSize: 18.0,
+                                    fontSize: 18.0.sp,
                                     color: Colors.grey,
                                     decoration: TextDecoration.lineThrough,
                                   ),
@@ -203,7 +204,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                 //   ),
                                 Spacer(),
                                 CircleAvatar(
-                                  radius: 20,
+                                  radius: 20.r,
                                   backgroundColor: Colors.grey[600],
                                   child: IconButton(
                                     onPressed: () {
@@ -213,18 +214,19 @@ class ProductDetailsScreen extends StatelessWidget {
                                     icon: Icon(
                                       Icons.share,
                                       color: Colors.amber,
+                                      size: 18.w,
                                     ),
                                   ),
                                 ),
                               ],
                             ),
                             SizedBox(
-                              height: 30,
+                              height: 30.h,
                             ),
                             if (product!.type == "variable")
                               Container(
                                 width: double.infinity,
-                                height: 50,
+                                height: 50.h,
                                 child: ListView.separated(
                                     scrollDirection: Axis.horizontal,
                                     physics: BouncingScrollPhysics(),
@@ -233,23 +235,23 @@ class ProductDetailsScreen extends StatelessWidget {
                                         OutlinedButton(
                                           onPressed: () {},
                                           child: Text(product!.attributes![0]
-                                              ['terms'][index]['name']),
+                                              ['terms'][index]['name'],style: TextStyle(fontSize: 16.sp),),
                                         ),
                                     separatorBuilder: (context, index) =>
                                         SizedBox(
-                                          width: 5,
+                                          width: 5.w,
                                         ),
                                     itemCount: product!
                                         .attributes![0]['terms'].length),
                               ),
                             SizedBox(
-                              height: 20,
+                              height: 20.h,
                             ),
                             if (product!.type == "variable" &&
                                 product!.attributes!.length == 2)
                               Container(
                                 width: double.infinity,
-                                height: 50,
+                                height: 50.h,
                                 child: ListView.separated(
                                     scrollDirection: Axis.horizontal,
                                     physics: BouncingScrollPhysics(),
@@ -258,29 +260,29 @@ class ProductDetailsScreen extends StatelessWidget {
                                         OutlinedButton(
                                           onPressed: () {},
                                           child: Text(product!.attributes![1]
-                                              ['terms'][index]['name']),
+                                              ['terms'][index]['name'],style: TextStyle(fontSize: 16.sp),),
                                         ),
                                     separatorBuilder: (context, index) =>
                                         SizedBox(
-                                          width: 5,
+                                          width: 5.w,
                                         ),
                                     itemCount: product!
                                         .attributes![1]['terms'].length),
                               ),
                             SizedBox(
-                              height: 20,
+                              height: 20.h,
                             ),
                             Text(
                               'وصف المنتج',
                               style: TextStyle(
-                                  fontFamily: 'Almarai', fontSize: 18),
+                                  fontFamily: 'Almarai', fontSize: 18.sp),
                             ),
                             SizedBox(
-                              height: 15,
+                              height: 15.h,
                             ),
                             Container(
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: BorderRadius.circular(20.r),
                                   color: Colors.grey.shade300,
                                 ),
                                 child: Padding(
@@ -292,7 +294,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 15,
+                      height: 15.h,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(15.0),
@@ -301,10 +303,10 @@ class ProductDetailsScreen extends StatelessWidget {
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width/2,
-                            height: 65,
+                            height: 65.h,
                             decoration: BoxDecoration(
                               color: defColor,
-                              borderRadius: BorderRadius.circular(50),
+                              borderRadius: BorderRadius.circular(50.r),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -370,7 +372,7 @@ class ProductDetailsScreen extends StatelessWidget {
 
   Widget buildSliverAppBar() {
     return SliverAppBar(
-      expandedHeight: 400,
+      expandedHeight: 400.h,
       pinned: true,
       stretch: true,
       backgroundColor: Colors.white,
@@ -393,7 +395,7 @@ class ProductDetailsScreen extends StatelessWidget {
     print(parsedString);
     return Text(
       parsedString,
-      style: TextStyle(fontFamily: 'Almarai', fontSize: 15),
+      style: TextStyle(fontFamily: 'Almarai', fontSize: 15.sp),
     );
   }
 
@@ -439,7 +441,7 @@ class ProductDetailsScreen extends StatelessWidget {
   Widget carouselProductImages(context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: 400,
+      height: 400.h,
       child: Stack(
         children: [
           Container(
@@ -452,7 +454,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 options: CarouselOptions(
                   initialPage: 0,
                   autoPlay: false,
-                  height: 400,
+                  height: 400.h,
                   autoPlayCurve: Curves.fastOutSlowIn,
                   scrollDirection: Axis.horizontal,
                   reverse: false,
@@ -463,7 +465,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 )),
           ),
           Positioned(
-            top: 150.0,
+            top: 150.0.h,
             child: IconButton(
               onPressed: () {
                 carouselController.nextPage();
@@ -472,7 +474,7 @@ class ProductDetailsScreen extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 150.0,
+            top: 150.0.h,
             left: MediaQuery.of(context).size.width/333,
             child: IconButton(
               onPressed: () {

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
 import 'package:khsomat/data/models/products_model.dart';
@@ -28,20 +29,20 @@ Widget showCheckoutItem(
     child: Row(
       children: [
         Container(
-          width: 150,
+          width: 150.w,
           child: Text(
             model['name'],
             textWidthBasis: TextWidthBasis.parent,
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
-         //   style: TextStyle(color: Colors.white),
+            style: TextStyle(fontSize: 18.sp),
           ),
         ),
         SizedBox(
-          width: 10,
+          width: 10.w,
         ),
         Text(
-          "${model['saleprice']}",
+          "${model['saleprice']}",style: TextStyle(fontSize: 20.sp),
         //  style: TextStyle(color: Colors.white),
         ),
         //SizedBox(width: 5,),
@@ -51,7 +52,7 @@ Widget showCheckoutItem(
         ),
         //SizedBox(width: 5,),
         Text(
-          "${model['quantity']}",
+          "${model['quantity']}",style: TextStyle(fontSize: 20.sp),
         //  style: TextStyle(color: Colors.white),
         ),
         SizedBox(
@@ -60,7 +61,7 @@ Widget showCheckoutItem(
         Spacer(),
         Text(
           '${model['saleprice'] * model['quantity']}',
-          style: TextStyle(fontSize: 15, color: Colors.blue),
+          style: TextStyle(fontSize: 20.sp, color: Colors.blue),
         ),
       ],
     ),

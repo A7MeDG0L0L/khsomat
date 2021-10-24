@@ -1,8 +1,11 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khsomat/Shared/components.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
+import 'package:email_validator/email_validator.dart';
+
 
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 
@@ -35,14 +38,14 @@ Widget showSheet(context) {
               },
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.person),
-                label: Text('الإسم الأول'),
+                label: Text('الإسم الأول',style: TextStyle(fontSize: 20.sp),),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(20.r),
                 ),
               ),
             ),
             SizedBox(
-              height: 15,
+              height: 15.h,
             ),
             TextFormField(
               controller: lastNameController,
@@ -55,14 +58,14 @@ Widget showSheet(context) {
               },
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.person),
-                label: Text('الإسم الآخير'),
+                label: Text('الإسم الآخير',style: TextStyle(fontSize: 20.sp),),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(20.r),
                 ),
               ),
             ),
             SizedBox(
-              height: 15,
+              height: 15.h,
             ),
             TextFormField(
               controller: phoneController,
@@ -81,14 +84,14 @@ Widget showSheet(context) {
               },
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.person),
-                label: Text('رقم التليفون'),
+                label: Text('رقم التليفون',style: TextStyle(fontSize: 20.sp),),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(20.r),
                 ),
               ),
             ),
             SizedBox(
-              height: 15,
+              height: 15.h,
             ),
             // DropdownButtonFormField(
             //   items: cities,
@@ -106,14 +109,14 @@ Widget showSheet(context) {
               },
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.person),
-                label: Text('المدينة'),
+                label: Text('المدينة',style: TextStyle(fontSize: 20.sp),),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
             ),
             SizedBox(
-              height: 15,
+              height: 15.h,
             ),
             TextFormField(
               controller: addressController,
@@ -126,14 +129,14 @@ Widget showSheet(context) {
               },
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.pin_drop_outlined),
-                label: Text('العنوان'),
+                label: Text('العنوان',style: TextStyle(fontSize: 20.sp),),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(20.r),
                 ),
               ),
             ),
             SizedBox(
-              height: 15,
+              height: 15.h,
             ),
             TextFormField(
               controller: emailController,
@@ -142,21 +145,28 @@ Widget showSheet(context) {
                 if (value!.isEmpty) {
                   return 'يجب إدخال البريد الإلكتروني';
                 }
+                else if (value.isNotEmpty){
+                  // EmailValidator.validate(value);
+                  if(EmailValidator.validate(value)==false){
+                    return 'يجب إدخال بريد إلكتروني صحيح';
+                  }
+
+                }
                 return null;
               },
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.email_outlined),
-                label: Text('البريد الإلكتروني'),
+                label: Text('البريد الإلكتروني',style: TextStyle(fontSize: 20.sp),),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(20.r),
                 ),
               ),
             ),
             SizedBox(
-              height: 15,
+              height: 15.h,
             ),
             TextFormField(
-              style: TextStyle(height: 5),
+              style: TextStyle(height: 5.h),
               controller: customerNoteController,
               keyboardType: TextInputType.multiline,
               // validator: (String? value) {
@@ -167,9 +177,9 @@ Widget showSheet(context) {
               // },
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.sticky_note_2_rounded),
-                label: Text('ملاحظات'),
+                label: Text('ملاحظات',style: TextStyle(fontSize: 20.sp),),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(20.r),
                 ),
               ),
             ),
@@ -179,8 +189,8 @@ Widget showSheet(context) {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 80,
-                    height: 50,
+                    width: 80.w,
+                    height: 50.h,
                     child: ElevatedButton(
                       onPressed: () {
                         //print(FavoritesCubit.get(context).orderList);
@@ -232,18 +242,18 @@ Widget showSheet(context) {
                         // );
 
                       },
-                      child: Text('تم'),
+                      child: Text('تم',style: TextStyle(fontSize: 20.sp),),
                     ),
                   ),
-                  SizedBox(width: 70,),
+                  SizedBox(width: 70.w,),
                   Container(
-                    width: 80,
-                    height: 50,
+                    width: 80.w,
+                    height: 50.h,
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text('رجوع'),
+                      child: Text('رجوع',style: TextStyle(fontSize: 20.sp),),
                     ),
                   ),
                 ],

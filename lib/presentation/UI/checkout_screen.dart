@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
 import 'package:khsomat/presentation/UI/Widgets/bottomSheetWidget.dart';
@@ -18,7 +19,7 @@ class CheckoutScreen extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title: Text('checkout'),
+              title: Text('checkout',style: TextStyle(fontSize: 20.sp),),
             ),
             body: SingleChildScrollView(
               child: Column(
@@ -78,7 +79,7 @@ class CheckoutScreen extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                       //  color: Colors.grey.shade500,
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(20.r),
                       ),
                       child: ListView.separated(
                         scrollDirection: Axis.vertical,
@@ -96,7 +97,7 @@ class CheckoutScreen extends StatelessWidget {
                               context);
                         },
                         separatorBuilder: (context, index) => Divider(
-                          thickness: 1,
+                          thickness: 1.h,
                         ),
                         itemCount: FavoritesCubit.get(context).orderList.length,
                       ),
@@ -107,25 +108,25 @@ class CheckoutScreen extends StatelessWidget {
                     child: Container(
                       height: 30,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+                        borderRadius: BorderRadius.vertical(bottom: Radius.circular(20.r)),
                       color: Colors.blue,
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Row(
                           children: [
-                            Text('الإجمالي',style: TextStyle(color: Colors.white,fontSize: 16),),
+                            Text('الإجمالي',style: TextStyle(color: Colors.white,fontSize: 21.sp),),
                             Spacer(),
-                            Text('${FavoritesCubit.get(context).totalPrice()}',style: TextStyle(fontSize: 19,color: Colors.white),),
+                            Text('${FavoritesCubit.get(context).totalPrice()}',style: TextStyle(fontSize: 23.sp,color: Colors.white),),
                           ],
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 20.h,),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('رجاء ادخل بياناتك لاكتمال الطلب'),
+                    child: Text('رجاء ادخل بياناتك لاكتمال الطلب',style: TextStyle(fontSize: 19.sp),),
                   ),
                   showSheet(context),
                 ],

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khsomat/Shared/components.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
@@ -52,7 +53,7 @@ class ProductsForCategoryScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(name),
+        title: Text(name,style: TextStyle(fontSize: 20.sp),),
       ),
       body: SingleChildScrollView(
         child: SafeArea(
@@ -63,9 +64,9 @@ class ProductsForCategoryScreen extends StatelessWidget {
                 // Container(color: Colors.red,width: 200,height: 200,),
                 GridView.count(
                   physics: BouncingScrollPhysics(),
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
-                  childAspectRatio: 1 / 1.8,
+                  mainAxisSpacing: 10.h,
+                  crossAxisSpacing: 10.w,
+                  childAspectRatio: 1.w / 1.8.h,
                   crossAxisCount: 2,
                   shrinkWrap: true,
                   children: List.generate(

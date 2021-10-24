@@ -51,7 +51,13 @@ dependencies:
   share: ^2.0.4
   adaptive_dialog: ^1.1.0
   flutter_animated_dialog: ^2.0.1
-  horizontal_data_table: ^3.5.0
+  responsive_grid: ^2.0.0
+  responsive_framework: ^0.1.4
+  device_preview: ^0.7.4
+  flutter_screenutil: ^5.0.0+2
+  email_validator: ^2.0.1
+
+
 
 
 

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
 import 'package:khsomat/presentation/UI/Widgets/fav_product_item.dart';
@@ -52,8 +53,8 @@ class FavoritesScreen extends StatelessWidget {
                           },
                           separatorBuilder: (context, index) {
                             return Divider(
-                              thickness: 1,
-                              height: 1,
+                              thickness: 1.w,
+                              height: 1.h,
                             );
                           },
                           itemCount:
@@ -62,14 +63,14 @@ class FavoritesScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(15.0),
                         child: Container(
                           width: double.infinity,
-                          height: 60,
+                          height: 60.h,
                           child: ElevatedButton(
                             onPressed: () {
                               FavoritesCubit.get(context).deleteAllItemsFromWishList();
                             },
                             child: Text(
                               'حذف جميع المنتجات المفضلة',
-                              style: TextStyle(fontSize: 18),
+                              style: TextStyle(fontSize: 18.sp),
                             ),
                           ),
                         ),
@@ -83,16 +84,16 @@ class FavoritesScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Lottie.asset('assets/loading/heart4.json',width: 200,height: 200),
+                  Lottie.asset('assets/loading/heart4.json',width: 200.w,height: 200.h),
                   // Image(
                   //   image: AssetImage('assets/images/heart.png'),
                   // ),
                   SizedBox(
-                    height: 15,
+                    height: 15.h,
                   ),
                   Text(
                     ' قائمة المفضلة فارغة...',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 20.sp),
                   ),
                 ],
               ),

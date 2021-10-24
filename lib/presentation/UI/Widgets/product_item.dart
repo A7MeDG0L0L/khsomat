@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khsomat/Shared/components.dart';
 import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/Shared/my_colors.dart';
@@ -26,7 +27,7 @@ class ProductItem extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.grey.shade50,
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(15.r),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,15 +38,15 @@ class ProductItem extends StatelessWidget {
                       Container(
                         child: ClipRRect(
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                            topRight: Radius.circular(15),
+                            topLeft: Radius.circular(15.r),
+                            topRight: Radius.circular(15.r),
                           ),
                           child: product.images!.isNotEmpty
                               ? FadeInImage.assetNetwork(
                                   fit: BoxFit.cover,
                                   image: product.images![0].src!,
                                   width: double.infinity,
-                                  height: 200.0,
+                                  height: 200.0.h,
                                   placeholder: 'assets/loading/loading2.gif',
                                 )
                               : Image.asset('assets/images/placeholder.jpg'),
@@ -57,12 +58,12 @@ class ProductItem extends StatelessWidget {
                         Container(
                           color: Colors.red,
                           padding: EdgeInsets.symmetric(
-                            horizontal: 5.0,
+                            horizontal: 5.0.w,
                           ),
                           child: Text(
                             'DISCOUNT',
                             style: TextStyle(
-                              fontSize: 8.0,
+                              fontSize: 8.0.sp,
                               color: Colors.white,
                             ),
                           ),
@@ -72,7 +73,7 @@ class ProductItem extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Container(
-                      height: 100,
+                      height: 100.h,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -82,8 +83,8 @@ class ProductItem extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontFamily: 'Almarai',
-                              fontSize: 14.0,
-                              height: 1.2,
+                              fontSize: 14.0.sp,
+                              height: 1.2.h,
                             ),
                           ),
                           Spacer(),
@@ -91,7 +92,7 @@ class ProductItem extends StatelessWidget {
                             children: [
                               Text('${product.prices!.salePrice}',style: TextStyle(
                                   fontFamily: 'Almarai',
-                                  fontSize: MediaQuery.of(context).size.width/22,
+                                  fontSize: 22.sp,
                                   color: defColor,
                                 ),),
                               // if (product.prices!.salePrice!.length == 4)
@@ -141,15 +142,15 @@ class ProductItem extends StatelessWidget {
                                 'ج',
                                 style: TextStyle(
                                   fontFamily: 'Almarai',
-                                  fontSize: 12,
+                                  fontSize: 12.sp,
                                 ),
                               ),
                               SizedBox(
-                                width: 10.0,
+                                width: 10.0.w,
                               ),
                               Text('${product.prices!.regularPrice}',style: TextStyle(
                                       fontFamily: 'Almarai',
-                                      fontSize: MediaQuery.of(context).size.width/26,
+                                      fontSize: 20.sp,
                                       color: Colors.grey,
                                       decoration: TextDecoration.lineThrough,
                                     ),),
@@ -253,7 +254,7 @@ class ProductItem extends StatelessWidget {
                                   //      'Added This Item to List : ${product.name}');
                                 },
                                 icon: CircleAvatar(
-                                  radius: MediaQuery.of(context).size.aspectRatio/0.01,
+                                  radius: 15.r,
                                   backgroundColor:
                                       /*ShopCubit
                                       .get(context)
@@ -263,7 +264,7 @@ class ProductItem extends StatelessWidget {
                                       Colors.grey,
                                   child: Icon(
                                     Icons.favorite_border,
-                                    size: MediaQuery.of(context).size.aspectRatio/0.03,
+                                    size: 13.w,
                                     color: Colors.white,
                                   ),
                                 ),

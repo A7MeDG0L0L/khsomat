@@ -2,6 +2,7 @@ import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:khsomat/Shared/components.dart';
@@ -27,7 +28,7 @@ class AppLayout extends StatelessWidget {
       icon: Icon(
         Icons.home_outlined,
       ),
-      title: Text('الرئيسية'),
+      title: Text('الرئيسية',),
     ),
     SalomonBottomBarItem(
       icon: Icon(
@@ -66,7 +67,8 @@ class AppLayout extends StatelessWidget {
           backgroundColor: Colors.white,
           appBar: AppBar(
             title: SvgPicture.asset(
-              'assets/images/120x120 SVG white edited.svg',
+              'assets/images/120x120 SVG white edited.svg',height: 30.h,
+
               color: Colors.white,
               cacheColorFilter: true,
             ),
@@ -84,7 +86,7 @@ class AppLayout extends StatelessWidget {
                     ),
                   );
                 },
-                icon: Icon(Icons.search),
+                icon: Icon(Icons.search,size: 22.w,),
               ),
               ///TODO:Test This Condition
               if(HomeCubit.get(context).currentIndex==2 && FavoritesCubit.get(context).orderList.isNotEmpty)
@@ -118,7 +120,7 @@ class AppLayout extends StatelessWidget {
           ),
           drawer: Drawer(
             semanticLabel: 'Menu',
-            elevation: 20.0,
+            elevation: 20.0.w,
             child: SafeArea(
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
@@ -146,7 +148,7 @@ class AppLayout extends StatelessWidget {
                           Container(
                             decoration: BoxDecoration(
                               color: Colors.grey.shade300,
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(20.r),
                               // gradient: LinearGradient(
                               //   begin: Alignment.centerRight,
                               //   end: Alignment.centerLeft,
@@ -183,20 +185,20 @@ class AppLayout extends StatelessWidget {
                             children: [
                               if (token != null)
                                 Image.asset('assets/images/avatar.png',
-                                    height: 80),
+                                    height: 80.h),
                               SizedBox(
-                                height: 20,
+                                height: 20.h,
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   '$username',
-                                  style: TextStyle(fontSize: 20,color: Colors.black),
+                                  style: TextStyle(fontSize: 20.sp,color: Colors.black),
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 8),
-                                child: Text('$email',style: TextStyle(color: Colors.grey),),
+                                child: Text('$email',style: TextStyle(color: Colors.grey,fontSize: 15.sp),),
                               ),
                             ],
                           ),
@@ -225,8 +227,8 @@ class AppLayout extends StatelessWidget {
                               itemBuilder: (context, index) => buildDrawerItem(
                                   HomeCubit.get(context).categories[index], context),
                               separatorBuilder: (context, index) => Divider(
-                                    thickness: 1,
-                                    height: 2,
+                                    thickness: 1.w,
+                                    height: 2.h,
                                   ),
                               itemCount: HomeCubit.get(context).categories.length),
                         ),
@@ -246,11 +248,11 @@ class AppLayout extends StatelessWidget {
           ),
           floatingActionButton: FabCircularMenu(
             alignment: Alignment.bottomLeft,
-            fabSize: 54,
-            fabMargin: EdgeInsets.only(bottom: 10, right: 15),
+            fabSize: 55.r,
+            fabMargin: EdgeInsets.only(bottom: 10.h, right: 15.w),
             fabOpenIcon: Icon(Icons.contact_support_outlined,color: Colors.white,),
-            ringDiameter: 250,
-            ringWidth: 60,
+            ringDiameter: 250.r,
+            ringWidth: 60.w,
 
             children: [
               IconButton(
