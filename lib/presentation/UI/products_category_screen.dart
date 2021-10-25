@@ -66,7 +66,7 @@ class ProductsForCategoryScreen extends StatelessWidget {
                   physics: BouncingScrollPhysics(),
                   mainAxisSpacing: 10.h,
                   crossAxisSpacing: 10.w,
-                  childAspectRatio: 1.w / 1.8.h,
+                  childAspectRatio: 1.w/1.85.h,
                   crossAxisCount: 2,
                   shrinkWrap: true,
                   children: List.generate(

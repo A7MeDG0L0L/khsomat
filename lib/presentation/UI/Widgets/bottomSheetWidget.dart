@@ -194,7 +194,7 @@ Widget showSheet(context) {
                     child: ElevatedButton(
                       onPressed: () {
                         //print(FavoritesCubit.get(context).orderList);
-                        if (formKey.currentState!.validate()) {
+                        if (formKey.currentState!.validate())  {
                           // print(firstNameController.text);
                           FavoritesCubit.get(context).createOrder(
                             firstname: firstNameController.text,
@@ -231,7 +231,7 @@ Widget showSheet(context) {
                           showToast(
                               text: 'تم ارسال الاوردر بأنتظار التأكيد',
                               state: ToastStates.SUCCESS);
-                          Navigator.pop(context);
+                          Navigator.of(context).pop();
                         }
                         //showDialog(context: context, builder: (context) => Text('تم ارسال الطلب'),);
                         // showOkAlertDialog(

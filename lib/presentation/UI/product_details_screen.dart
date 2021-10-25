@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:group_button/group_button.dart';
 import 'package:khsomat/Shared/components.dart';
 import 'package:khsomat/Shared/my_colors.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
@@ -234,8 +237,11 @@ class ProductDetailsScreen extends StatelessWidget {
                                     itemBuilder: (context, index) =>
                                         OutlinedButton(
                                           onPressed: () {},
-                                          child: Text(product!.attributes![0]
-                                              ['terms'][index]['name'],style: TextStyle(fontSize: 16.sp),),
+                                          child: Text(
+                                            product!.attributes![0]['terms']
+                                                [index]['name'],
+                                            style: TextStyle(fontSize: 16.sp),
+                                          ),
                                         ),
                                     separatorBuilder: (context, index) =>
                                         SizedBox(
@@ -249,26 +255,35 @@ class ProductDetailsScreen extends StatelessWidget {
                             ),
                             if (product!.type == "variable" &&
                                 product!.attributes!.length == 2)
-                              Container(
-                                width: double.infinity,
-                                height: 50.h,
-                                child: ListView.separated(
-                                    scrollDirection: Axis.horizontal,
-                                    physics: BouncingScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, index) =>
-                                        OutlinedButton(
-                                          onPressed: () {},
-                                          child: Text(product!.attributes![1]
-                                              ['terms'][index]['name'],style: TextStyle(fontSize: 16.sp),),
-                                        ),
-                                    separatorBuilder: (context, index) =>
-                                        SizedBox(
-                                          width: 5.w,
-                                        ),
-                                    itemCount: product!
-                                        .attributes![1]['terms'].length),
+                              // Container(
+                              //   width: double.infinity,
+                              //   height: 50.h,
+                              //   child: ListView.separated(
+                              //       scrollDirection: Axis.horizontal,
+                              //       physics: BouncingScrollPhysics(),
+                              //       shrinkWrap: true,
+                              //       itemBuilder: (context, index) =>
+                              //       OutlinedButton(
+                              //             onPressed: () {},
+                              //             child: Text(product!.attributes![1]
+                              //                 ['terms'][index]['name'],style: TextStyle(fontSize: 16.sp),),
+                              //           ),
+                              //       separatorBuilder: (context, index) =>
+                              //           SizedBox(
+                              //             width: 5.w,
+                              //           ),
+                              //       itemCount: product!
+                              //           .attributes![1]['terms'].length),
+                              // ),
+                              GroupButton(
+                                buttons: List.generate(
+                                    product!.attributes![1]['terms'].length,
+                                    (index) => product!.attributes![1]['terms']
+                                        [index]['name']),
+                                onSelected: (index, isSelected) =>
+                                    print('$index button is selected'),borderRadius: BorderRadius.circular(20),
                               ),
+
                             SizedBox(
                               height: 20.h,
                             ),
@@ -281,14 +296,19 @@ class ProductDetailsScreen extends StatelessWidget {
                               height: 15.h,
                             ),
                             Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20.r),
-                                  color: Colors.grey.shade300,
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: parseHtmlDescription(),
-                                )),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.r),
+                                color: Colors.grey.shade300,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: parseHtmlDescription(),
+                              ),
+                            ),
+                            // Text(product!.variations![0]['attributes'][0]['value']),
+                            //parseHtmlEnhancement('&percnt;&#100;&#56;&percnt;&#97;&#55;&percnt;&#100;&#56;&percnt;&#98;&#50;&percnt;&#100;&#56;&percnt;&#98;&#49;&percnt;&#100;&#57;&percnt;&#56;&#50;&#45;&percnt;&#100;&#56;&percnt;&#98;&#97;&percnt;&#100;&#56;&percnt;&#97;&#55;&percnt;&#100;&#57;&percnt;&#56;&#53;&percnt;&#100;&#57;&percnt;&#56;&#50;'),
+                            //Text(jsonDecode(product!.variations![0]['attributes'][0]['value'])),
+                            //Text(urlDecode()),
                           ],
                         ),
                       ),
@@ -302,7 +322,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width/2,
+                            width: MediaQuery.of(context).size.width / 2,
                             height: 65.h,
                             decoration: BoxDecoration(
                               color: defColor,
@@ -335,6 +355,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                         permalink: product!.permalink!,
                                         quantity: 1,
                                         productId: product!.id!,
+                                        variationId: 52306,
                                       );
                                       showToast(
                                           text: 'تم إضافة المنتج إلي السلة',
@@ -350,7 +371,9 @@ class ProductDetailsScreen extends StatelessWidget {
                                     style: TextStyle(
                                         fontFamily: 'Almarai',
                                         color: Colors.white,
-                                        fontSize: MediaQuery.of(context).size.width/20,
+                                        fontSize:
+                                            MediaQuery.of(context).size.width /
+                                                20,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -399,6 +422,26 @@ class ProductDetailsScreen extends StatelessWidget {
     );
   }
 
+  Widget parseHtmlEnhancement(var html) {
+    var document = parse(html);
+    String parsedString = parse(document.body!.text).documentElement!.text;
+    print(parsedString);
+    return Text(
+      parsedString,
+      style: TextStyle(fontFamily: 'Almarai', fontSize: 15.sp),
+    );
+  }
+
+  String urlDecode() {
+    var uri = product!.variations![1]['attributes'][0]['value'] +
+        product!.variations![1]['attributes'][1]['value'];
+    // var encoded = Uri.encodeFull(uri);
+    // assert(encoded == 'http://example.org/api?foo=some%20message');
+
+    var decoded = Uri.decodeFull(uri);
+    // assert(uri == decoded);
+    return decoded;
+  }
   // Widget carouselProductImage() {
   //   return CarouselSlider(
   //     items: [
@@ -475,7 +518,7 @@ class ProductDetailsScreen extends StatelessWidget {
           ),
           Positioned(
             top: 150.0.h,
-            left: MediaQuery.of(context).size.width/333,
+            left: MediaQuery.of(context).size.width / 333,
             child: IconButton(
               onPressed: () {
                 carouselController.previousPage();

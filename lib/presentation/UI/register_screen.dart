@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -75,7 +76,10 @@ class RegisterScreen extends StatelessWidget {
                           ),
                         );
                       },
-                      child: Text('تخطي',style: TextStyle(fontSize: 16.sp),),
+                      child: Text(
+                        'تخطي',
+                        style: TextStyle(fontSize: 16.sp),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(30.0),
@@ -102,7 +106,8 @@ class RegisterScreen extends StatelessWidget {
                             ),
                             Text(
                               'إكتشف معني العروض الحقيقي مع خصومات',
-                              style: TextStyle(fontSize: 15.sp,color: Colors.grey.shade500),
+                              style: TextStyle(
+                                  fontSize: 15.sp, color: Colors.grey.shade500),
                             ),
                             SizedBox(
                               height: 30.h,
@@ -121,7 +126,10 @@ class RegisterScreen extends StatelessWidget {
                                       return null;
                                     },
                                     decoration: InputDecoration(
-                                      label: Text('الإسم الأول',style: TextStyle(fontSize: 20.sp),),
+                                      label: Text(
+                                        'الإسم الأول',
+                                        style: TextStyle(fontSize: 20.sp),
+                                      ),
                                       prefixIcon: Icon(Icons.person),
                                       border: UnderlineInputBorder(),
                                     ),
@@ -144,7 +152,10 @@ class RegisterScreen extends StatelessWidget {
                                       return null;
                                     },
                                     decoration: InputDecoration(
-                                      label: Text('الإسم الأخير'),
+                                      label: Text(
+                                        'الإسم الأخير',
+                                        style: TextStyle(fontSize: 20.sp),
+                                      ),
                                       prefixIcon: Icon(Icons.person),
                                       border: UnderlineInputBorder(),
                                     ),
@@ -165,7 +176,10 @@ class RegisterScreen extends StatelessWidget {
                                 return null;
                               },
                               decoration: InputDecoration(
-                                label: Text('إسم المستخدم',style: TextStyle(fontSize: 20.sp),),
+                                label: Text(
+                                  'إسم المستخدم',
+                                  style: TextStyle(fontSize: 20.sp),
+                                ),
                                 prefixIcon: Icon(Icons.person),
                                 border: UnderlineInputBorder(),
                               ),
@@ -191,10 +205,21 @@ class RegisterScreen extends StatelessWidget {
                                 if (value!.isEmpty) {
                                   return 'يجب إدخال البريد الإلكتروني';
                                 }
+                                else if (value.isNotEmpty){
+                                  // EmailValidator.validate(value);
+                                  if(EmailValidator.validate(value)==false){
+                                    return 'يجب إدخال بريد إلكتروني صحيح';
+                                  }
+
+                                }
+
                                 return null;
                               },
                               decoration: InputDecoration(
-                                label: Text('البريد الإلكتروني',style: TextStyle(fontSize: 20.sp),),
+                                label: Text(
+                                  'البريد الإلكتروني',
+                                  style: TextStyle(fontSize: 20.sp),
+                                ),
                                 prefixIcon: Icon(Icons.email),
                                 border: UnderlineInputBorder(),
                               ),
@@ -227,7 +252,10 @@ class RegisterScreen extends StatelessWidget {
                                   RegisterCubit.get(context).isPassword,
                               enabled: true,
                               decoration: InputDecoration(
-                                label: Text('كلمة المرور',style: TextStyle(fontSize: 20.sp),),
+                                label: Text(
+                                  'كلمة المرور',
+                                  style: TextStyle(fontSize: 20.sp),
+                                ),
                                 prefixIcon: Icon(Icons.lock),
                                 suffixIcon:
                                     Icon(RegisterCubit.get(context).suffix) !=
@@ -276,34 +304,38 @@ class RegisterScreen extends StatelessWidget {
                                 context: context,
                                 conditionBuilder: (context) =>
                                     State is! PostRegisterStateLoading,
-                                widgetBuilder: (context) => TextButton(
-                                  onPressed: () {
-                                    if (formKey.currentState!.validate()) {
-                                      RegisterCubit.get(context).userRegister(
-                                        username: usernameController.text,
-                                        email: emailController.text,
-                                        password: passwordController.text,
-                                        firstname: firstnameController.text,
-                                        lastname: lastnameController.text,
-                                      );
-                                    }
-                                    if (emailController.text.isEmpty ||
-                                        usernameController.text.isEmpty ||
-                                        passwordController.text.isEmpty || firstnameController.text.isEmpty || lastnameController.text.isEmpty) {
-                                      showToast(
-                                          text:
-                                              'يجب إدخال جميع البيانات السابقة.',
-                                          state: ToastStates.ERROR);
-                                    }
+                                widgetBuilder: (context) => Center(
+                                  child: TextButton(
+                                    onPressed: () {
+                                      if (formKey.currentState!.validate()) {
+                                        RegisterCubit.get(context).userRegister(
+                                          username: usernameController.text,
+                                          email: emailController.text,
+                                          password: passwordController.text,
+                                          firstname: firstnameController.text,
+                                          lastname: lastnameController.text,
+                                        );
+                                      }
+                                      if (emailController.text.isEmpty ||
+                                          usernameController.text.isEmpty ||
+                                          passwordController.text.isEmpty ||
+                                          firstnameController.text.isEmpty ||
+                                          lastnameController.text.isEmpty) {
+                                        showToast(
+                                            text:
+                                                'يجب إدخال جميع البيانات السابقة.',
+                                            state: ToastStates.ERROR);
+                                      }
 
-                                    // showToast(text: responseModel.message , state: ToastStates.SUCCESS);
-                                    // print(responseModel.message);
-                                  },
-                                  child: Text(
-                                    'إنشاء الحساب',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20.sp,
+                                      // showToast(text: responseModel.message , state: ToastStates.SUCCESS);
+                                      // print(responseModel.message);
+                                    },
+                                    child: Text(
+                                      'إنشاء الحساب',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20.sp,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -320,7 +352,10 @@ class RegisterScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('لديك حساب بالفعل ؟',style: TextStyle(fontSize: 20.sp),),
+                                Text(
+                                  'لديك حساب بالفعل ؟',
+                                  style: TextStyle(fontSize: 20.sp),
+                                ),
                                 TextButton(
                                   onPressed: () {
                                     Navigator.push(
@@ -333,7 +368,10 @@ class RegisterScreen extends StatelessWidget {
                                       ),
                                     );
                                   },
-                                  child: Text('سجل الدخول',style: TextStyle(fontSize: 20.sp),),
+                                  child: Text(
+                                    'سجل الدخول',
+                                    style: TextStyle(fontSize: 20.sp),
+                                  ),
                                 ),
                               ],
                             ),

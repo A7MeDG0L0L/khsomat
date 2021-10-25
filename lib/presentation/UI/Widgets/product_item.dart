@@ -90,11 +90,18 @@ class ProductItem extends StatelessWidget {
                           Spacer(),
                           Row(
                             children: [
+                              if(product.prices!.salePrice.toString().length<4)
                               Text('${product.prices!.salePrice}',style: TextStyle(
                                   fontFamily: 'Almarai',
-                                  fontSize: 22.sp,
+                                  fontSize: 21.sp,
                                   color: defColor,
                                 ),),
+                              if(product.prices!.salePrice.toString().length>=4)
+                              Text('${product.prices!.salePrice}',style: TextStyle(
+                                fontFamily: 'Almarai',
+                                fontSize: 16.sp,
+                                color: defColor,
+                              ),),
                               // if (product.prices!.salePrice!.length == 4)
                               //   Text(
                               //     product.prices!.salePrice!.substring(
@@ -146,14 +153,22 @@ class ProductItem extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                width: 10.0.w,
+                                width: 8.0.w,
                               ),
+                              if(product.prices!.regularPrice.toString().length<4)
                               Text('${product.prices!.regularPrice}',style: TextStyle(
                                       fontFamily: 'Almarai',
-                                      fontSize: 20.sp,
+                                      fontSize: 18.sp,
                                       color: Colors.grey,
                                       decoration: TextDecoration.lineThrough,
                                     ),),
+                              if(product.prices!.regularPrice.toString().length>=4)
+                                Text('${product.prices!.regularPrice}',style: TextStyle(
+                                  fontFamily: 'Almarai',
+                                  fontSize: 14.sp,
+                                  color: Colors.grey,
+                                  decoration: TextDecoration.lineThrough,
+                                ),),
                               // if (product.onSale == true &&
                               //     product.prices!.regularPrice! !=
                               //         product.prices!.salePrice! &&
@@ -254,7 +269,7 @@ class ProductItem extends StatelessWidget {
                                   //      'Added This Item to List : ${product.name}');
                                 },
                                 icon: CircleAvatar(
-                                  radius: 15.r,
+                                  radius: 14.r,
                                   backgroundColor:
                                       /*ShopCubit
                                       .get(context)
@@ -264,7 +279,7 @@ class ProductItem extends StatelessWidget {
                                       Colors.grey,
                                   child: Icon(
                                     Icons.favorite_border,
-                                    size: 13.w,
+                                    size: 12.r,
                                     color: Colors.white,
                                   ),
                                 ),

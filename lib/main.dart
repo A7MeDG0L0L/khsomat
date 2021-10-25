@@ -39,12 +39,11 @@ void main() async {
     widget = RegisterScreen();
   }
 
-  runApp(DevicePreview(
-    builder: (context) =>  MyApp(
+  runApp( MyApp(
       appRouter: AppRouter(),
       startWidget: widget,
     ),
-  ));
+  );
 }
 
 class MyApp extends StatelessWidget {
