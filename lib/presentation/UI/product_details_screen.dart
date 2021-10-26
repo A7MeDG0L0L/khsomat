@@ -19,6 +19,7 @@ import 'package:share/share.dart';
 class ProductDetailsScreen extends StatelessWidget {
   Product? product;
   final CarouselController carouselController = CarouselController();
+
   ProductDetailsScreen({this.product});
 
   @override
@@ -26,11 +27,12 @@ class ProductDetailsScreen extends StatelessWidget {
     return BlocConsumer<FavoritesCubit, FavoritesStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        int? variationId;
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.blue,
             title: Text(
-              product!.name ?? 'name',
+              product!.name ?? 'Product Name',
               style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Almarai',
@@ -226,63 +228,83 @@ class ProductDetailsScreen extends StatelessWidget {
                             SizedBox(
                               height: 30.h,
                             ),
-                            if (product!.type == "variable")
-                              Container(
-                                width: double.infinity,
-                                height: 50.h,
-                                child: ListView.separated(
-                                    scrollDirection: Axis.horizontal,
-                                    physics: BouncingScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, index) =>
-                                        OutlinedButton(
-                                          onPressed: () {},
-                                          child: Text(
-                                            product!.attributes![0]['terms']
-                                                [index]['name'],
-                                            style: TextStyle(fontSize: 16.sp),
-                                          ),
-                                        ),
-                                    separatorBuilder: (context, index) =>
-                                        SizedBox(
-                                          width: 5.w,
-                                        ),
-                                    itemCount: product!
-                                        .attributes![0]['terms'].length),
-                              ),
-                            SizedBox(
-                              height: 20.h,
-                            ),
-                            if (product!.type == "variable" &&
-                                product!.attributes!.length == 2)
-                              // Container(
-                              //   width: double.infinity,
-                              //   height: 50.h,
-                              //   child: ListView.separated(
-                              //       scrollDirection: Axis.horizontal,
-                              //       physics: BouncingScrollPhysics(),
-                              //       shrinkWrap: true,
-                              //       itemBuilder: (context, index) =>
-                              //       OutlinedButton(
-                              //             onPressed: () {},
-                              //             child: Text(product!.attributes![1]
-                              //                 ['terms'][index]['name'],style: TextStyle(fontSize: 16.sp),),
-                              //           ),
-                              //       separatorBuilder: (context, index) =>
-                              //           SizedBox(
-                              //             width: 5.w,
-                              //           ),
-                              //       itemCount: product!
-                              //           .attributes![1]['terms'].length),
-                              // ),
-                              GroupButton(
-                                buttons: List.generate(
-                                    product!.attributes![1]['terms'].length,
-                                    (index) => product!.attributes![1]['terms']
-                                        [index]['name']),
-                                onSelected: (index, isSelected) =>
-                                    print('$index button is selected'),borderRadius: BorderRadius.circular(20),
-                              ),
+                            // if (product!.type == "variable")
+                            //   //   Container(
+                            //   //     width: double.infinity,
+                            //   //     height: 50.h,
+                            //   //     child: ListView.separated(
+                            //   //         scrollDirection: Axis.horizontal,
+                            //   //         physics: BouncingScrollPhysics(),
+                            //   //         shrinkWrap: true,
+                            //   //         itemBuilder: (context, index) =>
+                            //   //             OutlinedButton(
+                            //   //               onPressed: () {},
+                            //   //               child: Text(
+                            //   //                 product!.attributes![0]['terms']
+                            //   //                     [index]['name'],
+                            //   //                 style: TextStyle(fontSize: 16.sp),
+                            //   //               ),
+                            //   //             ),
+                            //   //         separatorBuilder: (context, index) =>
+                            //   //             SizedBox(
+                            //   //               width: 5.w,
+                            //   //             ),
+                            //   //         itemCount: product!
+                            //   //             .attributes![0]['terms'].length),
+                            //   //   ),
+                            //   // SizedBox(
+                            //   //   height: 20.h,
+                            //   // ),
+                            //   // if (product!.type == "variable" &&
+                            //   //     product!.attributes!.length == 2)
+                            //   // Container(
+                            //   //   width: double.infinity,
+                            //   //   height: 50.h,
+                            //   //   child: ListView.separated(
+                            //   //       scrollDirection: Axis.horizontal,
+                            //   //       physics: BouncingScrollPhysics(),
+                            //   //       shrinkWrap: true,
+                            //   //       itemBuilder: (context, index) =>
+                            //   //       OutlinedButton(
+                            //   //             onPressed: () {},
+                            //   //             child: Text(product!.attributes![1]
+                            //   //                 ['terms'][index]['name'],style: TextStyle(fontSize: 16.sp),),
+                            //   //           ),
+                            //   //       separatorBuilder: (context, index) =>
+                            //   //           SizedBox(
+                            //   //             width: 5.w,
+                            //   //           ),
+                            //   //       itemCount: product!
+                            //   //           .attributes![1]['terms'].length),
+                            //   // ),
+                              if (product!.type == "variable")
+                                GroupButton(
+                                  isRadio: true,
+                                  buttons: List.generate(
+                                      product!.variations!.length, (index) {
+
+                                        if(product!.variations![index]
+                                        ['attributes'].length >=2){
+                                    return Uri.decodeFull(
+                                        product!.variations![index]
+                                                ['attributes'][0]['value'] +
+                                            ( product!.variations![index]
+                                            ['attributes'][1]['value'])??'Null');
+                                        }
+                                        else
+                                        return Uri.decodeFull(
+                                            product!.variations![index]
+                                            ['attributes'][0]['value']??'Null');
+                                  }),
+                                  onSelected: (index, isSelected) {
+                                    print('$index button is selected');
+                                    print(product!.variations![index]['id']);
+                                    variationId=product!.variations![index]['id'];
+                                    return variationId;
+                                  },
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                            // Text(Uri.decodeFull(product!.variations![0]['attributes'][0]['value'])+product!.variations![0]['attributes'][1]['value']),
 
                             SizedBox(
                               height: 20.h,
@@ -355,7 +377,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                         permalink: product!.permalink!,
                                         quantity: 1,
                                         productId: product!.id!,
-                                        variationId: 52306,
+                                        variationId: variationId??0,
                                       );
                                       showToast(
                                           text: 'تم إضافة المنتج إلي السلة',
