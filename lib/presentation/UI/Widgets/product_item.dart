@@ -17,6 +17,7 @@ class ProductItem extends StatelessWidget {
     return BlocConsumer<FavoritesCubit, FavoritesStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        dynamic discountedPrice= (100 * (product.prices!.regularPrice - product.prices!.salePrice) / product.prices!.regularPrice).roundToDouble();
         return InkWell(
           onTap: () {
             Navigator.pushNamed(context, productDetailsScreen,
@@ -33,7 +34,7 @@ class ProductItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Stack(
-                    alignment: AlignmentDirectional.bottomStart,
+                    alignment: AlignmentDirectional.topEnd,
                     children: [
                       Container(
                         child: ClipRRect(
@@ -55,16 +56,21 @@ class ProductItem extends StatelessWidget {
                       if (product.onSale == true &&
                           product.prices!.regularPrice! !=
                               product.prices!.salePrice!)
-                        Container(
-                          color: Colors.red,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 5.0.w,
-                          ),
-                          child: Text(
-                            'DISCOUNT',
-                            style: TextStyle(
-                              fontSize: 8.0.sp,
-                              color: Colors.white,
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: CircleAvatar(backgroundColor: Colors.blue,
+                            radius: 18.0,
+                            // color: Colors.red,
+                            // padding: EdgeInsets.all(10.0
+                            //   // horizontal: 5.0.w,
+                            // ),
+
+                            child: Text(
+                              '${discountedPrice}%',
+                              style: TextStyle(
+                                fontSize: 12.0.sp,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),

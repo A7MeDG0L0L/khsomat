@@ -287,7 +287,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                         ['attributes'].length >=2){
                                     return Uri.decodeFull(
                                         product!.variations![index]
-                                                ['attributes'][0]['value'] +
+                                                ['attributes'][0]['value'] +'-'+
                                             ( product!.variations![index]
                                             ['attributes'][1]['value'])??'Null');
                                         }

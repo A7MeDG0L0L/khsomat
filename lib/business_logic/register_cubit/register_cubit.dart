@@ -23,6 +23,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
       required String lastname,
       }) {
     emit(PostRegisterStateLoading());
+    ///TODO: Change it with WooCommerce API Customers : '/wc/v3/customers'
     WebServices.dio.post('wp/v2/users/register', data: {
       'username': username,
       'email': email,
