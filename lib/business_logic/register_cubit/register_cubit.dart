@@ -21,16 +21,57 @@ class RegisterCubit extends Cubit<RegisterStates> {
       required String password,
       required String firstname,
       required String lastname,
+        required String address,
+        required String city,
+        required String phone,
       }) {
     emit(PostRegisterStateLoading());
     ///TODO: Change it with WooCommerce API Customers : '/wc/v3/customers'
-    WebServices.dio.post('wp/v2/users/register', data: {
+    // WebServices.dio.post('wp/v2/users/register', data: {
+    //   'username': username,
+    //   'email': email,
+    //   'password': password,
+    //   'firstname': firstname,
+    //   'lastname': lastname,
+    // }).then((value) {
+    //   userModel = UserModel.fromJson(value.data);
+    //   print(userModel);
+    //   emit(PostRegisterStateSuccess());
+    // }).catchError((error) {
+    //   print(error.toString());
+    //   emit(PostRegisterStateError(error));
+    // });
+
+    WebServices.dio.post('wc/v3/customers', data: {
       'username': username,
       'email': email,
       'password': password,
-      'firstname': firstname,
-      'lastname': lastname,
-    }).then((value) {
+      'first_name': firstname,
+      'last_name': lastname,
+      "billing": {
+        "first_name": firstname,
+        "last_name": lastname,
+        "address_1": address,
+        "city": city,
+        "country": "Egypt",
+        "email": email,
+        "phone": phone
+      },
+      "shipping": {
+        "first_name": firstname,
+        "last_name": lastname,
+        "address_1": address,
+        "city": city,
+        "country": "Egypt",
+        "email": email,
+        "phone": phone
+      }
+    },
+      queryParameters: {
+    'Content-Type': "application/json",
+    'consumer_key': 'ck_fa054c2eea7057ed605ce37417fe5e92fb2d428b',
+    'consumer_secret': 'cs_a2bcff0feec2d96d830b08ecf93015f6de9b409e'
+    },).then((value) {
       userModel = UserModel.fromJson(value.data);
       print(userModel);
       emit(PostRegisterStateSuccess());

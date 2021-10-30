@@ -25,32 +25,73 @@ class LoginScreen extends StatelessWidget {
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccessState) {
-            showToast(
-                text: 'تم التحقق',
-                state: ToastStates.SUCCESS);
+            showToast(text: state.loginResponseModel.message!, state: ToastStates.SUCCESS);
             if (state.loginResponseModel.success!) {
               print(state.loginResponseModel.message);
               print(state.loginResponseModel.data!.token);
+
               CacheHelper.saveData(
                 key: 'token',
                 value: state.loginResponseModel.data!.token,
               );
-              CacheHelper.saveData(key: 'email', value: state.loginResponseModel.data!.email);
-              CacheHelper.saveData(key: 'username', value: state.loginResponseModel.data!.displayName).then((value) {
-                 token = state.loginResponseModel.data!.token!;
-                 email = state.loginResponseModel.data!.email!;
-                 username = state.loginResponseModel.data!.displayName!;
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: AppLayout(),
-                      ),
-                    ),
-                    (route) => false);
+              CacheHelper.saveData(
+                  key: 'email', value: state.loginResponseModel.data!.email);
+              CacheHelper.saveData(
+                      key: 'username',
+                      value: state.loginResponseModel.data!.displayName)
+                  .then((value) {
+                token = state.loginResponseModel.data!.token!;
+                email = state.loginResponseModel.data!.email!;
+                username = state.loginResponseModel.data!.displayName!;
               });
             }
+            LoginCubit.get(context).retrieveCustomer(state.loginResponseModel.data!.id!);
+
+
+          }
+          if(state is RetrieveCustomerByIDSuccessState){
+            CacheHelper.saveData(
+              key: 'email',
+              value: state.customerModel.email,
+            );
+            CacheHelper.saveData(
+              key: 'username',
+              value: state.customerModel.username,
+            );
+
+            CacheHelper.saveData(
+              key: 'firstname',
+              value: state.customerModel.firstName,
+            );
+            CacheHelper.saveData(
+              key: 'lastname',
+              value: state.customerModel.lastName,
+            );
+            CacheHelper.saveData(
+              key: 'city',
+              value: state.customerModel.billing!.city,
+            );
+            CacheHelper.saveData(
+              key: 'address',
+              value: state.customerModel.billing!.address1,
+            );
+            CacheHelper.saveData(
+              key: 'phone',
+              value: state.customerModel.billing!.phone,
+            ).then((value) {
+              phone=state.customerModel.billing!.phone;
+              firstname=state.customerModel.firstName;
+              print(phone);
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: AppLayout(),
+                    ),
+                  ),
+                      (route) => false);
+            });
           }
         },
         builder: (context, state) {
@@ -72,7 +113,10 @@ class LoginScreen extends StatelessWidget {
                           ),
                         );
                       },
-                      child: Text('تخطي',style: TextStyle(fontSize: 15.sp),),
+                      child: Text(
+                        'تخطي',
+                        style: TextStyle(fontSize: 15.sp),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(30.0),
@@ -84,7 +128,8 @@ class LoginScreen extends StatelessWidget {
                           children: [
                             Center(
                               child: Image(
-                                image: AssetImage('assets/images/150x150 Png.png'),
+                                image:
+                                    AssetImage('assets/images/150x150 Png.png'),
                                 height: 200.h,
                                 width: 250.w,
                               ),
@@ -106,14 +151,17 @@ class LoginScreen extends StatelessWidget {
                             TextFormField(
                               controller: usernameController,
                               keyboardType: TextInputType.text,
-                              validator: (String? value){
-                                if(value!.isEmpty){
+                              validator: (String? value) {
+                                if (value!.isEmpty) {
                                   return 'يجب إدخال إسم المستخدم';
                                 }
                                 return null;
                               },
                               decoration: InputDecoration(
-                                label: Text('إسم المستخدم أو البريد الإلكتروني',style: TextStyle(fontSize: 20.sp),),
+                                label: Text(
+                                  'إسم المستخدم أو البريد الإلكتروني',
+                                  style: TextStyle(fontSize: 20.sp),
+                                ),
                                 prefixIcon: Icon(Icons.person),
                                 border: UnderlineInputBorder(),
                               ),
@@ -136,18 +184,31 @@ class LoginScreen extends StatelessWidget {
                             TextFormField(
                               controller: passwordController,
                               keyboardType: TextInputType.visiblePassword,
-                              validator: (String? value){
-                                if(value!.isEmpty){
+                              validator: (String? value) {
+                                if (value!.isEmpty) {
                                   return 'يجب إدخال كلمة المرور';
                                 }
                                 return null;
-                              },obscureText: LoginCubit.get(context).isPassword,
+                              },
+                              obscureText: LoginCubit.get(context).isPassword,
                               enabled: true,
-
                               decoration: InputDecoration(
-                                label: Text('كلمة المرور',style: TextStyle(fontSize: 20.sp),),
+                                label: Text(
+                                  'كلمة المرور',
+                                  style: TextStyle(fontSize: 20.sp),
+                                ),
                                 prefixIcon: Icon(Icons.lock),
-                                suffixIcon:Icon(LoginCubit.get(context).suffix)!=null? IconButton(onPressed: (){LoginCubit.get(context).changePasswordVisibility();}, icon: Icon(LoginCubit.get(context).suffix),):null,
+                                suffixIcon:
+                                    Icon(LoginCubit.get(context).suffix) != null
+                                        ? IconButton(
+                                            onPressed: () {
+                                              LoginCubit.get(context)
+                                                  .changePasswordVisibility();
+                                            },
+                                            icon: Icon(
+                                                LoginCubit.get(context).suffix),
+                                          )
+                                        : null,
                                 border: UnderlineInputBorder(),
                               ),
                             ),
@@ -181,7 +242,8 @@ class LoginScreen extends StatelessWidget {
                               ),
                               child: Conditional.single(
                                 context: context,
-                                conditionBuilder: (context) => state is! LoginLoadingState,
+                                conditionBuilder: (context) =>
+                                    state is! LoginLoadingState,
                                 // State is! PostRegisterStateLoading,
                                 widgetBuilder: (context) => TextButton(
                                   onPressed: () {
@@ -207,8 +269,11 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                fallbackBuilder: (context) =>
-                                    Center(child: CircularProgressIndicator(color: Colors.white,),),
+                                fallbackBuilder: (context) => Center(
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
                             ),
                             SizedBox(
@@ -217,10 +282,25 @@ class LoginScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('لا تمتلك حساب ؟',style: TextStyle(fontSize: 20.sp),),
-                                TextButton(onPressed: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Directionality(textDirection: TextDirection.rtl,child: RegisterScreen()) ,));
-                                }, child: Text('انشئ حساب الآن',style: TextStyle(fontSize: 20.sp),),),
+                                Text(
+                                  'لا تمتلك حساب ؟',
+                                  style: TextStyle(fontSize: 20.sp),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Directionality(
+                                              textDirection: TextDirection.rtl,
+                                              child: RegisterScreen()),
+                                        ));
+                                  },
+                                  child: Text(
+                                    'انشئ حساب الآن',
+                                    style: TextStyle(fontSize: 20.sp),
+                                  ),
+                                ),
                               ],
                             ),
                           ],

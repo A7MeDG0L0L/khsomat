@@ -1,4 +1,5 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +21,10 @@ class RegisterScreen extends StatelessWidget {
   var passwordController = TextEditingController();
   var firstnameController = TextEditingController();
   var lastnameController = TextEditingController();
+  var phoneController = TextEditingController();
+  var addressController = TextEditingController();
+  var cityController = TextEditingController();
+
   // static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -163,27 +168,10 @@ class RegisterScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(
-                              height: 20.h,
-                            ),
-                            TextFormField(
-                              controller: usernameController,
-                              keyboardType: TextInputType.text,
-                              validator: (String? value) {
-                                if (value!.isEmpty) {
-                                  return 'يجب إدخال إسم المستخدم';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                label: Text(
-                                  'إسم المستخدم',
-                                  style: TextStyle(fontSize: 20.sp),
-                                ),
-                                prefixIcon: Icon(Icons.person),
-                                border: UnderlineInputBorder(),
-                              ),
-                            ),
+                            // SizedBox(
+                            //   height: 20.h,
+                            // ),
+
                             // defaultFormField(
                             //   controller: usernameController,
                             //   type: TextInputType.text,
@@ -204,13 +192,11 @@ class RegisterScreen extends StatelessWidget {
                               validator: (String? value) {
                                 if (value!.isEmpty) {
                                   return 'يجب إدخال البريد الإلكتروني';
-                                }
-                                else if (value.isNotEmpty){
+                                } else if (value.isNotEmpty) {
                                   // EmailValidator.validate(value);
-                                  if(EmailValidator.validate(value)==false){
+                                  if (EmailValidator.validate(value) == false) {
                                     return 'يجب إدخال بريد إلكتروني صحيح';
                                   }
-
                                 }
 
                                 return null;
@@ -273,6 +259,108 @@ class RegisterScreen extends StatelessWidget {
                                 border: UnderlineInputBorder(),
                               ),
                             ),
+                            SizedBox(
+                              height: 15.h,
+                            ),
+                            ExpandablePanel(
+                              header: Text('معلومات إضافية'),
+                              collapsed: SizedBox(),
+                              expanded: Column(
+                                children: [
+                                  TextFormField(
+                                    controller: usernameController,
+                                    keyboardType: TextInputType.text,
+                                    validator: (String? value) {
+                                      if (value!.isEmpty) {
+                                        return 'يجب إدخال إسم المستخدم';
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                      label: Text(
+                                        'إسم المستخدم',
+                                        style: TextStyle(fontSize: 20.sp),
+                                      ),
+                                      prefixIcon: Icon(Icons.person),
+                                      border: UnderlineInputBorder(),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 15.h,
+                                  ),
+                                  TextFormField(
+                                    controller: phoneController,
+                                    keyboardType: TextInputType.phone,
+                                    validator: (String? value) {
+                                      if (value!.isEmpty) {
+                                        return 'يجب إدخال رقم التليفون';
+                                      } else if (value.length != 11) {
+                                        return 'رقم التليفون يجب أن يكون مكون من 11 رقم';
+                                      } else if (value.startsWith('01') !=
+                                          true) {
+                                        return 'يجب أن يبدأ رقم التليفون ب *********01';
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                      prefixIcon: Icon(Icons.phone),
+                                      label: Text(
+                                        'رقم التليفون',
+                                        style: TextStyle(fontSize: 20.sp),
+                                      ),
+                                      border: UnderlineInputBorder(),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 15.h,
+                                  ),
+                                  // DropdownButtonFormField(
+                                  //   items: cities,
+                                  //   value: null,
+                                  //   isDense: true,
+                                  // ),
+                                  TextFormField(
+                                    controller: cityController,
+                                    keyboardType: TextInputType.text,
+                                    validator: (String? value) {
+                                      if (value!.isEmpty) {
+                                        return 'يجب إدخال المدينة';
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                      prefixIcon: Icon(Icons.pin_drop_outlined),
+                                      label: Text(
+                                        'المدينة',
+                                        style: TextStyle(fontSize: 20.sp),
+                                      ),
+                                      border: UnderlineInputBorder(),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 15.h,
+                                  ),
+                                  TextFormField(
+                                    controller: addressController,
+                                    keyboardType: TextInputType.streetAddress,
+                                    validator: (String? value) {
+                                      if (value!.isEmpty) {
+                                        return 'يجب إدخال العنوان';
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                      prefixIcon: Icon(Icons.home_outlined),
+                                      label: Text(
+                                        'العنوان',
+                                        style: TextStyle(fontSize: 20.sp),
+                                      ),
+                                      border: UnderlineInputBorder(),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                             // defaultFormField(
                             //   controller: passwordController,
                             //   type: TextInputType.visiblePassword,
@@ -314,6 +402,9 @@ class RegisterScreen extends StatelessWidget {
                                           password: passwordController.text,
                                           firstname: firstnameController.text,
                                           lastname: lastnameController.text,
+                                          phone: phoneController.text,
+                                          city: cityController.text,
+                                          address: addressController.text,
                                         );
                                       }
                                       if (emailController.text.isEmpty ||

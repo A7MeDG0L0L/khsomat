@@ -200,6 +200,10 @@ class AppLayout extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(horizontal: 8),
                                 child: Text('$email',style: TextStyle(color: Colors.grey,fontSize: 15.sp),),
                               ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8),
+                                child: Text('$firstname',style: TextStyle(color: Colors.grey,fontSize: 15.sp),),
+                              ),
                             ],
                           ),
                         ),

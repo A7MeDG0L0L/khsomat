@@ -13,6 +13,11 @@ const loginScreen = '/login_screen';
 String? token = CacheHelper.getData(key: 'token');
 String? email = CacheHelper.getData(key: 'email');
 String? username = CacheHelper.getData(key: 'username');
+String? firstname = CacheHelper.getData(key: 'firstname');
+String? lastname = CacheHelper.getData(key: 'lastname');
+String? phone = CacheHelper.getData(key: 'phone');
+String? city = CacheHelper.getData(key: 'city');
+String? address = CacheHelper.getData(key: 'address');
 
 
 dynamic convertPrice(int length,Map model) {

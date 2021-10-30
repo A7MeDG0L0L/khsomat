@@ -57,6 +57,8 @@ dependencies:
   flutter_screenutil: ^5.0.0+2
   email_validator: ^2.0.1
   group_button: ^3.3.1
+  expandable: ^5.0.1
+
 
 
 
