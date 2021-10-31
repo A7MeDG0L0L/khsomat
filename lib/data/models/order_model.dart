@@ -40,12 +40,12 @@ class OrderModel {
     required this.paymentMethod,
     required this.paymentMethodTitle,
     required this.transactionId,
-    required this.datePaid,
-    required this.datePaidGmt,
-    required this.dateCompleted,
-    required this.dateCompletedGmt,
-    required this.cartHash,
-    required this.metaData,
+    // required this.datePaid,
+    // required this.datePaidGmt,
+    // required this.dateCompleted,
+    // required this.dateCompletedGmt,
+    // required this.cartHash,
+    // required this.metaData,
     required this.lineItems,
     required this.taxLines,
     required this.shippingLines,
@@ -84,12 +84,12 @@ class OrderModel {
   String? paymentMethod;
   String? paymentMethodTitle;
   String? transactionId;
-  DateTime? datePaid;
-  DateTime? datePaidGmt;
-  dynamic dateCompleted;
-  dynamic dateCompletedGmt;
-  String? cartHash;
-  List<MetaDatum>? metaData;
+  //DateTime? datePaid;
+  //DateTime? datePaidGmt;
+  // dynamic dateCompleted;
+  // dynamic dateCompletedGmt;
+  // String? cartHash;
+  // List<MetaDatum>? metaData;
   List<LineItem>? lineItems;
   List<TaxLine>? taxLines;
   List<ShippingLine>? shippingLines;
@@ -128,12 +128,12 @@ class OrderModel {
     paymentMethod: json["payment_method"],
     paymentMethodTitle: json["payment_method_title"],
     transactionId: json["transaction_id"],
-    datePaid: DateTime.parse(json["date_paid"]),
-    datePaidGmt: DateTime.parse(json["date_paid_gmt"]),
-    dateCompleted: json["date_completed"],
-    dateCompletedGmt: json["date_completed_gmt"],
-    cartHash: json["cart_hash"],
-    metaData: List<MetaDatum>.from(json["meta_data"].map((x) => MetaDatum.fromJson(x))),
+    // datePaid: DateTime.parse(json["date_paid"]),
+    // datePaidGmt: DateTime.parse(json["date_paid_gmt"]),
+    // dateCompleted: json["date_completed"],
+    // dateCompletedGmt: json["date_completed_gmt"],
+    // cartHash: json["cart_hash"],
+    // metaData: List<MetaDatum>.from(json["meta_data"].map((x) => MetaDatum.fromJson(x))),
     lineItems: List<LineItem>.from(json["line_items"].map((x) => LineItem.fromJson(x))),
     taxLines: List<TaxLine>.from(json["tax_lines"].map((x) => TaxLine.fromJson(x))),
     shippingLines: List<ShippingLine>.from(json["shipping_lines"].map((x) => ShippingLine.fromJson(x))),
@@ -173,12 +173,12 @@ class OrderModel {
     "payment_method": paymentMethod,
     "payment_method_title": paymentMethodTitle,
     "transaction_id": transactionId,
-    "date_paid": datePaid!.toIso8601String(),
-    "date_paid_gmt": datePaidGmt!.toIso8601String(),
-    "date_completed": dateCompleted,
-    "date_completed_gmt": dateCompletedGmt,
-    "cart_hash": cartHash,
-    "meta_data": List<dynamic>.from(metaData!.map((x) => x.toJson())),
+    //"date_paid": datePaid!.toIso8601String(),
+   // "date_paid_gmt": datePaidGmt!.toIso8601String(),
+   //  "date_completed": dateCompleted,
+   //  "date_completed_gmt": dateCompletedGmt,
+   //  "cart_hash": cartHash,
+   //  "meta_data": List<dynamic>.from(metaData!.map((x) => x.toJson())),
     "line_items": List<dynamic>.from(lineItems!.map((x) => x.toJson())),
     "tax_lines": List<dynamic>.from(taxLines!.map((x) => x.toJson())),
     "shipping_lines": List<dynamic>.from(shippingLines!.map((x) => x.toJson())),

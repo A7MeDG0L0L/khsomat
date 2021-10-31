@@ -8,6 +8,7 @@ import 'package:khsomat/business_logic/login_cubit/login_cubit.dart';
 import 'package:khsomat/business_logic/login_cubit/login_states.dart';
 import 'package:khsomat/presentation/UI/Widgets/bottomSheetWidget.dart';
 import 'package:khsomat/presentation/user_info_screen.dart';
+import 'package:khsomat/presentation/user_orders_screen.dart';
 
 import '../billing_info_screen.dart';
 import 'login_screen.dart';
@@ -49,7 +50,7 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         Center(
                             child: Image.asset('assets/images/avatar.png',
-                                height: 180.h)),
+                                height: 180.h),),
                         RawMaterialButton(
                           onPressed: () {
                             Navigator.of(context).push(
@@ -92,6 +93,33 @@ class ProfileScreen extends StatelessWidget {
                             children: [
                               Text(
                                 'عنواني',
+                                style: TextStyle(fontSize: 18.sp),
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                size: 15.r,
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        RawMaterialButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => Directionality(
+                                  textDirection: TextDirection.rtl,
+                                  child: UserOrdersScreen(),
+                                ),
+                              ),
+                            );
+                          },
+                          child: Row(
+                            children: [
+                              Text(
+                                'طلباتي',
                                 style: TextStyle(fontSize: 18.sp),
                               ),
                               Icon(
@@ -169,21 +197,23 @@ class ProfileScreen extends StatelessWidget {
                         // SizedBox(
                         //   height: 15.h,
                         // ),
-                        Container(
-                          height: 70.h,
-                          width: 200.w,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.r),
-                              color: Colors.amber),
-                          child: TextButton(
-                            onPressed: () {
-                              signOut(context);
-                            },
-                            child: Text(
-                              'تسجيل الخروج',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20.sp,
+                        Center(
+                          child: Container(
+                            height: 70.h,
+                            width: 200.w,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.r),
+                                color: Colors.amber),
+                            child: TextButton(
+                              onPressed: () {
+                                signOut(context);
+                              },
+                              child: Text(
+                                'تسجيل الخروج',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20.sp,
+                                ),
                               ),
                             ),
                           ),

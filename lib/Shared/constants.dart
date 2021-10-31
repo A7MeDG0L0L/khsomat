@@ -18,6 +18,8 @@ String? lastname = CacheHelper.getData(key: 'lastname');
 String? phone = CacheHelper.getData(key: 'phone');
 String? city = CacheHelper.getData(key: 'city');
 String? address = CacheHelper.getData(key: 'address');
+int? total = CacheHelper.getData(key: 'total');
+int? id = CacheHelper.getData(key: 'userID');
 
 
 dynamic convertPrice(int length,Map model) {
@@ -897,6 +899,9 @@ dynamic convertPrice(int length,Map model) {
 void signOut(context) {
   CacheHelper.removeData(
     key: 'token',
+  );
+  CacheHelper.removeData(
+    key: 'userID',
   );
   CacheHelper.removeData(key: 'email');
   CacheHelper.removeData(key: 'username').then((value) {

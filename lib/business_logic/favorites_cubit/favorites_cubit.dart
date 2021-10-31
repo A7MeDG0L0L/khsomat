@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
+import 'package:khsomat/data/cache_helper/cache_helper.dart';
 import 'package:khsomat/data/models/order_model.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/data/web_services/web_services.dart';
@@ -339,6 +340,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
      total += (orderList[i]['quantity']*orderList[i]['saleprice']);
     print(total);
   }
+    CacheHelper.saveData(key: 'total', value: total);
     print(total);
     return total;
     // copyList2.forEach((element) {

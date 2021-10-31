@@ -1,4 +1,5 @@
 import 'package:khsomat/data/models/category_model.dart';
+import 'package:khsomat/data/models/order_model.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/data/models/register_model.dart';
 import 'package:khsomat/data/web_services/web_services.dart';
@@ -25,8 +26,12 @@ class ProductRepository{
        final categories = await productsWebServices.getAllCategories();
        return categories.map((e) => Category.fromJson(e)).toList();
      }
+     Future<List<OrderModel>> retrieveCustomerOrders() async {
+       final orders= await productsWebServices.retrieveCustomerOrders();
+       return orders.map((e) => OrderModel.fromJson(e)).toList();
+     }
 
-     // Future<UserModel> postRegisterUser({
+       // Future<UserModel> postRegisterUser({
      //   required String username,
      //   required String email,
      //   required String password,

@@ -14,6 +14,7 @@ class AppInsertedToDatabaseState extends FavoritesStates {}
 
 class AppGetWishListDatabaseLoadingState extends FavoritesStates {}
 class AppGetOrderListDatabaseLoadingState extends FavoritesStates {}
+class TotalPriceState extends FavoritesStates {}
 
 class GetWishListFromDataBaseState extends FavoritesStates{}
 class GetOrderListFromDataBaseState extends FavoritesStates{}

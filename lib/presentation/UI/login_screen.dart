@@ -34,6 +34,8 @@ class LoginScreen extends StatelessWidget {
                 key: 'token',
                 value: state.loginResponseModel.data!.token,
               );
+              CacheHelper.saveData(key: 'userID', value: state.loginResponseModel.data!.id!);
+
               CacheHelper.saveData(
                   key: 'email', value: state.loginResponseModel.data!.email);
               CacheHelper.saveData(
@@ -43,9 +45,11 @@ class LoginScreen extends StatelessWidget {
                 token = state.loginResponseModel.data!.token!;
                 email = state.loginResponseModel.data!.email!;
                 username = state.loginResponseModel.data!.displayName!;
+                id = state.loginResponseModel.data!.id;
               });
             }
             LoginCubit.get(context).retrieveCustomer(state.loginResponseModel.data!.id!);
+
 
 
           }

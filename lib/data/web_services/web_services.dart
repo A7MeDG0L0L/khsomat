@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/data/models/register_model.dart';
 
@@ -51,6 +52,25 @@ class WebServices {
       return [];
     }
   }
+
+  Future<List<dynamic>> retrieveCustomerOrders()async{
+    try {
+      print(id);
+      Response response = await dio.get('wc/v3/orders', queryParameters: {
+        'customer':id,
+        'Content-Type': "application/json",
+        'consumer_key': 'ck_fa054c2eea7057ed605ce37417fe5e92fb2d428b',
+        'consumer_secret': 'cs_a2bcff0feec2d96d830b08ecf93015f6de9b409e'
+      });
+      print(id);
+      print('Response from Web Service : ${response.data.toString()}');
+      return response.data;
+    } catch (e) {
+      print('Product Web Service : ${e.toString()}');
+      return [];
+    }
+  }
+
   Future<List<dynamic>> getAllProductsForCategory(int id) async {
     try {
       Response response = await dio.get('wc/store/products', queryParameters: {
