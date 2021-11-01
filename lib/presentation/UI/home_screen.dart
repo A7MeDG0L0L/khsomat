@@ -185,7 +185,7 @@ class HomeScreen extends StatelessWidget {
                 crossAxisCount: 2,
                 shrinkWrap: true,
                 children: List.generate(
-                  allProducts.length,
+                  allProducts.length-76,
                   (index) => ProductItem(product: allProducts[index]),
 
                   // here wasn't route to product details Screen
@@ -194,31 +194,146 @@ class HomeScreen extends StatelessWidget {
                 ),
               );
             }),
+            InkWell(onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => Directionality(textDirection: TextDirection.rtl,child: ProductsForCategoryScreen(id: 142, name: 'ملابس اطفال')),));
+            },child: Image(image: AssetImage('assets/images/kids.jpg'),)),
             SizedBox(
               height: 15.h,
             ),
-            Text(
-              'الأقسام',
-              style: TextStyle(
-                fontFamily: 'Almarai',
-                fontSize: 20.sp,
-              ),
-            ),
+            LayoutBuilder(builder: (context, constraints) {
+              print(MediaQuery.of(context).size.aspectRatio);
+              print(MediaQuery.of(context).size.height.toInt());
+              print(MediaQuery.of(context).size.width.toInt());
+              return GridView.count(
+                physics: BouncingScrollPhysics(),
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+
+                /// TODO: Enhance this later
+                childAspectRatio: 1.w/1.82.h,
+                crossAxisCount: 2,
+                shrinkWrap: true,
+                children: List.generate(
+                  allProducts.length-76,
+                      (index) => ProductItem(product: allProducts[index+24]),
+
+                  // here wasn't route to product details Screen
+
+                  /* buildGridProduct(allProducts[index],context),*/
+                ),
+              );
+            }),
+
+            InkWell(onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => Directionality(textDirection: TextDirection.rtl,child: ProductsForCategoryScreen(id: 3195, name: 'راجعين المدارس')),));
+            },child: Image(image: AssetImage('assets/images/ack to school.jpg'),)),
             SizedBox(
               height: 15.h,
             ),
-            GridView.count(
-              physics: BouncingScrollPhysics(),
-              mainAxisSpacing: 10.w,
-              crossAxisSpacing: 10.h,
-              childAspectRatio: 1 / 1,
-              crossAxisCount: 3,
-              shrinkWrap: true,
-              children: List.generate(
-                15,
-                (index) => buildLargeCatItem(),
-              ),
+            LayoutBuilder(builder: (context, constraints) {
+              print(MediaQuery.of(context).size.aspectRatio);
+              print(MediaQuery.of(context).size.height.toInt());
+              print(MediaQuery.of(context).size.width.toInt());
+              return GridView.count(
+                physics: BouncingScrollPhysics(),
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+
+                /// TODO: Enhance this later
+                childAspectRatio: 1.w/1.82.h,
+                crossAxisCount: 2,
+                shrinkWrap: true,
+                children: List.generate(
+                  allProducts.length-76,
+                      (index) => ProductItem(product: allProducts[index+48]),
+
+                  // here wasn't route to product details Screen
+
+                  /* buildGridProduct(allProducts[index],context),*/
+                ),
+              );
+            }),
+            InkWell(onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => Directionality(textDirection: TextDirection.rtl,child: ProductsForCategoryScreen(id: 165, name: 'موبايلات')),));
+            },child: Image(image: AssetImage('assets/images/mobiles.jpg'),)),
+            SizedBox(
+              height: 15.h,
             ),
+            LayoutBuilder(builder: (context, constraints) {
+              print(MediaQuery.of(context).size.aspectRatio);
+              print(MediaQuery.of(context).size.height.toInt());
+              print(MediaQuery.of(context).size.width.toInt());
+              return GridView.count(
+                physics: BouncingScrollPhysics(),
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+
+                /// TODO: Enhance this later
+                childAspectRatio: 1.w/1.82.h,
+                crossAxisCount: 2,
+                shrinkWrap: true,
+                children: List.generate(
+                  allProducts.length-76,
+                      (index) => ProductItem(product: allProducts[index+72]),
+
+                  // here wasn't route to product details Screen
+
+                  /* buildGridProduct(allProducts[index],context),*/
+                ),
+              );
+            }),
+            InkWell(onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => Directionality(textDirection: TextDirection.rtl,child: ProductsForCategoryScreen(id: 175, name: 'ساعات و نظارات')),));
+            },child: Image(image: AssetImage('assets/images/sunglasses.jpg'),)),
+            SizedBox(
+              height: 15.h,
+            ),
+            LayoutBuilder(builder: (context, constraints) {
+              print(MediaQuery.of(context).size.aspectRatio);
+              print(MediaQuery.of(context).size.height.toInt());
+              print(MediaQuery.of(context).size.width.toInt());
+              return GridView.count(
+                physics: BouncingScrollPhysics(),
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+
+                /// TODO: Enhance this later
+                childAspectRatio: 1.w/1.82.h,
+                crossAxisCount: 2,
+                shrinkWrap: true,
+                children: List.generate(
+                  allProducts.length-76,
+                      (index) => ProductItem(product: allProducts[index+75]),
+
+                  // here wasn't route to product details Screen
+
+                  /* buildGridProduct(allProducts[index],context),*/
+                ),
+              );
+            }),
+
+            // Text(
+            //   'الأقسام',
+            //   style: TextStyle(
+            //     fontFamily: 'Almarai',
+            //     fontSize: 20.sp,
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 15.h,
+            // ),
+            // GridView.count(
+            //   physics: BouncingScrollPhysics(),
+            //   mainAxisSpacing: 10.w,
+            //   crossAxisSpacing: 10.h,
+            //   childAspectRatio: 1 / 1,
+            //   crossAxisCount: 3,
+            //   shrinkWrap: true,
+            //   children: List.generate(
+            //     15,
+            //     (index) => buildLargeCatItem(),
+            //   ),
+            // ),
           ],
         ),
       ),
