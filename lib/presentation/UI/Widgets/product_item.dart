@@ -50,7 +50,7 @@ class ProductItem extends StatelessWidget {
                                   height: 200.0.h,
                                   placeholder: 'assets/loading/loading2.gif',
                                 )
-                              : Image.asset('assets/images/placeholder.jpg'),
+                              : Image.asset('assets/images/Newplaceholder2.png',height: 200.h,fit: BoxFit.cover,),
                         ),
                       ),
                       if (product.onSale == true &&

@@ -67,7 +67,7 @@ class AppLayout extends StatelessWidget {
           backgroundColor: Colors.white,
           appBar: AppBar(
             title: SvgPicture.asset(
-              'assets/images/120x120 SVG white edited.svg',height: 30.h,
+              'assets/images/logosvg.svg',height: 30.h,
 
               color: Colors.white,
               cacheColorFilter: true,

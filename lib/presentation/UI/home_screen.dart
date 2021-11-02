@@ -201,9 +201,9 @@ class HomeScreen extends StatelessWidget {
               height: 15.h,
             ),
             LayoutBuilder(builder: (context, constraints) {
-              print(MediaQuery.of(context).size.aspectRatio);
-              print(MediaQuery.of(context).size.height.toInt());
-              print(MediaQuery.of(context).size.width.toInt());
+              // print(MediaQuery.of(context).size.aspectRatio);
+              // print(MediaQuery.of(context).size.height.toInt());
+              // print(MediaQuery.of(context).size.width.toInt());
               return GridView.count(
                 physics: BouncingScrollPhysics(),
                 mainAxisSpacing: 10,
@@ -231,9 +231,9 @@ class HomeScreen extends StatelessWidget {
               height: 15.h,
             ),
             LayoutBuilder(builder: (context, constraints) {
-              print(MediaQuery.of(context).size.aspectRatio);
-              print(MediaQuery.of(context).size.height.toInt());
-              print(MediaQuery.of(context).size.width.toInt());
+              // print(MediaQuery.of(context).size.aspectRatio);
+              // print(MediaQuery.of(context).size.height.toInt());
+              // print(MediaQuery.of(context).size.width.toInt());
               return GridView.count(
                 physics: BouncingScrollPhysics(),
                 mainAxisSpacing: 10,
@@ -260,9 +260,9 @@ class HomeScreen extends StatelessWidget {
               height: 15.h,
             ),
             LayoutBuilder(builder: (context, constraints) {
-              print(MediaQuery.of(context).size.aspectRatio);
-              print(MediaQuery.of(context).size.height.toInt());
-              print(MediaQuery.of(context).size.width.toInt());
+              // print(MediaQuery.of(context).size.aspectRatio);
+              // print(MediaQuery.of(context).size.height.toInt());
+              // print(MediaQuery.of(context).size.width.toInt());
               return GridView.count(
                 physics: BouncingScrollPhysics(),
                 mainAxisSpacing: 10,
@@ -289,9 +289,9 @@ class HomeScreen extends StatelessWidget {
               height: 15.h,
             ),
             LayoutBuilder(builder: (context, constraints) {
-              print(MediaQuery.of(context).size.aspectRatio);
-              print(MediaQuery.of(context).size.height.toInt());
-              print(MediaQuery.of(context).size.width.toInt());
+              // print(MediaQuery.of(context).size.aspectRatio);
+              // print(MediaQuery.of(context).size.height.toInt());
+              // print(MediaQuery.of(context).size.width.toInt());
               return GridView.count(
                 physics: BouncingScrollPhysics(),
                 mainAxisSpacing: 10,
@@ -370,7 +370,7 @@ class HomeScreen extends StatelessWidget {
                         placeholder: 'assets/loading/loading.gif',
                         image: model.image!.src,
                       )
-                    : Image.asset('assets/images/placeholder.jpg'),
+                    : Image.asset('assets/images/Newplaceholder2.png',fit: BoxFit.cover,),
               ),
               SizedBox(
                 height: 8.h,

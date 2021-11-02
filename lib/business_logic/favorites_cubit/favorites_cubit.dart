@@ -330,12 +330,14 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
 
   dynamic total=0;
   int totalPrice()   {
+
     // await createDatabase();
     //  List<Map<dynamic, dynamic>> copyList =
     //      await database.rawQuery('SELECT * FROM orderlist');
     // dynamic list=copyList();
    //  print("total price copyList #####>> :  ${copyList}");
 //dynamic list=copyList();
+  total=0;
     for(int i=0 ; orderList.length>i;i++){
      total += (orderList[i]['quantity']*orderList[i]['saleprice']);
     print(total);
@@ -343,11 +345,12 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     CacheHelper.saveData(key: 'total', value: total);
     print(total);
     return total;
-    // copyList2.forEach((element) {
-    //   total += (element['quantity'])*(element['saleprice']);
-    // });
-    // print(total);
-    // return total;
+
+  //   orderList.forEach((element) {
+  //     total += (element['quantity'])*(element['saleprice']);
+  //   });
+  //   print(total);
+  //   return total;
   }
 
   OrderModel? orderModel;

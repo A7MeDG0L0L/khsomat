@@ -18,6 +18,7 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   int currentStep=0;
+  bool isCompleted = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,134 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       child: BlocConsumer<FavoritesCubit, FavoritesStates>(
         listener: (context, state) {},
         builder: (context, state) {
+          List<Step> getSteps()=>[
+            Step(
+              state: currentStep>0 ? StepState.complete:StepState.indexed,
+              isActive: currentStep >=0,
+              title: Text('بياناتي'),
+              content: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(children: [
+                      Text('الإسم الأول :'),
+                      SizedBox(width: 20.w,),
+                      Text(firstname!),
+                    ],),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(children: [
+                      Text('الإسم الأخير : '),
+                      SizedBox(width: 20.w,),
+                      Text(lastname!),
+                    ],),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(children: [
+                      Text('رقم التليفون : '),
+                      SizedBox(width: 20.w,),
+                      Text(phone!),
+                    ],),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(children: [
+                      Text('المدينة : '),
+                      SizedBox(width: 20.w,),
+                      Text(city!),
+                    ],),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(children: [
+                      Text('العنوان : '),
+                      SizedBox(width: 20.w,),
+                      Text(address!),
+                    ],),
+                  ),
+                ],
+              ),
+            ),
+            Step(
+              state: currentStep>1 ? StepState.complete:StepState.indexed,
+              isActive: currentStep >=1,
+              title: Text('المنتجات'),
+              content: Column(children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      //  color: Colors.grey.shade500,
+                      borderRadius: BorderRadius.circular(20.r),
+                    ),
+                    child: ListView.separated(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        // if(FavoritesCubit.get(context).orderList.isEmpty){
+                        //   FavoritesCubit.get(context).getOrderListDataFromDatabase(FavoritesCubit.get(context).database);
+                        //
+                        // }
+                        print(FavoritesCubit.get(context).orderList);
+
+                        return showCheckoutItem(
+                            FavoritesCubit.get(context).orderList[index],
+                            context);
+                      },
+                      separatorBuilder: (context, index) => Divider(
+                        thickness: 1.h,
+                      ),
+                      itemCount: FavoritesCubit.get(context).orderList.length,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 30,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.vertical(
+                          bottom: Radius.circular(20.r)),
+                      color: Colors.blue,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        children: [
+                          Text(
+                            'الإجمالي',
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 21.sp),
+                          ),
+                          Spacer(),
+                          Text(
+                            '${FavoritesCubit.get(context).totalPrice()}',
+                            style: TextStyle(
+                                fontSize: 23.sp, color: Colors.white),
+                          ),
+
+                          // Text(
+                          //   '$total',
+                          //   style: TextStyle(
+                          //       fontSize: 23.sp, color: Colors.white),
+                          // ),
+
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],),
+            ),
+            Step(
+              isActive: currentStep >=2,
+              title: Text('إتمام الطلب'),
+              content: Container(),
+            )
+          ];
           return Scaffold(
             appBar: AppBar(
               title: Text(
@@ -64,7 +193,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   final isLastStep = currentStep==getSteps().length-1;
                   if(isLastStep){
                     print('Completed');
-                    //send data to server
+                    ///TODO:send data to server
                   }else
                   setState(() {
                     currentStep+=1;
@@ -237,131 +366,5 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       ),
     );
   }
-  List<Step> getSteps()=>[
-    Step(
-      state: currentStep>0 ? StepState.complete:StepState.indexed,
-      isActive: currentStep >=0,
-      title: Text('بياناتي'),
-      content: Column(
-        children: [
-         Padding(
-           padding: const EdgeInsets.all(10.0),
-           child: Row(children: [
-             Text('الإسم الأول :'),
-             SizedBox(width: 20.w,),
-             Text(firstname!),
-           ],),
-         ),
-         Padding(
-           padding: const EdgeInsets.all(10.0),
-           child: Row(children: [
-             Text('الإسم الأخير : '),
-             SizedBox(width: 20.w,),
-             Text(lastname!),
-           ],),
-         ),
-         Padding(
-           padding: const EdgeInsets.all(10.0),
-           child: Row(children: [
-             Text('رقم التليفون : '),
-             SizedBox(width: 20.w,),
-             Text(phone!),
-           ],),
-         ),
-         Padding(
-           padding: const EdgeInsets.all(10.0),
-           child: Row(children: [
-             Text('المدينة : '),
-             SizedBox(width: 20.w,),
-             Text(city!),
-           ],),
-         ),
-         Padding(
-           padding: const EdgeInsets.all(10.0),
-           child: Row(children: [
-             Text('العنوان : '),
-             SizedBox(width: 20.w,),
-             Text(address!),
-           ],),
-         ),
-        ],
-      ),
-    ),
-    Step(
-      state: currentStep>1 ? StepState.complete:StepState.indexed,
-      isActive: currentStep >=1,
-      title: Text('المنتجات'),
-      content: Column(children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-              //  color: Colors.grey.shade500,
-              borderRadius: BorderRadius.circular(20.r),
-            ),
-            child: ListView.separated(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              physics: BouncingScrollPhysics(),
-              itemBuilder: (context, index) {
-                // if(FavoritesCubit.get(context).orderList.isEmpty){
-                //   FavoritesCubit.get(context).getOrderListDataFromDatabase(FavoritesCubit.get(context).database);
-                //
-                // }
-                print(FavoritesCubit.get(context).orderList);
 
-                return showCheckoutItem(
-                    FavoritesCubit.get(context).orderList[index],
-                    context);
-              },
-              separatorBuilder: (context, index) => Divider(
-                thickness: 1.h,
-              ),
-              itemCount: FavoritesCubit.get(context).orderList.length,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            height: 30,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(20.r)),
-              color: Colors.blue,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  Text(
-                    'الإجمالي',
-                    style: TextStyle(
-                        color: Colors.white, fontSize: 21.sp),
-                  ),
-                  Spacer(),
-                  Text(
-                    '${FavoritesCubit.get(context).totalPrice()}',
-                    style: TextStyle(
-                        fontSize: 23.sp, color: Colors.white),
-                  ),
-
-                  // Text(
-                  //   '$total',
-                  //   style: TextStyle(
-                  //       fontSize: 23.sp, color: Colors.white),
-                  // ),
-
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],),
-    ),
-    Step( isActive: currentStep >=2,
-      title: Text('إتمام الطلب'),
-      content: Container(),
-    )
-  ];
 }
