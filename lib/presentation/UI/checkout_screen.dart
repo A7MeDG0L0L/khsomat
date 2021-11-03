@@ -5,9 +5,12 @@ import 'package:im_stepper/stepper.dart';
 import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
+import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/presentation/UI/Widgets/bottomSheetWidget.dart';
 import 'package:khsomat/presentation/UI/Widgets/checkout_item.dart';
 import 'package:cupertino_stepper/cupertino_stepper.dart';
+import 'package:khsomat/presentation/UI/app_layout.dart';
+import 'package:lottie/lottie.dart';
 
 class CheckoutScreen extends StatefulWidget {
    CheckoutScreen({Key? key}) : super(key: key);
@@ -20,6 +23,20 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   int currentStep=0;
   bool isCompleted = false;
   var customerNoteController = TextEditingController();
+  Widget isCompletedWidget(){
+    return Center(child: Column(
+      children: [
+        Container(child: Lottie.asset('1708-success.json'),),
+        ElevatedButton(
+          onPressed: (){
+            isCompleted=true;
+            HomeCubit.get(context).currentIndex=0;
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Directionality(textDirection: TextDirection.rtl,child: AppLayout()),), (route) => false);
+          }, child: Text('رجوع إلي الصفحة الرئيسية'),
+        ),
+      ],
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +200,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 style: TextStyle(fontSize: 20.sp),
               ),
             ),
-            body: Stepper(
+            body: isCompleted?isCompletedWidget():Stepper(
                 controlsBuilder: (BuildContext context,
                     {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
                   final isLastStep = currentStep==getSteps().length-1;
@@ -215,6 +232,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     print('Completed');
                     ///TODO:send data to server
                     FavoritesCubit.get(context).createOrder(firstname: firstname!, lastname: lastname!, address: address!, city: city!, email: email!, phone: phone!, customerNote: customerNoteController.text);
+                    HomeCubit.get(context).currentIndex=0;
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Directionality(textDirection: TextDirection.rtl,child: AppLayout()),), (route) => false);
+
                   }else
                   setState(() {
                     currentStep+=1;
