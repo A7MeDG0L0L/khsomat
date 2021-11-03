@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
 import 'package:khsomat/data/cache_helper/cache_helper.dart';
 import 'package:khsomat/data/models/order_model.dart';
@@ -423,6 +424,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     WebServices.dio.post(
       'wc/v3/orders',
       data: {
+        "customer_id":id,
         "currency": "EGP",
         "billing": {
           "first_name": firstname,
