@@ -23,32 +23,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'Widgets/drawer/drawer_home_screen.dart';
 
 class AppLayout extends StatelessWidget {
-  late List<SalomonBottomBarItem> items = [
-    SalomonBottomBarItem(
-      icon: Icon(
-        Icons.home_outlined,
-      ),
-      title: Text('الرئيسية',),
-    ),
-    SalomonBottomBarItem(
-      icon: Icon(
-        Icons.favorite,
-      ),
-      title: Text('المفضلة'),
-    ),
-    SalomonBottomBarItem(
-      icon: Icon(
-        Icons.shopping_bag_outlined,
-      ),
-      title: Text('السلة'),
-    ),
-    SalomonBottomBarItem(
-      icon: Icon(
-        Icons.person,
-      ),
-      title: Text('صفحتي'),
-    ),
-  ];
+
 
   static const _whatsapp = 'https://wa.me/+201220255556';
   static const _facebook = 'https://www.facebook.com/khsomatcom';
@@ -63,9 +38,50 @@ class AppLayout extends StatelessWidget {
     return BlocConsumer<HomeCubit, HomeStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        late List<SalomonBottomBarItem> items = [
+          SalomonBottomBarItem(
+            icon: Icon(
+              Icons.home_outlined,
+            ),
+            title: Text('الرئيسية',),
+          ),
+          SalomonBottomBarItem(
+            icon: Stack(
+              children: [
+                Icon(
+                  Icons.favorite,
+                ),
+                if(FavoritesCubit.get(context).wishList.isNotEmpty)
+                  CircleAvatar(child: Text('${FavoritesCubit.get(context).checkItems()}',style: TextStyle(fontSize: 10.sp),),radius: 6.r,),
+
+              ],
+            ),
+            title: Text('المفضلة'),
+          ),
+          SalomonBottomBarItem(
+            icon: Stack(fit: StackFit.loose,
+              children: [
+                Icon(
+                  Icons.shopping_bag_outlined,
+                ),
+                if(FavoritesCubit.get(context).orderList.isNotEmpty)
+                CircleAvatar(child: Text('${FavoritesCubit.get(context).orderList.length}',style: TextStyle(fontSize: 10.sp),),radius: 6.r,),
+
+              ],
+            ),
+            title: Text('السلة'),
+          ),
+          SalomonBottomBarItem(
+            icon: Icon(
+              Icons.person,
+            ),
+            title: Text('صفحتي'),
+          ),
+        ];
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
+            elevation: HomeCubit.get(context).currentIndex==3 ? 0.0:4.0,
             title: SvgPicture.asset(
               'assets/images/logosvg.svg',height: 30.h,
 

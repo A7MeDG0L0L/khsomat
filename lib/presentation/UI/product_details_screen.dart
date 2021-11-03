@@ -360,7 +360,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                 TextButton(
                                   onPressed: () {
                                     if (FavoritesCubit.get(context)
-                                            .checkItem(product!.id) ==
+                                            .checkItemOrderList(product!.id) ==
                                         true) {
                                       showToast(
                                           text: 'المنتج موجود بالفعل في السلة',

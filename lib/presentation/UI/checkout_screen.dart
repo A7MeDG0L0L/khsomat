@@ -19,6 +19,7 @@ class CheckoutScreen extends StatefulWidget {
 class _CheckoutScreenState extends State<CheckoutScreen> {
   int currentStep=0;
   bool isCompleted = false;
+  var customerNoteController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +154,26 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             Step(
               isActive: currentStep >=2,
               title: Text('إتمام الطلب'),
-              content: Container(),
+              content: Container(
+                child:  TextFormField(
+                  style: TextStyle(height: 5.h),
+                  controller: customerNoteController,
+                  keyboardType: TextInputType.multiline,
+                  // validator: (String? value) {
+                  //   if (value!.isEmpty) {
+                  //     return 'يجب إدخال الإسم الآخير';
+                  //   }
+                  //   return null;
+                  // },
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.sticky_note_2_rounded),
+                    label: Text('ملاحظات',style: TextStyle(fontSize: 20.sp),),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.r),
+                    ),
+                  ),
+                ),
+              ),
             )
           ];
           return Scaffold(
@@ -194,6 +214,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   if(isLastStep){
                     print('Completed');
                     ///TODO:send data to server
+                    FavoritesCubit.get(context).createOrder(firstname: firstname!, lastname: lastname!, address: address!, city: city!, email: email!, phone: phone!, customerNote: customerNoteController.text);
                   }else
                   setState(() {
                     currentStep+=1;

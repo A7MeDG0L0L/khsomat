@@ -17,7 +17,18 @@ class ProductItem extends StatelessWidget {
     return BlocConsumer<FavoritesCubit, FavoritesStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        dynamic discountedPrice= (100 * (product.prices!.regularPrice - product.prices!.salePrice) / product.prices!.regularPrice).roundToDouble();
+        dynamic discountedPrice(){
+          dynamic discountedPrice;
+          if(product.prices!.salePrice==0||product.prices!.regularPrice==0){
+            product.prices!.salePrice=1;
+            product.prices!.regularPrice=1;
+             discountedPrice= 100 * (product.prices!.regularPrice - product.prices!.salePrice) ~/ product.prices!.regularPrice;
+            return discountedPrice;
+          }
+          else
+           return discountedPrice= 100 * (product.prices!.regularPrice - product.prices!.salePrice) ~/ product.prices!.regularPrice;
+
+        }
         return InkWell(
           onTap: () {
             Navigator.pushNamed(context, productDetailsScreen,
@@ -66,7 +77,7 @@ class ProductItem extends StatelessWidget {
                             // ),
 
                             child: Text(
-                              '${discountedPrice}%',
+                              '${discountedPrice()}%',
                               style: TextStyle(
                                 fontSize: 12.0.sp,
                                 color: Colors.white,
@@ -277,11 +288,11 @@ class ProductItem extends StatelessWidget {
                                 icon: CircleAvatar(
                                   radius: 14.r,
                                   backgroundColor:
-                                      /*ShopCubit
+                                      FavoritesCubit
                                       .get(context)
-                                      .favorites[product.id]
-                                      ? defaultColor
-                                      :*/
+                                      .checkItemWishList(product.id)
+                                      ? defColor
+                                      :
                                       Colors.grey,
                                   child: Icon(
                                     Icons.favorite_border,

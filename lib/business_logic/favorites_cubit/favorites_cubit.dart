@@ -17,6 +17,13 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
   late Database database;
   // late List list;
 
+  int checkItems(){
+    if(wishList.isNotEmpty&&wishList.length>=1)
+        emit(ReturnNumberWishListState());
+        return wishList.length;
+  }
+
+
   List<Map<dynamic, dynamic>> wishList = [];
   List<Map<dynamic, dynamic>> orderList = [];
 
@@ -65,6 +72,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
         print('$value inserted successfully');
         getWishListDataFromDatabase(database);
         print(wishList);
+        checkItems();
         emit(AppInsertedToDatabaseState());
       }).catchError((error) {
         print('Error When Inserting New Record ${error.toString()}');
@@ -104,6 +112,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     await database.rawQuery('SELECT * FROM wishlist').then((value) {
       value.forEach((product) {
         wishList.add(product);
+        checkItems();
         print(wishList);
       });
       emit(GetWishListFromDataBaseState());
@@ -130,6 +139,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     await database.rawDelete(
         'DELETE FROM wishlist WHERE product_id = ?', [id]).then((value) {
       getWishListDataFromDatabase(database);
+      checkItems();
       emit(DeleteWishListDataFromDatabaseState());
     });
   }
@@ -208,7 +218,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
   }
 
   bool checkItemWishList(int? productId) {
-    for(var element in orderList) {
+    for(var element in wishList) {
       if (element['product_id'] == productId) {
         print('Item already in the wishList');
         return true;
@@ -217,7 +227,10 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     return false;
   }
 
-  bool checkItem(int? productId) {
+
+
+
+  bool checkItemOrderList(int? productId) {
     for(var element in orderList) {
       if (element['product_id'] == productId) {
         print('Item already in the orderList');
@@ -446,6 +459,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
       },
     ).then((value) {
       orderModel = OrderModel.fromJson(value.data);
+      print(value.data);
       print(orderModel);
 
       ///TODO:....
