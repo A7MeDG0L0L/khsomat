@@ -518,7 +518,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     Image.network(product!.images![index].src!),
                 options: CarouselOptions(
                   initialPage: 0,
-                  autoPlay: false,
+                  autoPlay: true,
                   height: 400.h,
                   autoPlayCurve: Curves.fastOutSlowIn,
                   scrollDirection: Axis.horizontal,

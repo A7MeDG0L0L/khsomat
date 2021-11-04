@@ -11,6 +11,7 @@ import 'package:khsomat/business_logic/login_cubit/login_cubit.dart';
 import 'package:khsomat/business_logic/login_cubit/login_states.dart';
 import 'package:khsomat/presentation/UI/Widgets/bottomSheetWidget.dart';
 import 'package:khsomat/presentation/UI/favorites_screen.dart';
+import 'package:khsomat/presentation/about_us_screen.dart';
 import 'package:khsomat/presentation/user_info_screen.dart';
 import 'package:khsomat/presentation/user_orders_screen.dart';
 
@@ -257,6 +258,35 @@ class ProfileScreen extends StatelessWidget {
                                         size: 15.r,
                                         color: Colors.white,
                                       ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 15.h,
+                                ),
+                                RawMaterialButton(
+                                  onPressed: () {
+
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => Directionality(
+                                          textDirection: TextDirection.rtl,
+                                          child: AboutUsScreen(),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'من نحن',
+                                        style: TextStyle(
+                                          fontSize: 18.sp,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Icon(Icons.arrow_forward_ios,
+                                          size: 15.r, color: Colors.white),
                                     ],
                                   ),
                                 ),

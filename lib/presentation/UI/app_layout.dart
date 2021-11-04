@@ -52,7 +52,7 @@ class AppLayout extends StatelessWidget {
                   Icons.favorite,
                 ),
                 if(FavoritesCubit.get(context).wishList.isNotEmpty)
-                  CircleAvatar(child: Text('${FavoritesCubit.get(context).checkItems()}',style: TextStyle(fontSize: 10.sp),),radius: 6.r,),
+                  CircleAvatar(child: Text('${FavoritesCubit.get(context).wishList.length}',style: TextStyle(fontSize: 10.sp),),radius: 6.r,),
 
               ],
             ),
@@ -85,7 +85,7 @@ class AppLayout extends StatelessWidget {
             title: SvgPicture.asset(
               'assets/images/logosvg.svg',height: 30.h,
 
-              color: Colors.white,
+              //color: Colors.white,
               cacheColorFilter: true,
             ),
             //Image(image: AssetImage('assets/images/150x150 Png White-01.png'),),
@@ -120,15 +120,15 @@ class AppLayout extends StatelessWidget {
                 icon: Icon(Icons.delete_forever_rounded),
                 color: Colors.pinkAccent[400],
               ),
-              if(HomeCubit.get(context).currentIndex==1)
-                IconButton(
-                  onPressed: () {
-                    FavoritesCubit.get(context).deleteAllItemsFromWishList();
-                  },
-                  icon: Icon(Icons.remove),
-                  color: Colors.pinkAccent[400],
-
-                ),
+              // if(HomeCubit.get(context).currentIndex==1)
+              //   IconButton(
+              //     onPressed: () {
+              //       FavoritesCubit.get(context).deleteAllItemsFromWishList();
+              //     },
+              //     icon: Icon(Icons.remove),
+              //     color: Colors.pinkAccent[400],
+              //
+              //   ),
               // TextButton(onPressed: (){
               //   signOut(context);
               // }, child: Text('تسجيل الخروج',style: TextStyle(color: Colors.black),)),
@@ -270,7 +270,7 @@ class AppLayout extends StatelessWidget {
             alignment: Alignment.bottomLeft,
             fabSize: 55.r,
             fabMargin: EdgeInsets.only(bottom: 10.h, right: 15.w),
-            fabOpenIcon: Icon(Icons.contact_support_outlined,color: Colors.white,),
+            fabOpenIcon: Icon(Icons.call,color: Colors.white,),
             ringDiameter: 250.r,
             ringWidth: 60.w,
 

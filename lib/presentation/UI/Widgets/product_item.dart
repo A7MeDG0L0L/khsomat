@@ -262,6 +262,7 @@ class ProductItem extends StatelessWidget {
                                                 'تم إضافة المنتج إلي قائمة المفضلة',
                                             state: ToastStates.SUCCESS),
                                       );
+                                  FavoritesCubit.get(context).checkItems();
 
                                   // productList.forEach((e) {
                                   //   convertedList.add(e.toJson());

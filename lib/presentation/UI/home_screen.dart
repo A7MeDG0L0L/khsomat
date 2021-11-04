@@ -63,20 +63,7 @@ class HomeScreen extends StatelessWidget {
     ),
   ];
 
-  List<Widget> productItems = [
-    Image(
-      image: AssetImage('assets/images/testproduct.jpg'),
-    ),
-    Image(
-      image: AssetImage('assets/images/testproduct.jpg'),
-    ),
-    Image(
-      image: AssetImage('assets/images/testproduct.jpg'),
-    ),
-    Image(
-      image: AssetImage('assets/images/testproduct.jpg'),
-    ),
-  ];
+
 
   late List<Product> allProducts;
   late List<Category> allCategories;

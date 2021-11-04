@@ -18,10 +18,12 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
   late Database database;
   // late List list;
 
-  int checkItems(){
-    if(wishList.isNotEmpty&&wishList.length>=1)
-        emit(ReturnNumberWishListState());
-        return wishList.length;
+  void checkItems(){
+    // if(wishList.isNotEmpty&&wishList.length>=1) {
+    //   emit(ReturnNumberWishListState());
+    //   return wishList.length;
+    // }
+    emit(ReturnNumberWishList2State());
   }
 
 
@@ -425,6 +427,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
       'wc/v3/orders',
       data: {
         "customer_id":id,
+        "total": totalPrice(),
         "currency": "EGP",
         "billing": {
           "first_name": firstname,
