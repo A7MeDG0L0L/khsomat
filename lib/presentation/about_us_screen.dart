@@ -64,7 +64,7 @@ class AboutUsScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => WebViewScreen('https://www.facebook.com/A7MeDG0L0L'),));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => WebViewScreen('https://www.khsomat.net'),));
 
               },
               child: Text('زور الموقع'),

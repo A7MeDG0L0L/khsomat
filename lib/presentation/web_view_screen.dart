@@ -11,13 +11,18 @@ class WebViewScreen extends StatelessWidget
   Widget build(BuildContext context)
   {
     return Scaffold(
-      appBar: AppBar(),
-      body: WebView(
-        initialUrl: url,
-        onPageStarted: (String string){
-          print(string);
+   appBar: AppBar(),
+      body: SafeArea(
+        child: WebView(
+          initialUrl: url,
+          onPageStarted: (String string){
+            print(string);
 
-        },
+          },
+          allowsInlineMediaPlayback: true,
+          gestureNavigationEnabled: true,
+          javascriptMode: JavascriptMode.unrestricted,
+        ),
       ),
     );
   }
