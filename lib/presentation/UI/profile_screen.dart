@@ -164,19 +164,17 @@ class ProfileScreen extends StatelessWidget {
                                             fontSize: 18.sp,
                                             color: Colors.white),
                                       ),
-                                      if (FavoritesCubit.get(context)
-                                          .wishList
+                                      if (wishList
                                           .isNotEmpty)
                                       SizedBox(
                                         width: 5.w,
                                       ),
-                                      if (FavoritesCubit.get(context)
-                                          .wishList
+                                      if (wishList
                                           .isNotEmpty)
                                       CircleAvatar(
                                         radius: 10,
                                         child: Text(
-                                            '${FavoritesCubit.get(context).wishList.length}'),
+                                            '${wishList.length}'),
                                       ),
                                       Icon(
                                         Icons.arrow_forward_ios,
@@ -209,19 +207,17 @@ class ProfileScreen extends StatelessWidget {
                                             fontSize: 18.sp,
                                             color: Colors.white),
                                       ),
-                                      if (FavoritesCubit.get(context)
-                                          .orderList
+                                      if (orderList
                                           .isNotEmpty)
                                         SizedBox(
                                           width: 5.w,
                                         ),
-                                      if (FavoritesCubit.get(context)
-                                          .orderList
+                                      if (orderList
                                           .isNotEmpty)
                                         CircleAvatar(
                                           radius: 10,
                                           child: Text(
-                                              '${FavoritesCubit.get(context).orderList.length}'),
+                                              '${orderList.length}'),
                                         ),
                                       Icon(
                                         Icons.arrow_forward_ios,

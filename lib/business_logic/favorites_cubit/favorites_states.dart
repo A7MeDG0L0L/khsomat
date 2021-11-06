@@ -1,4 +1,20 @@
+import 'package:khsomat/data/models/new_product_model.dart';
+
 abstract class FavoritesStates {}
+
+class GetNewProductsLoadingState extends FavoritesStates{}
+class GetNewProductsSuccessState extends FavoritesStates{
+  final List<NewProductModel> newProducts;
+
+  GetNewProductsSuccessState(this.newProducts);
+}
+class GetNewProductsErrorState extends FavoritesStates{
+  final error;
+
+  GetNewProductsErrorState(this.error);
+}
+
+
 class FavoritesInitialState extends FavoritesStates {}
 class GetFavoritesSuccessState extends FavoritesStates {}
 class GetFavoritesErrorState extends FavoritesStates {

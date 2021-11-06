@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:khsomat/Shared/constants.dart';
+import 'package:khsomat/business_logic/cart_cubit/cart_cubit.dart';
+import 'package:khsomat/business_logic/cart_cubit/cart_states.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
@@ -41,9 +43,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => FavoritesCubit()
-        ..getOrderListDataFromDatabase(FavoritesCubit.get(context).database),
-      child: BlocConsumer<FavoritesCubit, FavoritesStates>(
+      create: (context) => CartCubit(),
+        // ..getOrderListDataFromDatabase(database),
+      child: BlocConsumer<CartCubit, CartStates>(
         listener: (context, state) {},
         builder: (context, state) {
           List<Step> getSteps()=>[
@@ -117,16 +119,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         //   FavoritesCubit.get(context).getOrderListDataFromDatabase(FavoritesCubit.get(context).database);
                         //
                         // }
-                        print(FavoritesCubit.get(context).orderList);
+                        print(orderList);
 
                         return showCheckoutItem(
-                            FavoritesCubit.get(context).orderList[index],
+                            orderList[index],
                             context);
                       },
                       separatorBuilder: (context, index) => Divider(
                         thickness: 1.h,
                       ),
-                      itemCount: FavoritesCubit.get(context).orderList.length,
+                      itemCount: orderList.length,
                     ),
                   ),
                 ),

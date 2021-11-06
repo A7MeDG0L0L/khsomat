@@ -5,6 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khsomat/Shared/components.dart';
+import 'package:khsomat/Shared/constants.dart';
+import 'package:khsomat/business_logic/cart_cubit/cart_cubit.dart';
+import 'package:khsomat/business_logic/cart_cubit/cart_states.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
 import 'package:khsomat/data/models/products_model.dart';
@@ -45,10 +48,10 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // final Product product;
     return BlocProvider(
-      create: (context) => FavoritesCubit()
-        ..createDatabase()
-        ..getOrderListDataFromDatabase(FavoritesCubit.get(context).database),
-      child: BlocConsumer<FavoritesCubit, FavoritesStates>(
+      create: (context) => CartCubit()
+        // ..createDatabase()
+         ..getOrderListDataFromDatabase(database),
+      child: BlocConsumer<CartCubit, CartStates>(
         listener: (context, state) {},
         builder: (context, state) {
           return Scaffold(
@@ -81,7 +84,7 @@ class CartScreen extends StatelessWidget {
                       height: 60.h,
                       child: ElevatedButton(
                         onPressed: () {
-                          if(FavoritesCubit.get(context).orderList.isNotEmpty){
+                          if(orderList.isNotEmpty){
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -116,7 +119,7 @@ class CartScreen extends StatelessWidget {
               child: Conditional.single(
                 context: context,
                 conditionBuilder: (context) =>
-                    FavoritesCubit.get(context).orderList.isNotEmpty,
+                    orderList.isNotEmpty,
                 widgetBuilder: (context) {
                   return SingleChildScrollView(
                     scrollDirection: Axis.vertical,
@@ -129,7 +132,7 @@ class CartScreen extends StatelessWidget {
                             physics: BouncingScrollPhysics(),
                             scrollDirection: Axis.vertical,
                             itemBuilder: (context, index) => showOrderItem(
-                                FavoritesCubit.get(context).orderList[index],
+                                orderList[index],
                                 index,
                                 context),
                             separatorBuilder: (context, index) => Divider(
@@ -137,7 +140,7 @@ class CartScreen extends StatelessWidget {
                               height: 2.h,
                             ),
                             itemCount:
-                                FavoritesCubit.get(context).orderList.length,
+                                orderList.length,
                           ),
                           // Padding(
                           //   padding: const EdgeInsets.all(15.0),

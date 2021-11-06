@@ -51,8 +51,8 @@ class AppLayout extends StatelessWidget {
                 Icon(
                   Icons.favorite,
                 ),
-                if(FavoritesCubit.get(context).wishList.isNotEmpty)
-                  CircleAvatar(child: Text('${FavoritesCubit.get(context).wishList.length}',style: TextStyle(fontSize: 10.sp),),radius: 6.r,),
+                if(wishList.isNotEmpty)
+                  CircleAvatar(child: Text('${wishList.length}',style: TextStyle(fontSize: 10.sp),),radius: 6.r,),
 
               ],
             ),
@@ -64,8 +64,8 @@ class AppLayout extends StatelessWidget {
                 Icon(
                   Icons.shopping_bag_outlined,
                 ),
-                if(FavoritesCubit.get(context).orderList.isNotEmpty)
-                CircleAvatar(child: Text('${FavoritesCubit.get(context).orderList.length}',style: TextStyle(fontSize: 10.sp),),radius: 6.r,),
+                if(orderList.isNotEmpty)
+                CircleAvatar(child: Text('${orderList.length}',style: TextStyle(fontSize: 10.sp),),radius: 6.r,),
 
               ],
             ),
@@ -105,10 +105,10 @@ class AppLayout extends StatelessWidget {
                 icon: Icon(Icons.search,size: 22.w,),
               ),
               ///TODO:Test This Condition
-              if(HomeCubit.get(context).currentIndex==2 && FavoritesCubit.get(context).orderList.isNotEmpty)
+              if(HomeCubit.get(context).currentIndex==2 && orderList.isNotEmpty)
               IconButton(
                 onPressed: () {
-                  if(FavoritesCubit.get(context).orderList.isEmpty)
+                  if(orderList.isEmpty)
                     {
                       showToast(text: 'السلة فارغة بالفعل', state: ToastStates.WARNING);
                     }

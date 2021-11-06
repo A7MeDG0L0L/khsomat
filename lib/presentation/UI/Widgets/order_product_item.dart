@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khsomat/Shared/constants.dart';
+import 'package:khsomat/business_logic/cart_cubit/cart_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
 import 'package:khsomat/data/models/products_model.dart';
@@ -38,8 +39,9 @@ Widget showOrderItem(
   return Dismissible(
     key: UniqueKey(),
     onDismissed: (direction) {
-      FavoritesCubit.get(context)
+      CartCubit.get(context)
           .deleteItemOrderListFromDatabase(id: model['product_id']);
+
     },
     child: Column(
       children: [
@@ -138,7 +140,7 @@ Widget showOrderItem(
                                       //print(product.quantity);
                                       // model['quantity'][index]++;
                                       //  FavoritesCubit.get(context).orderList['quantity'][index];
-                                      FavoritesCubit.get(context).increaseQuantity(index);
+                                      CartCubit.get(context).increaseQuantity(index);
                                       // print('increase Button Pressed With index : $index');
                                       // print(FavoritesCubit.get(context).orderList);
 
@@ -164,7 +166,7 @@ Widget showOrderItem(
                                     //  '${model['quantity'][index]}',
                                     //'$quantity',
                                     // '${model['quantity']}'
-                                    '${FavoritesCubit.get(context). orderList[index]['quantity']}',style: TextStyle(fontSize: 16.sp),
+                                    '${orderList[index]['quantity']}',style: TextStyle(fontSize: 16.sp),
                                     //'${model['quantity']}',
                                   ),
                                   // SizedBox(width: 10,),
@@ -184,7 +186,7 @@ Widget showOrderItem(
                                       //   quantity--;
                                       // }
                                       // print(product.quantity);
-                                      FavoritesCubit.get(context).decreaseQuantity(index);
+                                      CartCubit.get(context).decreaseQuantity(index);
                                       //
                                       // print('Decrease Button Pressed With index : $index');
                                       // print(FavoritesCubit.get(context).orderList);
@@ -259,7 +261,7 @@ Widget showOrderItem(
                                           TextSpan(
                                               text:
                                               //'${intPrice}',
-                                              '${model['saleprice'] * FavoritesCubit.get(context).orderList[index]['quantity']}',style: TextStyle(fontSize: 17.sp)
+                                              '${model['saleprice'] * orderList[index]['quantity']}',style: TextStyle(fontSize: 17.sp)
                                               // '${convertPrice(4)! * FavoritesCubit.get(context).orderList[index]['quantity']}'
                                             //'${model['saleprice'].substring(0, 2)*FavoritesCubit.get(context).quantity}',
                                             //'$productprice',
@@ -333,8 +335,8 @@ Widget showOrderItem(
                                     //   Future.delayed(Duration(seconds: 5));
                                     // Database database = FavoritesCubit.get(context).database;
                                     // FavoritesCubit.get(context).getDataFromDatabase(database);
-                                    print(FavoritesCubit.get(context).database);
-                                    FavoritesCubit.get(context)
+                                    //print(FavoritesCubit.get(context).database);
+                                    CartCubit.get(context)
                                         .deleteItemOrderListFromDatabase(
                                         id: model['id']);
 

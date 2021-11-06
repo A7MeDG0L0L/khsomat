@@ -515,7 +515,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 itemCount: product!.images!.length,
                 carouselController: carouselController,
                 itemBuilder: (context, index, realIndex) =>
-                    Image.network(product!.images![index].src!),
+                    Image.network(product!.images!.isNotEmpty?product!.images![index].src!:'https://i.ibb.co/HdDgZLk/Newplaceholder2.png'),
                 options: CarouselOptions(
                   initialPage: 0,
                   autoPlay: true,

@@ -493,7 +493,7 @@ Widget showWishItem(
                                     //   Future.delayed(Duration(seconds: 5));
                                     // Database database = FavoritesCubit.get(context).database;
                                     // FavoritesCubit.get(context).getDataFromDatabase(database);
-                                    print(FavoritesCubit.get(context).database);
+                                  //  print(FavoritesCubit.get(context).database);
                                     FavoritesCubit.get(context)
                                         .deleteItemWishListFromDatabase(
                                             id: model['product_id']);

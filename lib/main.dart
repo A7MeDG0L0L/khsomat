@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +28,8 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   token = CacheHelper.getData(key: 'token');
   print(token);
+
+
   // if(stringFavList != null || productList != null){
   //   // printWrapped(stringFavList!);
   //   // printWrapped(productList);
@@ -57,10 +61,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (context) => HomeCubit(ProductRepository(WebServices()))
+            create: (context) => HomeCubit(ProductRepository(WebServices()))..createDatabase()
               ..getAllProducts()
               ..getAllCategories()),
-        BlocProvider(create: (context) => FavoritesCubit()..createDatabase()),
+        BlocProvider(create: (context) => FavoritesCubit()),
         // BlocProvider(
         //   create: (context) => SearchCubit(
         //     ProductRepository(ProductsWebServices())..g,

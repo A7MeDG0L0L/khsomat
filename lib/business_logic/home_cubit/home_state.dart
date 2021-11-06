@@ -1,4 +1,5 @@
 import 'package:khsomat/data/models/category_model.dart';
+import 'package:khsomat/data/models/new_product_model.dart';
 import 'package:khsomat/data/models/products_model.dart';
 
 abstract class HomeStates{}
@@ -51,3 +52,16 @@ class GetProductsAndCategoriesSuccessState extends HomeStates{
   final List<Product> products;
   GetProductsAndCategoriesSuccessState(this.products,this.category);
 }
+
+/// New States For Test
+
+class AppCreatedDatabaseState extends HomeStates {}
+class AppInsertedToDatabaseState extends HomeStates {}
+
+class AppGetWishListDatabaseLoadingState extends HomeStates {}
+class AppGetOrderListDatabaseLoadingState extends HomeStates {}
+class TotalPriceState extends HomeStates {}
+
+
+class GetWishListFromDataBaseState extends HomeStates{}
+class GetOrderListFromDataBaseState extends HomeStates{}

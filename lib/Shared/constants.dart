@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:khsomat/data/cache_helper/cache_helper.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/presentation/UI/login_screen.dart';
+import 'package:sqflite/sqflite.dart';
 
 const homeLayout = '/';
 const productDetailsScreen = '/product_details_screen';
@@ -20,6 +21,13 @@ String? city = CacheHelper.getData(key: 'city');
 String? address = CacheHelper.getData(key: 'address');
 int? total = CacheHelper.getData(key: 'total');
 int? id = CacheHelper.getData(key: 'userID');
+
+
+late Database database;
+
+List<Map<dynamic, dynamic>> wishList = [];
+List<Map<dynamic, dynamic>> orderList = [];
+
 
 
 dynamic convertPrice(int length,Map model) {

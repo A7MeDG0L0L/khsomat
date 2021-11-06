@@ -11,6 +11,7 @@ import 'package:khsomat/presentation/UI/favorites_screen.dart';
 import 'package:khsomat/presentation/UI/app_layout.dart';
 import 'package:khsomat/presentation/UI/home_screen.dart';
 import 'package:khsomat/presentation/UI/profile_screen.dart';
+import 'package:sqflite/sqflite.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
   HomeCubit(this.productRepository) : super(InitialHomeState());
@@ -100,4 +101,65 @@ class HomeCubit extends Cubit<HomeStates> {
   //   favListConst.add(product);
   //   print('Added This Item to List : ${product.name}');
   // }
+
+
+  Future<void> createDatabase() async {
+    database = await openDatabase(
+      'wishlist.db',
+      version: 1,
+      onCreate: (database, version) {
+        print('database Created Successfully !');
+        database.execute(
+            'CREATE TABLE wishlist (product_id INTEGER, name TEXT, image TEXT, regularprice INTEGER,saleprice INTEGER,permalink TEXT)');
+        database.execute(
+            'CREATE TABLE orderlist (id INTEGER PRIMARY KEY,"product_id" INTEGER, "name" TEXT, "image" TEXT, "regularprice" INTEGER,"saleprice" INTEGER,"permalink" TEXT,"quantity" INTEGER,"variation_id" INTEGER)');
+
+        print('table Created Successfully !');
+        //     .catchError((error) {
+        //   print('Error While Creating Table Wishlist : ${error.toString()}');
+        // });
+      },
+      onOpen: (database) {
+        getWishListDataFromDatabase(database);
+        getOrderListDataFromDatabase(database);
+        // print(productList);
+        print('database Opened Successfully !');
+      },
+    );
+    // database = value;
+    print(wishList);
+
+    emit(AppCreatedDatabaseState());
+  }
+
+
+  void getWishListDataFromDatabase(database) async {
+    //productList = [];
+    wishList=[];
+    emit(AppGetWishListDatabaseLoadingState());
+
+    await database.rawQuery('SELECT * FROM wishlist').then((value) {
+      value.forEach((product) {
+        wishList.add(product);
+        //checkItems();
+        print(wishList);
+      });
+      emit(GetWishListFromDataBaseState());
+    });
+  }
+
+  void getOrderListDataFromDatabase(database) async {
+    //productList = [];
+    emit(AppGetOrderListDatabaseLoadingState());
+
+    await database.rawQuery('SELECT * FROM orderlist').then((value) {
+      value.forEach((product) {
+        //  orderList.add(product);
+        orderList.add(Map.of(product));
+        print(orderList);
+      });
+      emit(GetOrderListFromDataBaseState());
+    });
+  }
+
 }

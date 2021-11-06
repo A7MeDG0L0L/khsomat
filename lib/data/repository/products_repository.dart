@@ -1,4 +1,5 @@
 import 'package:khsomat/data/models/category_model.dart';
+import 'package:khsomat/data/models/new_product_model.dart';
 import 'package:khsomat/data/models/order_model.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/data/models/register_model.dart';

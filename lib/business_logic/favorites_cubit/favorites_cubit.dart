@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
 import 'package:khsomat/data/cache_helper/cache_helper.dart';
+import 'package:khsomat/data/models/new_product_model.dart';
 import 'package:khsomat/data/models/order_model.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/data/web_services/web_services.dart';
@@ -15,49 +16,63 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
 
   static FavoritesCubit get(context) => BlocProvider.of(context);
 
-  late Database database;
+ // late Database database;
   // late List list;
 
-  void checkItems(){
-    // if(wishList.isNotEmpty&&wishList.length>=1) {
-    //   emit(ReturnNumberWishListState());
-    //   return wishList.length;
-    // }
-    emit(ReturnNumberWishList2State());
-  }
+  // void checkItems(){
+  //   // if(wishList.isNotEmpty&&wishList.length>=1) {
+  //   //   emit(ReturnNumberWishListState());
+  //   //   return wishList.length;
+  //   // }
+  //   emit(ReturnNumberWishList2State());
+  // }
 
 
-  List<Map<dynamic, dynamic>> wishList = [];
-  List<Map<dynamic, dynamic>> orderList = [];
+  // List<Map<dynamic, dynamic>> wishList = [];
+  // List<Map<dynamic, dynamic>> orderList = [];
 
-  Future<void> createDatabase() async {
-    database = await openDatabase(
-      'wishlist.db',
-      version: 1,
-      onCreate: (database, version) {
-        print('database Created Successfully !');
-        database.execute(
-            'CREATE TABLE wishlist (product_id INTEGER, name TEXT, image TEXT, regularprice INTEGER,saleprice INTEGER,permalink TEXT)');
-        database.execute(
-            'CREATE TABLE orderlist (id INTEGER PRIMARY KEY,"product_id" INTEGER, "name" TEXT, "image" TEXT, "regularprice" INTEGER,"saleprice" INTEGER,"permalink" TEXT,"quantity" INTEGER,"variation_id" INTEGER)');
+  // Future<void> createDatabase() async {
+  //   database = await openDatabase(
+  //     'wishlist.db',
+  //     version: 1,
+  //     onCreate: (database, version) {
+  //       print('database Created Successfully !');
+  //       database.execute(
+  //           'CREATE TABLE wishlist (product_id INTEGER, name TEXT, image TEXT, regularprice INTEGER,saleprice INTEGER,permalink TEXT)');
+  //       database.execute(
+  //           'CREATE TABLE orderlist (id INTEGER PRIMARY KEY,"product_id" INTEGER, "name" TEXT, "image" TEXT, "regularprice" INTEGER,"saleprice" INTEGER,"permalink" TEXT,"quantity" INTEGER,"variation_id" INTEGER)');
+  //
+  //       print('table Created Successfully !');
+  //       //     .catchError((error) {
+  //       //   print('Error While Creating Table Wishlist : ${error.toString()}');
+  //       // });
+  //     },
+  //     onOpen: (database) {
+  //       getWishListDataFromDatabase(database);
+  //       getOrderListDataFromDatabase(database);
+  //       // print(productList);
+  //       print('database Opened Successfully !');
+  //     },
+  //   );
+  //   // database = value;
+  //   print(wishList);
+  //
+  //   emit(AppCreatedDatabaseState());
+  // }
 
-        print('table Created Successfully !');
-        //     .catchError((error) {
-        //   print('Error While Creating Table Wishlist : ${error.toString()}');
-        // });
-      },
-      onOpen: (database) {
-        getWishListDataFromDatabase(database);
-        getOrderListDataFromDatabase(database);
-        // print(productList);
-        print('database Opened Successfully !');
-      },
-    );
-    // database = value;
-    print(wishList);
+  List<NewProductModel> newProducts = [];
 
-    emit(AppCreatedDatabaseState());
-  }
+  void getProducts(List<int> ids){
+       emit(GetNewProductsLoadingState());
+       WebServices.dio.get('/wc/store/products').then((value) {
+         newProducts=value.data;
+         print(newProducts);
+         emit(GetNewProductsSuccessState(newProducts));
+       }).catchError((error){
+        print(error.toString());
+        emit(GetNewProductsErrorState(error));
+       });
+     }
 
   Future insertToDatabase({
     required int productId,
@@ -75,7 +90,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
         print('$value inserted successfully');
         getWishListDataFromDatabase(database);
         print(wishList);
-        checkItems();
+        // checkItems();
         emit(AppInsertedToDatabaseState());
       }).catchError((error) {
         print('Error When Inserting New Record ${error.toString()}');
@@ -110,31 +125,32 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
 
   void getWishListDataFromDatabase(database) async {
     //productList = [];
+    wishList=[];
     emit(AppGetWishListDatabaseLoadingState());
 
     await database.rawQuery('SELECT * FROM wishlist').then((value) {
       value.forEach((product) {
         wishList.add(product);
-        checkItems();
+        // checkItems();
         print(wishList);
       });
       emit(GetWishListFromDataBaseState());
     });
   }
 
-  void getOrderListDataFromDatabase(database) async {
-    //productList = [];
-    emit(AppGetOrderListDatabaseLoadingState());
-
-    await database.rawQuery('SELECT * FROM orderlist').then((value) {
-      value.forEach((product) {
-        //  orderList.add(product);
-        orderList.add(Map.of(product));
-        print(orderList);
-      });
-      emit(GetOrderListFromDataBaseState());
-    });
-  }
+  // void getOrderListDataFromDatabase(database) async {
+  //   //productList = [];
+  //   emit(AppGetOrderListDatabaseLoadingState());
+  //
+  //   await database.rawQuery('SELECT * FROM orderlist').then((value) {
+  //     value.forEach((product) {
+  //       //  orderList.add(product);
+  //       orderList.add(Map.of(product));
+  //       print(orderList);
+  //     });
+  //     emit(GetOrderListFromDataBaseState());
+  //   });
+  // }
 
   void deleteItemWishListFromDatabase({
     required int id,
@@ -142,20 +158,20 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     await database.rawDelete(
         'DELETE FROM wishlist WHERE product_id = ?', [id]).then((value) {
       getWishListDataFromDatabase(database);
-      checkItems();
+      // checkItems();
       emit(DeleteWishListDataFromDatabaseState());
     });
   }
 
-  void deleteItemOrderListFromDatabase({
-    required int id,
-  }) async {
-    await database.rawDelete(
-        'DELETE FROM orderlist WHERE product_id = ?', [id]).then((value) {
-      getWishListDataFromDatabase(database);
-      emit(DeleteOrderListDataFromDatabaseState());
-    });
-  }
+  // void deleteItemOrderListFromDatabase({
+  //   required int id,
+  // }) async {
+  //   await database.rawDelete(
+  //       'DELETE FROM orderlist WHERE product_id = ?', [id]).then((value) {
+  //     getWishListDataFromDatabase(database);
+  //     emit(DeleteOrderListDataFromDatabaseState());
+  //   });
+  // }
 
   void deleteAllItemsFromWishList() async {
     await database.rawDelete('DELETE FROM wishlist').then((value) {
@@ -181,44 +197,44 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
 
   int quantity = 1;
 
-  void increaseQuantity(index) async {
-    // List<Map<dynamic, dynamic>> modifiedQuantity =
-    //     await database.rawQuery('SELECT * FROM orderlist');
-    //
-    // Map<dynamic, dynamic> quantity = modifiedQuantity[index];
-    // dynamic modifyQuantity = Map<dynamic, dynamic>.from(quantity);
-    // modifyQuantity = (await database.rawUpdate(
-    //     'UPDATE orderlist SET quantity = ${orderList[index][quantity]++} WHERE id = ${index + 1};'));
-    // modifyQuantity['quantity']++;
-    // print('$modifyQuantity and index : $index');
-    // print(modifiedQuantity);
-
-    //  var modifiedQuantity = orderList[index]['quantity'];
-    // modifiedQuantity++;
-
-    //  orderList[index]['quantity']++;
-    var quantity = ++orderList[index]['quantity'];
-    database.rawUpdate(
-        'UPDATE orderlist SET quantity = $quantity WHERE id = ${index + 1};');
-    print(orderList[index]['quantity']);
-    total=0;
-    // print(orderList[1]);
-    // print(orderList);
-    emit(IncreaseQuantityState());
-  }
-
-  void decreaseQuantity(index) {
-    if (orderList[index]['quantity'] > 1) {
-      //orderList[index]['quantity']--;
-      var quantity = --orderList[index]['quantity'];
-      database.rawUpdate(
-          'UPDATE orderlist SET quantity = $quantity WHERE id = ${index + 1};');
-    }
-    //  print(orderList);
-    print(orderList[index]['quantity']);
-    total=0;
-    emit(DecreaseQuantityState());
-  }
+  // void increaseQuantity(index) async {
+  //   // List<Map<dynamic, dynamic>> modifiedQuantity =
+  //   //     await database.rawQuery('SELECT * FROM orderlist');
+  //   //
+  //   // Map<dynamic, dynamic> quantity = modifiedQuantity[index];
+  //   // dynamic modifyQuantity = Map<dynamic, dynamic>.from(quantity);
+  //   // modifyQuantity = (await database.rawUpdate(
+  //   //     'UPDATE orderlist SET quantity = ${orderList[index][quantity]++} WHERE id = ${index + 1};'));
+  //   // modifyQuantity['quantity']++;
+  //   // print('$modifyQuantity and index : $index');
+  //   // print(modifiedQuantity);
+  //
+  //   //  var modifiedQuantity = orderList[index]['quantity'];
+  //   // modifiedQuantity++;
+  //
+  //   //  orderList[index]['quantity']++;
+  //   var quantity = ++orderList[index]['quantity'];
+  //   database.rawUpdate(
+  //       'UPDATE orderlist SET quantity = $quantity WHERE id = ${index + 1};');
+  //   print(orderList[index]['quantity']);
+  //   total=0;
+  //   // print(orderList[1]);
+  //   // print(orderList);
+  //   emit(IncreaseQuantityState());
+  // }
+  //
+  // void decreaseQuantity(index) {
+  //   if (orderList[index]['quantity'] > 1) {
+  //     //orderList[index]['quantity']--;
+  //     var quantity = --orderList[index]['quantity'];
+  //     database.rawUpdate(
+  //         'UPDATE orderlist SET quantity = $quantity WHERE id = ${index + 1};');
+  //   }
+  //   //  print(orderList);
+  //   print(orderList[index]['quantity']);
+  //   total=0;
+  //   emit(DecreaseQuantityState());
+  // }
 
   bool checkItemWishList(int? productId) {
     for(var element in wishList) {
@@ -244,7 +260,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
   }
 
   dynamic orderListToJson() async {
-    await createDatabase();
+   // await createDatabase();
 
     List<Map<dynamic, dynamic>> copyList =
         await database.rawQuery('SELECT * FROM orderlist');
@@ -261,41 +277,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     return json.encode(copyList);
   }
 
-  List<Map<dynamic, dynamic>> copyList2 = [
-    {
-      'id': 1,
-      'product_id': 52457,
-      'name': ' جهاز بلايستيشن سونى Sony playstation 4 (1 تيرا)',
-      'image': 'https://khsomat.net/wp-content/uploads/2021/09/kh2037-1.jpg',
-      'regularprice': 870000,
-      'saleprice': 8100,
-      'permalink':
-          'https://khsomat.net/product/%d8%ac%d9%87%d8%a7%d8%b2-%d8%a8%d9%84%d8%a7%d9%8a%d8%b3%d8%aa%d9%8a%d8%b4%d9%86-%d8%b3%d9%88%d9%86%d9%89-sony-playstation-4-1-%d8%aa%d9%8a%d8%b1%d8%a7/',
-      'quantity': 2
-    },
-    {
-      'id': 2,
-      'product_id': 52302,
-      'name': ' جمبسوت اطفالي',
-      'image': 'https://khsomat.net/wp-content/uploads/2021/09/2-54.jpg',
-      'regularprice': 34000,
-      'saleprice': 275,
-      'permalink':
-          'https://khsomat.net/product/%d8%ac%d9%85%d8%a8%d8%b3%d9%88%d8%aa-%d8%a7%d8%b7%d9%81%d8%a7%d9%84%d9%8a/',
-      'quantity': 11
-    },
-    {
-      'id': 2,
-      'product_id': 52302,
-      'name': ' جمبسوت اطفالي',
-      'image': 'https://khsomat.net/wp-content/uploads/2021/09/2-54.jpg',
-      'regularprice': 34000,
-      'saleprice': 275,
-      'permalink':
-      'https://khsomat.net/product/%d8%ac%d9%85%d8%a8%d8%b3%d9%88%d8%aa-%d8%a7%d8%b7%d9%81%d8%a7%d9%84%d9%8a/',
-      'quantity': 9
-    }
-  ];
+
 
   Future<dynamic> copyList() async {
     //await createDatabase();
@@ -382,7 +364,7 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     //  required dynamic itemsList,
   }) async {
     emit(CreatingOrderLoadingState());
-    await createDatabase();
+   // await createDatabase();
     // getOrderListDataFromDatabase(database);
     // print('CO$orderList');
     // print('Create Order Print for encoding orderList${json.encode(orderList)}');

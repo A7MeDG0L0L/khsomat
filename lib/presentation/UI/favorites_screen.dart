@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
 import 'package:khsomat/presentation/UI/Widgets/fav_product_item.dart';
@@ -18,11 +19,11 @@ class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //List<Product>? product;
-    Database database = FavoritesCubit.get(context).database;
+   // Database database = FavoritesCubit.get(context).database;
     //double cardWidth = MediaQuery.of(context).size.width / 1.8;
     return BlocProvider(
       create: (context) => FavoritesCubit()
-        ..createDatabase()
+      //  ..createDatabase()
         ..getWishListDataFromDatabase(database),
       child: BlocConsumer<FavoritesCubit, FavoritesStates>(
         listener: (context, state) {
@@ -33,7 +34,7 @@ class FavoritesScreen extends StatelessWidget {
           return Conditional.single(
             context: context,
             conditionBuilder: (context) =>
-                FavoritesCubit.get(context).wishList.isNotEmpty,
+                wishList.isNotEmpty,
             widgetBuilder: (context) {
               return Padding(
                 padding: const EdgeInsets.all(15),
@@ -46,7 +47,7 @@ class FavoritesScreen extends StatelessWidget {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return showWishItem(
-                              FavoritesCubit.get(context).wishList[index],
+                              wishList[index],
                               index,
                               context,
                             );
@@ -58,7 +59,7 @@ class FavoritesScreen extends StatelessWidget {
                             );
                           },
                           itemCount:
-                              FavoritesCubit.get(context).wishList.length),
+                              wishList.length),
                       Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Container(
