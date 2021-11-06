@@ -1,3 +1,5 @@
+
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -74,7 +76,9 @@ class HomeScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         if (state is GetProductsSuccessState) {
+          //state.products.shuffle();
           allProducts = state.products;
+          allProducts.shuffle();
 
           return builderWidget(context);
         } else {
