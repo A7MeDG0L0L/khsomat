@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
 import 'package:khsomat/data/models/category_model.dart';
+import 'package:khsomat/data/models/new_product_model.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/data/repository/products_repository.dart';
 import 'package:khsomat/data/web_services/web_services.dart';
@@ -19,7 +22,7 @@ class HomeCubit extends Cubit<HomeStates> {
   static HomeCubit get(context) => BlocProvider.of(context);
   final ProductRepository productRepository;
 
- Product? product;
+ // Product? product;
   int currentIndex = 0;
   List<Widget> screens = [
     HomeScreen(),
@@ -161,5 +164,50 @@ class HomeCubit extends Cubit<HomeStates> {
       emit(GetOrderListFromDataBaseState());
     });
   }
+
+  NewProductModel? newProductModel;
+  List<int> relatedProductsID=[];
+  Future<void> getRelatedProductsID(int id)async {
+    emit(GetRelatedProductIDLoadingState());
+    WebServices.dio.get('/wc/v3/products/$id',queryParameters: {
+      'consumer_key': 'ck_fa054c2eea7057ed605ce37417fe5e92fb2d428b',
+      'consumer_secret': 'cs_a2bcff0feec2d96d830b08ecf93015f6de9b409e'
+    },).then((value) {
+      newProductModel=NewProductModel.fromJson(value.data);
+      relatedProductsID=newProductModel!.upsellIds!;
+      print(relatedProductsID.join(','));
+      emit(GetRelatedProductIDSuccessState());
+
+    }).catchError((error){
+      print(error);
+      emit(GetRelatedProductIDErrorState(error));
+    });
+  }
+// Product? product;
+  List<Product> relatedProducts=[];
+  List<Product> getRelatedProducts(){
+    emit(GetRelatedProductLoadingState());
+    productRepository.getRelatedProducts(productIds: relatedProductsID).then((value) {
+      relatedProducts=value;
+      print(relatedProducts);
+      emit(GetRelatedProductSuccessState());
+    }).catchError((error){print(error);
+    emit(GetRelatedProductErrorState(error));});
+    // WebServices.dio.get('/wc/store/products',queryParameters: {
+    //   'include':relatedProductsID.join(','),
+    //   'consumer_key': 'ck_fa054c2eea7057ed605ce37417fe5e92fb2d428b',
+    //   'consumer_secret': 'cs_a2bcff0feec2d96d830b08ecf93015f6de9b409e'
+    // },).then((value) {
+    //   relatedProducts=Product.fromJson(value.data) as List<Product>;
+    //   print(relatedProducts);
+    //   emit(GetRelatedProductSuccessState());
+    //
+    // }).catchError((error){
+    //   print(error);
+    //   emit(GetRelatedProductErrorState(error));
+    // });
+  return relatedProducts;
+  }
+
 
 }

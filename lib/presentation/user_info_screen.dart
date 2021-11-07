@@ -7,10 +7,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/profile_cubit/profile_cubit.dart';
 import 'package:khsomat/business_logic/profile_cubit/profile_states.dart';
+import 'package:khsomat/data/cache_helper/cache_helper.dart';
 import 'package:khsomat/data/repository/products_repository.dart';
 import 'package:khsomat/data/web_services/web_services.dart';
 import 'package:khsomat/presentation/UI/Widgets/bottomSheetWidget.dart';
 import 'package:khsomat/presentation/UI/login_screen.dart';
+import 'package:lottie/lottie.dart';
 
 class UserInfoScreen extends StatelessWidget {
   UserInfoScreen({Key? key}) : super(key: key);
@@ -265,6 +267,17 @@ class UserInfoScreen extends StatelessWidget {
                                     city: cityController.text,
                                     phone: phoneController.text,
                                   );
+                                  CacheHelper.sharedPreferences.reload();
+                                  CacheHelper.saveData(key: 'firstname', value: firstnameController.text);
+                                  CacheHelper.saveData(key: 'lastname', value: lastnameController.text);
+                                  CacheHelper.saveData(key: 'username', value: usernameController.text);
+                                  CacheHelper.saveData(key: 'email', value: emailController.text);
+                                  CacheHelper.saveData(key: 'address', value: addressController.text);
+                                  CacheHelper.saveData(key: 'city', value: cityController.text);
+                                  CacheHelper.saveData(key: 'phone', value: phoneController.text);
+                                  CacheHelper.sharedPreferences.reload();
+                                  print(lastname);
+
                                 },
                                 child: Text('تحديث البيانات',style:TextStyle(color: Colors.white)),
                               ),
@@ -277,18 +290,24 @@ class UserInfoScreen extends StatelessWidget {
                 );
               },
               fallbackBuilder: (context) {
-                return Center(
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: LoginScreen()),
-                      ));
-                    },
-                    child: Text('سجل الدخول'),
-                  ),
-                );
+                if(token==null){
+                  return Center(
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Directionality(
+                              textDirection: TextDirection.rtl,
+                              child: LoginScreen()),
+                        ));
+                      },
+                      child: Text('سجل الدخول'),
+                    ),
+                  );
+                }
+                else
+                  return Center(
+                    child: Lottie.asset('assets/loading/loading4.json'),
+                  );
               },
             ),
           );

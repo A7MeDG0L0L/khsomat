@@ -54,6 +54,21 @@ class WebServices {
       return [];
     }
   }
+  Future<List<dynamic>> getRelatedProducts({List<int>? productIds}) async {
+    try {
+      Response response = await dio.get('wc/store/products', queryParameters: {
+        'per_page': 100,
+         'include':productIds!.join(",").toString(),
+        'consumer_key': 'ck_fa054c2eea7057ed605ce37417fe5e92fb2d428b',
+        'consumer_secret': 'cs_a2bcff0feec2d96d830b08ecf93015f6de9b409e'
+      });
+       print('Response from Web Service : ${response.data.toString()}');
+      return response.data;
+    } catch (e) {
+      print('Product Web Service : ${e.toString()}');
+      return [];
+    }
+  }
 
   Future<List<dynamic>> retrieveCustomerOrders() async {
     try {

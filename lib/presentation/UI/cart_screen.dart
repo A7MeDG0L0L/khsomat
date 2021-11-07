@@ -104,7 +104,7 @@ class CartScreen extends StatelessWidget {
                           //     });
                         },
                         child: Text(
-                          'إنشئ الطلب',
+                          'إتمام الطلب',
                           style: TextStyle(fontSize: 20.sp),
                         ),
                         style: ButtonStyle(),

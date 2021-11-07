@@ -6,6 +6,7 @@ import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/Shared/my_colors.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
+import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/data/models/products_model.dart';
 
 class ProductItem extends StatelessWidget {
@@ -30,9 +31,12 @@ class ProductItem extends StatelessWidget {
 
         }
         return InkWell(
-          onTap: () {
+          onTap: () async {
             Navigator.pushNamed(context, productDetailsScreen,
                 arguments: product);
+           await HomeCubit.get(context).getRelatedProductsID(product.id!);
+           // Future.delayed(Duration(seconds: 8));
+           //  HomeCubit.get(context).getRelatedProducts();
           },
           child: Hero(
             tag: product.id!,

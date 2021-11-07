@@ -73,8 +73,8 @@ class ProfileCubit extends Cubit<ProfileStates> {
       "shipping": {
         "first_name": firstname,
         "last_name": lastname,
-        // "address_1": address,
-        // "city": city,
+        "address_1": address,
+        "city": city,
         "country": "Egypt",
         "email": email,
        "phone": phone

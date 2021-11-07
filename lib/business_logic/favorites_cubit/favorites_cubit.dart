@@ -409,7 +409,8 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
       'wc/v3/orders',
       data: {
         "customer_id":id,
-        "total": totalPrice(),
+        "parent_id":0,
+       // "total": totalPrice(),
         "currency": "EGP",
         "billing": {
           "first_name": firstname,

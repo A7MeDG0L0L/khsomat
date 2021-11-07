@@ -28,10 +28,10 @@ class NewProductModel {
     this.price,
     this.regularPrice,
     this.salePrice,
-    this.dateOnSaleFrom,
-    this.dateOnSaleFromGmt,
-    this.dateOnSaleTo,
-    this.dateOnSaleToGmt,
+    // this.dateOnSaleFrom,
+    // this.dateOnSaleFromGmt,
+    // this.dateOnSaleTo,
+    // this.dateOnSaleToGmt,
     this.onSale,
     this.purchasable,
     this.totalSales,
@@ -45,7 +45,7 @@ class NewProductModel {
     this.taxStatus,
     this.taxClass,
     this.manageStock,
-    this.stockQuantity,
+   // this.stockQuantity,
     this.backorders,
     this.backordersAllowed,
     this.backordered,
@@ -95,13 +95,13 @@ class NewProductModel {
   String? description;
   String? shortDescription;
   String? sku;
-  String? price;
-  String? regularPrice;
-  String? salePrice;
-  dynamic dateOnSaleFrom;
-  dynamic dateOnSaleFromGmt;
-  dynamic dateOnSaleTo;
-  dynamic dateOnSaleToGmt;
+  dynamic? price;
+  dynamic? regularPrice;
+  dynamic? salePrice;
+  // dynamic dateOnSaleFrom;
+  // dynamic dateOnSaleFromGmt;
+  // dynamic dateOnSaleTo;
+  // dynamic dateOnSaleToGmt;
   bool? onSale;
   bool? purchasable;
   int? totalSales;
@@ -115,7 +115,7 @@ class NewProductModel {
   String? taxStatus;
   String? taxClass;
   bool? manageStock;
-  dynamic stockQuantity;
+  //dynamic stockQuantity;
   String? backorders;
   bool? backordersAllowed;
   bool? backordered;
@@ -165,13 +165,13 @@ class NewProductModel {
     description: json["description"],
     shortDescription: json["short_description"],
     sku: json["sku"],
-    price: json["price"],
-    regularPrice: json["regular_price"],
-    salePrice: json["sale_price"],
-    dateOnSaleFrom: json["date_on_sale_from"],
-    dateOnSaleFromGmt: json["date_on_sale_from_gmt"],
-    dateOnSaleTo: json["date_on_sale_to"],
-    dateOnSaleToGmt: json["date_on_sale_to_gmt"],
+    price: int.tryParse(json["price"]),
+    regularPrice: int.tryParse(json["regular_price"]) != null?'Not null':'Null',
+    salePrice: int.tryParse(json["sale_price"]) != null?'Not null':'Null',
+    // dateOnSaleFrom: json["date_on_sale_from"],
+    // dateOnSaleFromGmt: json["date_on_sale_from_gmt"],
+    // dateOnSaleTo: json["date_on_sale_to"],
+    // dateOnSaleToGmt: json["date_on_sale_to_gmt"],
     onSale: json["on_sale"],
     purchasable: json["purchasable"],
     totalSales: json["total_sales"],
@@ -185,7 +185,7 @@ class NewProductModel {
     taxStatus: json["tax_status"],
     taxClass: json["tax_class"],
     manageStock: json["manage_stock"],
-    stockQuantity: json["stock_quantity"],
+   // stockQuantity: json["stock_quantity"],
     backorders: json["backorders"],
     backordersAllowed: json["backorders_allowed"],
     backordered: json["backordered"],
@@ -239,10 +239,10 @@ class NewProductModel {
     "price": price,
     "regular_price": regularPrice,
     "sale_price": salePrice,
-    "date_on_sale_from": dateOnSaleFrom,
-    "date_on_sale_from_gmt": dateOnSaleFromGmt,
-    "date_on_sale_to": dateOnSaleTo,
-    "date_on_sale_to_gmt": dateOnSaleToGmt,
+    // "date_on_sale_from": dateOnSaleFrom,
+    // "date_on_sale_from_gmt": dateOnSaleFromGmt,
+    // "date_on_sale_to": dateOnSaleTo,
+    // "date_on_sale_to_gmt": dateOnSaleToGmt,
     "on_sale": onSale,
     "purchasable": purchasable,
     "total_sales": totalSales,
@@ -256,7 +256,7 @@ class NewProductModel {
     "tax_status": taxStatus,
     "tax_class": taxClass,
     "manage_stock": manageStock,
-    "stock_quantity": stockQuantity,
+   // "stock_quantity": stockQuantity,
     "backorders": backorders,
     "backorders_allowed": backordersAllowed,
     "backordered": backordered,

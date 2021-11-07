@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khsomat/Shared/constants.dart';
+import 'package:khsomat/data/models/new_product_model.dart';
+import 'package:khsomat/data/web_services/web_services.dart';
 
 import 'cart_states.dart';
 
@@ -44,6 +46,8 @@ void getOrderListDataFromDatabase(database) async {
     database.rawUpdate(
         'UPDATE orderlist SET quantity = $quantity WHERE id = ${index + 1};');
     print(orderList[index]['quantity']);
+    print(orderList[index]);
+    print(orderList);
     total=0;
     // print(orderList[1]);
     // print(orderList);
@@ -72,5 +76,6 @@ void getOrderListDataFromDatabase(database) async {
       emit(DeleteOrderListDataFromDatabaseState());
     });
   }
+
 
 }

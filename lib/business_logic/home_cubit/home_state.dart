@@ -65,3 +65,19 @@ class TotalPriceState extends HomeStates {}
 
 class GetWishListFromDataBaseState extends HomeStates{}
 class GetOrderListFromDataBaseState extends HomeStates{}
+
+class GetRelatedProductIDLoadingState extends HomeStates{}
+class GetRelatedProductIDSuccessState extends HomeStates{}
+class GetRelatedProductIDErrorState extends HomeStates{
+  final error;
+
+  GetRelatedProductIDErrorState(this.error);
+}
+
+class GetRelatedProductLoadingState extends HomeStates{}
+class GetRelatedProductSuccessState extends HomeStates{}
+class GetRelatedProductErrorState extends HomeStates{
+  final error;
+
+  GetRelatedProductErrorState(this.error);
+}

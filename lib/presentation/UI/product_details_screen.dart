@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,6 +15,7 @@ import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:html/parser.dart' show parse;
+import 'package:khsomat/presentation/UI/Widgets/product_item.dart';
 import 'package:share/share.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
@@ -24,12 +26,23 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<FavoritesCubit, FavoritesStates>(
-      listener: (context, state) {},
+    return BlocConsumer<HomeCubit, HomeStates>(
+      listener: (context, state) {
+        if(state is GetRelatedProductIDSuccessState){
+          HomeCubit.get(context).getRelatedProducts();
+        }
+      },
       builder: (context, state) {
         int? variationId;
         return Scaffold(
           appBar: AppBar(
+            leading: IconButton(
+                icon: Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  HomeCubit.get(context).getAllProducts();
+                  HomeCubit.get(context).getAllCategories();
+                }),
             backgroundColor: Colors.blue,
             title: Text(
               product!.name ?? 'Product Name',
@@ -277,33 +290,36 @@ class ProductDetailsScreen extends StatelessWidget {
                             //   //       itemCount: product!
                             //   //           .attributes![1]['terms'].length),
                             //   // ),
-                              if (product!.type == "variable")
-                                GroupButton(
-                                  isRadio: true,
-                                  buttons: List.generate(
-                                      product!.variations!.length, (index) {
-
-                                        if(product!.variations![index]
-                                        ['attributes'].length >=2){
+                            if (product!.type == "variable")
+                              GroupButton(
+                                isRadio: true,
+                                buttons: List.generate(
+                                    product!.variations!.length, (index) {
+                                  if (product!.variations![index]['attributes']
+                                          .length >=
+                                      2) {
+                                    return Uri.decodeFull(product!
+                                                    .variations![index]
+                                                ['attributes'][0]['value'] +
+                                            '-' +
+                                            (product!.variations![index]
+                                                ['attributes'][1]['value']) ??
+                                        'Null');
+                                  } else
                                     return Uri.decodeFull(
                                         product!.variations![index]
-                                                ['attributes'][0]['value'] +'-'+
-                                            ( product!.variations![index]
-                                            ['attributes'][1]['value'])??'Null');
-                                        }
-                                        else
-                                        return Uri.decodeFull(
-                                            product!.variations![index]
-                                            ['attributes'][0]['value']??'Null');
-                                  }),
-                                  onSelected: (index, isSelected) {
-                                    print('$index button is selected');
-                                    print(product!.variations![index]['id']);
-                                    variationId=product!.variations![index]['id'];
-                                    return variationId;
-                                  },
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
+                                                ['attributes'][0]['value'] ??
+                                            'Null');
+                                }),
+                                onSelected: (index, isSelected) {
+                                  print('$index button is selected');
+                                  print(product!.variations![index]['id']);
+                                  variationId =
+                                      product!.variations![index]['id'];
+                                  return variationId;
+                                },
+                                borderRadius: BorderRadius.circular(20),
+                              ),
                             // Text(Uri.decodeFull(product!.variations![0]['attributes'][0]['value'])+product!.variations![0]['attributes'][1]['value']),
 
                             SizedBox(
@@ -377,7 +393,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                         permalink: product!.permalink!,
                                         quantity: 1,
                                         productId: product!.id!,
-                                        variationId: variationId??0,
+                                        variationId: variationId ?? 0,
                                       );
                                       showToast(
                                           text: 'تم إضافة المنتج إلي السلة',
@@ -405,6 +421,54 @@ class ProductDetailsScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+                    if(state is GetRelatedProductSuccessState)
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text('منتجات مشابهه',style: TextStyle(
+                          fontFamily: 'Almarai', fontSize: 18.sp),),
+                    ),
+                    if(state is GetRelatedProductSuccessState)
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: GridView.count(
+                        physics: BouncingScrollPhysics(),
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+
+                        /// TODO: Enhance this later
+                        childAspectRatio: 1.w / 1.82.h,
+                        crossAxisCount: 2,
+                        shrinkWrap: true,
+                        children: List.generate(
+                          HomeCubit.get(context).relatedProducts.length,
+                          (index) => ProductItem(
+                              product:
+                                  HomeCubit.get(context).relatedProducts[index]),
+
+                          // here wasn't route to product details Screen
+
+                          /* buildGridProduct(allProducts[index],context),*/
+                        ),
+                      ),
+                    ),
+                    // Column(
+                    //   children: [
+                    //     Expanded(
+                    //       child: Container(
+                    //         height: 350.h,
+                    //         child: ListView.separated(
+                    //             padding: EdgeInsets.all(9.0),
+                    //             shrinkWrap: true,
+                    //             physics: BouncingScrollPhysics(),
+                    //             scrollDirection: Axis.horizontal,
+                    //             itemBuilder: (context, index) => ProductItem(product:
+                    //                 HomeCubit.get(context).relatedProducts[index]),
+                    //             separatorBuilder: (context, index) => Divider(),
+                    //             itemCount: HomeCubit.get(context).relatedProducts.length),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                   ],
                 ),
               ),
@@ -514,8 +578,10 @@ class ProductDetailsScreen extends StatelessWidget {
             child: CarouselSlider.builder(
                 itemCount: product!.images!.length,
                 carouselController: carouselController,
-                itemBuilder: (context, index, realIndex) =>
-                    Image.network(product!.images!.isNotEmpty?product!.images![index].src!:'https://i.ibb.co/HdDgZLk/Newplaceholder2.png'),
+                itemBuilder: (context, index, realIndex) => Image.network(
+                    product!.images!.isNotEmpty
+                        ? product!.images![index].src!
+                        : 'https://i.ibb.co/HdDgZLk/Newplaceholder2.png'),
                 options: CarouselOptions(
                   initialPage: 0,
                   autoPlay: true,
