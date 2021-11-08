@@ -13,188 +13,283 @@ import 'package:khsomat/presentation/UI/Widgets/checkout_item.dart';
 import 'package:cupertino_stepper/cupertino_stepper.dart';
 import 'package:khsomat/presentation/UI/app_layout.dart';
 import 'package:lottie/lottie.dart';
+import 'package:select_form_field/select_form_field.dart';
 
 class CheckoutScreen extends StatefulWidget {
-   CheckoutScreen({Key? key}) : super(key: key);
+  CheckoutScreen({Key? key}) : super(key: key);
 
   @override
   State<CheckoutScreen> createState() => _CheckoutScreenState();
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
-  int currentStep=0;
+  int currentStep = 0;
   bool isCompleted = false;
   var customerNoteController = TextEditingController();
-  Widget isCompletedWidget(){
-    return Center(child: Column(
+  var dropdownController = TextEditingController();
+  var dropValue;
+
+  final List<Map<String, dynamic>> _items = [
+    {
+      'value': '40',
+      'label': 'Port Said',
+      'icon': Text('40'),
+    },
+    {
+      'value': 'CairoValue',
+      'label': 'Cairo',
+      'icon': Text('50'),
+      'textStyle': TextStyle(color: Colors.red),
+    },
+    {
+      'value': 'starValue',
+      'label': 'Star Label',
+      'enable': false,
+      'icon': Icon(Icons.grade),
+    },
+  ];
+
+  Widget isCompletedWidget() {
+    return Center(
+        child: Column(
       children: [
-        Container(child: Lottie.asset('1708-success.json'),),
+        Container(
+          child: Lottie.asset('1708-success.json'),
+        ),
         ElevatedButton(
-          onPressed: (){
-            isCompleted=true;
-            HomeCubit.get(context).currentIndex=0;
-            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Directionality(textDirection: TextDirection.rtl,child: AppLayout()),), (route) => false);
-          }, child: Text('رجوع إلي الصفحة الرئيسية'),
+          onPressed: () {
+            isCompleted = true;
+            HomeCubit.get(context).currentIndex = 0;
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Directionality(
+                      textDirection: TextDirection.rtl, child: AppLayout()),
+                ),
+                (route) => false);
+          },
+          child: Text('رجوع إلي الصفحة الرئيسية'),
         ),
       ],
-    ));
+    ),);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CartCubit(),
-        // ..getOrderListDataFromDatabase(database),
+      // ..getOrderListDataFromDatabase(database),
       child: BlocConsumer<CartCubit, CartStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          List<Step> getSteps()=>[
-            Step(
-              state: currentStep>0 ? StepState.complete:StepState.indexed,
-              isActive: currentStep >=0,
-              title: Text('بياناتي'),
-              content: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(children: [
-                      Text('الإسم الأول :'),
-                      SizedBox(width: 20.w,),
-                      Text(firstname!),
-                    ],),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(children: [
-                      Text('الإسم الأخير : '),
-                      SizedBox(width: 20.w,),
-                      Text(lastname!),
-                    ],),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(children: [
-                      Text('رقم التليفون : '),
-                      SizedBox(width: 20.w,),
-                      Text(phone!),
-                    ],),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(children: [
-                      Text('المدينة : '),
-                      SizedBox(width: 20.w,),
-                      Text(city!),
-                    ],),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(children: [
-                      Text('العنوان : '),
-                      SizedBox(width: 20.w,),
-                      Text(address!),
-                    ],),
-                  ),
-                ],
-              ),
-            ),
-            Step(
-              state: currentStep>1 ? StepState.complete:StepState.indexed,
-              isActive: currentStep >=1,
-              title: Text('المنتجات'),
-              content: Column(children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      //  color: Colors.grey.shade500,
-                      borderRadius: BorderRadius.circular(20.r),
-                    ),
-                    child: ListView.separated(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        // if(FavoritesCubit.get(context).orderList.isEmpty){
-                        //   FavoritesCubit.get(context).getOrderListDataFromDatabase(FavoritesCubit.get(context).database);
-                        //
-                        // }
-                        print(orderList);
-
-                        return showCheckoutItem(
-                            orderList[index],
-                            context);
-                      },
-                      separatorBuilder: (context, index) => Divider(
-                        thickness: 1.h,
+          List<Step> getSteps() => [
+                Step(
+                  state:
+                      currentStep > 0 ? StepState.complete : StepState.indexed,
+                  isActive: currentStep >= 0,
+                  title: Text('بياناتي'),
+                  content: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Text('الإسم الأول :'),
+                            SizedBox(
+                              width: 20.w,
+                            ),
+                            Text(firstname!),
+                          ],
+                        ),
                       ),
-                      itemCount: orderList.length,
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Text('الإسم الأخير : '),
+                            SizedBox(
+                              width: 20.w,
+                            ),
+                            Text(lastname!),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Text('رقم التليفون : '),
+                            SizedBox(
+                              width: 20.w,
+                            ),
+                            Text(phone!),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Text('المدينة : '),
+                            SizedBox(
+                              width: 20.w,
+                            ),
+                            Text(city!),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Text('العنوان : '),
+                            SizedBox(
+                              width: 20.w,
+                            ),
+                            Text(address!),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: SelectFormField(
+                          type: SelectFormFieldType.dialog, // or can be dialog
+                          // initialValue: 'City',
+                          controller: dropdownController,
+                          icon: Icon(Icons.map),
+                          labelText: 'المدينة',
+                          items: _items,
+                          onChanged: (val) {
+                            print(val);
+                            setState(() {
+                              dropValue = val;
+                            });
+
+                          },
+                          onSaved: (val) => print(val),
+                          dialogTitle: 'Ahmed',
+                          hintText: 'Galal',
+                          enabled: true,
+                          changeIcon: true,
+                          enableSearch: true,
+                          dialogSearchHint: 'Search Here',
+                          dialogCancelBtn: 'Cancel',
+                          autovalidate: true,
+                          enableSuggestions: false,
+                          enableInteractiveSelection: false,
+                          toolbarOptions: ToolbarOptions(
+                            copy: true,
+                            selectAll: true,
+                          ),
+                          showCursor: true,
+                          smartQuotesType: SmartQuotesType.enabled,
+                        ),
+                      ),
+                       Text('$dropValue'),
+                    ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    height: 30,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.vertical(
-                          bottom: Radius.circular(20.r)),
-                      color: Colors.blue,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
-                        children: [
-                          Text(
-                            'الإجمالي',
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 21.sp),
+                Step(
+                  state:
+                      currentStep > 1 ? StepState.complete : StepState.indexed,
+                  isActive: currentStep >= 1,
+                  title: Text('المنتجات'),
+                  content: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            //  color: Colors.grey.shade500,
+                            borderRadius: BorderRadius.circular(20.r),
                           ),
-                          Spacer(),
-                          Text(
-                            '${FavoritesCubit.get(context).totalPrice()}',
-                            style: TextStyle(
-                                fontSize: 23.sp, color: Colors.white),
+                          child: ListView.separated(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            physics: BouncingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              // if(FavoritesCubit.get(context).orderList.isEmpty){
+                              //   FavoritesCubit.get(context).getOrderListDataFromDatabase(FavoritesCubit.get(context).database);
+                              //
+                              // }
+                              print(orderList);
+
+                              return showCheckoutItem(
+                                  orderList[index], context);
+                            },
+                            separatorBuilder: (context, index) => Divider(
+                              thickness: 1.h,
+                            ),
+                            itemCount: orderList.length,
                           ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          height: 30,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.vertical(
+                                bottom: Radius.circular(20.r)),
+                            color: Colors.blue,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Row(
+                              children: [
+                                Text(
+                                  'الإجمالي',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 21.sp),
+                                ),
+                                Spacer(),
+                                Text(
+                                  '${FavoritesCubit.get(context).totalPrice()}',
+                                  style: TextStyle(
+                                      fontSize: 23.sp, color: Colors.white),
+                                ),
 
-                          // Text(
-                          //   '$total',
-                          //   style: TextStyle(
-                          //       fontSize: 23.sp, color: Colors.white),
-                          // ),
-
-                        ],
+                                // Text(
+                                //   '$total',
+                                //   style: TextStyle(
+                                //       fontSize: 23.sp, color: Colors.white),
+                                // ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Step(
+                  isActive: currentStep >= 2,
+                  title: Text('إتمام الطلب'),
+                  content: Container(
+                    child: TextFormField(
+                      style: TextStyle(height: 5.h),
+                      controller: customerNoteController,
+                      keyboardType: TextInputType.multiline,
+                      // validator: (String? value) {
+                      //   if (value!.isEmpty) {
+                      //     return 'يجب إدخال الإسم الآخير';
+                      //   }
+                      //   return null;
+                      // },
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.sticky_note_2_rounded),
+                        label: Text(
+                          'ملاحظات',
+                          style: TextStyle(fontSize: 20.sp),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.r),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],),
-            ),
-            Step(
-              isActive: currentStep >=2,
-              title: Text('إتمام الطلب'),
-              content: Container(
-                child:  TextFormField(
-                  style: TextStyle(height: 5.h),
-                  controller: customerNoteController,
-                  keyboardType: TextInputType.multiline,
-                  // validator: (String? value) {
-                  //   if (value!.isEmpty) {
-                  //     return 'يجب إدخال الإسم الآخير';
-                  //   }
-                  //   return null;
-                  // },
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.sticky_note_2_rounded),
-                    label: Text('ملاحظات',style: TextStyle(fontSize: 20.sp),),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.r),
-                    ),
-                  ),
-                ),
-              ),
-            )
-          ];
+                )
+              ];
           return Scaffold(
             appBar: AppBar(
               title: Text(
@@ -202,52 +297,74 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 style: TextStyle(fontSize: 20.sp),
               ),
             ),
-            body: isCompleted?isCompletedWidget():Stepper(
-                controlsBuilder: (BuildContext context,
-                    {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
-                  final isLastStep = currentStep==getSteps().length-1;
+            body: isCompleted
+                ? isCompletedWidget()
+                : Stepper(
+                    controlsBuilder: (BuildContext context,
+                        {VoidCallback? onStepContinue,
+                        VoidCallback? onStepCancel}) {
+                      final isLastStep = currentStep == getSteps().length - 1;
 
-                  return Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        ElevatedButton(
-                          onPressed: onStepContinue,
-                          child:  Text(isLastStep ?'إتمام الطلب':'متابعة'),
+                      return Padding(
+                        padding: const EdgeInsets.all(25.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            ElevatedButton(
+                              onPressed: onStepContinue,
+                              child:
+                                  Text(isLastStep ? 'إتمام الطلب' : 'متابعة'),
+                            ),
+                            SizedBox(
+                              width: 50.w,
+                            ),
+                            if (currentStep != 0)
+                              ElevatedButton(
+                                onPressed: onStepCancel,
+                                child: const Text('رجوع'),
+                              ),
+                          ],
                         ),
-                        SizedBox(width: 50.w,),
-                        if(currentStep!=0)
-                        ElevatedButton(
-                          onPressed: onStepCancel,
-                          child: const Text('رجوع'),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                type: StepperType.horizontal,
-                currentStep: currentStep,
-                onStepContinue: (){
-                  final isLastStep = currentStep==getSteps().length-1;
-                  if(isLastStep){
-                    print('Completed');
-                    ///TODO:send data to server
-                    FavoritesCubit.get(context).createOrder(firstname: firstname!, lastname: lastname!, address: address!, city: city!, email: email!, phone: phone!, customerNote: customerNoteController.text);
-                    HomeCubit.get(context).currentIndex=0;
-                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Directionality(textDirection: TextDirection.rtl,child: AppLayout()),), (route) => false);
+                      );
+                    },
+                    type: StepperType.horizontal,
+                    currentStep: currentStep,
+                    onStepContinue: () {
+                      final isLastStep = currentStep == getSteps().length - 1;
+                      if (isLastStep) {
+                        print('Completed');
 
-                  }else
-                  setState(() {
-                    currentStep+=1;
-                  });
-            },
-                onStepCancel:currentStep==0? null : (){
-                  setState(() {
-                    currentStep-=1;
-                  });
-                },
-                steps: getSteps()),
+                        ///TODO:send data to server
+                        FavoritesCubit.get(context).createOrder(
+                            firstname: firstname!,
+                            lastname: lastname!,
+                            address: address!,
+                            city: city!,
+                            email: email!,
+                            phone: phone!,
+                            customerNote: customerNoteController.text);
+                        HomeCubit.get(context).currentIndex = 0;
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Directionality(
+                                  textDirection: TextDirection.rtl,
+                                  child: AppLayout()),
+                            ),
+                            (route) => false);
+                      } else
+                        setState(() {
+                          currentStep += 1;
+                        });
+                    },
+                    onStepCancel: currentStep == 0
+                        ? null
+                        : () {
+                            setState(() {
+                              currentStep -= 1;
+                            });
+                          },
+                    steps: getSteps()),
 
             // child: Column(
             //   crossAxisAlignment: CrossAxisAlignment.start,
@@ -409,5 +526,4 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       ),
     );
   }
-
 }
