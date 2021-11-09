@@ -357,9 +357,10 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
     required String lastname,
     required String address,
     required String city,
-    required String email,
+     String? email,
     required String phone,
     required String customerNote,
+    required String shippingRate,
 
     //  required dynamic itemsList,
   }) async {
@@ -431,7 +432,14 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
         "payment_method": "cod",
         "payment_method_title": "الدفع نقدًا عند الإستلام",
         "customer_note": customerNote,
-        "line_items": list
+        "line_items": list,
+        "shipping_lines": [
+          {
+            "method_id": "flat_rate",
+            "method_title":  "سعر ثابت",
+            "total": shippingRate
+          }
+        ]
         // "line_items": [
         //   {
         //     "name": "عوامة الفلامنجو",

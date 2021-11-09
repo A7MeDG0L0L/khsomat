@@ -1,7 +1,9 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:im_stepper/stepper.dart';
+import 'package:khsomat/Shared/components.dart';
 import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/cart_cubit/cart_cubit.dart';
 import 'package:khsomat/business_logic/cart_cubit/cart_states.dart';
@@ -25,62 +27,121 @@ class CheckoutScreen extends StatefulWidget {
 class _CheckoutScreenState extends State<CheckoutScreen> {
   int currentStep = 0;
   bool isCompleted = false;
+  var usernameController = TextEditingController();
+  var firstnameController = TextEditingController();
+  var lastnameController = TextEditingController();
+  var phoneController = TextEditingController();
+  var emailController = TextEditingController();
+  var cityController = TextEditingController();
+  var addressController = TextEditingController();
   var customerNoteController = TextEditingController();
   var dropdownController = TextEditingController();
-  var dropValue;
+  var dropValue = '0';
 
+  ///TODO: Add All Cities
   final List<Map<String, dynamic>> _items = [
     {
-      'value': '40',
-      'label': 'Port Said',
+      'value': 'Port Said',
+      'label': 'بورسعيد',
       'icon': Text('40'),
     },
     {
-      'value': 'CairoValue',
-      'label': 'Cairo',
+      'value': 'Cairo',
+      'label': 'القاهرة',
       'icon': Text('50'),
-      'textStyle': TextStyle(color: Colors.red),
+      // 'textStyle': TextStyle(color: Colors.red),
+    },
+    // {
+    //   'value': 'starValue',
+    //   'label': 'Star Label',
+    //   'enable': false,
+    //   'icon': Icon(Icons.grade),
+    // },
+    {
+      'value': 'Ismailia',
+      'label': 'إسماعلية',
+      'icon': Text('40'),
     },
     {
-      'value': 'starValue',
-      'label': 'Star Label',
-      'enable': false,
-      'icon': Icon(Icons.grade),
+      'value': 'Suez',
+      'label': 'السويس',
+      'icon': Text('40'),
+    },
+    {
+      'value': 'Damietta',
+      'label': 'دمياط',
+      'icon': Text('40'),
+    },
+    {
+      'value': 'Giza',
+      'label': 'الجيزة',
+      'icon': Text('40'),
+    },
+    {
+      'value': 'Sharqia',
+      'label': 'الشرقية',
+      'icon': Text('40'),
+    },
+    {
+      'value': 'Gharbia',
+      'label': 'الغربية',
+      'icon': Text('40'),
+    },
+    {
+      'value': 'Mahalla',
+      'label': 'المحلة',
+      'icon': Text('40'),
+    },
+    {
+      'value': 'Bani Sweif',
+      'label': 'بني سويف',
+      'icon': Text('40'),
     },
   ];
 
   Widget isCompletedWidget() {
     return Center(
-        child: Column(
-      children: [
-        Container(
-          child: Lottie.asset('1708-success.json'),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            isCompleted = true;
-            HomeCubit.get(context).currentIndex = 0;
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Directionality(
-                      textDirection: TextDirection.rtl, child: AppLayout()),
-                ),
-                (route) => false);
-          },
-          child: Text('رجوع إلي الصفحة الرئيسية'),
-        ),
-      ],
-    ),);
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 300.w,
+            height: 300.h,
+            child: Lottie.asset('assets/loading/1708-success.json'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              isCompleted = true;
+              HomeCubit.get(context).currentIndex = 0;
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Directionality(
+                        textDirection: TextDirection.rtl, child: AppLayout()),
+                  ),
+                  (route) => false);
+            },
+            child: Text('رجوع إلي الصفحة الرئيسية'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CartCubit(),
+      create: (context) => CartCubit()..retrieveCustomer(),
       // ..getOrderListDataFromDatabase(database),
       child: BlocConsumer<CartCubit, CartStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is RetrieveCustomerByIDSuccessState) {
+            firstnameController.text = state.customerModel.firstName!;
+            lastnameController.text = state.customerModel.lastName!;
+            phoneController.text = state.customerModel.billing!.phone!;
+            addressController.text = state.customerModel.billing!.address1!;
+          }
+        },
         builder: (context, state) {
           List<Step> getSteps() => [
                 Step(
@@ -88,106 +149,292 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       currentStep > 0 ? StepState.complete : StepState.indexed,
                   isActive: currentStep >= 0,
                   title: Text('بياناتي'),
-                  content: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
+                  content: state is RetrieveCustomerByIDSuccessState
+                      ? Column(
                           children: [
-                            Text('الإسم الأول :'),
-                            SizedBox(
-                              width: 20.w,
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                controller: firstnameController,
+                                keyboardType: TextInputType.text,
+                                validator: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return 'يجب إدخال المدينة';
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.person),
+                                  label: Text(
+                                    'الإسم الأول',
+                                    style: TextStyle(fontSize: 20.sp),
+                                  ),
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
                             ),
-                            Text(firstname!),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          children: [
-                            Text('الإسم الأخير : '),
-                            SizedBox(
-                              width: 20.w,
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                controller: lastnameController,
+                                keyboardType: TextInputType.text,
+                                validator: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return 'يجب إدخال الإسم الأخير';
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.person),
+                                  label: Text(
+                                    'الإسم الأخير',
+                                    style: TextStyle(fontSize: 20.sp),
+                                  ),
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
                             ),
-                            Text(lastname!),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          children: [
-                            Text('رقم التليفون : '),
-                            SizedBox(
-                              width: 20.w,
+                            // Padding(
+                            //   padding: const EdgeInsets.all(8.0),
+                            //   child: TextFormField(
+                            //     controller: usernameController,
+                            //     keyboardType: TextInputType.text,
+                            //     validator: (String? value) {
+                            //       if (value!.isEmpty) {
+                            //         return 'يجب إدخال إسم المستخدم';
+                            //       }
+                            //       return null;
+                            //     },
+                            //     decoration: InputDecoration(
+                            //       label: Text(
+                            //         'إسم المستخدم',
+                            //         style: TextStyle(fontSize: 20.sp),
+                            //       ),
+                            //       prefixIcon: Icon(Icons.verified_user),
+                            //       border: OutlineInputBorder(),
+                            //     ),
+                            //   ),
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.all(8.0),
+                            //   child: TextFormField(
+                            //     controller: emailController,
+                            //     keyboardType: TextInputType.emailAddress,
+                            //     validator: (String? value) {
+                            //       if (value!.isEmpty) {
+                            //         return 'يجب إدخال البريد الإلكتروني';
+                            //       } else if (value.isNotEmpty) {
+                            //         // EmailValidator.validate(value);
+                            //         if (EmailValidator.validate(value) ==
+                            //             false) {
+                            //           return 'يجب إدخال بريد إلكتروني صحيح';
+                            //         }
+                            //       }
+                            //
+                            //       return null;
+                            //     },
+                            //     decoration: InputDecoration(
+                            //       label: Text(
+                            //         'البريد الإلكتروني',
+                            //         style: TextStyle(fontSize: 20.sp),
+                            //       ),
+                            //       prefixIcon: Icon(Icons.email),
+                            //       border: OutlineInputBorder(),
+                            //     ),
+                            //   ),
+                            // ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                controller: phoneController,
+                                keyboardType: TextInputType.phone,
+                                validator: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return 'يجب إدخال رقم التليفون';
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.person),
+                                  label: Text(
+                                    'التليفون',
+                                    style: TextStyle(fontSize: 20.sp),
+                                  ),
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
                             ),
-                            Text(phone!),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          children: [
-                            Text('المدينة : '),
-                            SizedBox(
-                              width: 20.w,
-                            ),
-                            Text(city!),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          children: [
-                            Text('العنوان : '),
-                            SizedBox(
-                              width: 20.w,
-                            ),
-                            Text(address!),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: SelectFormField(
-                          type: SelectFormFieldType.dialog, // or can be dialog
-                          // initialValue: 'City',
-                          controller: dropdownController,
-                          icon: Icon(Icons.map),
-                          labelText: 'المدينة',
-                          items: _items,
-                          onChanged: (val) {
-                            print(val);
-                            setState(() {
-                              dropValue = val;
-                            });
+                            // Padding(
+                            //   padding: const EdgeInsets.all(8.0),
+                            //   child: TextFormField(
+                            //     controller: cityController,
+                            //     keyboardType: TextInputType.text,
+                            //     validator: (String? value) {
+                            //       if (value!.isEmpty) {
+                            //         return 'يجب إدخال المدينة';
+                            //       }
+                            //       return null;
+                            //     },
+                            //     decoration: InputDecoration(
+                            //       prefixIcon: Icon(Icons.pin_drop_outlined),
+                            //       label: Text(
+                            //         'المدينة',
+                            //         style: TextStyle(fontSize: 20.sp),
+                            //       ),
+                            //       border: OutlineInputBorder(),
+                            //     ),
+                            //   ),
+                            // ),
 
-                          },
-                          onSaved: (val) => print(val),
-                          dialogTitle: 'Ahmed',
-                          hintText: 'Galal',
-                          enabled: true,
-                          changeIcon: true,
-                          enableSearch: true,
-                          dialogSearchHint: 'Search Here',
-                          dialogCancelBtn: 'Cancel',
-                          autovalidate: true,
-                          enableSuggestions: false,
-                          enableInteractiveSelection: false,
-                          toolbarOptions: ToolbarOptions(
-                            copy: true,
-                            selectAll: true,
-                          ),
-                          showCursor: true,
-                          smartQuotesType: SmartQuotesType.enabled,
-                        ),
-                      ),
-                       Text('$dropValue'),
-                    ],
-                  ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: SelectFormField(
+                                type: SelectFormFieldType
+                                    .dialog, // or can be dialog
+                                // initialValue: 'City',
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  label: Text('المدينة'),
+                                  prefixIcon: Icon(Icons.map),
+                                  hintText: 'أختر مدينتك',
+                                ),
+                                controller: dropdownController,
+                                icon: Icon(Icons.map),
+                                labelText: 'المدينة',
+                                items: _items,
+                                onChanged: (val) {
+                                  ///TODO: Add All Cities
+                                  switch (val) {
+                                    case 'Port Said':
+                                      val = '40';
+                                      dropValue = val;
+                                      break;
+                                    case 'Cairo':
+                                      val = '50';
+                                      dropValue = val;
+                                      break;
+                                    case 'Giza':
+                                      val = '50';
+                                      dropValue = val;
+                                      break;
+                                    case 'Ismailia':
+                                      val = '30';
+                                      dropValue = val;
+                                      break;
+                                  }
+
+                                  print(val);
+                                  setState(() {
+                                    dropValue = val;
+                                  });
+                                },
+                                onSaved: (val) => print(val),
+                                dialogTitle: 'أختر المدينة لشحن طلبك',
+                                hintText: 'Galal',
+                                enabled: true,
+                                changeIcon: true,
+                                enableSearch: true,
+                                dialogSearchHint: 'أبحث عن مدينتك',
+                                dialogCancelBtn: 'إلغاء',
+                                autovalidate: true,
+                                enableSuggestions: true,
+                                enableInteractiveSelection: false,
+                                toolbarOptions: ToolbarOptions(
+                                  copy: true,
+                                  selectAll: true,
+                                ),
+                                showCursor: true,
+                                smartQuotesType: SmartQuotesType.enabled,
+                              ),
+                            ),
+                            Text('قيمة الشحن هي :  $dropValue'),
+
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                controller: addressController,
+                                keyboardType: TextInputType.streetAddress,
+                                validator: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return 'يجب إدخال العنوان';
+                                  }
+
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                  label: Text(
+                                    'العنوان',
+                                    style: TextStyle(fontSize: 20.sp),
+                                  ),
+                                  prefixIcon: Icon(Icons.home_outlined),
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
+                            ),
+
+                            // Padding(
+                            //   padding: const EdgeInsets.all(10.0),
+                            //   child: Row(
+                            //     children: [
+                            //       Text('الإسم الأول :'),
+                            //       SizedBox(
+                            //         width: 20.w,
+                            //       ),
+                            //       Text(firstname!),
+                            //     ],
+                            //   ),
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.all(10.0),
+                            //   child: Row(
+                            //     children: [
+                            //       Text('الإسم الأخير : '),
+                            //       SizedBox(
+                            //         width: 20.w,
+                            //       ),
+                            //       Text(lastname!),
+                            //     ],
+                            //   ),
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.all(10.0),
+                            //   child: Row(
+                            //     children: [
+                            //       Text('رقم التليفون : '),
+                            //       SizedBox(
+                            //         width: 20.w,
+                            //       ),
+                            //       Text(phone!),
+                            //     ],
+                            //   ),
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.all(10.0),
+                            //   child: Row(
+                            //     children: [
+                            //       Text('المدينة : '),
+                            //       SizedBox(
+                            //         width: 20.w,
+                            //       ),
+                            //       Text(city!),
+                            //     ],
+                            //   ),
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.all(10.0),
+                            //   child: Row(
+                            //     children: [
+                            //       Text('العنوان : '),
+                            //       SizedBox(
+                            //         width: 20.w,
+                            //       ),
+                            //       Text(address!),
+                            //     ],
+                            //   ),
+                            // ),
+                          ],
+                        )
+                      : Center(child: loadingIndicator()),
                 ),
                 Step(
                   state:
@@ -238,13 +485,65 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             child: Row(
                               children: [
                                 Text(
-                                  'الإجمالي',
+                                  'المجموع',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 21.sp),
                                 ),
                                 Spacer(),
                                 Text(
                                   '${FavoritesCubit.get(context).totalPrice()}',
+                                  style: TextStyle(
+                                      fontSize: 23.sp, color: Colors.white),
+                                ),
+
+                                // Text(
+                                //   '$total',
+                                //   style: TextStyle(
+                                //       fontSize: 23.sp, color: Colors.white),
+                                // ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8,bottom: 8,right: 25,left: 25),
+                        child: Row(
+                        children: [
+                          Text(
+                            'قيمة الشحن',
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 21.sp),
+                          ),
+                          Spacer(),
+                          Text(
+                            '$dropValue',
+                            style:
+                                TextStyle(fontSize: 23.sp, color: Colors.black),
+                          ),
+                        ]),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          height: 30,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.vertical(
+                                bottom: Radius.circular(20.r)),
+                            color: Colors.blue,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Row(
+                              children: [
+                                Text(
+                                  'الإجمالي',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 21.sp),
+                                ),
+                                Spacer(),
+                                Text(
+                                  '${FavoritesCubit.get(context).totalPrice() + int.parse(dropValue)}',
                                   style: TextStyle(
                                       fontSize: 23.sp, color: Colors.white),
                                 ),
@@ -290,6 +589,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ),
                 )
               ];
+
+          //  if(state is RetrieveCustomerByIDSuccessState)
           return Scaffold(
             appBar: AppBar(
               title: Text(
@@ -333,25 +634,33 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       final isLastStep = currentStep == getSteps().length - 1;
                       if (isLastStep) {
                         print('Completed');
+                        print(isCompleted);
+                        setState(() {
+                          isCompleted = true;
+                        });
+
+                        print(isCompleted);
 
                         ///TODO:send data to server
                         FavoritesCubit.get(context).createOrder(
-                            firstname: firstname!,
-                            lastname: lastname!,
-                            address: address!,
-                            city: city!,
-                            email: email!,
-                            phone: phone!,
-                            customerNote: customerNoteController.text);
-                        HomeCubit.get(context).currentIndex = 0;
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Directionality(
-                                  textDirection: TextDirection.rtl,
-                                  child: AppLayout()),
-                            ),
-                            (route) => false);
+                          firstname: firstnameController.text,
+                          lastname: lastnameController.text,
+                          address: addressController.text,
+                          city: dropdownController.text,
+                          shippingRate: dropValue,
+                          phone: phoneController.text,
+                          customerNote: customerNoteController.text,
+                          email: email!,
+                        );
+                        // HomeCubit.get(context).currentIndex = 0;
+                        // Navigator.pushAndRemoveUntil(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => Directionality(
+                        //           textDirection: TextDirection.rtl,
+                        //           child: AppLayout()),
+                        //     ),
+                        //     (route) => false);
                       } else
                         setState(() {
                           currentStep += 1;
@@ -522,6 +831,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             //   ],
             // ),
           );
+          // else
+          //   return loadingIndicator();
         },
       ),
     );

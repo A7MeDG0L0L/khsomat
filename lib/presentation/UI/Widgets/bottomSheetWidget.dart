@@ -196,7 +196,7 @@ Widget showSheet(context) {
                         //print(FavoritesCubit.get(context).orderList);
                         if (formKey.currentState!.validate())  {
                           // print(firstNameController.text);
-                          FavoritesCubit.get(context).createOrder(
+                          FavoritesCubit.get(context).createOrder(shippingRate: '40',
                             firstname: firstNameController.text,
                             lastname: lastNameController.text,
                             address: addressController.text,

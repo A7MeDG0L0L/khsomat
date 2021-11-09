@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khsomat/Shared/constants.dart';
+import 'package:khsomat/data/models/customer_model.dart';
 import 'package:khsomat/data/models/new_product_model.dart';
 import 'package:khsomat/data/web_services/web_services.dart';
 
@@ -74,6 +75,28 @@ void getOrderListDataFromDatabase(database) async {
         'DELETE FROM orderlist WHERE product_id = ?', [id]).then((value) {
       getOrderListDataFromDatabase(database);
       emit(DeleteOrderListDataFromDatabaseState());
+    });
+  }
+
+CustomerModel? customerModel;
+  void retrieveCustomer() {
+    emit(RetrieveCustomerByIDLoadingState());
+    WebServices.dio.get(
+      'wc/v3/customers/$id',
+      queryParameters: {
+        'Content-Type': "application/json",
+        'consumer_key': 'ck_fa054c2eea7057ed605ce37417fe5e92fb2d428b',
+        'consumer_secret': 'cs_a2bcff0feec2d96d830b08ecf93015f6de9b409e'
+      },
+    ).then((value) {
+      customerModel=CustomerModel.fromJson(value.data);
+      print(value.data);
+      print(value.statusCode);
+
+      emit(RetrieveCustomerByIDSuccessState(customerModel!));
+    }).catchError((error) {
+      print(error.toString());
+      emit(RetrieveCustomerByIDErrorState(error,customerModel!));
     });
   }
 
