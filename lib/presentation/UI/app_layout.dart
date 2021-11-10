@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -16,6 +17,7 @@ import 'package:khsomat/presentation/UI/cart_screen.dart';
 import 'package:khsomat/presentation/UI/home_screen.dart';
 import 'package:khsomat/presentation/UI/login_screen.dart';
 import 'package:khsomat/presentation/UI/search_screen.dart';
+import 'package:khsomat/translations/locale_keys.g.dart';
 import 'package:lottie/lottie.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -43,7 +45,7 @@ class AppLayout extends StatelessWidget {
             icon: Icon(
               Icons.home_outlined,
             ),
-            title: Text('الرئيسية',),
+            title: Text(LocaleKeys.home.tr(),),
           ),
           SalomonBottomBarItem(
             icon: Stack(
@@ -56,7 +58,7 @@ class AppLayout extends StatelessWidget {
 
               ],
             ),
-            title: Text('المفضلة'),
+            title: Text(LocaleKeys.favorites.tr()),
           ),
           SalomonBottomBarItem(
             icon: Stack(fit: StackFit.loose,
@@ -69,13 +71,13 @@ class AppLayout extends StatelessWidget {
 
               ],
             ),
-            title: Text('السلة'),
+            title: Text(LocaleKeys.cart.tr()),
           ),
           SalomonBottomBarItem(
             icon: Icon(
               Icons.person,
             ),
-            title: Text('صفحتي'),
+            title: Text(LocaleKeys.profile.tr()),
           ),
         ];
         return Scaffold(

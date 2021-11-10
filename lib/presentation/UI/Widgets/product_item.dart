@@ -8,16 +8,19 @@ import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/data/models/products_model.dart';
+import 'package:translator/translator.dart';
 
 class ProductItem extends StatelessWidget {
   final Product product;
-  const ProductItem({Key? key, required this.product}) : super(key: key);
-
+   const ProductItem({Key? key, required this.product}) : super(key: key);
+  // final translator = GoogleTranslator();
+  // late String productName;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<FavoritesCubit, FavoritesStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        // translator.translate( product.name!,to: 'en').then((value) => printWrapped(value.text));
         dynamic discountedPrice(){
           dynamic discountedPrice;
           if(product.prices!.salePrice==0||product.prices!.regularPrice==0){
@@ -99,7 +102,7 @@ class ProductItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            product.name!,
+                          product.name! ,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(

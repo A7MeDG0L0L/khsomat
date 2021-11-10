@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,11 +10,13 @@ import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/login_cubit/login_cubit.dart';
 import 'package:khsomat/business_logic/login_cubit/login_states.dart';
+import 'package:khsomat/data/cache_helper/cache_helper.dart';
 import 'package:khsomat/presentation/UI/Widgets/bottomSheetWidget.dart';
 import 'package:khsomat/presentation/UI/favorites_screen.dart';
 import 'package:khsomat/presentation/about_us_screen.dart';
 import 'package:khsomat/presentation/user_info_screen.dart';
 import 'package:khsomat/presentation/user_orders_screen.dart';
+import 'package:khsomat/translations/locale_keys.g.dart';
 
 import '../billing_info_screen.dart';
 import 'login_screen.dart';
@@ -101,7 +104,7 @@ class ProfileScreen extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Text(
-                                        'ملفي الشخصي',
+                                        LocaleKeys.my_profile.tr(),
                                         style: TextStyle(
                                             fontSize: 18.sp,
                                             color: Colors.white),
@@ -159,23 +162,20 @@ class ProfileScreen extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Text(
-                                        'قائمة المفضلة',
+                                        LocaleKeys.favorite_list.tr(),
                                         style: TextStyle(
                                             fontSize: 18.sp,
                                             color: Colors.white),
                                       ),
-                                      if (wishList
-                                          .isNotEmpty)
-                                      SizedBox(
-                                        width: 5.w,
-                                      ),
-                                      if (wishList
-                                          .isNotEmpty)
-                                      CircleAvatar(
-                                        radius: 10,
-                                        child: Text(
-                                            '${wishList.length}'),
-                                      ),
+                                      if (wishList.isNotEmpty)
+                                        SizedBox(
+                                          width: 5.w,
+                                        ),
+                                      if (wishList.isNotEmpty)
+                                        CircleAvatar(
+                                          radius: 10,
+                                          child: Text('${wishList.length}'),
+                                        ),
                                       Icon(
                                         Icons.arrow_forward_ios,
                                         size: 15.r,
@@ -202,22 +202,19 @@ class ProfileScreen extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Text(
-                                        'سلة التسوق',
+                                        LocaleKeys.shopping_cart.tr(),
                                         style: TextStyle(
                                             fontSize: 18.sp,
                                             color: Colors.white),
                                       ),
-                                      if (orderList
-                                          .isNotEmpty)
+                                      if (orderList.isNotEmpty)
                                         SizedBox(
                                           width: 5.w,
                                         ),
-                                      if (orderList
-                                          .isNotEmpty)
+                                      if (orderList.isNotEmpty)
                                         CircleAvatar(
                                           radius: 10,
-                                          child: Text(
-                                              '${orderList.length}'),
+                                          child: Text('${orderList.length}'),
                                         ),
                                       Icon(
                                         Icons.arrow_forward_ios,
@@ -244,7 +241,7 @@ class ProfileScreen extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Text(
-                                        'طلباتي',
+                                        LocaleKeys.my_orders.tr(),
                                         style: TextStyle(
                                             fontSize: 18.sp,
                                             color: Colors.white),
@@ -262,7 +259,6 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                                 RawMaterialButton(
                                   onPressed: () {
-
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (context) => Directionality(
@@ -275,7 +271,7 @@ class ProfileScreen extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Text(
-                                        'من نحن',
+                                        LocaleKeys.about_us.tr(),
                                         style: TextStyle(
                                           fontSize: 18.sp,
                                           color: Colors.white,
@@ -315,6 +311,88 @@ class ProfileScreen extends StatelessWidget {
                                     ],
                                   ),
                                 ),
+                                SizedBox(
+                                  height: 15.h,
+                                ),
+                                RawMaterialButton(
+                                  onPressed: () async {
+                                    // await context.setLocale(Locale('ar'));
+                                    Dialog(
+                                      child: Text('Test'),
+                                    );
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => Dialog(
+                                          child: Container(
+                                        height: 150.h,
+                                        width: 150.w,
+                                        child: Center(
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  InkWell(
+                                                    onTap: ()async {
+                                                      context.setLocale(Locale('ar'));
+                                                      // CacheHelper.saveData(key: 'lang', value: 'ar');
+                                                    },
+                                                    child: Image(
+                                                      image: AssetImage(
+                                                          'assets/images/saudi-arabia.png'),
+                                                      width: 50.w,
+                                                      height: 50.h,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                  Text('العربية')
+                                                ],
+                                              ),
+                                              Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+
+                                                children: [
+                                                  InkWell(
+                                                    onTap: ()async{
+                                                      context.setLocale(Locale('en'));
+                                                      // CacheHelper.saveData(key: 'lang', value: 'en');
+                                                    },
+                                                    child: Image(
+                                                      image: AssetImage(
+                                                          'assets/images/united-kingdom.png'),
+                                                      width: 50.w,
+                                                      height: 50.h,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                  Text('English')
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )),
+                                      useSafeArea: true,
+                                    );
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'لغة',
+                                        style: TextStyle(
+                                          fontSize: 18.sp,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Icon(Icons.arrow_forward_ios,
+                                          size: 15.r, color: Colors.white),
+                                    ],
+                                  ),
+                                ),
+
+                                // DropdownButton(items: [DropdownMenuItem(child: Image.asset('assets/images/saudi-arabia.png'),),DropdownMenuItem(child: Image.asset('assets/images/united-kingdom.png'),),],),
                               ],
                             ),
                           ),

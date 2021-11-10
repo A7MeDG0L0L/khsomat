@@ -63,6 +63,7 @@ dependencies:
   webview_flutter: ^2.1.2
   easy_localization: ^3.0.0
   select_form_field: ^2.2.0
+  translator: ^0.1.7
 
 
 

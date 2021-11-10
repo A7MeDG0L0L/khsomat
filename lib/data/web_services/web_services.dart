@@ -2,9 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/data/models/register_model.dart';
+import 'package:translator/translator.dart';
 
 class WebServices {
   static late Dio dio;
+  final translator= GoogleTranslator();
 
   WebServices() {
     BaseOptions options = BaseOptions(
@@ -48,6 +50,9 @@ class WebServices {
         'consumer_secret': 'cs_a2bcff0feec2d96d830b08ecf93015f6de9b409e'
       });
       // print('Response from Web Service : ${response.data.toString()}');
+     // await translator.translate(response.data, to: 'en').then((value) => print(value));
+
+
       return response.data;
     } catch (e) {
       print('Product Web Service : ${e.toString()}');

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:device_preview/device_preview.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,7 +13,9 @@ import 'package:khsomat/data/repository/products_repository.dart';
 import 'package:khsomat/data/web_services/web_services.dart';
 import 'package:khsomat/presentation/UI/app_layout.dart';
 import 'package:khsomat/presentation/UI/register_screen.dart';
+import 'package:khsomat/translations/codegen_loader.g.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:translator/translator.dart';
 
 import 'BlocObserver.dart';
 import 'Shared/constants.dart';
@@ -22,8 +25,36 @@ import 'data/cache_helper/cache_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // final translator = GoogleTranslator();
+  //
+  // List text=[
+  //   {
+  //     'id': 1,
+  //     'product_id': 52457,
+  //     'name': ' جهاز بلايستيشن سونى Sony playstation 4 (1 تيرا)',
+  //     'image': 'https://khsomat.net/wp-content/uploads/2021/09/kh2037-1.jpg',
+  //     'regularprice': 870000,
+  //     'saleprice': 810000,
+  //     'permalink':
+  //         'https://khsomat.net/product/%d8%ac%d9%87%d8%a7%d8%b2-%d8%a8%d9%84%d8%a7%d9%8a%d8%b3%d8%aa%d9%8a%d8%b4%d9%86-%d8%b3%d9%88%d9%86%d9%89-sony-playstation-4-1-%d8%aa%d9%8a%d8%b1%d8%a7/',
+  //     'quantity': 7
+  //   },
+  //   {
+  //     'id': 2,
+  //     'product_id': 52302,
+  //     'name': ' جمبسوت اطفالي',
+  //     'image': 'https://khsomat.net/wp-content/uploads/2021/09/2-54.jpg',
+  //     'regularprice': 34000,
+  //     'saleprice': 27500,
+  //     'permalink':
+  //         'https://khsomat.net/product/%d8%ac%d9%85%d8%a8%d8%b3%d9%88%d8%aa-%d8%a7%d8%b7%d9%81%d8%a7%d9%84%d9%8a/',
+  //     'quantity': 11
+  //   }
+  // ];
+  // translator.translateAndPrint(text.toString(),to: 'en');
 
   await CacheHelper.init();
+  await EasyLocalization.ensureInitialized();
 
   Bloc.observer = MyBlocObserver();
   token = CacheHelper.getData(key: 'token');
@@ -43,10 +74,21 @@ void main() async {
     widget = RegisterScreen();
   }
 
-  runApp( MyApp(
-      appRouter: AppRouter(),
-      startWidget: widget,
-    ),
+  runApp( EasyLocalization(
+    path: 'assets/translations',
+    supportedLocales: [
+      Locale('ar'),
+      Locale('en'),
+    ],
+    fallbackLocale: Locale('ar'),
+    assetLoader: CodegenLoader(),
+    startLocale: Locale('ar'),
+    saveLocale: true,
+    child: MyApp(
+        appRouter: AppRouter(),
+        startWidget: widget,
+      ),
+  ),
   );
 }
 
@@ -77,8 +119,13 @@ class MyApp extends StatelessWidget {
           return ScreenUtilInit(
             designSize: Size(411, 845),
             builder: () =>  MaterialApp(
-              builder: DevicePreview.appBuilder,
-              locale: DevicePreview.locale(context),
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: context.locale,
+              // builder: DevicePreview.appBuilder,
+              // locale: DevicePreview.locale(context),
+
+
               // builder: (context, child) => ResponsiveWrapper.builder(
               //   child,
               //   maxWidth: 1200,
@@ -97,8 +144,7 @@ class MyApp extends StatelessWidget {
                 fontFamily: 'Almarai',
               ),
               onGenerateRoute: appRouter.generateRoute,
-              home: Directionality(
-                  textDirection: TextDirection.rtl, child: startWidget),
+              home: startWidget,
             ),
           );
         },

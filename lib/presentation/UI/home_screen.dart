@@ -1,18 +1,22 @@
 
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khsomat/Shared/components.dart';
+import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
 import 'package:khsomat/data/models/category_model.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/presentation/UI/Widgets/product_item.dart';
 import 'package:khsomat/presentation/UI/products_category_screen.dart';
+import 'package:khsomat/translations/locale_keys.g.dart';
 import 'package:lottie/lottie.dart';
+import 'package:translator/translator.dart';
 
 class HomeScreen extends StatelessWidget {
   List<Widget> carouselItems = [
@@ -65,10 +69,13 @@ class HomeScreen extends StatelessWidget {
     ),
   ];
 
+  final translator = GoogleTranslator();
+
 
 
   late List<Product> allProducts;
   late List<Category> allCategories;
+  late String translation;
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +85,7 @@ class HomeScreen extends StatelessWidget {
         if (state is GetProductsSuccessState) {
           //state.products.shuffle();
           allProducts = state.products;
+
           allProducts.shuffle();
 
           return builderWidget(context);
@@ -128,7 +136,7 @@ class HomeScreen extends StatelessWidget {
               height: 15.h,
             ),
             Text(
-              'الأقسام',
+              LocaleKeys.categories.tr(),
               style: TextStyle(
                 fontFamily: 'Almarai',
                 fontSize: 20.sp,
@@ -153,7 +161,7 @@ class HomeScreen extends StatelessWidget {
               height: 20.h,
             ),
             Text(
-              'المنتجات الجديدة',
+              LocaleKeys.new_products.tr(),
               style: TextStyle(
                 fontFamily: 'Almarai',
                 fontSize: 20.sp,
