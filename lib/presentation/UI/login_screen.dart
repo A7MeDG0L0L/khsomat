@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
@@ -8,6 +9,7 @@ import 'package:khsomat/business_logic/login_cubit/login_cubit.dart';
 import 'package:khsomat/business_logic/login_cubit/login_states.dart';
 import 'package:khsomat/data/cache_helper/cache_helper.dart';
 import 'package:khsomat/presentation/UI/register_screen.dart';
+import 'package:khsomat/translations/locale_keys.g.dart';
 
 import 'app_layout.dart';
 
@@ -89,10 +91,7 @@ class LoginScreen extends StatelessWidget {
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: AppLayout(),
-                    ),
+                    builder: (context) => AppLayout(),
                   ),
                       (route) => false);
             });
@@ -111,14 +110,12 @@ class LoginScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: AppLayout()),
+                            builder: (context) => AppLayout(),
                           ),
                         );
                       },
                       child: Text(
-                        'تخطي',
+                        LocaleKeys.skip.tr(),
                         style: TextStyle(fontSize: 15.sp),
                       ),
                     ),
@@ -139,14 +136,14 @@ class LoginScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              'سجل الدخول إلي حسابك',
+                              LocaleKeys.sign_in_to_your_account.tr(),
                               style: TextStyle(fontSize: 25.sp),
                             ),
                             SizedBox(
                               height: 10.h,
                             ),
                             Text(
-                              'للتسوق متعة مع خصومات',
+                             LocaleKeys.shopping_pleasure_with_khsomat.tr(),
                               style: TextStyle(fontSize: 15.sp),
                             ),
                             SizedBox(
@@ -163,7 +160,7 @@ class LoginScreen extends StatelessWidget {
                               },
                               decoration: InputDecoration(
                                 label: Text(
-                                  'إسم المستخدم أو البريد الإلكتروني',
+                                  LocaleKeys.username_or_email.tr(),
                                   style: TextStyle(fontSize: 20.sp),
                                 ),
                                 prefixIcon: Icon(Icons.person),
@@ -198,7 +195,7 @@ class LoginScreen extends StatelessWidget {
                               enabled: true,
                               decoration: InputDecoration(
                                 label: Text(
-                                  'كلمة المرور',
+                                  LocaleKeys.password.tr(),
                                   style: TextStyle(fontSize: 20.sp),
                                 ),
                                 prefixIcon: Icon(Icons.lock),
@@ -266,7 +263,7 @@ class LoginScreen extends StatelessWidget {
                                     }
                                   },
                                   child: Text(
-                                    'سجل الدخول',
+                                    LocaleKeys.sign_in.tr(),
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 20.sp,
@@ -287,22 +284,20 @@ class LoginScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'لا تمتلك حساب ؟',
-                                  style: TextStyle(fontSize: 20.sp),
+                                 LocaleKeys.dont_have_an_account.tr(),
+                                  style: TextStyle(fontSize: 18.sp),
                                 ),
                                 TextButton(
                                   onPressed: () {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => Directionality(
-                                              textDirection: TextDirection.rtl,
-                                              child: RegisterScreen()),
+                                          builder: (context) => RegisterScreen(),
                                         ));
                                   },
                                   child: Text(
-                                    'انشئ حساب الآن',
-                                    style: TextStyle(fontSize: 20.sp),
+                                    LocaleKeys.create_account_now.tr(),
+                                    style: TextStyle(fontSize: 15.sp),
                                   ),
                                 ),
                               ],

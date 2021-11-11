@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +9,7 @@ import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/data/models/products_model.dart';
+import 'package:khsomat/translations/locale_keys.g.dart';
 import 'package:translator/translator.dart';
 
 class ProductItem extends StatelessWidget {
@@ -170,7 +172,7 @@ class ProductItem extends StatelessWidget {
                               //     ),
                               //   ),
                               Text(
-                                'ج',
+                                LocaleKeys.egp.tr(),
                                 style: TextStyle(
                                   fontFamily: 'Almarai',
                                   fontSize: 12.sp,

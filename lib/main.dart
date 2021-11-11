@@ -142,6 +142,9 @@ class MyApp extends StatelessWidget {
               theme: ThemeData(
                 primarySwatch: defColor,
                 fontFamily: 'Almarai',
+                textTheme:  TextTheme(
+
+                ),
               ),
               onGenerateRoute: appRouter.generateRoute,
               home: startWidget,

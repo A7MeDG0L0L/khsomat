@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +9,7 @@ import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/data/repository/products_repository.dart';
 import 'package:khsomat/data/web_services/web_services.dart';
 import 'package:khsomat/presentation/UI/Widgets/product_item.dart';
+import 'package:khsomat/translations/locale_keys.g.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -28,7 +30,7 @@ class SearchScreen extends StatelessWidget {
           }
           return Scaffold(
             appBar: AppBar(
-              title:Text('أبحث عن المنتجات',style: TextStyle(fontSize: 20.sp),),
+              title:Text(LocaleKeys.search_for_products.tr(),style: TextStyle(fontSize: 20.sp),),
             ),
             body: Form(
               key: formKey,
@@ -56,7 +58,7 @@ class SearchScreen extends StatelessWidget {
                       },
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.search),
-                        label: Text('البحث ...',style: TextStyle(fontSize: 20.sp),),
+                        label: Text(LocaleKeys.search.tr(),style: TextStyle(fontSize: 20.sp),),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),

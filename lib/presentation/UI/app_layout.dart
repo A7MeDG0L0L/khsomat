@@ -97,10 +97,7 @@ class AppLayout extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: SearchScreen(),
-                      ),
+                      builder: (context) => SearchScreen(),
                     ),
                   );
                 },
@@ -183,14 +180,11 @@ class AppLayout extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Directionality(
-                                      textDirection: TextDirection.rtl,
-                                      child: LoginScreen(),
-                                    ),
+                                    builder: (context) => LoginScreen(),
                                   ),
                                 );
                               },
-                              child: Text('سجل الدخول الآن'),
+                              child: Text(LocaleKeys.sign_in_to_your_account.tr()),
                             ),
                           ),
 

@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ import 'package:khsomat/data/repository/products_repository.dart';
 import 'package:khsomat/data/web_services/web_services.dart';
 import 'package:khsomat/presentation/UI/Widgets/bottomSheetWidget.dart';
 import 'package:khsomat/presentation/UI/login_screen.dart';
+import 'package:khsomat/translations/locale_keys.g.dart';
 import 'package:lottie/lottie.dart';
 
 class UserInfoScreen extends StatelessWidget {
@@ -58,8 +60,15 @@ class UserInfoScreen extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title: Text('ملفي الشخصي'),
-            ),
+              title: Text(LocaleKeys.my_profile.tr()),
+              elevation: 0,
+               toolbarHeight: 80.h,centerTitle: true,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(30),
+                ),
+              ),
+              ),
             body: Conditional.single(
               context: context,
               conditionBuilder: (context) =>
@@ -86,14 +95,14 @@ class UserInfoScreen extends StatelessWidget {
                                 keyboardType: TextInputType.text,
                                 validator: (String? value) {
                                   if (value!.isEmpty) {
-                                    return 'يجب إدخال المدينة';
+                                    return 'يجب إدخال الإسم الأول';
                                   }
                                   return null;
                                 },
                                 decoration: InputDecoration(
                                   prefixIcon: Icon(Icons.person),
                                   label: Text(
-                                    'الإسم الأول',
+                                    LocaleKeys.first_name.tr(),
                                     style: TextStyle(fontSize: 20.sp),
                                   ),
                                   border: OutlineInputBorder(),
@@ -114,7 +123,7 @@ class UserInfoScreen extends StatelessWidget {
                                 decoration: InputDecoration(
                                   prefixIcon: Icon(Icons.person),
                                   label: Text(
-                                    'الإسم الأخير',
+                                    LocaleKeys.last_name.tr(),
                                     style: TextStyle(fontSize: 20.sp),
                                   ),
                                   border: OutlineInputBorder(),
@@ -134,7 +143,7 @@ class UserInfoScreen extends StatelessWidget {
                                 },
                                 decoration: InputDecoration(
                                   label: Text(
-                                    'إسم المستخدم',
+                                    LocaleKeys.username.tr(),
                                     style: TextStyle(fontSize: 20.sp),
                                   ),
                                   prefixIcon: Icon(Icons.verified_user),
@@ -162,7 +171,7 @@ class UserInfoScreen extends StatelessWidget {
                                 },
                                 decoration: InputDecoration(
                                   label: Text(
-                                    'البريد الإلكتروني',
+                                    LocaleKeys.email.tr(),
                                     style: TextStyle(fontSize: 20.sp),
                                   ),
                                   prefixIcon: Icon(Icons.email),
@@ -184,7 +193,7 @@ class UserInfoScreen extends StatelessWidget {
                                 decoration: InputDecoration(
                                   prefixIcon: Icon(Icons.person),
                                   label: Text(
-                                    'التليفون',
+                                    LocaleKeys.phone.tr(),
                                     style: TextStyle(fontSize: 20.sp),
                                   ),
                                   border: OutlineInputBorder(),
@@ -205,7 +214,7 @@ class UserInfoScreen extends StatelessWidget {
                                 decoration: InputDecoration(
                                   prefixIcon: Icon(Icons.pin_drop_outlined),
                                   label: Text(
-                                    'المدينة',
+                                    LocaleKeys.city.tr(),
                                     style: TextStyle(fontSize: 20.sp),
                                   ),
                                   border: OutlineInputBorder(),
@@ -226,7 +235,7 @@ class UserInfoScreen extends StatelessWidget {
                                 },
                                 decoration: InputDecoration(
                                   label: Text(
-                                    'العنوان',
+                                    LocaleKeys.address.tr(),
                                     style: TextStyle(fontSize: 20.sp),
                                   ),
                                   prefixIcon: Icon(Icons.home_outlined),
@@ -279,7 +288,7 @@ class UserInfoScreen extends StatelessWidget {
                                   print(lastname);
 
                                 },
-                                child: Text('تحديث البيانات',style:TextStyle(color: Colors.white)),
+                                child: Text(LocaleKeys.update_my_info.tr(),style:TextStyle(color: Colors.white)),
                               ),
                             ),
                           ],
@@ -295,12 +304,10 @@ class UserInfoScreen extends StatelessWidget {
                     child: TextButton(
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Directionality(
-                              textDirection: TextDirection.rtl,
-                              child: LoginScreen()),
+                          builder: (context) => LoginScreen(),
                         ));
                       },
-                      child: Text('سجل الدخول'),
+                      child: Text(LocaleKeys.sign_in.tr()),
                     ),
                   );
                 }

@@ -1,8 +1,10 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:khsomat/presentation/web_view_screen.dart';
+import 'package:khsomat/translations/locale_keys.g.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class AboutUsScreen extends StatelessWidget {
@@ -13,7 +15,7 @@ class AboutUsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text('من نحن'),
+        title: Text(LocaleKeys.about_us.tr()),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -57,7 +59,7 @@ class AboutUsScreen extends StatelessWidget {
                   text: TextSpan(
                     style: TextStyle(fontSize: 15.sp),
                     text:
-                        'خصومات دوت كوم, هو موقع للتجارة الإلكترونية في جمهوريه مصر العربيه ويضم عدد كبير من المنتجات المختلفه مثل الفئات التي تشمل الإلكترونيات، والأزياء، والمنتجات المنزلية، والساعات،والعطور، وغيرها.ويجذب خصومات دوت كوم عدد كبير من الزائرين شهرياً،وينموبسرعة كبيرة بسبب ازدياد عدد المتسوقين عبر شبكة الإنترنت في جمهوريه مصر العربيه .غالباً ما يسمى خصومات دوت كوم بـ بموطن الخصومات وهو يعمل كموقع للبيع بالتجزئة بالإضافة إلى عمله كسوق للبائعين من جهات خارجية. ويقدم خصومات دوت كوم تجربة تسوق مريحة وآمنة مع إمكانية الدفع عبر الإنترنت، وإمكانية الدفع نقداً عند استلام السلع، وإمكانية إرجاعها مجاناً.تأسس خصومات دوت كوم عام 2021، وهو رائداً في مجال التسوق عبر الإنترنت كموقع خدمي متكامل ، يتيح مجموعه من الخدمات الالكترونيه للزائرين. و بالإضافة إلى مقره الرئيسي في جمهوريه مصر العربيه يلبي خصومات دوت كوم احتياجات الأسواق المحلية بمكاتب تجارية في اغلب محافظات جمهوريه مصر العربيه نسعي جاهدين الي التغيير والتطوير الدائم للموقع مما يتيح الراحه للمستخدمين الموقع او التطبيق الخاص بنا تطور الشعار الخاص بنا',
+                      LocaleKeys.about_us_text.tr(),
                   ),
                 ),
               ),
@@ -67,7 +69,7 @@ class AboutUsScreen extends StatelessWidget {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => WebViewScreen('https://www.khsomat.net'),));
 
               },
-              child: Text('زور الموقع'),
+              child: Text(LocaleKeys.open_site.tr()),
             ),
           ],
         ),

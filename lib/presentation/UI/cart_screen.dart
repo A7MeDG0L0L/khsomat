@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +13,7 @@ import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:khsomat/presentation/UI/checkout_screen.dart';
+import 'package:khsomat/translations/locale_keys.g.dart';
 import 'package:lottie/lottie.dart';
 
 import 'Widgets/order_product_item.dart';
@@ -68,7 +70,7 @@ class CartScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        Text('الإجمالي',style: TextStyle(fontSize: 20.sp),),
+                        Text(LocaleKeys.total.tr(),style: TextStyle(fontSize: 20.sp),),
                         Spacer(),
                         Text('${FavoritesCubit.get(context).totalPrice()}',style: TextStyle(fontSize: 20.sp),),
                       ],
@@ -88,9 +90,7 @@ class CartScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => Directionality(
-                                    textDirection: TextDirection.rtl,
-                                    child: CheckoutScreen()),
+                                builder: (context) => CheckoutScreen(),
                               ),
                             );
                           }
@@ -104,7 +104,7 @@ class CartScreen extends StatelessWidget {
                           //     });
                         },
                         child: Text(
-                          'إتمام الطلب',
+                          LocaleKeys.complete_order.tr(),
                           style: TextStyle(fontSize: 20.sp),
                         ),
                         style: ButtonStyle(),
@@ -185,7 +185,7 @@ class CartScreen extends StatelessWidget {
                       SizedBox(
                         height: 15.h,
                       ),
-                      Text('السلة تبدو فارغه 🙄'),
+                      Text(LocaleKeys.no_items_in_cart.tr()),
                     ],
                   ),
                 ),

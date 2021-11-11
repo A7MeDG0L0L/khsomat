@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -16,6 +17,7 @@ import 'package:khsomat/business_logic/home_cubit/home_state.dart';
 import 'package:khsomat/data/models/products_model.dart';
 import 'package:html/parser.dart' show parse;
 import 'package:khsomat/presentation/UI/Widgets/product_item.dart';
+import 'package:khsomat/translations/locale_keys.g.dart';
 import 'package:share/share.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
@@ -135,7 +137,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                   width: 4.w,
                                 ),
                                 Text(
-                                  'جنية مصري',
+                                  LocaleKeys.egyption_pound.tr(),
                                   style: TextStyle(
                                     fontFamily: 'Almarai',
                                     fontSize: 12.sp,
@@ -146,7 +148,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                 ),
                                 if (product!.onSale == true)
                                   Text(
-                                    'بدلاً من',
+                                    LocaleKeys.instead_of.tr(),
                                     style: TextStyle(
                                       fontFamily: 'Almarai',
                                       fontSize: 12.sp,
@@ -326,7 +328,7 @@ class ProductDetailsScreen extends StatelessWidget {
                               height: 20.h,
                             ),
                             Text(
-                              'وصف المنتج',
+                              LocaleKeys.description.tr(),
                               style: TextStyle(
                                   fontFamily: 'Almarai', fontSize: 18.sp),
                             ),
@@ -405,7 +407,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                         MaterialStateProperty.all(Colors.black),
                                   ),
                                   child: Text(
-                                    'إضافة إلي السلة',
+                                    LocaleKeys.add_to_cart.tr(),
                                     style: TextStyle(
                                         fontFamily: 'Almarai',
                                         color: Colors.white,
@@ -424,7 +426,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     if(state is GetRelatedProductSuccessState)
                     Padding(
                       padding: const EdgeInsets.all(15.0),
-                      child: Text('منتجات مشابهه',style: TextStyle(
+                      child: Text(LocaleKeys.related_products.tr(),style: TextStyle(
                           fontFamily: 'Almarai', fontSize: 18.sp),),
                     ),
                     if(state is GetRelatedProductSuccessState)
@@ -593,27 +595,29 @@ class ProductDetailsScreen extends StatelessWidget {
                   viewportFraction: 1.0,
                   pauseAutoPlayOnTouch: true,
                   enlargeCenterPage: true,
-                )),
+                ),),
           ),
-          Positioned(
-            top: 150.0.h,
-            child: IconButton(
-              onPressed: () {
-                carouselController.nextPage();
-              },
-              icon: Icon(Icons.arrow_back_ios),
-            ),
-          ),
-          Positioned(
-            top: 150.0.h,
-            left: MediaQuery.of(context).size.width / 333,
-            child: IconButton(
-              onPressed: () {
-                carouselController.previousPage();
-              },
-              icon: Icon(Icons.arrow_forward_ios),
-            ),
-          ),
+          // Positioned(
+          //   top: 150.0.h,
+          //   left: 370.w,
+          //   child: IconButton(
+          //     onPressed: () {
+          //       carouselController.nextPage();
+          //     },
+          //     icon:  Locale('ar')==true ? Icon(Icons.arrow_back_ios) : Icon(Icons.arrow_forward_ios),
+          //   ),
+          // ),
+          // Positioned(
+          //   top: 150.0.h,
+          //
+          //   right: 370.w,
+          //   child: IconButton(
+          //     onPressed: () {
+          //       carouselController.previousPage();
+          //     },
+          //     icon: Locale('ar')==true ? Icon(Icons.arrow_forward_ios) : Icon(Icons.arrow_back_ios),
+          //   ),
+          // ),
         ],
       ),
     );

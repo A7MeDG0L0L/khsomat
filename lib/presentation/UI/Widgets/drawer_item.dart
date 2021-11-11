@@ -13,11 +13,7 @@ Widget buildDrawerItem(Category model, context) {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => Directionality(
-                textDirection: TextDirection.rtl,
-                child:
-                    ProductsForCategoryScreen(id: model.id, name: model.name),
-              ),
+              builder: (context) => ProductsForCategoryScreen(id: model.id, name: model.name),
             ));
       },
       child: Container(

@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:khsomat/data/models/order_model.dart';
 import 'package:khsomat/data/repository/products_repository.dart';
 import 'package:khsomat/data/web_services/web_services.dart';
 import 'package:khsomat/presentation/UI/login_screen.dart';
+import 'package:khsomat/translations/locale_keys.g.dart';
 
 class UserOrdersScreen extends StatelessWidget {
   UserOrdersScreen({Key? key}) : super(key: key);
@@ -31,7 +33,7 @@ class UserOrdersScreen extends StatelessWidget {
           builder: (context, state) {
             return Scaffold(
               appBar: AppBar(
-                title: Text('طلباتي'),
+                title: Text(LocaleKeys.my_orders.tr()),
               ),
               body: Conditional.single(
                 context: context,
@@ -59,7 +61,7 @@ class UserOrdersScreen extends StatelessWidget {
                     children: [
                     Icon(Icons.remove_shopping_cart_outlined,color: Colors.blue,size: 150.w,),
                     SizedBox(height: 20.h,),
-                    Text('لا يوجد طلبات حتي الآن'),
+                    Text(LocaleKeys.no_orders_yet.tr()),
                   ],),
                 ),
               ),
@@ -113,33 +115,33 @@ class UserOrdersScreen extends StatelessWidget {
                   SizedBox(
                     height: 5.h,
                   ),
-                  Text('الإجمالي : ${model.total}'),
+                  Text('${LocaleKeys.total.tr()} : ${model.total}'),
                   SizedBox(
                     height: 5.h,
                   ),
-                  Text('إجمالي الشحن : ${model.shippingTotal}'),
+                  Text('${LocaleKeys.total_shipping.tr()} : ${model.shippingTotal}'),
                   SizedBox(
                     height: 5.h,
                   ),
-                  Text('تاريخ الطلب : ${model.dateCreated}'),
+                  Text('${LocaleKeys.order_date.tr()} : ${model.dateCreated}'),
                   SizedBox(
                     height: 5.h,
                   ),
-                  Text('طريقة الدفع : ${model.paymentMethodTitle}'),
+                  Text('${LocaleKeys.paying_method.tr()} : ${model.paymentMethodTitle}'),
                   SizedBox(
                     height: 5.h,
                   ),
                   Container(
                       width: 250.w,
                       child: Text(
-                        'العنوان : ${model.billing!.address1}',
+                        '${LocaleKeys.address.tr()} : ${model.billing!.address1}',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       )),
                   SizedBox(
                     height: 5.h,
                   ),
-                  Text('رقم التليفون : ${model.billing!.phone}'),
+                  Text('${LocaleKeys.phone.tr()} : ${model.billing!.phone}'),
                   SizedBox(
                     height: 5.h,
                   ),

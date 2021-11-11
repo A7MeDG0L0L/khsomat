@@ -15,34 +15,22 @@ class AppRouter {
     switch (settings.name) {
       case homeLayout:
         return MaterialPageRoute(
-          builder: (context) => Directionality(
-            textDirection: TextDirection.rtl,
-            child: AppLayout(),
-          ),
+          builder: (context) => AppLayout(),
         );
       case productDetailsScreen:
         final product = settings.arguments as Product;
         return MaterialPageRoute(
-          builder: (context) => Directionality(
-            textDirection: TextDirection.rtl,
-            child: ProductDetailsScreen(
-              product: product,
-            ),
+          builder: (context) => ProductDetailsScreen(
+            product: product,
           ),
         );
       case registerScreen:
         return MaterialPageRoute(
-          builder: (context) => Directionality(
-            textDirection: TextDirection.rtl,
-            child: RegisterScreen(),
-          ),
+          builder: (context) => RegisterScreen(),
         );
       case loginScreen:
         return MaterialPageRoute(
-          builder: (context) => Directionality(
-            textDirection: TextDirection.rtl,
-            child: LoginScreen(),
-          ),
+          builder: (context) => LoginScreen(),
         );
       // case favoritesScreen:
       //

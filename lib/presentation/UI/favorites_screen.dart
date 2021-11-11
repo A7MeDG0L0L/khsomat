@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
 import 'package:khsomat/presentation/UI/Widgets/fav_product_item.dart';
+import 'package:khsomat/translations/locale_keys.g.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -70,7 +72,7 @@ class FavoritesScreen extends StatelessWidget {
                               FavoritesCubit.get(context).deleteAllItemsFromWishList();
                             },
                             child: Text(
-                              'حذف جميع المنتجات المفضلة',
+                              LocaleKeys.delete_all_products_from_wishlist.tr(),
                               style: TextStyle(fontSize: 18.sp),
                             ),
                           ),
@@ -93,7 +95,7 @@ class FavoritesScreen extends StatelessWidget {
                     height: 15.h,
                   ),
                   Text(
-                    ' قائمة المفضلة فارغة...',
+                    LocaleKeys.empty_wishlist.tr(),
                     style: TextStyle(fontSize: 20.sp),
                   ),
                 ],

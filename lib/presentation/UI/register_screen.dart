@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,6 +11,7 @@ import 'package:khsomat/business_logic/register_cubit/register_cubit.dart';
 import 'package:khsomat/business_logic/register_cubit/register_states.dart';
 import 'package:khsomat/presentation/UI/app_layout.dart';
 import 'package:khsomat/presentation/UI/login_screen.dart';
+import 'package:khsomat/translations/locale_keys.g.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({Key? key}) : super(key: key);
@@ -39,14 +41,11 @@ class RegisterScreen extends StatelessWidget {
             //   state: ToastStates.SUCCESS,
             // );
             showToast(
-                text: 'تم إنشاء الحساب بنجاح', state: ToastStates.SUCCESS);
+                text: LocaleKeys.account_created_successfully.tr(), state: ToastStates.SUCCESS);
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: LoginScreen(),
-                  ),
+                  builder: (context) => LoginScreen(),
                 ),
                 (route) => false);
           }
@@ -56,7 +55,7 @@ class RegisterScreen extends StatelessWidget {
             //       state: ToastStates.ERROR);
 
             showToast(
-              text: 'رجاء إدخال اسم مستخدم و كلمة مرور و بريد إلكتروني آخر',
+              text: LocaleKeys.create_error_toast.tr(),
               state: ToastStates.ERROR,
             );
           }
@@ -75,14 +74,12 @@ class RegisterScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: AppLayout()),
+                            builder: (context) => AppLayout(),
                           ),
                         );
                       },
                       child: Text(
-                        'تخطي',
+                        LocaleKeys.skip.tr(),
                         style: TextStyle(fontSize: 16.sp),
                       ),
                     ),
@@ -103,14 +100,14 @@ class RegisterScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              'إنشاء حساب جديد',
+                              LocaleKeys.create_account_now.tr(),
                               style: TextStyle(fontSize: 25.sp),
                             ),
                             SizedBox(
                               height: 10.h,
                             ),
                             Text(
-                              'إكتشف معني العروض الحقيقي مع خصومات',
+                              LocaleKeys.discover_the_real_meaning_of_offers.tr(),
                               style: TextStyle(
                                   fontSize: 15.sp, color: Colors.grey.shade500),
                             ),
@@ -126,13 +123,13 @@ class RegisterScreen extends StatelessWidget {
                                     keyboardType: TextInputType.text,
                                     validator: (String? value) {
                                       if (value!.isEmpty) {
-                                        return 'يجب إدخال إسم الأول';
+                                        return LocaleKeys.must_enter_firstname.tr();
                                       }
                                       return null;
                                     },
                                     decoration: InputDecoration(
                                       label: Text(
-                                        'الإسم الأول',
+                                        LocaleKeys.first_name.tr(),
                                         style: TextStyle(fontSize: 20.sp),
                                       ),
                                       prefixIcon: Icon(Icons.person),
@@ -152,13 +149,13 @@ class RegisterScreen extends StatelessWidget {
                                     keyboardType: TextInputType.text,
                                     validator: (String? value) {
                                       if (value!.isEmpty) {
-                                        return 'يجب إدخال إسم الأخير';
+                                        return LocaleKeys.must_enter_lastname;
                                       }
                                       return null;
                                     },
                                     decoration: InputDecoration(
                                       label: Text(
-                                        'الإسم الأخير',
+                                        LocaleKeys.last_name.tr(),
                                         style: TextStyle(fontSize: 20.sp),
                                       ),
                                       prefixIcon: Icon(Icons.person),
@@ -191,11 +188,11 @@ class RegisterScreen extends StatelessWidget {
                               keyboardType: TextInputType.emailAddress,
                               validator: (String? value) {
                                 if (value!.isEmpty) {
-                                  return 'يجب إدخال البريد الإلكتروني';
+                                  return LocaleKeys.must_enter_email.tr();
                                 } else if (value.isNotEmpty) {
                                   // EmailValidator.validate(value);
                                   if (EmailValidator.validate(value) == false) {
-                                    return 'يجب إدخال بريد إلكتروني صحيح';
+                                    return LocaleKeys.must_enter_validate_email.tr();
                                   }
                                 }
 
@@ -203,7 +200,7 @@ class RegisterScreen extends StatelessWidget {
                               },
                               decoration: InputDecoration(
                                 label: Text(
-                                  'البريد الإلكتروني',
+                                 LocaleKeys.email.tr(),
                                   style: TextStyle(fontSize: 20.sp),
                                 ),
                                 prefixIcon: Icon(Icons.email),
@@ -230,7 +227,7 @@ class RegisterScreen extends StatelessWidget {
                               keyboardType: TextInputType.visiblePassword,
                               validator: (String? value) {
                                 if (value!.isEmpty) {
-                                  return 'يجب إدخال كلمة المرور';
+                                  return LocaleKeys.must_enter_password.tr();
                                 }
                                 return null;
                               },
@@ -239,7 +236,7 @@ class RegisterScreen extends StatelessWidget {
                               enabled: true,
                               decoration: InputDecoration(
                                 label: Text(
-                                  'كلمة المرور',
+                                 LocaleKeys.password.tr(),
                                   style: TextStyle(fontSize: 20.sp),
                                 ),
                                 prefixIcon: Icon(Icons.lock),
@@ -263,7 +260,7 @@ class RegisterScreen extends StatelessWidget {
                               height: 15.h,
                             ),
                             ExpandablePanel(
-                              header: Text('معلومات إضافية'),
+                              header: Text(LocaleKeys.Optional_info.tr()),
                               collapsed: SizedBox(),
                               expanded: Column(
                                 children: [
@@ -272,13 +269,13 @@ class RegisterScreen extends StatelessWidget {
                                     keyboardType: TextInputType.text,
                                     validator: (String? value) {
                                       if (value!.isEmpty) {
-                                        return 'يجب إدخال إسم المستخدم';
+                                        return LocaleKeys.must_enter_username.tr();
                                       }
                                       return null;
                                     },
                                     decoration: InputDecoration(
                                       label: Text(
-                                        'إسم المستخدم',
+                                        LocaleKeys.username.tr(),
                                         style: TextStyle(fontSize: 20.sp),
                                       ),
                                       prefixIcon: Icon(Icons.person),
@@ -293,19 +290,19 @@ class RegisterScreen extends StatelessWidget {
                                     keyboardType: TextInputType.phone,
                                     validator: (String? value) {
                                       if (value!.isEmpty) {
-                                        return 'يجب إدخال رقم التليفون';
+                                        return LocaleKeys.must_enter_phone.tr();
                                       } else if (value.length != 11) {
-                                        return 'رقم التليفون يجب أن يكون مكون من 11 رقم';
+                                        return LocaleKeys.phone_validate;
                                       } else if (value.startsWith('01') !=
                                           true) {
-                                        return 'يجب أن يبدأ رقم التليفون ب *********01';
+                                        return LocaleKeys.phone_vaildate2.tr();
                                       }
                                       return null;
                                     },
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(Icons.phone),
                                       label: Text(
-                                        'رقم التليفون',
+                                        LocaleKeys.phone.tr(),
                                         style: TextStyle(fontSize: 20.sp),
                                       ),
                                       border: UnderlineInputBorder(),
@@ -324,14 +321,14 @@ class RegisterScreen extends StatelessWidget {
                                     keyboardType: TextInputType.text,
                                     validator: (String? value) {
                                       if (value!.isEmpty) {
-                                        return 'يجب إدخال المدينة';
+                                        return LocaleKeys.must_enter_city.tr();
                                       }
                                       return null;
                                     },
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(Icons.pin_drop_outlined),
                                       label: Text(
-                                        'المدينة',
+                                        LocaleKeys.city.tr(),
                                         style: TextStyle(fontSize: 20.sp),
                                       ),
                                       border: UnderlineInputBorder(),
@@ -345,14 +342,14 @@ class RegisterScreen extends StatelessWidget {
                                     keyboardType: TextInputType.streetAddress,
                                     validator: (String? value) {
                                       if (value!.isEmpty) {
-                                        return 'يجب إدخال العنوان';
+                                        return LocaleKeys.must_enter_address.tr();
                                       }
                                       return null;
                                     },
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(Icons.home_outlined),
                                       label: Text(
-                                        'العنوان',
+                                        LocaleKeys.address.tr(),
                                         style: TextStyle(fontSize: 20.sp),
                                       ),
                                       border: UnderlineInputBorder(),
@@ -414,7 +411,7 @@ class RegisterScreen extends StatelessWidget {
                                           lastnameController.text.isEmpty) {
                                         showToast(
                                             text:
-                                                'يجب إدخال جميع البيانات السابقة.',
+                                                LocaleKeys.must_enter_all_prev_info.tr(),
                                             state: ToastStates.ERROR);
                                       }
 
@@ -422,7 +419,7 @@ class RegisterScreen extends StatelessWidget {
                                       // print(responseModel.message);
                                     },
                                     child: Text(
-                                      'إنشاء الحساب',
+                                      LocaleKeys.create_account.tr(),
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 20.sp,
@@ -444,7 +441,7 @@ class RegisterScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'لديك حساب بالفعل ؟',
+                                  LocaleKeys.already_have_an_account.tr(),
                                   style: TextStyle(fontSize: 20.sp),
                                 ),
                                 TextButton(
@@ -452,15 +449,12 @@ class RegisterScreen extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => Directionality(
-                                          textDirection: TextDirection.rtl,
-                                          child: LoginScreen(),
-                                        ),
+                                        builder: (context) => LoginScreen(),
                                       ),
                                     );
                                   },
                                   child: Text(
-                                    'سجل الدخول',
+                                    LocaleKeys.sign_in.tr(),
                                     style: TextStyle(fontSize: 20.sp),
                                   ),
                                 ),

@@ -919,8 +919,7 @@ void signOut(context) {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => Directionality(
-                textDirection: TextDirection.rtl, child: LoginScreen()),
+            builder: (context) => LoginScreen(),
           ),
           (route) => false);
     }

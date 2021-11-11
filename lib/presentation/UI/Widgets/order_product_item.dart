@@ -222,19 +222,16 @@ Widget showOrderItem(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Expanded(
-                              child: Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: ListTile(
-                                  title: Text(
-                                    '${model['name']}',style: TextStyle(fontSize: 16.sp),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 4,
-                                    // style: sProductName,
-                                  ),
-                                  // subtitle: Text(product.type ?? ""),
-
-                                  isThreeLine: false,
+                              child: ListTile(
+                                title: Text(
+                                  '${model['name']}',style: TextStyle(fontSize: 16.sp),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 4,
+                                  // style: sProductName,
                                 ),
+                                // subtitle: Text(product.type ?? ""),
+
+                                isThreeLine: false,
                               ),
                             ),
                             Padding(

@@ -381,19 +381,16 @@ Widget showWishItem(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Expanded(
-                              child: Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: ListTile(
-                                  title: Text(
-                                    '${model['name']}',
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 4,style: TextStyle(fontSize: 18.sp),
-                                    // style: sProductName,
-                                  ),
-                                  // subtitle: Text(product.type ?? ""),
-
-                                  isThreeLine: false,
+                              child: ListTile(
+                                title: Text(
+                                  '${model['name']}',
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 4,style: TextStyle(fontSize: 18.sp),
+                                  // style: sProductName,
                                 ),
+                                // subtitle: Text(product.type ?? ""),
+
+                                isThreeLine: false,
                               ),
                             ),
                             Padding(

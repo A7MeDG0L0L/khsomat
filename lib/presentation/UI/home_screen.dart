@@ -194,7 +194,7 @@ class HomeScreen extends StatelessWidget {
               );
             }),
             InkWell(onTap: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => Directionality(textDirection: TextDirection.rtl,child: ProductsForCategoryScreen(id: 142, name: 'ملابس اطفال')),));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductsForCategoryScreen(id: 142, name: 'ملابس اطفال'),));
             },child: Image(image: AssetImage('assets/images/kids.jpg'),)),
             SizedBox(
               height: 15.h,
@@ -224,7 +224,7 @@ class HomeScreen extends StatelessWidget {
             }),
 
             InkWell(onTap: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => Directionality(textDirection: TextDirection.rtl,child: ProductsForCategoryScreen(id: 3195, name: 'راجعين المدارس')),));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductsForCategoryScreen(id: 3195, name: 'راجعين المدارس'),));
             },child: Image(image: AssetImage('assets/images/ack to school.jpg'),)),
             SizedBox(
               height: 15.h,
@@ -253,7 +253,7 @@ class HomeScreen extends StatelessWidget {
               );
             }),
             InkWell(onTap: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => Directionality(textDirection: TextDirection.rtl,child: ProductsForCategoryScreen(id: 165, name: 'موبايلات')),));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductsForCategoryScreen(id: 165, name: 'موبايلات'),));
             },child: Image(image: AssetImage('assets/images/mobiles.jpg'),)),
             SizedBox(
               height: 15.h,
@@ -282,7 +282,7 @@ class HomeScreen extends StatelessWidget {
               );
             }),
             InkWell(onTap: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => Directionality(textDirection: TextDirection.rtl,child: ProductsForCategoryScreen(id: 175, name: 'ساعات و نظارات')),));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductsForCategoryScreen(id: 175, name: 'ساعات و نظارات'),));
             },child: Image(image: AssetImage('assets/images/sunglasses.jpg'),)),
             SizedBox(
               height: 15.h,
@@ -348,12 +348,9 @@ class HomeScreen extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: ProductsForCategoryScreen(
-                    id: model.id,
-                    name: model.name,
-                  ),
+                builder: (context) => ProductsForCategoryScreen(
+                  id: model.id,
+                  name: model.name,
                 ),
               ));
         },

@@ -94,10 +94,7 @@ class ProfileScreen extends StatelessWidget {
                                   onPressed: () {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
-                                        builder: (context) => Directionality(
-                                          textDirection: TextDirection.rtl,
-                                          child: UserInfoScreen(),
-                                        ),
+                                        builder: (context) => UserInfoScreen(),
                                       ),
                                     );
                                   },
@@ -231,10 +228,7 @@ class ProfileScreen extends StatelessWidget {
                                   onPressed: () {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
-                                        builder: (context) => Directionality(
-                                          textDirection: TextDirection.rtl,
-                                          child: UserOrdersScreen(),
-                                        ),
+                                        builder: (context) => UserOrdersScreen(),
                                       ),
                                     );
                                   },
@@ -261,10 +255,7 @@ class ProfileScreen extends StatelessWidget {
                                   onPressed: () {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
-                                        builder: (context) => Directionality(
-                                          textDirection: TextDirection.rtl,
-                                          child: AboutUsScreen(),
-                                        ),
+                                        builder: (context) => AboutUsScreen(),
                                       ),
                                     );
                                   },
@@ -286,6 +277,87 @@ class ProfileScreen extends StatelessWidget {
                                   height: 15.h,
                                 ),
                                 RawMaterialButton(
+                                  onPressed: () async {
+                                    // await context.setLocale(Locale('ar'));
+                                    // Dialog(
+                                    //   child: Text('Test'),
+                                    // );
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => Dialog(
+                                          child: Container(
+                                            height: 150.h,
+                                            width: 150.w,
+                                            child: Center(
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                  Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      InkWell(
+                                                        onTap: ()async {
+                                                          context.setLocale(Locale('ar'));
+                                                          // CacheHelper.saveData(key: 'lang', value: 'ar');
+                                                        },
+                                                        child: Image(
+                                                          image: AssetImage(
+                                                              'assets/images/saudi-arabia.png'),
+                                                          width: 50.w,
+                                                          height: 50.h,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                      Text('العربية')
+                                                    ],
+                                                  ),
+                                                  Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+
+                                                    children: [
+                                                      InkWell(
+                                                        onTap: ()async{
+                                                          context.setLocale(Locale('en'));
+                                                          // CacheHelper.saveData(key: 'lang', value: 'en');
+                                                        },
+                                                        child: Image(
+                                                          image: AssetImage(
+                                                              'assets/images/united-kingdom.png'),
+                                                          width: 50.w,
+                                                          height: 50.h,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                      Text('English')
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          )),
+                                      useSafeArea: true,
+                                    );
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        LocaleKeys.lang.tr(),
+                                        style: TextStyle(
+                                          fontSize: 18.sp,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Icon(Icons.arrow_forward_ios,
+                                          size: 15.r, color: Colors.white),
+                                    ],
+                                  ),
+                                ),
+
+                                SizedBox(
+                                  height: 15.h,
+                                ),
+                                RawMaterialButton(
                                   onPressed: () {
                                     signOut(context);
                                     // Navigator.of(context).push(
@@ -300,7 +372,7 @@ class ProfileScreen extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Text(
-                                        'تسجيل الخروج',
+                                        LocaleKeys.signout.tr(),
                                         style: TextStyle(
                                           fontSize: 18.sp,
                                           color: Colors.white,
@@ -311,86 +383,7 @@ class ProfileScreen extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 15.h,
-                                ),
-                                RawMaterialButton(
-                                  onPressed: () async {
-                                    // await context.setLocale(Locale('ar'));
-                                    Dialog(
-                                      child: Text('Test'),
-                                    );
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => Dialog(
-                                          child: Container(
-                                        height: 150.h,
-                                        width: 150.w,
-                                        child: Center(
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  InkWell(
-                                                    onTap: ()async {
-                                                      context.setLocale(Locale('ar'));
-                                                      // CacheHelper.saveData(key: 'lang', value: 'ar');
-                                                    },
-                                                    child: Image(
-                                                      image: AssetImage(
-                                                          'assets/images/saudi-arabia.png'),
-                                                      width: 50.w,
-                                                      height: 50.h,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                  Text('العربية')
-                                                ],
-                                              ),
-                                              Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
 
-                                                children: [
-                                                  InkWell(
-                                                    onTap: ()async{
-                                                      context.setLocale(Locale('en'));
-                                                      // CacheHelper.saveData(key: 'lang', value: 'en');
-                                                    },
-                                                    child: Image(
-                                                      image: AssetImage(
-                                                          'assets/images/united-kingdom.png'),
-                                                      width: 50.w,
-                                                      height: 50.h,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                  Text('English')
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      )),
-                                      useSafeArea: true,
-                                    );
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        'لغة',
-                                        style: TextStyle(
-                                          fontSize: 18.sp,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      Icon(Icons.arrow_forward_ios,
-                                          size: 15.r, color: Colors.white),
-                                    ],
-                                  ),
-                                ),
 
                                 // DropdownButton(items: [DropdownMenuItem(child: Image.asset('assets/images/saudi-arabia.png'),),DropdownMenuItem(child: Image.asset('assets/images/united-kingdom.png'),),],),
                               ],
@@ -499,15 +492,12 @@ class ProfileScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: LoginScreen(),
-                      ),
+                      builder: (context) => LoginScreen(),
                     ),
                   );
                 },
                 child: Text(
-                  'سجل الدخول الآن',
+                  LocaleKeys.sign_in_to_your_account.tr(),
                   style: TextStyle(fontSize: 20.sp),
                 ),
               ),

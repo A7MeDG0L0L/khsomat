@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,6 +15,7 @@ import 'package:khsomat/presentation/UI/Widgets/bottomSheetWidget.dart';
 import 'package:khsomat/presentation/UI/Widgets/checkout_item.dart';
 import 'package:cupertino_stepper/cupertino_stepper.dart';
 import 'package:khsomat/presentation/UI/app_layout.dart';
+import 'package:khsomat/translations/locale_keys.g.dart';
 import 'package:lottie/lottie.dart';
 import 'package:select_form_field/select_form_field.dart';
 
@@ -116,12 +118,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Directionality(
-                        textDirection: TextDirection.rtl, child: AppLayout()),
+                    builder: (context) => AppLayout(),
                   ),
                   (route) => false);
             },
-            child: Text('رجوع إلي الصفحة الرئيسية'),
+            child: Text(LocaleKeys.back_to_home_page.tr()),
           ),
         ],
       ),
@@ -148,7 +149,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   state:
                       currentStep > 0 ? StepState.complete : StepState.indexed,
                   isActive: currentStep >= 0,
-                  title: Text('بياناتي'),
+                  title: Text(LocaleKeys.my_info.tr()),
                   content: state is RetrieveCustomerByIDSuccessState
                       ? Column(
                           children: [
@@ -166,7 +167,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 decoration: InputDecoration(
                                   prefixIcon: Icon(Icons.person),
                                   label: Text(
-                                    'الإسم الأول',
+                                    LocaleKeys.first_name.tr(),
                                     style: TextStyle(fontSize: 20.sp),
                                   ),
                                   border: OutlineInputBorder(),
@@ -187,7 +188,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 decoration: InputDecoration(
                                   prefixIcon: Icon(Icons.person),
                                   label: Text(
-                                    'الإسم الأخير',
+                                    LocaleKeys.last_name.tr(),
                                     style: TextStyle(fontSize: 20.sp),
                                   ),
                                   border: OutlineInputBorder(),
@@ -257,7 +258,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 decoration: InputDecoration(
                                   prefixIcon: Icon(Icons.person),
                                   label: Text(
-                                    'التليفون',
+                                    LocaleKeys.phone.tr(),
                                     style: TextStyle(fontSize: 20.sp),
                                   ),
                                   border: OutlineInputBorder(),
@@ -294,7 +295,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 // initialValue: 'City',
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(),
-                                  label: Text('المدينة'),
+                                  label: Text(LocaleKeys.city.tr()),
                                   prefixIcon: Icon(Icons.map),
                                   hintText: 'أختر مدينتك',
                                 ),
@@ -347,7 +348,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 smartQuotesType: SmartQuotesType.enabled,
                               ),
                             ),
-                            Text('قيمة الشحن هي :  $dropValue'),
+                            Text('${LocaleKeys.total_shipping_is.tr()}$dropValue'),
 
                             Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -363,7 +364,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 },
                                 decoration: InputDecoration(
                                   label: Text(
-                                    'العنوان',
+                                    LocaleKeys.address.tr(),
                                     style: TextStyle(fontSize: 20.sp),
                                   ),
                                   prefixIcon: Icon(Icons.home_outlined),
@@ -440,7 +441,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   state:
                       currentStep > 1 ? StepState.complete : StepState.indexed,
                   isActive: currentStep >= 1,
-                  title: Text('المنتجات'),
+                  title: Text(LocaleKeys.products.tr()),
                   content: Column(
                     children: [
                       Padding(
@@ -485,7 +486,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             child: Row(
                               children: [
                                 Text(
-                                  'المجموع',
+                                  LocaleKeys.subtotal.tr(),
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 21.sp),
                                 ),
@@ -511,7 +512,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         child: Row(
                         children: [
                           Text(
-                            'قيمة الشحن',
+                            LocaleKeys.total_shipping.tr(),
                             style:
                                 TextStyle(color: Colors.black, fontSize: 21.sp),
                           ),
@@ -537,7 +538,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             child: Row(
                               children: [
                                 Text(
-                                  'الإجمالي',
+                                  LocaleKeys.total.tr(),
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 21.sp),
                                 ),
@@ -563,7 +564,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 ),
                 Step(
                   isActive: currentStep >= 2,
-                  title: Text('إتمام الطلب'),
+                  title: Text(LocaleKeys.complete_order.tr()),
                   content: Container(
                     child: TextFormField(
                       style: TextStyle(height: 5.h),
@@ -578,7 +579,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.sticky_note_2_rounded),
                         label: Text(
-                          'ملاحظات',
+                          LocaleKeys.notes.tr(),
                           style: TextStyle(fontSize: 20.sp),
                         ),
                         border: OutlineInputBorder(
@@ -594,7 +595,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                'إتمام الطلب',
+                LocaleKeys.complete_order.tr(),
                 style: TextStyle(fontSize: 20.sp),
               ),
             ),
@@ -614,7 +615,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             ElevatedButton(
                               onPressed: onStepContinue,
                               child:
-                                  Text(isLastStep ? 'إتمام الطلب' : 'متابعة'),
+                                  Text(isLastStep ? LocaleKeys.complete_order.tr() : LocaleKeys.continuee.tr()),
                             ),
                             SizedBox(
                               width: 50.w,
@@ -622,7 +623,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             if (currentStep != 0)
                               ElevatedButton(
                                 onPressed: onStepCancel,
-                                child: const Text('رجوع'),
+                                child:  Text(LocaleKeys.back.tr()),
                               ),
                           ],
                         ),
