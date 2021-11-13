@@ -1,5 +1,6 @@
 
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
@@ -361,12 +362,14 @@ class HomeScreen extends StatelessWidget {
               Container(
                 height: 100.h,
                 width: 100.w,
-                child: model.image != null
-                    ? FadeInImage.assetNetwork(
-                        placeholder: 'assets/loading/loading.gif',
-                        image: model.image!.src,
-                      )
-                    : Image.asset('assets/images/Newplaceholder2.png',fit: BoxFit.cover,),
+                // child: model.image != null
+                //     ? FadeInImage.assetNetwork(
+                //         placeholder: 'assets/loading/loading.gif',
+                //         image: model.image!.src,
+                //       )
+                //     : Image.asset('assets/images/Newplaceholder2.png',fit: BoxFit.cover,),
+                
+                child: model.image != null ? CachedNetworkImage(imageUrl: model.image!.src,placeholder: (context, url) => Image.asset('assets/loading/loading.gif'),):Image.asset('assets/images/Newplaceholder2.png',fit: BoxFit.cover,),
               ),
               SizedBox(
                 height: 8.h,

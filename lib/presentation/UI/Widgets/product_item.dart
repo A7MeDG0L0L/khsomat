@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/src/public_ext.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +16,7 @@ import 'package:translator/translator.dart';
 
 class ProductItem extends StatelessWidget {
   final Product product;
-   const ProductItem({Key? key, required this.product}) : super(key: key);
+  const ProductItem({Key? key, required this.product}) : super(key: key);
   // final translator = GoogleTranslator();
   // late String productName;
   @override
@@ -23,25 +25,29 @@ class ProductItem extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         // translator.translate( product.name!,to: 'en').then((value) => printWrapped(value.text));
-        dynamic discountedPrice(){
+        dynamic discountedPrice() {
           dynamic discountedPrice;
-          if(product.prices!.salePrice==0||product.prices!.regularPrice==0){
-            product.prices!.salePrice=1;
-            product.prices!.regularPrice=1;
-             discountedPrice= 100 * (product.prices!.regularPrice - product.prices!.salePrice) ~/ product.prices!.regularPrice;
+          if (product.prices!.salePrice == 0 ||
+              product.prices!.regularPrice == 0) {
+            product.prices!.salePrice = 1;
+            product.prices!.regularPrice = 1;
+            discountedPrice = 100 *
+                (product.prices!.regularPrice - product.prices!.salePrice) ~/
+                product.prices!.regularPrice;
             return discountedPrice;
-          }
-          else
-           return discountedPrice= 100 * (product.prices!.regularPrice - product.prices!.salePrice) ~/ product.prices!.regularPrice;
-
+          } else
+            return discountedPrice = 100 *
+                (product.prices!.regularPrice - product.prices!.salePrice) ~/
+                product.prices!.regularPrice;
         }
+
         return InkWell(
           onTap: () async {
             Navigator.pushNamed(context, productDetailsScreen,
                 arguments: product);
-           await HomeCubit.get(context).getRelatedProductsID(product.id!);
-           // Future.delayed(Duration(seconds: 8));
-           //  HomeCubit.get(context).getRelatedProducts();
+            await HomeCubit.get(context).getRelatedProductsID(product.id!);
+            // Future.delayed(Duration(seconds: 8));
+            //  HomeCubit.get(context).getRelatedProducts();
           },
           child: Hero(
             tag: product.id!,
@@ -63,14 +69,26 @@ class ProductItem extends StatelessWidget {
                             topRight: Radius.circular(15.r),
                           ),
                           child: product.images!.isNotEmpty
-                              ? FadeInImage.assetNetwork(
-                                  fit: BoxFit.cover,
-                                  image: product.images![0].src!,
-                                  width: double.infinity,
-                                  height: 200.0.h,
-                                  placeholder: 'assets/loading/loading2.gif',
+                              ? CachedNetworkImage(
+                                  imageUrl: product.images![0].src!,
+                                  placeholder: (context, url) => Image.asset(
+                                      'assets/loading/loading2.gif'),
                                 )
-                              : Image.asset('assets/images/Newplaceholder2.png',height: 200.h,fit: BoxFit.cover,),
+                              : Image.asset(
+                                  'assets/images/Newplaceholder2.png',
+                                  height: 200.h,
+                                  fit: BoxFit.cover,
+                                ),
+
+                        // child:  product.images!.isNotEmpty
+                        //       ? FadeInImage.assetNetwork(
+                        //     fit: BoxFit.cover,
+                        //     image: product.images![0].src!,
+                        //     width: double.infinity,
+                        //     height: 200.0.h,
+                        //     placeholder: 'assets/loading/loading2.gif',
+                        //   )
+                        //       : Image.asset('assets/images/Newplaceholder2.png',height: 200.h,fit: BoxFit.cover,),
                         ),
                       ),
                       if (product.onSale == true &&
@@ -78,7 +96,8 @@ class ProductItem extends StatelessWidget {
                               product.prices!.salePrice!)
                         Padding(
                           padding: const EdgeInsets.all(5.0),
-                          child: CircleAvatar(backgroundColor: Colors.blue,
+                          child: CircleAvatar(
+                            backgroundColor: Colors.blue,
                             radius: 18.0,
                             // color: Colors.red,
                             // padding: EdgeInsets.all(10.0
@@ -104,7 +123,7 @@ class ProductItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                          product.name! ,
+                            product.name!,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -116,18 +135,26 @@ class ProductItem extends StatelessWidget {
                           Spacer(),
                           Row(
                             children: [
-                              if(product.prices!.salePrice.toString().length<4)
-                              Text('${product.prices!.salePrice}',style: TextStyle(
-                                  fontFamily: 'Almarai',
-                                  fontSize: 21.sp,
-                                  color: defColor,
-                                ),),
-                              if(product.prices!.salePrice.toString().length>=4)
-                              Text('${product.prices!.salePrice}',style: TextStyle(
-                                fontFamily: 'Almarai',
-                                fontSize: 16.sp,
-                                color: defColor,
-                              ),),
+                              if (product.prices!.salePrice.toString().length <
+                                  4)
+                                Text(
+                                  '${product.prices!.salePrice}',
+                                  style: TextStyle(
+                                    fontFamily: 'Almarai',
+                                    fontSize: 21.sp,
+                                    color: defColor,
+                                  ),
+                                ),
+                              if (product.prices!.salePrice.toString().length >=
+                                  4)
+                                Text(
+                                  '${product.prices!.salePrice}',
+                                  style: TextStyle(
+                                    fontFamily: 'Almarai',
+                                    fontSize: 16.sp,
+                                    color: defColor,
+                                  ),
+                                ),
                               // if (product.prices!.salePrice!.length == 4)
                               //   Text(
                               //     product.prices!.salePrice!.substring(
@@ -181,20 +208,32 @@ class ProductItem extends StatelessWidget {
                               SizedBox(
                                 width: 8.0.w,
                               ),
-                              if(product.prices!.regularPrice.toString().length<4)
-                              Text('${product.prices!.regularPrice}',style: TextStyle(
-                                      fontFamily: 'Almarai',
-                                      fontSize: 18.sp,
-                                      color: Colors.grey,
-                                      decoration: TextDecoration.lineThrough,
-                                    ),),
-                              if(product.prices!.regularPrice.toString().length>=4)
-                                Text('${product.prices!.regularPrice}',style: TextStyle(
-                                  fontFamily: 'Almarai',
-                                  fontSize: 14.sp,
-                                  color: Colors.grey,
-                                  decoration: TextDecoration.lineThrough,
-                                ),),
+                              if (product.prices!.regularPrice
+                                      .toString()
+                                      .length <
+                                  4)
+                                Text(
+                                  '${product.prices!.regularPrice}',
+                                  style: TextStyle(
+                                    fontFamily: 'Almarai',
+                                    fontSize: 18.sp,
+                                    color: Colors.grey,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                                ),
+                              if (product.prices!.regularPrice
+                                      .toString()
+                                      .length >=
+                                  4)
+                                Text(
+                                  '${product.prices!.regularPrice}',
+                                  style: TextStyle(
+                                    fontFamily: 'Almarai',
+                                    fontSize: 14.sp,
+                                    color: Colors.grey,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                                ),
                               // if (product.onSale == true &&
                               //     product.prices!.regularPrice! !=
                               //         product.prices!.salePrice! &&
@@ -297,13 +336,10 @@ class ProductItem extends StatelessWidget {
                                 },
                                 icon: CircleAvatar(
                                   radius: 14.r,
-                                  backgroundColor:
-                                      FavoritesCubit
-                                      .get(context)
-                                      .checkItemWishList(product.id)
+                                  backgroundColor: FavoritesCubit.get(context)
+                                          .checkItemWishList(product.id)
                                       ? defColor
-                                      :
-                                      Colors.grey,
+                                      : Colors.grey,
                                   child: Icon(
                                     Icons.favorite_border,
                                     size: 12.r,

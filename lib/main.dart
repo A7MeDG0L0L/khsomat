@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +11,11 @@ import 'package:khsomat/Shared/my_colors.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
+import 'package:khsomat/data/notifcations/notifications.dart';
 import 'package:khsomat/data/repository/products_repository.dart';
 import 'package:khsomat/data/web_services/web_services.dart';
 import 'package:khsomat/presentation/UI/app_layout.dart';
+import 'package:khsomat/presentation/UI/products_category_screen.dart';
 import 'package:khsomat/presentation/UI/register_screen.dart';
 import 'package:khsomat/translations/codegen_loader.g.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -55,11 +59,55 @@ void main() async {
 
   await CacheHelper.init();
   await EasyLocalization.ensureInitialized();
+  await AwesomeNotifications().initialize(
+    null,
+    [
+      NotificationChannel(
+        channelKey: 'basic_channel',
+        channelName: 'Basic Notifications',
+        defaultColor: Colors.blue,
+        importance: NotificationImportance.High,
+        channelShowBadge: true,
+        channelDescription: 'Basic Notification',
+      ),
+      NotificationChannel(
+        channelKey: 'scheduled_channel',
+        channelName: 'Scheduled Notifications',
+        defaultColor: Colors.blue,
+        locked: true,
+        importance: NotificationImportance.High,
+        channelDescription: 'Scheduled Notification',
+      ),
+    ],
+  );
+await createWaterReminderNotification();
+
+
+  // AwesomeNotifications().actionStream.listen((notification) {
+  //   // if (notification.channelKey == 'basic_channel' && Platform.isIOS) {
+  //   //   AwesomeNotifications().getGlobalBadgeCounter().then(
+  //   //         (value) =>
+  //   //         AwesomeNotifications().setGlobalBadgeCounter(value - 1),
+  //   //   );
+  //   // }
+  //
+  //   // Navigator.pushAndRemoveUntil(
+  //   //   context,
+  //   //   MaterialPageRoute(
+  //   //     builder: (_) => PlantStatsPage(),
+  //   //   ),
+  //   //       (route) => route.isFirst,
+  //   // );
+  //
+  //
+  // });
+
+
+
 
   Bloc.observer = MyBlocObserver();
   token = CacheHelper.getData(key: 'token');
   print(token);
-
 
   // if(stringFavList != null || productList != null){
   //   // printWrapped(stringFavList!);
@@ -74,36 +122,58 @@ void main() async {
     widget = RegisterScreen();
   }
 
-  runApp( EasyLocalization(
-    path: 'assets/translations',
-    supportedLocales: [
-      Locale('ar'),
-      Locale('en'),
-    ],
-    fallbackLocale: Locale('ar'),
-    assetLoader: CodegenLoader(),
-    startLocale: Locale('ar'),
-    saveLocale: true,
-    child: MyApp(
+  runApp(
+    EasyLocalization(
+      path: 'assets/translations',
+      supportedLocales: [
+        Locale('ar'),
+        Locale('en'),
+      ],
+      fallbackLocale: Locale('ar'),
+      assetLoader: CodegenLoader(),
+      startLocale: Locale('ar'),
+      saveLocale: true,
+      child: MyApp(
         appRouter: AppRouter(),
         startWidget: widget,
       ),
-  ),
+    ),
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   final AppRouter appRouter;
   final Widget startWidget;
   const MyApp({Key? key, required this.appRouter, required this.startWidget})
       : super(key: key);
-  // This widget is the root of your application.
+
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    AwesomeNotifications().actionStream.listen((notification) {
+      // if (notification.channelKey == 'basic_channel' && Platform.isIOS) {
+      //   AwesomeNotifications().getGlobalBadgeCounter().then(
+      //         (value) =>
+      //         AwesomeNotifications().setGlobalBadgeCounter(value - 1),
+      //   );
+      // }
+
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductsForCategoryScreen(id: 175, name: 'ساعات و نظارات'),),);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (context) => HomeCubit(ProductRepository(WebServices()))..createDatabase()
+            create: (context) => HomeCubit(ProductRepository(WebServices()))
+              ..createDatabase()
               ..getAllProducts()
               ..getAllCategories()),
         BlocProvider(create: (context) => FavoritesCubit()),
@@ -118,13 +188,12 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           return ScreenUtilInit(
             designSize: Size(411, 845),
-            builder: () =>  MaterialApp(
+            builder: () => MaterialApp(
               localizationsDelegates: context.localizationDelegates,
               supportedLocales: context.supportedLocales,
               locale: context.locale,
               // builder: DevicePreview.appBuilder,
               // locale: DevicePreview.locale(context),
-
 
               // builder: (context, child) => ResponsiveWrapper.builder(
               //   child,
@@ -142,12 +211,10 @@ class MyApp extends StatelessWidget {
               theme: ThemeData(
                 primarySwatch: defColor,
                 fontFamily: 'Almarai',
-                textTheme:  TextTheme(
-
-                ),
+                textTheme: TextTheme(),
               ),
-              onGenerateRoute: appRouter.generateRoute,
-              home: startWidget,
+              onGenerateRoute: widget.appRouter.generateRoute,
+              home: widget.startWidget,
             ),
           );
         },

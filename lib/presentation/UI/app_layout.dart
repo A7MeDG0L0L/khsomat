@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
+import 'package:khsomat/data/notifcations/notifications.dart';
 import 'package:khsomat/presentation/UI/Widgets/drawer/drawer_menu_screen.dart';
 import 'package:khsomat/presentation/UI/Widgets/drawer_item.dart';
 import 'package:khsomat/presentation/UI/cart_screen.dart';
@@ -102,6 +104,19 @@ class AppLayout extends StatelessWidget {
                   );
                 },
                 icon: Icon(Icons.search,size: 22.w,),
+              ),
+              IconButton(
+                onPressed: ()async{
+                  await createLocalNotification();
+                  AwesomeNotifications().createdStream.listen((notification) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                        'Notification Created on ${notification.channelKey}',
+                      ),
+                    ));
+                  });
+                },
+                icon: Icon(Icons.alarm,size: 22.w,),
               ),
               ///TODO:Test This Condition
               if(HomeCubit.get(context).currentIndex==2 && orderList.isNotEmpty)
