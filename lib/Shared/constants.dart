@@ -21,6 +21,7 @@ String? city = CacheHelper.getData(key: 'city');
 String? address = CacheHelper.getData(key: 'address');
 int? total = CacheHelper.getData(key: 'total');
 int? id = CacheHelper.getData(key: 'userID');
+int? categoryID = CacheHelper.getData(key: 'categoryID');
 
 // String? lang = CacheHelper.getData(key: 'lang');
 

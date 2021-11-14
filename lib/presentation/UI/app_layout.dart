@@ -12,12 +12,14 @@ import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/favorites_cubit/favorites_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/business_logic/home_cubit/home_state.dart';
+import 'package:khsomat/business_logic/product_cubit/product_cubit.dart';
 import 'package:khsomat/data/notifcations/notifications.dart';
 import 'package:khsomat/presentation/UI/Widgets/drawer/drawer_menu_screen.dart';
 import 'package:khsomat/presentation/UI/Widgets/drawer_item.dart';
 import 'package:khsomat/presentation/UI/cart_screen.dart';
 import 'package:khsomat/presentation/UI/home_screen.dart';
 import 'package:khsomat/presentation/UI/login_screen.dart';
+import 'package:khsomat/presentation/UI/products_screen.dart';
 import 'package:khsomat/presentation/UI/search_screen.dart';
 import 'package:khsomat/translations/locale_keys.g.dart';
 import 'package:lottie/lottie.dart';
@@ -33,6 +35,7 @@ class AppLayout extends StatelessWidget {
   static const _facebook = 'https://www.facebook.com/khsomatcom';
   static const _phone = 'tel:+201220255556';
   final drawerController = ZoomDrawerController();
+  final _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   void _launchURL(url) async =>
       await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
@@ -48,6 +51,12 @@ class AppLayout extends StatelessWidget {
               Icons.home_outlined,
             ),
             title: Text(LocaleKeys.home.tr(),),
+          ),
+          SalomonBottomBarItem(
+            icon: Icon(
+              Icons.shopping_cart,
+            ),
+            title: Text('المنتجات'),
           ),
           SalomonBottomBarItem(
             icon: Stack(
@@ -83,6 +92,7 @@ class AppLayout extends StatelessWidget {
           ),
         ];
         return Scaffold(
+          key: _scaffoldKey,
           backgroundColor: Colors.white,
           appBar: AppBar(
             elevation: HomeCubit.get(context).currentIndex==3 ? 0.0:4.0,
@@ -91,6 +101,13 @@ class AppLayout extends StatelessWidget {
 
               //color: Colors.white,
               cacheColorFilter: true,
+            ),
+           // elevation:0,
+            toolbarHeight: 80.h,centerTitle: true,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(30),
+              ),
             ),
             //Image(image: AssetImage('assets/images/150x150 Png White-01.png'),),
             actions: [
@@ -105,19 +122,71 @@ class AppLayout extends StatelessWidget {
                 },
                 icon: Icon(Icons.search,size: 22.w,),
               ),
+              if(HomeCubit.get(context).currentIndex==1)
               IconButton(
-                onPressed: ()async{
-                  await createLocalNotification();
-                  AwesomeNotifications().createdStream.listen((notification) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                        'Notification Created on ${notification.channelKey}',
-                      ),
-                    ));
-                  });
+                ///TODO: Error Here ! :( :         BlocProvider.of() called with a context that does not contain a ProductCubit.
+                onPressed: () {
+                  _scaffoldKey.currentState!.showBottomSheet((context) => Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                    TextButton(
+                          child: Text('Sort'),
+                          onPressed: (){
+                            ProductCubit.get(context).sortProducts();
+                            // List<Map<String, dynamic>> myProducts = [
+                            //   {"name": "Shoes", "price": 100},
+                            //   {"name": "Pants", "price": 50},
+                            //   {"name": "Book", "price": 10},
+                            //   {"name": "Lamp", "price": 40},
+                            //   {"name": "Fan", "price": 200}
+                            // ];
+                            //  ProductCubit.get(context).getProductsScreen(pageNum: 1);
+                            // _controller.jumpTo(_controller.position.maxScrollExtent);
+                            // printWrapped(productScreen.toString());
+                            //  myProducts.sort([]);
+                            //  print(myProducts);
+                          },
+                        ),
+                    ],
+                  ) );
+                  // Scaffold.of(context).showBottomSheet((context) => Column(
+                  //   children: [
+                  //     TextButton(
+                  //       child: Text('Sort'),
+                  //       onPressed: (){
+                  //         ProductCubit.get(context).sortProducts();
+                  //         // List<Map<String, dynamic>> myProducts = [
+                  //         //   {"name": "Shoes", "price": 100},
+                  //         //   {"name": "Pants", "price": 50},
+                  //         //   {"name": "Book", "price": 10},
+                  //         //   {"name": "Lamp", "price": 40},
+                  //         //   {"name": "Fan", "price": 200}
+                  //         // ];
+                  //         //  ProductCubit.get(context).getProductsScreen(pageNum: 1);
+                  //         // _controller.jumpTo(_controller.position.maxScrollExtent);
+                  //         // printWrapped(productScreen.toString());
+                  //         //  myProducts.sort([]);
+                  //         //  print(myProducts);
+                  //       },
+                  //     ),
+                  //   ],
+                  // ) );
                 },
-                icon: Icon(Icons.alarm,size: 22.w,),
+                icon: Icon(Icons.settings,size: 22.w,),
               ),
+              // IconButton(
+              //   onPressed: ()async{
+              //     await createLocalNotification();
+              //     AwesomeNotifications().createdStream.listen((notification) {
+              //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //         content: Text(
+              //           'Notification Created on ${notification.channelKey}',
+              //         ),
+              //       ));
+              //     });
+              //   },
+              //   icon: Icon(Icons.alarm,size: 22.w,),
+              // ),
               ///TODO:Test This Condition
               if(HomeCubit.get(context).currentIndex==2 && orderList.isNotEmpty)
               IconButton(

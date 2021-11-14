@@ -23,7 +23,7 @@ Widget buildDrawerItem(Category model, context) {
           child: Row(
             children: [
               Text(
-                model.name,
+                '${model.name}  ${model.id}',
                 style: TextStyle(color: Colors.black,fontSize: 16.sp,overflow: TextOverflow.ellipsis),
                 overflow: TextOverflow.ellipsis,
                 textScaleFactor: 1.w,

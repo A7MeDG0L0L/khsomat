@@ -17,6 +17,13 @@ class ProductRepository{
        final products = await productsWebServices.getRelatedProducts(productIds: productIds);
        return products.map((product) =>Product.fromJson(product)).toList();
      }
+
+     Future<dynamic> getProductForProductScreen({int pageNum=1,int? categoryNum})async{
+       final productsScreen=await productsWebServices.getProductForProductScreen(pageNum: pageNum,categoryNum: categoryNum);
+       return productsScreen.map((products) => Product.fromJson(products)).toList();
+
+     }
+
      Future<List<Product>> getAllProductsForCategory(int id) async {
        final products= await productsWebServices.getAllProductsForCategory(id);
        return products.map((product) => Product.fromJson(product)).toList();

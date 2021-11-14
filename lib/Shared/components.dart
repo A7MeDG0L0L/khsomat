@@ -136,8 +136,8 @@ Widget defaultTextButton({
 Widget loadingIndicator() {
   return Center(
     child: Container(
-        height: 150.h,
-        width: 200.w,
+        // height: 150.h,
+        // width: 200.w,
         child: Lottie.asset('assets/loading/loading4.json'),),
   );
 }

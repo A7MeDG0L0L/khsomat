@@ -13,6 +13,7 @@ import 'package:khsomat/presentation/UI/cart_screen.dart';
 import 'package:khsomat/presentation/UI/favorites_screen.dart';
 import 'package:khsomat/presentation/UI/app_layout.dart';
 import 'package:khsomat/presentation/UI/home_screen.dart';
+import 'package:khsomat/presentation/UI/products_screen.dart';
 import 'package:khsomat/presentation/UI/profile_screen.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -26,6 +27,7 @@ class HomeCubit extends Cubit<HomeStates> {
   int currentIndex = 0;
   List<Widget> screens = [
     HomeScreen(),
+    ProductScreen(),
     //FavoritesScreen(product: product!),
     FavoritesScreen(),
     CartScreen(),
@@ -34,8 +36,10 @@ class HomeCubit extends Cubit<HomeStates> {
   void navBarChanger(int index) {
     currentIndex = index;
     emit(NavBarChangeState());
+    if(currentIndex==0){
     getAllProducts();
     getAllCategories();
+    }
   }
 
   List<Product> products = [];
