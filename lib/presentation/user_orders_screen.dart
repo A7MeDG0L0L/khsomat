@@ -34,6 +34,12 @@ class UserOrdersScreen extends StatelessWidget {
             return Scaffold(
               appBar: AppBar(
                 title: Text(LocaleKeys.my_orders.tr()),
+                toolbarHeight: 80.h,centerTitle: true,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    bottom: Radius.circular(30),
+                  ),
+                ),
               ),
               body: Conditional.single(
                 context: context,

@@ -31,6 +31,12 @@ class SearchScreen extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title:Text(LocaleKeys.search_for_products.tr(),style: TextStyle(fontSize: 20.sp),),
+              toolbarHeight: 80.h,centerTitle: true,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(30),
+                ),
+              ),
             ),
             body: Form(
               key: formKey,

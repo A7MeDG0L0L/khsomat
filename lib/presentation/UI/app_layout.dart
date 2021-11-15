@@ -95,7 +95,7 @@ class AppLayout extends StatelessWidget {
           key: _scaffoldKey,
           backgroundColor: Colors.white,
           appBar: AppBar(
-            elevation: HomeCubit.get(context).currentIndex==3 ? 0.0:4.0,
+            elevation: HomeCubit.get(context).currentIndex==4 ? 0.0:4.0,
             title: SvgPicture.asset(
               'assets/images/logosvg.svg',height: 30.h,
 
@@ -104,7 +104,7 @@ class AppLayout extends StatelessWidget {
             ),
            // elevation:0,
             toolbarHeight: 80.h,centerTitle: true,
-            shape: RoundedRectangleBorder(
+            shape: HomeCubit.get(context).currentIndex==4 ? null :RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
                 bottom: Radius.circular(30),
               ),
