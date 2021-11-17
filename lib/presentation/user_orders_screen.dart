@@ -34,7 +34,8 @@ class UserOrdersScreen extends StatelessWidget {
             return Scaffold(
               appBar: AppBar(
                 title: Text(LocaleKeys.my_orders.tr()),
-                toolbarHeight: 80.h,centerTitle: true,
+                toolbarHeight: 80.h,
+                centerTitle: true,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.vertical(
                     bottom: Radius.circular(30),
@@ -43,7 +44,8 @@ class UserOrdersScreen extends StatelessWidget {
               ),
               body: Conditional.single(
                 context: context,
-                conditionBuilder:(context) =>  ProfileCubit.get(context).orders.isNotEmpty,
+                conditionBuilder: (context) =>
+                    ProfileCubit.get(context).orders.isNotEmpty,
                 widgetBuilder: (context) => SingleChildScrollView(
                   child: Column(
                     children: [
@@ -51,7 +53,7 @@ class UserOrdersScreen extends StatelessWidget {
                         shrinkWrap: true,
                         physics: ClampingScrollPhysics(),
                         itemBuilder: (context, index) => builderWidget(
-                            ProfileCubit.get(context).orders[index]),
+                            ProfileCubit.get(context).orders[index], context),
                         separatorBuilder: (context, index) => Divider(
                           thickness: 1.w,
                           height: 1.h,
@@ -61,14 +63,21 @@ class UserOrdersScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                fallbackBuilder: (context) =>  Center(
+                fallbackBuilder: (context) => Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                    Icon(Icons.remove_shopping_cart_outlined,color: Colors.blue,size: 150.w,),
-                    SizedBox(height: 20.h,),
-                    Text(LocaleKeys.no_orders_yet.tr()),
-                  ],),
+                      Icon(
+                        Icons.remove_shopping_cart_outlined,
+                        color: Colors.blue,
+                        size: 150.w,
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Text(LocaleKeys.no_orders_yet.tr()),
+                    ],
+                  ),
                 ),
               ),
             );
@@ -76,16 +85,36 @@ class UserOrdersScreen extends StatelessWidget {
         ));
   }
 
-  Widget builderWidget(OrderModel model) {
+  Widget translate(OrderModel orderModel) {
+    switch (orderModel.status) {
+      case 'pending':
+        return Text('قيد الأنتظار',style: TextStyle(color: Colors.white),);
+        break;
+
+      case 'cancelled':
+        return Text('تم الإلغاء',style: TextStyle(color: Colors.white),);
+        break;
+      case 'processing':
+        return Text('قيد التنفيذ',style: TextStyle(color: Colors.white),);
+        break;
+      case 'completed':
+        return Text('مكتمل',style: TextStyle(color: Colors.white),);
+    }
+    return Text(orderModel.status!);
+  }
+
+  Widget builderWidget(OrderModel model, context) {
+    String status;
+    Locale myLocale = Localizations.localeOf(context);
+
+
     return Stack(
       alignment: AlignmentDirectional.topEnd,
       children: [
         Container(
           child: Center(
-              child: Text(
-            '${model.status}',
-            style: TextStyle(color: Colors.white),
-          )),
+            child: myLocale.languageCode=='ar' ? translate(model):Text(model.status!),
+          ),
           width: 100.w,
           height: 30.h,
           decoration: BoxDecoration(
@@ -125,7 +154,8 @@ class UserOrdersScreen extends StatelessWidget {
                   SizedBox(
                     height: 5.h,
                   ),
-                  Text('${LocaleKeys.total_shipping.tr()} : ${model.shippingTotal}'),
+                  Text(
+                      '${LocaleKeys.total_shipping.tr()} : ${model.shippingTotal}'),
                   SizedBox(
                     height: 5.h,
                   ),
@@ -133,7 +163,8 @@ class UserOrdersScreen extends StatelessWidget {
                   SizedBox(
                     height: 5.h,
                   ),
-                  Text('${LocaleKeys.paying_method.tr()} : ${model.paymentMethodTitle}'),
+                  Text(
+                      '${LocaleKeys.paying_method.tr()} : ${model.paymentMethodTitle}'),
                   SizedBox(
                     height: 5.h,
                   ),
@@ -158,8 +189,10 @@ class UserOrdersScreen extends StatelessWidget {
                           child: ListView.separated(
                               shrinkWrap: true,
                               physics: ClampingScrollPhysics(),
-                              itemBuilder: (context, index) =>
-                                  Text('${model.lineItems![index].name}',style: TextStyle(color: Colors.orange),),
+                              itemBuilder: (context, index) => Text(
+                                    '${model.lineItems![index].name}',
+                                    style: TextStyle(color: Colors.orange),
+                                  ),
                               separatorBuilder: (context, index) => Divider(
                                     height: 1.h,
                                     endIndent: 20.w,

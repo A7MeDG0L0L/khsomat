@@ -96,19 +96,20 @@ class ProductItem extends StatelessWidget {
                               product.prices!.salePrice!)
                         Padding(
                           padding: const EdgeInsets.all(5.0),
-                          child: CircleAvatar(
-                            backgroundColor: Colors.blue,
-                            radius: 18.0,
-                            // color: Colors.red,
-                            // padding: EdgeInsets.all(10.0
-                            //   // horizontal: 5.0.w,
-                            // ),
-
-                            child: Text(
-                              '${discountedPrice()}%',
-                              style: TextStyle(
-                                fontSize: 12.0.sp,
-                                color: Colors.white,
+                          child: Container(
+                            height: 25.h,
+                            width: 40.w,
+                            decoration:BoxDecoration(
+                              borderRadius: BorderRadius.horizontal(right: Radius.circular(15),left: Radius.circular(15)),
+                              color: Colors.orange,
+                            ),
+                            child: Center(
+                              child: Text(
+                                '${discountedPrice()}%',
+                                style: TextStyle(
+                                  fontSize: 12.0.sp,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),

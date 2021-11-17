@@ -311,6 +311,9 @@ class HomeScreen extends StatelessWidget {
                 ),
               );
             }),
+            InkWell(onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductsForCategoryScreen(id: 126, name: 'خصومات ماركت'),));
+            },child: Image(image: AssetImage('assets/images/market.jpg'),)),
 
             // Text(
             //   'الأقسام',

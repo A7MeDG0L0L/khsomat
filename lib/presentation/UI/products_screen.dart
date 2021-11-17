@@ -16,10 +16,8 @@ import 'package:khsomat/presentation/UI/Widgets/product_item.dart';
 
 import 'package:flutter_paginator_ns/flutter_paginator.dart';
 
-
 class ProductScreen extends StatefulWidget {
   ProductScreen({Key? key}) : super(key: key);
-
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -28,34 +26,35 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   static late List<Product> productScreen = [];
 
-  int page=1;
+  int page = 1;
 
-  ScrollController _controller=ScrollController();
+  ScrollController _controller = ScrollController();
   Category? category;
 
-
-@override
+  @override
   void initState() {
-  // ScrollController _controller=ScrollController();
-  _controller = ScrollController();
+    // ScrollController _controller=ScrollController();
+    _controller = ScrollController();
 
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ProductCubit(ProductRepository(WebServices()))
-        ..getProductsScreen(pageNum: 1)..getAllCategories(),
+        ..getProductsScreen(pageNum: 1)
+        ..getAllCategories(),
       child: BlocConsumer<ProductCubit, ProductStates>(
         listener: (context, state) {
-
           _scrollListener() {
             if (_controller.offset >= _controller.position.maxScrollExtent &&
                 !_controller.position.outOfRange) {
-              setState(()  {
+              setState(() {
                 print("reach the bottom");
+
                 /// Not G.O.A.T
-              //  ProductCubit.get(context).getProductsScreen(pageNum: page++);
+                //  ProductCubit.get(context).getProductsScreen(pageNum: page++);
                 print(page);
                 // _controller.jumpTo(_controller.position.maxScrollExtent);
               });
@@ -63,11 +62,11 @@ class _ProductScreenState extends State<ProductScreen> {
             if (_controller.offset <= _controller.position.minScrollExtent &&
                 !_controller.position.outOfRange) {
               setState(() {
-                print( "reach the top");
+                print("reach the top");
               });
             }
-
           }
+
           _controller.addListener(_scrollListener);
 
           if (state is GetProductsScreenSuccessState) {
@@ -75,15 +74,23 @@ class _ProductScreenState extends State<ProductScreen> {
           }
         },
         builder: (context, state) {
-          if(state is GetProductsScreenSuccessState)
-          return SingleChildScrollView(
-            controller: _controller,
+          if (state is GetProductsScreenSuccessState)
+            return builderWidget(context);
+          else
+            return loadingIndicator();
+        },
+      ),
+    );
+  }
 
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-            Padding(
+  Widget builderWidget(context) {
+    return SingleChildScrollView(
+      controller: _controller,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
             padding: const EdgeInsets.all(15.0),
             child: Column(
               children: [
@@ -127,7 +134,9 @@ class _ProductScreenState extends State<ProductScreen> {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) => buildCatItem(
                           ProductCubit.get(context).categories[index], context),
-                      separatorBuilder: (context, index) => Divider(height: 1.h,),
+                      separatorBuilder: (context, index) => Divider(
+                            height: 1.h,
+                          ),
                       itemCount: ProductCubit.get(context).categories.length),
                 ),
                 SizedBox(
@@ -144,7 +153,8 @@ class _ProductScreenState extends State<ProductScreen> {
                   children: List.generate(
                     // ProductCubit.get(context).products.length,
                     productScreen.length,
-                        (index) => ProductItem(product: productScreen[index],
+                    (index) => ProductItem(
+                      product: productScreen[index],
                       // product: ProductCubit.get(context).products[index],
                     ),
                   ),
@@ -154,85 +164,81 @@ class _ProductScreenState extends State<ProductScreen> {
               ],
             ),
           ),
+          // TextButton(
+          //   child: Text('1'),
+          //   onPressed: (){
+          //   //  ProductCubit.get(context).getProductsScreen(pageNum: 1);
+          //     _controller.jumpTo(0.0);
+          //   },
+          // ),
+          Row(
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              TextButton(
+                child: Text('1'),
+                onPressed: () {
+                  ProductCubit.get(context)
+                      .getProductsScreen(pageNum: 1, categoryNum: categoryID);
+                  // _controller.jumpTo(0.0);
+                },
+              ),
+              // SizedBox(
+              //   width: 4.w,
+              // ),
+              TextButton(
+                child: Text('2'),
+                onPressed: () {
+                  print(categoryID);
+                  ProductCubit.get(context)
+                      .getProductsScreen(pageNum: 2, categoryNum: categoryID);
+                  // _controller.jumpTo(0.0);
+                },
+              ),
+              // SizedBox(
+              //   width: 4.w,
+              // ),
+              TextButton(
+                child: Text('3'),
+                onPressed: () {
+                  // print(category!.id);
+                  print(categoryID);
 
+                  ProductCubit.get(context)
+                      .getProductsScreen(pageNum: 3, categoryNum: categoryID);
+                  // _controller.jumpTo(0.0);
+                },
+              ),
+              // SizedBox(
+              //   width: 4.w,
+              // ),
+              TextButton(
+                child: Text('4'),
+                onPressed: () {
+                 // print(category.id);
 
-                // TextButton(
-                //   child: Text('1'),
-                //   onPressed: (){
-                //   //  ProductCubit.get(context).getProductsScreen(pageNum: 1);
-                //     _controller.jumpTo(0.0);
-                //   },
-                // ),
-
-                Row(
-                  // crossAxisAlignment: CrossAxisAlignment.center,
-                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    TextButton(
-                      child: Text('1'),
-                      onPressed: (){
-                        ProductCubit.get(context).getProductsScreen(pageNum: 1,categoryNum: categoryID);
-                        // _controller.jumpTo(0.0);
-                      },
-                    ),
-                    // SizedBox(
-                    //   width: 4.w,
-                    // ),
-                    TextButton(
-                      child: Text('2'),
-                      onPressed: (){
-                        print(categoryID);
-                        ProductCubit.get(context).getProductsScreen(pageNum: 2,categoryNum: category!.id);
-                        // _controller.jumpTo(0.0);
-                      },
-                    ),
-                    // SizedBox(
-                    //   width: 4.w,
-                    // ),
-                    TextButton(
-                      child: Text('3'),
-                      onPressed: (){
-                       // print(category!.id);
-                        print(categoryID);
-
-                        ProductCubit.get(context).getProductsScreen(pageNum: 3,categoryNum: categoryID);
-                        // _controller.jumpTo(0.0);
-                      },
-                    ),
-                    // SizedBox(
-                    //   width: 4.w,
-                    // ),
-                    TextButton(
-                      child: Text('4'),
-                      onPressed: (){
-                        print(category!.id);
-
-                        ProductCubit.get(context).getProductsScreen(pageNum: 4,categoryNum: categoryID);
-                        // _controller.jumpTo(0.0);
-                      },
-                    ),
-                    // SizedBox(
-                    //   width: 2.w,
-                    // ),
-                    TextButton(
-                      child: Text('5'),
-                      onPressed: (){
-                        ProductCubit.get(context).getProductsScreen(pageNum: 5,categoryNum: categoryID);
-                        // _controller.jumpTo(0.0);
-                      },
-                    ),
-                    // SizedBox(
-                    //   width: 2.w,
-                    // ),
-                  ],
-
-                ),
-              ],
-            ),
-          );
-          else
-            return loadingIndicator();
-        },
+                  ProductCubit.get(context)
+                      .getProductsScreen(pageNum: 4, categoryNum: categoryID);
+                  // _controller.jumpTo(0.0);
+                },
+              ),
+              // SizedBox(
+              //   width: 2.w,
+              // ),
+              TextButton(
+                child: Text('5'),
+                onPressed: () {
+                  ProductCubit.get(context)
+                      .getProductsScreen(pageNum: 5, categoryNum: categoryID);
+                  // _controller.jumpTo(0.0);
+                },
+              ),
+              // SizedBox(
+              //   width: 2.w,
+              // ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -248,7 +254,8 @@ class _ProductScreenState extends State<ProductScreen> {
           CacheHelper.saveData(key: 'categoryID', value: model.id);
           print(categoryID);
           print(model.id);
-          ProductCubit.get(context).getProductsScreen(pageNum: 1,categoryNum: model.id);
+          ProductCubit.get(context)
+              .getProductsScreen(pageNum: 1, categoryNum: model.id);
         },
         child: Container(
           height: 100.h,
@@ -264,7 +271,16 @@ class _ProductScreenState extends State<ProductScreen> {
                 //       )
                 //     : Image.asset('assets/images/Newplaceholder2.png',fit: BoxFit.cover,),
 
-                child: model.image != null ? CachedNetworkImage(imageUrl: model.image!.src,placeholder: (context, url) => Image.asset('assets/loading/loading.gif'),):Image.asset('assets/images/Newplaceholder2.png',fit: BoxFit.cover,),
+                child: model.image != null
+                    ? CachedNetworkImage(
+                        imageUrl: model.image!.src,
+                        placeholder: (context, url) =>
+                            Image.asset('assets/loading/loading.gif'),
+                      )
+                    : Image.asset(
+                        'assets/images/Newplaceholder2.png',
+                        fit: BoxFit.cover,
+                      ),
               ),
               SizedBox(
                 height: 8.h,
@@ -277,10 +293,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   textWidthBasis: TextWidthBasis.parent,
-                  style: TextStyle(
-                      fontFamily: 'Almarai',
-                      fontSize: 12.w
-                  ),
+                  style: TextStyle(fontFamily: 'Almarai', fontSize: 12.w),
                 ),
               ),
             ],

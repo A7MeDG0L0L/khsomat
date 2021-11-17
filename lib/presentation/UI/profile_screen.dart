@@ -81,7 +81,7 @@ class ProfileScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(25.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.orange,
+                            color: Colors.white,
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(70),
                                 bottom: Radius.circular(20)),
@@ -104,12 +104,12 @@ class ProfileScreen extends StatelessWidget {
                                         LocaleKeys.my_profile.tr(),
                                         style: TextStyle(
                                             fontSize: 18.sp,
-                                            color: Colors.white),
+                                            color: Colors.orange),
                                       ),
                                       Icon(
                                         Icons.arrow_forward_ios,
                                         size: 15.r,
-                                        color: Colors.white,
+                                        color: Colors.orange,
                                       ),
                                     ],
                                   ),
@@ -162,7 +162,7 @@ class ProfileScreen extends StatelessWidget {
                                         LocaleKeys.favorite_list.tr(),
                                         style: TextStyle(
                                             fontSize: 18.sp,
-                                            color: Colors.white),
+                                            color: Colors.orange),
                                       ),
                                       if (wishList.isNotEmpty)
                                         SizedBox(
@@ -176,7 +176,7 @@ class ProfileScreen extends StatelessWidget {
                                       Icon(
                                         Icons.arrow_forward_ios,
                                         size: 15.r,
-                                        color: Colors.white,
+                                        color: Colors.orange,
                                       ),
                                     ],
                                   ),
@@ -202,7 +202,7 @@ class ProfileScreen extends StatelessWidget {
                                         LocaleKeys.shopping_cart.tr(),
                                         style: TextStyle(
                                             fontSize: 18.sp,
-                                            color: Colors.white),
+                                            color: Colors.orange),
                                       ),
                                       if (orderList.isNotEmpty)
                                         SizedBox(
@@ -216,7 +216,7 @@ class ProfileScreen extends StatelessWidget {
                                       Icon(
                                         Icons.arrow_forward_ios,
                                         size: 15.r,
-                                        color: Colors.white,
+                                        color: Colors.orange,
                                       ),
                                     ],
                                   ),
@@ -238,12 +238,12 @@ class ProfileScreen extends StatelessWidget {
                                         LocaleKeys.my_orders.tr(),
                                         style: TextStyle(
                                             fontSize: 18.sp,
-                                            color: Colors.white),
+                                            color: Colors.orange),
                                       ),
                                       Icon(
                                         Icons.arrow_forward_ios,
                                         size: 15.r,
-                                        color: Colors.white,
+                                        color: Colors.orange,
                                       ),
                                     ],
                                   ),
@@ -265,11 +265,11 @@ class ProfileScreen extends StatelessWidget {
                                         LocaleKeys.about_us.tr(),
                                         style: TextStyle(
                                           fontSize: 18.sp,
-                                          color: Colors.white,
+                                          color: Colors.orange,
                                         ),
                                       ),
                                       Icon(Icons.arrow_forward_ios,
-                                          size: 15.r, color: Colors.white),
+                                          size: 15.r, color: Colors.orange),
                                     ],
                                   ),
                                 ),
@@ -345,11 +345,11 @@ class ProfileScreen extends StatelessWidget {
                                         LocaleKeys.lang.tr(),
                                         style: TextStyle(
                                           fontSize: 18.sp,
-                                          color: Colors.white,
+                                          color: Colors.orange,
                                         ),
                                       ),
                                       Icon(Icons.arrow_forward_ios,
-                                          size: 15.r, color: Colors.white),
+                                          size: 15.r, color: Colors.orange),
                                     ],
                                   ),
                                 ),
@@ -375,11 +375,11 @@ class ProfileScreen extends StatelessWidget {
                                         LocaleKeys.signout.tr(),
                                         style: TextStyle(
                                           fontSize: 18.sp,
-                                          color: Colors.white,
+                                          color: Colors.orange,
                                         ),
                                       ),
                                       Icon(Icons.arrow_forward_ios,
-                                          size: 15.r, color: Colors.white),
+                                          size: 15.r, color: Colors.orange),
                                     ],
                                   ),
                                 ),

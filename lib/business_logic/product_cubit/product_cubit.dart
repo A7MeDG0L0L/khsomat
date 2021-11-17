@@ -47,5 +47,9 @@ void sortProducts(){
     });
     return categories;
   }
+  Category? categoryModel;
+  void getCat(){
+
+  }
 
 }

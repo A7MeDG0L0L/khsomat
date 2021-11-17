@@ -134,6 +134,13 @@ flutter:
          - asset: assets/fonts/Almarai-Light.ttf
          - asset: assets/fonts/Almarai-Bold.ttf
          - asset: assets/fonts/Almarai-ExtraBold.ttf
+
+
+      - family: MyFlutterApp
+        fonts:
+         - asset: assets/fonts/MyFlutterApp.ttf
+
+
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

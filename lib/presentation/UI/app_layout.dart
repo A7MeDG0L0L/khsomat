@@ -21,6 +21,7 @@ import 'package:khsomat/presentation/UI/home_screen.dart';
 import 'package:khsomat/presentation/UI/login_screen.dart';
 import 'package:khsomat/presentation/UI/products_screen.dart';
 import 'package:khsomat/presentation/UI/search_screen.dart';
+import 'package:khsomat/presentation/custom_icons/my_flutter_app_icons.dart';
 import 'package:khsomat/translations/locale_keys.g.dart';
 import 'package:lottie/lottie.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -33,6 +34,7 @@ class AppLayout extends StatelessWidget {
 
   static const _whatsapp = 'https://wa.me/+201220255556';
   static const _facebook = 'https://www.facebook.com/khsomatcom';
+  static const _messenger = 'https://m.me/khsomatcom';
   static const _phone = 'tel:+201220255556';
   final drawerController = ZoomDrawerController();
   final _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -54,7 +56,8 @@ class AppLayout extends StatelessWidget {
           ),
           SalomonBottomBarItem(
             icon: Icon(
-              Icons.shopping_cart,
+              MyFlutterApp.shop,
+              size: 19.sp,
             ),
             title: Text('المنتجات'),
           ),
@@ -365,13 +368,19 @@ class AppLayout extends StatelessWidget {
                 onPressed: () {
                   _launchURL(_whatsapp);
                 },
-                icon: Icon(Icons.chat),
+                icon: Icon(MyFlutterApp.whatsapp),
               ),
               IconButton(
                 onPressed: () {
                   _launchURL(_facebook);
                 },
                 icon: Icon(Icons.facebook),
+              ),
+              IconButton(
+                onPressed: () {
+                  _launchURL(_messenger);
+                },
+                icon: Icon(MyFlutterApp.facebook_messenger),
               ),
             ],
           ),
