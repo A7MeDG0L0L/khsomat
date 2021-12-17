@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:im_stepper/stepper.dart';
+// import 'package:im_stepper/stepper.dart';
 import 'package:khsomat/Shared/components.dart';
 import 'package:khsomat/Shared/constants.dart';
 import 'package:khsomat/business_logic/cart_cubit/cart_cubit.dart';
@@ -14,7 +14,7 @@ import 'package:khsomat/business_logic/favorites_cubit/favorites_states.dart';
 import 'package:khsomat/business_logic/home_cubit/home_cubit.dart';
 import 'package:khsomat/presentation/UI/Widgets/bottomSheetWidget.dart';
 import 'package:khsomat/presentation/UI/Widgets/checkout_item.dart';
-import 'package:cupertino_stepper/cupertino_stepper.dart';
+// import 'package:cupertino_stepper/cupertino_stepper.dart';
 import 'package:khsomat/presentation/UI/app_layout.dart';
 import 'package:khsomat/translations/locale_keys.g.dart';
 import 'package:lottie/lottie.dart';
@@ -804,7 +804,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               body: isCompleted
                   ? isCompletedWidget()
                   : Stepper(
-                      controlsBuilder: (BuildContext context,
+                      controlsBuilder: (BuildContext context,details,
                           {VoidCallback? onStepContinue,
                           VoidCallback? onStepCancel}) {
                         final isLastStep = currentStep == getSteps().length - 1;
